@@ -3,7 +3,7 @@ import React from 'react'
 const Navbar = () => {
   return (
     <div>
-      Navbar fsnfds,nmf
+      Navbar 12334324324
     </div>
   )
 }
