@@ -18,7 +18,7 @@ Gõ (git pull alt main) để cập nhật code mới nhất
 
 Sau đó code linh tinh ....
 
-2. Sau khi code xong dùng các câu lệnh (git add . , git commit -m "......", git push origin <name>)
+2. Sau khi code xong dùng các câu lệnh (git add . , git commit -m "......", git push origin <name> )
 
 
 
