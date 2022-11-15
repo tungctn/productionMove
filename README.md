@@ -14,7 +14,7 @@ Gõ (git pull alt main) để cập nhật code mới nhất
 
 Ở nhánh main
 
-1. git checkout -b <name> để chuyển sang một nhánh mới( trước khi checkout phải pull code mới nhất về tránh bị conflict)
+1. git checkout -b (branch name) để chuyển sang một nhánh mới( trước khi checkout phải pull code mới nhất về tránh bị conflict)
 
 Sau đó code linh tinh ....
 
