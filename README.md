@@ -6,4 +6,4 @@ Cài git
 
 2.Git clone project
 
-3.
+3.Mở terminal trong project gõ git remote alt 
