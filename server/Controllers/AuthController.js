@@ -2,20 +2,18 @@ const User = require("../Models/User");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
-
 dotenv.config();
-
-let refreshTokens = [];
 
 const AuthController = {
   genarateAccessToken: (user) => {
     return jwt.sign(
       {
         id: user.id,
+        name: user.name,
         admin: user.admin,
       },
       process.env.ACCESS_TOKEN_SECRET,
-      { expiresIn: "30s" }
+      { expiresIn: "7200s" }
     );
   },
 
@@ -23,9 +21,10 @@ const AuthController = {
     return jwt.sign(
       {
         id: user.id,
+        name: user.name,
         admin: user.admin,
       },
-      process.env.ACCESS_TOKEN_SECRET,
+      process.env.JWT_REFRESH_KEY,
       { expiresIn: "365d" }
     );
   },
@@ -34,7 +33,10 @@ const AuthController = {
     try {
       const user = await User.findOne({ email: req.body.email });
       if (!user) {
-        res.status(404).json("wrong email");
+        return res.status(404).json({
+          success: false,
+          msg: "wrong email",
+        });
       }
 
       const validPassword = await bcrypt.compare(
@@ -43,15 +45,16 @@ const AuthController = {
       );
 
       if (!validPassword) {
-        res.status(404).json("wrong password");
+        return res.status(404).json({
+          success: false,
+          msg: "wrong password",
+        });
       }
 
       if (user && validPassword) {
         const accessToken = AuthController.genarateAccessToken(user);
-        const refreshToken = AuthController.genarateRefreshToken(user);
-        refreshTokens.push(refreshToken);
 
-        res.cookie("refreshToken", refreshToken, {
+        res.cookie("accessToken", accessToken, {
           httpOnly: true,
           secure: false,
           path: "/",
@@ -59,43 +62,17 @@ const AuthController = {
         });
         res.status(200).json({
           success: true,
-          user: user,
+          data: user,
           accessToken: accessToken,
-          refreshToken: refreshToken,
+          msg: "successful",
         });
       }
     } catch (error) {
-      res.status(500).json(error);
-    }
-  },
-
-  requestRefreshToken: async (req, res) => {
-    const refreshToken = req.cookies.refreshToken;
-    if (!refreshToken) {
-      return res.status(401).json("you are not authenicated");
-    }
-    if (!refreshTokens.includes(refreshToken)) {
-      return res.status(403).json("refresh token is not valid");
-    }
-    jwt.verify(refreshToken, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-      if (err) {
-        console.log(err);
-      }
-      refreshTokens = refreshTokens.filter((token) => {
-        return token !== refreshToken;
+      return res.status(500).json({
+        success: false,
+        msg: error,
       });
-      const newAccessToken = AuthController.genarateAccessToken(user);
-      const newRefreshToken = AuthController.genarateAccessToken(user);
-      refreshTokens.push(newRefreshToken);
-      res.cookie("refreshToken", newRefreshToken, {
-        httpOnly: true,
-        secure: false,
-        path: "/",
-        samSite: "strict",
-      });
-
-      res.status(200).json(newAccessToken);
-    });
+    }
   },
 
   registerUser: async (req, res) => {
@@ -109,18 +86,25 @@ const AuthController = {
       });
 
       const user = await newUser.save();
-      res.status(200).json(user);
+      return res.status(200).json({
+        success: true,
+        msg: "successful",
+        data: user,
+      });
     } catch (error) {
-      res.status(500).json(error);
+      return res.status(500).json({
+        success: false,
+        msg: error,
+      });
     }
   },
 
-  userLogout: async (req, res) => {
-    res.clearCookie("refreshToken");
-    refreshTokens = refreshTokens.filter(
-      (token) => token !== req.cookies.refreshToken
-    );
-    res.status(200).json("logout successfully");
+  userLogout: async (req, res, next) => {
+    res.clearCookie("accessToken");
+    return res.status(200).json({
+      success: true,
+      msg: "Logout successful",
+    });
   },
 };
 

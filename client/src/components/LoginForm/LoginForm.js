@@ -1,14 +1,20 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Form, Input, Button } from "antd";
 import "antd/dist/antd.css";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { AppContext } from "../../context/AppContext";
 import "./index.css";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
-  const { handleLogin } = useContext(AppContext);
+  const navigate = useNavigate();
+  const { handleLogin, authState } = useContext(AppContext);
   const onFinish = (values) => {
     handleLogin(values);
+    console.log(authState)
+    if (authState.isAuthenicated) {
+      navigate("/home");
+    }
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -26,7 +32,7 @@ const LoginForm = () => {
         initialValues={{ remember: true }}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
-        autoComplete="off">
+        autoComplete="on">
         <Form.Item
           name="email"
           rules={[

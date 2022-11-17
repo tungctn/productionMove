@@ -2,12 +2,16 @@ import { createContext, useReducer } from "react";
 import { notification } from "antd";
 import { loginAPI } from "../api/auth";
 import { AuthReducer } from "./Reducer";
+import { useNavigate } from "react-router-dom";
 
 export const AppContext = createContext();
 
-export const initState = {};
+export const initState = {
+  isAuthenicated: false,
+};
 
 const AppContextProvider = ({ children }) => {
+  const navigate = useNavigate();
   const [authState, dispatch] = useReducer(AuthReducer, initState);
   const openNotification = (type, message, description) => {
     notification[type]({
@@ -21,7 +25,7 @@ const AppContextProvider = ({ children }) => {
     const response = await loginAPI(data);
     if (response) {
       console.log(response);
-      // console.log(response.token);
+      navigate('/home')
     } else {
       console.log(response.error);
     }

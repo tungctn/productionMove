@@ -1,14 +1,37 @@
 const User = require("../Models/User");
 
 const UserController = {
-  getUser: async (req, res) => {
+  getAllUser: async (req, res) => {
     try {
       const user = await User.find();
-      res.status(200).json(user);
+      return res.status(200).json({
+        success: true,
+        msg: "successful",
+        data: user
+      });
     } catch (error) {
-      res.status(500).json(error);
+      return res.status(500).json({
+        success: false,
+        msg: error
+      });
     }
   },
+
+  getCurrentUser: async(req,res) => {
+    try {
+      const user = await User.findById(req.user.id)
+      return res.status(200).json({
+        success: true,
+        msg: "successful",
+        data: user
+      });
+    } catch (error) {
+      return res.status(500).json({
+        success: false,
+        msg: error
+      });
+    }
+  }
 };
 
 module.exports = UserController;
