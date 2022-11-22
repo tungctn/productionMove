@@ -4,8 +4,8 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
-const authRouter = require("./routes/auth");
-const userRouter = require("./routes/user");
+const appRoute = require("./routes/router");
+
 
 const app = express();
 
@@ -20,8 +20,7 @@ mongoose.connect(process.env.URL_CONNECT_MD, () => {
   console.log("connect to mongoose db");
 });
 
-app.use("/api", authRouter);
-app.use("/api", userRouter);
+app.use("/api", appRoute);
 
 app.get("/cookie", (req, res) => {
   res.send(req.cookies["accessToken"]);
