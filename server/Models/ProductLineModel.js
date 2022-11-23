@@ -1,6 +1,15 @@
 const mongoose = require("mongoose");
 
 const productLineSchema = new mongoose.Schema({
+  amount: {
+    type: Number,
+    require: true,
+    default: 0
+  },
+  code: {
+    type: String,
+    require: true,
+  },
   img: {
     type: String,
     require: true
