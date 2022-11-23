@@ -1,16 +1,17 @@
-const mongoose = require("mongoose");
-const User = require("./UserModel");
+const mongoose = require('mongoose');
+var User = require('./UserModel')
+var Schema = mongoose.Schema
 const requestSchema = new mongoose.Schema(
   {
     requester: { 
         type: Schema.Types.ObjectId, 
         required: true,
-        ref: User
+        ref: 'User'
     },
     recipient: { 
         type: Schema.Types.ObjectId,
         required: true, 
-        ref: User 
+        ref: 'User' 
     },
     status: {
       type: Number,

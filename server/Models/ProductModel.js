@@ -4,7 +4,7 @@ const User = require("./UserModel");
 const productSchema = new mongoose.Schema({
   productLine: {
     type: ObjectId,
-    ref: ProductLine,
+    ref: 'ProductLine',
   },
   identifier: {
     type: String,
@@ -13,7 +13,7 @@ const productSchema = new mongoose.Schema({
   location: {
     type: Schema.Types.ObjectId,
     required: true,
-    ref: User,
+    ref: 'User',
   },
 });
 

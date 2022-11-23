@@ -1,4 +1,4 @@
-const User = require("../Models/User");
+const User = require("../Models/UserModel");
 const bcrypt = require("bcrypt");
 // const UserController = {
 //   getAllUser: async (req, res) => {
@@ -66,6 +66,7 @@ module.exports.createUser = async (req, res) => {
       name: req.body.name,
       email: req.body.email,
       password: hashed,
+      role: req.body.role
     }).save();
 
     // const newUser = await newUser.save();

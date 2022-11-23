@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 
 const productLineSchema = new mongoose.Schema({
+  img: {
+    type: String,
+    require: true
+  },
   name: {
     type: String,
     require: true,
@@ -46,7 +50,7 @@ const productLineSchema = new mongoose.Schema({
     require: true,
   },
   engineType: {
-    type: Text,
+    type: String,
     require: true,
   }
 });
