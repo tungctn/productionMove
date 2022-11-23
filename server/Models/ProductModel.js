@@ -1,10 +1,11 @@
 const mongoose = require("mongoose");
 const ProductLine = require("./ProductLineModel");
 const User = require("./UserModel");
-const productSchema = new mongoose.Schema({
+const Schema = mongoose.Schema;
+const productSchema = new Schema({
   productLine: {
-    type: ObjectId,
-    ref: ProductLine,
+    type: Schema.Types.ObjectId,
+    ref: 'ProductLine',
   },
   identifier: {
     type: String,
@@ -13,7 +14,7 @@ const productSchema = new mongoose.Schema({
   location: {
     type: Schema.Types.ObjectId,
     required: true,
-    ref: User,
+    ref: 'User',
   },
 });
 

@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Request = require("./RequestModel");
-
-const userSchema = new mongoose.Schema(
+const Schema = mongoose.Schema;
+const userSchema = new Schema(
   {
     name: {
       type: String,
@@ -25,7 +25,7 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
-    requestList: [{ type: Schema.Types.ObjectId, ref: Request}]
+    requestList: [{ type: Schema.Types.ObjectId, ref: 'Request'}]
   },
   { timestamps: true }
 );

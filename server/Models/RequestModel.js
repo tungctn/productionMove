@@ -1,21 +1,22 @@
 const mongoose = require("mongoose");
 const User = require("./UserModel");
-const requestSchema = new mongoose.Schema(
+const Schema = mongoose.Schema;
+const requestSchema = new Schema(
   {
-    requester: { 
-        type: Schema.Types.ObjectId, 
-        required: true,
-        ref: User
+    requester: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: 'User',
     },
-    recipient: { 
-        type: Schema.Types.ObjectId,
-        required: true, 
-        ref: User 
+    recipient: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: 'User',
     },
     status: {
       type: Number,
       enums: [
-        0, 
+        0,
         1, //'requested',
         2, //'pending',
         3, //'accept',
@@ -24,4 +25,4 @@ const requestSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
-module.exports = mongoose.model('Request', requestSchema);
+module.exports = mongoose.model("Request", requestSchema);
