@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Request = require("./RequestModel");
+var Schema = mongoose.Schema;
 
 const userSchema = new mongoose.Schema(
   {
@@ -25,7 +26,16 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
-    requestList: [{ type: Schema.Types.ObjectId, ref: Request}]
+    role: {
+      type: Number,
+      enums: [
+        1, // admin
+        2, // factory,
+        3, // agent,
+        4, // warranty,
+      ],
+    },
+    requestList: [{ type: Schema.Types.ObjectId, ref: 'Request' }],
   },
   { timestamps: true }
 );

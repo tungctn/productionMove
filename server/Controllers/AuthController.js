@@ -1,4 +1,4 @@
-const User = require("../Models/User");
+const User = require("../Models/UserModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
@@ -10,6 +10,7 @@ module.exports.genarateAccessToken = (user) => {
       id: user.id,
       name: user.name,
       admin: user.admin,
+      role: user.role
     },
     process.env.ACCESS_TOKEN_SECRET,
     { expiresIn: "7200s" }
