@@ -1,9 +1,9 @@
 const ProductLineModel = require("../Models/ProductLineModel");
-const productLine = require("../Models/ProductLineModel");
 
 module.exports.productLineCreate = async (req, res, next) => {
   try {
-    const newProductLine = await new productLine({
+    const newProductLine = await new ProductLineModel({
+      code: req.body.code,
       img: req.body.img,
       name: req.body.name,
       weight: req.body.weight,

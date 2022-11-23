@@ -1,5 +1,5 @@
 const AuthController = require("../Controllers/AuthController");
-const MiddlewareAuth = require("../Middleware/Auth");
+const MiddlewareAuth = require("../Middleware/isLogged");
 
 const authRouter = require("express").Router();
 
