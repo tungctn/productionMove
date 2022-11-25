@@ -20,7 +20,7 @@ body {
   
   :root {
     --button-color: #ffcc00;
-    --default-color: #ff8c1a
+    --border-color: #ff8c1a
   }
   
   .ant-btn {
@@ -50,11 +50,11 @@ body {
     border-radius: 20px;
     background-color: antiquewhite;
     &:hover {
-      border: 2px solid var(--default-color);
+      border: 2px solid var(--border-color);
     }
   
     &:focus {
-      border: 2px solid var(--default-color);
+      border: 2px solid var(--border-color);
     }
   }
   
@@ -68,12 +68,16 @@ body {
       }
   
     &:hover {
-      border: 2px solid var(--default-color) !important;
+      border: 2px solid var(--border-color) !important;
     }
   }
   .ant-input-affix-wrapper-focused {
-    border: 2px solid var(--default-color);
+    border: 2px solid var(--border-color);
     box-shadow: none;
+  }
+
+  .ant-spin, .ant-spin-spinning {
+    color: var(--button-color)
   }
   
   
