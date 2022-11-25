@@ -1,18 +1,28 @@
+import { Button } from "antd";
 import React, { useContext, useEffect } from "react";
+import { Outlet } from "react-router-dom";
 import App from "../../App";
-import { AppContext } from "../../context/AppContext";
+import { AppContext, useAppContext } from "../../contexts/AppContext";
 import Default from "../../Layouts/Default";
 import "./index.css";
 
 const Home = () => {
-  const {authState} = useContext(AppContext)
+  const {
+    handleProfile,
+    authState: { user },
+    authState,
+  } = useAppContext();
   useEffect(() => {
-    console.log(authState)
-  },[])
+    console.log(user);
+    // console.log(authState);
+  }, []);
 
   return (
     <div>
-      <Default>Home</Default>
+      <Default>
+        <div>Home</div>
+      </Default>
+      <Button onClick={handleProfile}>Get User</Button>
     </div>
   );
 };
