@@ -11,7 +11,6 @@ import { loginAPI, logoutAPI, setAuthHeader } from "../api/auth";
 import { AuthReducer } from "./Reducer";
 import { useNavigate } from "react-router-dom";
 import axios from "../api/axios";
-import setCookie from "../hooks/setCookie";
 import { getProfile } from "../api/user";
 import { SET_AUTH_BEGIN, SET_AUTH_FAILED, SET_AUTH_SUCCESS } from "./action";
 
