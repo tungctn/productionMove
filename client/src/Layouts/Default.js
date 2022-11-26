@@ -1,8 +1,12 @@
-import React from "react";
+import { Col, Row } from "antd";
+import React, { useEffect } from "react";
 import Header from "./Header";
 import SideBar from "./SideBar";
+import "antd/dist/antd.css";
+import { useAppContext } from "../contexts/AppContext";
 
 const Default = (props) => {
+
   return (
     <div className="flex flex-row h-screen">
       <SideBar></SideBar>

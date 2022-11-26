@@ -6,13 +6,18 @@ const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
 const appRoute = require("./routes/router");
 
-
 const app = express();
+const corsOptions = {
+  //To allow requests from client
+  origin: ["http://localhost:3000", "http://127.0.0.1"],
+  credentials: true,
+  exposedHeaders: ["set-cookie"],
+};
 
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(cookieParser());
 dotenv.config();
 
