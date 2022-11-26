@@ -1,26 +1,18 @@
-import { Spin } from "antd"
-import { Outlet, Navigate } from "react-router-dom"
-import { useAppContext } from "../../contexts/AppContext"
+// import { Spin } from "antd";
+// import { Outlet, Navigate } from "react-router-dom";
+// import { useAppContext } from "../../contexts/AppContext";
 
-const RequireAuth = () => {
-    console.log("RequireAuth");
-    const { authState: { isLoading, isAuthenticated }, } = useAppContext()
+// const RequireAuth = () => {
+//   console.log("RequireAuth");
+//   const {
+//     authState: { isLoading, isAuthenticated },
+//   } = useAppContext();
 
-    if (isLoading) {
-        return (
-            <></>
-        )
-    }
+//   if (isLoading) {
+//     return <></>;
+//   }
 
-    return (
-        <>
-            {isAuthenticated ? (
-                <Outlet />
-            ) : (
-                <Navigate to='/' />
-            )}
-        </>
-    )
-}
+//   return <>{isAuthenticated ? <Outlet /> : <Navigate to="/" />}</>;
+// };
 
-export default RequireAuth
+// export default RequireAuth;

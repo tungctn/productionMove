@@ -5,11 +5,10 @@ import Home from "./pages/home/Home";
 import "./index.scss";
 import Page403 from "./pages/error/403";
 import { useAppContext } from "./contexts/AppContext";
-import { useEffect } from "react";
-import Auth from "./components/Auth/Auth";
-import RequireAuth from "./components/RequireAuth/RequireAuth";
 import { Spin } from "antd";
 import { LoadingOutlined } from '@ant-design/icons';
+import Auth from "./routes/Auth";
+import RequireAuth from "./routes/RequireAuth";
 
 function App() {
   const {
