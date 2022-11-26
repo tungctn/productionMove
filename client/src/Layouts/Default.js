@@ -4,13 +4,13 @@ import SideBar from "./SideBar";
 
 const Default = (props) => {
   return (
-    <div className="grid grid-cols-6 grid-rows-12">
+    <div className="flex flex-row h-screen">
       <SideBar></SideBar>
-      <div className="col-span-5 max-w-full max-h-screen">
-      <Header></Header>
-      <div className="bg-white mt-5 ml-5 rounded-md max-w-full" style={{ height: "calc(100vh - 84px)" }}>
-       {props.children}
-      </div>
+      <div className="basis-5/6 h-screen">
+        <Header></Header>
+        <div className="bg-white mt-5 ml-5 rounded-md h-[calc(100%-64px)] overflow-y-scroll">
+          {props.children}
+        </div>
       </div>
     </div>
   );

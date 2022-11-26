@@ -12,7 +12,55 @@ const Home = () => {
 
   return (
     <div>
-      <Default>Home</Default>
+      <Default>Home
+        <div>ome</div>
+        <div>ome</div>
+        <div>ome</div>
+        <div>ome</div>
+        <div>ome</div>
+        <div>ome</div>
+        <div>ome</div>
+        <div>ome</div>
+        <div>ome</div>
+        <div>ome</div>
+        <div>ome</div>
+        <div>ome</div>
+        <div>ome</div>
+        <div>ome</div>
+        <div>ome</div>
+        <div>ome</div>
+        <div>ome</div>
+        <div>ome</div>
+        <div>ome</div>
+        <div>ome</div>
+        <div>ome</div>
+        <div>ome</div>
+        <div>ome</div>
+        <div>ome</div>
+        <div>ome</div>
+        <div>ome</div>
+        <div>ome</div>
+        <div>ome</div>
+        <div>ome</div>
+        <div>ome</div>
+        <div>ome</div>
+        <div>ome</div>
+        <div>ome</div>
+        <div>ome</div>
+        <div>ome</div>
+        <div>ome</div>
+        <div>ome</div>
+        <div>ome</div>
+        <div>ome</div>
+        <div>ome</div>
+        <div>ome</div>
+        <div>ome</div>
+        <div>ome</div>
+        <div>ome</div>
+        <div>ome</div>
+        <div>ome</div>
+        <div>ome</div>
+      </Default>
     </div>
   );
 };
