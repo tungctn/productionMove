@@ -8,6 +8,6 @@ productRoute.post(
   productController.productCreate
 );
 
-productRoute.get('/')
+productRoute.get('/', productController.productList)
 
 module.exports = productRoute;

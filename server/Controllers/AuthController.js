@@ -14,7 +14,7 @@ module.exports.genarateAccessToken = (user) => {
       role: user.role
     },
     process.env.ACCESS_TOKEN_SECRET,
-    { expiresIn: "7200s" }
+    { expiresIn: "1d" }
   );
 };
 

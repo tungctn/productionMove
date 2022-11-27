@@ -1,6 +1,7 @@
 const ProductLineModel = require("../Models/ProductLineModel");
 const ProductModel = require("../Models/ProductModel");
 
+
 module.exports.productCreate = async (req, res, next) => {
   try {
     const productLine = await ProductLineModel.findById(req.body.id);
@@ -20,6 +21,22 @@ module.exports.productCreate = async (req, res, next) => {
     await ProductLineModel.findByIdAndUpdate(req.body.id, {
       amount: productLine.amount + req.body.amount,
     });
+    return res.status(200).json({
+      success: true,
+      msg: "successful",
+      data: listProduct
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      msg: error,
+    });
+  }
+};
+
+module.exports.productList = async (req, res, next) => {
+  try {
+    const listProduct = await ProductModel.find();
     return res.status(200).json({
       success: true,
       msg: "successful",

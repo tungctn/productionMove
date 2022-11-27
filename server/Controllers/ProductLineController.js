@@ -94,3 +94,19 @@ module.exports.productLineDelete = async (req, res, next) => {
     });
   }
 };
+
+module.exports.productLineList = async (req, res, next) => {
+  try {
+    const listProductLine = await ProductLineModel.find();
+    return res.status(200).json({
+      success: true,
+      msg: "successful",
+      data: listProductLine,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      msg: error,
+    });
+  }
+};
