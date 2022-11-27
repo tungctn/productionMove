@@ -4,7 +4,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
-const appRoute = require("./routes/router");
+const appRoute = require("./routes/Router");
 
 const app = express();
 const corsOptions = {
@@ -13,7 +13,6 @@ const corsOptions = {
   credentials: true,
   exposedHeaders: ["set-cookie"],
 };
-
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());

@@ -1,14 +1,15 @@
 const express = require("express");
-const authRouter = require("./auth");
-const userRouter = require("./user");
-const productlineRoute = require("./productline");
-const productRoute = require("./product");
-
 const appRoute = express()
+const authRoute = require("./AuthRoute");
+const userRoute = require("./UserRoute");
+const productLineRoute = require("./ProductLineRoute");
+const productRoute = require("./ProductRoute");
+const requestRoute = require("./RequestRoute");
 
-appRoute.use('/auth', authRouter)
-appRoute.use('/auth', userRouter)
-appRoute.use('/productline', productlineRoute)
-appRoute.use('/product',productRoute)
+appRoute.use('/auth', authRoute);
+appRoute.use('/user', userRoute);
+appRoute.use('/productline', productLineRoute);
+appRoute.use('/product',productRoute);
+appRoute.use('/request', requestRoute);
 
-module.exports = appRoute
+module.exports = appRoute;
