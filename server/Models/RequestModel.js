@@ -16,7 +16,6 @@ const requestSchema = new mongoose.Schema(
     status: {
       type: Number,
       enums: [
-        0, 
         1, //'requested',
         2, //'pending',
         3, //'accept',

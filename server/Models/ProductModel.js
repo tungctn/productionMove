@@ -15,6 +15,11 @@ const productSchema = new mongoose.Schema(
       required: true,
       ref: "User",
     },
+    factory: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "User",
+    },
     status: {
       type: Number,
       enums: [
@@ -26,11 +31,22 @@ const productSchema = new mongoose.Schema(
         5, // đã bảo hành xong
         6, // đã trả lại cho khách hàng
         7, // lỗi, cần trả về nhà máy
-        8, // lỗi, đã đưa về cơ sở sản xuất 
+        8, // lỗi, đã đưa về cơ sở sản xuất
         9, // lỗi cần triệu hồi
         10, // hết thời gian bảo hành
         11, // trả lại cơ sở sản xuất do lâu không bán được
       ],
+      default: 0
+    },
+    isSold: {
+      type: Boolean,
+      default: false
+    },
+    customer: {
+      name: String,
+      address: String,
+      email: String,
+      phone: String
     }
   },
   { timestamps: true }
