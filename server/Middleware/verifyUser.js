@@ -11,7 +11,7 @@ module.exports.verifyAdmin = async (req, res, next) => {
     } else {
       return res.status(403).json({
         success: false,
-        msg: "You're not Admin",
+        msg: "You're not admin",
       });
     }
   });

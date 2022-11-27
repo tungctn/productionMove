@@ -10,6 +10,7 @@ const LoginForm = () => {
   const { handleLogin } = useAppContext();
   const onFinish = (values) => {
     handleLogin(values);
+    console.log(values);
   };
 
   return (

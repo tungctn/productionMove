@@ -29,6 +29,22 @@ module.exports.createProduct = async (req, res, next) => {
   } catch (error) {
     return res.status(500).json({
       success: false,
+      msg: error,
+    });
+  }
+};
+
+module.exports.productList = async (req, res, next) => {
+  try {
+    const listProduct = await ProductModel.find();
+    return res.status(200).json({
+      success: true,
+      msg: "successful",
+      data: listProduct,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
       msg: error.message,
     });
   }
@@ -56,12 +72,9 @@ module.exports.updateProduct = async (req, res, next) => {
     for (const ops of req.body) {
       updateOps[ops.propName] = ops.value;
     }
-    let product = await ProductModel.findByIdAndUpdate(
-      req.params.id,
-      {
-        $set: { ...updateOps },
-      }
-    );
+    await ProductModel.findByIdAndUpdate(req.params.id, {
+      $set: { ...updateOps },
+    });
     const newProduct = await ProductModel.findById(req.params.id);
     return res.status(200).json({
       success: true,
