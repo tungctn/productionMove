@@ -24,7 +24,7 @@ module.exports.createProduct = async (req, res, next) => {
     return res.status(200).json({
       success: true,
       msg: "successful",
-      data: listProduct
+      data: listProduct,
     });
   } catch (error) {
     return res.status(500).json({
@@ -72,12 +72,9 @@ module.exports.updateProduct = async (req, res, next) => {
     for (const ops of req.body) {
       updateOps[ops.propName] = ops.value;
     }
-    let product = await ProductModel.findByIdAndUpdate(
-      req.params.id,
-      {
-        $set: { ...updateOps },
-      }
-    );
+    await ProductModel.findByIdAndUpdate(req.params.id, {
+      $set: { ...updateOps },
+    });
     const newProduct = await ProductModel.findById(req.params.id);
     return res.status(200).json({
       success: true,

@@ -27,13 +27,8 @@ const userSchema = new mongoose.Schema(
       enums: [
         1, // admin
         2, // factory,
-<<<<<<< HEAD
-        3, // dealer,
-        4, // maintenance,
-=======
         3, // store,
         4, // warrantyCenter,
->>>>>>> 261844288ca3a55b5d06a10b32b7e90e93148388
       ],
     },
     requestList: [{ type: Schema.Types.ObjectId, ref: 'Request' }],

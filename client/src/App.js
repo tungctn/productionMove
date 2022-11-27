@@ -10,6 +10,8 @@ import { LoadingOutlined } from "@ant-design/icons";
 import Auth from "./routes/Auth";
 import RequireAuth from "./routes/RequireAuth";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
+import { updateProduct } from "./api/product";
+import ProductLine from "./pages/productline/ProductLine";
 
 function App() {
   const {
@@ -26,47 +28,11 @@ function App() {
           </Route>
           <Route path="/" element={<RequireAuth />}>
             <Route path="/home" element={<Home />} />
+            <Route path="/productline" element={<ProductLine />} />
           </Route>
           <Route path="/*" element={<Page403 />} />
         </Routes>
       </div>
-      <Form
-        name="basic"
-        style={{
-          padding: "0 30px",
-        }}
-        initialValues={{ remember: true }}
-        // onFinish={onFinish}
-        autoComplete="on">
-        <Form.Item
-          name="email"
-          rules={[
-            {
-              required: true,
-              type: "email",
-              message: "Please input your email!",
-            },
-          ]}>
-          <Input prefix={<UserOutlined />} placeholder="Email" />
-        </Form.Item>
-
-        <Form.Item
-          name="password"
-          rules={[
-            {
-              required: true,
-              message: "Please input your password!",
-            },
-          ]}>
-          <Input prefix={<LockOutlined />} placeholder="Password" />
-        </Form.Item>
-
-        <Form.Item>
-          <Button style={{ width: "100%" }} type="primary" htmlType="submit">
-            Submit
-          </Button>
-        </Form.Item>
-      </Form>
     </Spin>
   );
 }

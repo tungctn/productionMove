@@ -12,7 +12,13 @@ import { AuthReducer } from "./Reducer";
 import { useNavigate } from "react-router-dom";
 import axios from "../api/axios";
 import { getProfile } from "../api/user";
-import { SET_AUTH_BEGIN, SET_AUTH_FAILED, SET_AUTH_SUCCESS } from "./action";
+import {
+  SET_AUTH_BEGIN,
+  SET_AUTH_FAILED,
+  SET_AUTH_SUCCESS,
+  SET_PRODUCTLINE_LIST,
+} from "./action";
+import { getAllProductLine } from "../api/productline";
 
 export const AppContext = createContext();
 
@@ -21,6 +27,7 @@ export const initState = {
   user: null,
   isAuthenticated: false,
   listUser: [],
+  listProductLine: [],
 };
 
 const AppContextProvider = (props) => {
@@ -103,6 +110,22 @@ const AppContextProvider = (props) => {
     localStorage.removeItem("token");
     dispatch({ type: SET_AUTH_FAILED });
   };
+
+  const loadProductLine = async () => {
+    const response = await getAllProductLine();
+    console.log(response.data);
+    if (response.success) {
+      dispatch({
+        type: SET_PRODUCTLINE_LIST,
+        payload: { listProductLine: response.data },
+      });
+    }
+  };
+
+  useEffect(() => {
+    loadProductLine();
+    console.log("productline");
+  }, []);
 
   console.log(authState);
 
