@@ -16,7 +16,7 @@ const Header = () => {
     },
   ];
   return (
-    <div className=" bg-white drop-shadow-xl h-16 max-w-full">
+    <div className=" bg-white drop-shadow-xl h-16">
       <div className="flex flex-row-reverse w-full h-full">
         <Dropdown menu={{ items }} className="mr-5 my-auto">
           <a onClick={(e) => e.preventDefault()}>

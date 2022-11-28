@@ -48,35 +48,4 @@ body {
     }
   }
   
-  .ant-input {
-    border-radius: 20px;
-    background-color: antiquewhite;
-    &:hover {
-      border: 2px solid var(--default-color);
-    }
-  
-    &:focus {
-      border: 2px solid var(--default-color);
-    }
-  }
-  
-  .ant-input-affix-wrapper {
-    border-radius: 20px;
-    background-color: antiquewhite;
-      .ant-input {
-        border: #333333;
-        border-radius: 1px;
-        padding: 5px 0 !important;
-      }
-  
-    &:hover {
-      border: 2px solid var(--default-color) !important;
-    }
-  }
-  .ant-input-affix-wrapper-focused {
-    border: 2px solid var(--default-color);
-    box-shadow: none;
-  }
-  
-  
   
