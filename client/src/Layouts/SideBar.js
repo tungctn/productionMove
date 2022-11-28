@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const SideBar = ({ tag, ...props }) => {
+  const navigate = useNavigate();
+
   return (
     <aside
       className="basis-1/6 bg-white drop-shadow-md justify-between items-center"

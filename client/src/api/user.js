@@ -2,7 +2,7 @@ import axios from "./axios";
 
 export const getProfile = async () => {
   try {
-    const response = await axios.get("/auth/profile", {
+    const response = await axios.get("/user/profile", {
       withCredentials: true,
     });
     return response.data;

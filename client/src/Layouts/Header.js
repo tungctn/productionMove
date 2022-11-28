@@ -4,7 +4,10 @@ import { Dropdown, Space } from "antd";
 import { useAppContext } from "../contexts/AppContext";
 
 const Header = () => {
-  const { handleLogout } = useAppContext();
+  const {
+    handleLogout,
+    authState: { user },
+  } = useAppContext();
   const items = [
     {
       key: 1,
@@ -21,7 +24,7 @@ const Header = () => {
         <Dropdown menu={{ items }} className="mr-5 my-auto">
           <a onClick={(e) => e.preventDefault()}>
             <Space>
-              Nhà sản xuất
+              {user.name}
               <DownOutlined />
             </Space>
           </a>

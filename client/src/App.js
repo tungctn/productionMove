@@ -7,10 +7,13 @@ import Request from "./pages/home/Request";
 import "./index.scss";
 import Page403 from "./pages/error/403";
 import { useAppContext } from "./contexts/AppContext";
-import { Spin } from "antd";
-import { LoadingOutlined } from '@ant-design/icons';
+import { Button, Form, Input, Spin } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
 import Auth from "./routes/Auth";
 import RequireAuth from "./routes/RequireAuth";
+import { LockOutlined, UserOutlined } from "@ant-design/icons";
+import { updateProduct } from "./api/product";
+import ProductLine from "./pages/productline/ProductLine";
 
 function App() {
   const {
@@ -33,7 +36,7 @@ function App() {
           <Route path="/*" element={<Page403 />} />
         </Routes>
       </div>
-     </Spin>
+    </Spin>
   );
 }
 

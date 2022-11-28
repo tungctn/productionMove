@@ -1,38 +1,5 @@
 const User = require("../Models/UserModel");
 const bcrypt = require("bcrypt");
-// const UserController = {
-//   getAllUser: async (req, res) => {
-//     try {
-//       const user = await User.find();
-//       return res.status(200).json({
-//         success: true,
-//         msg: "successful",
-//         data: user,
-//       });
-//     } catch (error) {
-//       return res.status(500).json({
-//         success: false,
-//         msg: error,
-//       });
-//     }
-//   },
-
-//   getCurrentUser: async (req, res) => {
-//     try {
-//       const user = await User.findById(req.user.id);
-//       return res.status(200).json({
-//         success: true,
-//         msg: "successful",
-//         data: user,
-//       });
-//     } catch (error) {
-//       return res.status(500).json({
-//         success: false,
-//         msg: error,
-//       });
-//     }
-//   },
-// };
 
 module.exports.getCurrentUser = async (req, res) => {
   try {
@@ -45,11 +12,10 @@ module.exports.getCurrentUser = async (req, res) => {
   } catch (error) {
     return res.status(500).json({
       success: false,
-      msg: error,
+      msg: error.message,
     });
   }
 };
-
 
 module.exports.createUser = async (req, res) => {
   try {
@@ -69,7 +35,6 @@ module.exports.createUser = async (req, res) => {
       role: req.body.role
     }).save();
 
-    // const newUser = await newUser.save();
     return res.status(200).json({
       success: true,
       msg: "successful",
@@ -78,7 +43,7 @@ module.exports.createUser = async (req, res) => {
   } catch (error) {
     return res.status(500).json({
       success: false,
-      msg: error,
+      msg: error.message,
     });
   }
 };
