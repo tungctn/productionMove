@@ -2,6 +2,8 @@ import "./App.css";
 import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
 import Login from "./pages/login/Login";
 import Home from "./pages/home/Home";
+import Produce from "./pages/home/Produce";
+import Request from "./pages/home/Request";
 import "./index.scss";
 import Page403 from "./pages/error/403";
 import { useAppContext } from "./contexts/AppContext";
@@ -28,7 +30,8 @@ function App() {
           </Route>
           <Route path="/" element={<RequireAuth />}>
             <Route path="/home" element={<Home />} />
-            <Route path="/productline" element={<ProductLine />} />
+            <Route path="/produce" element={<Produce />} />
+            <Route path="/request" element={<Request />} />
           </Route>
           <Route path="/*" element={<Page403 />} />
         </Routes>

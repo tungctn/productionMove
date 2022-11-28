@@ -5,21 +5,20 @@ import SideBar from "./SideBar";
 import "antd/dist/antd.css";
 import { useAppContext } from "../contexts/AppContext";
 
-const Default = (props) => {
+function Default(props) {
+  console.log(props.tagName);
 
   return (
-    <div className="grid grid-cols-6 grid-rows-12">
-      <SideBar />
-      <div className="col-span-5 max-w-screen max-h-screen">
-        <Header />
-        <div
-          className="bg-white mt-5 ml-5 rounded-md max-w-full"
-          style={{ height: "calc(100vh - 84px)" }}>
+    <div className="flex flex-row h-screen w-full">
+      <SideBar tag={props.tagName}></SideBar>
+      <div className="basis-5/6 h-full">
+        <Header></Header>
+        <div className="bg-white mt-5 ml-5 rounded-md h-[calc(100%-90px)] overflow-y-scroll">
           {props.children}
         </div>
       </div>
     </div>
   );
-};
+}
 
 export default Default;
