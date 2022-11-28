@@ -1,4 +1,8 @@
+import { useNavigate } from "react-router-dom";
+
 const SideBar = () => {
+  const navigate = useNavigate();
+
   return (
     <aside
       className="col-span-1 bg-white drop-shadow-md h-screen justify-between items-center"
@@ -11,16 +15,18 @@ const SideBar = () => {
         <ul className="space-y-4">
           <li>
             <a
-              href="#"
+              onClick={() => {
+                navigate("/productline");
+              }}
               className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
               <img
                 src="./image/kho.png"
                 alt="kho"
                 className="w-4 md:w-4 lg:w-6"></img>
-              <span className="ml-3">Kho</span>
+              <span className="ml-3">Dòng sản phẩm</span>
             </a>
           </li>
-          <li>
+          {/* <li>
             <a
               href="#"
               className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
@@ -41,7 +47,7 @@ const SideBar = () => {
                 className="w-4 md:w-4 lg:w-6"></img>
               <span className="ml-3">Yêu Cầu</span>
             </a>
-          </li>
+          </li> */}
         </ul>
       </div>
     </aside>

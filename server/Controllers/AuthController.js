@@ -14,7 +14,7 @@ module.exports.genarateAccessToken = (user) => {
       role: user.role
     },
     process.env.ACCESS_TOKEN_SECRET,
-    { expiresIn: "7200s" }
+    { expiresIn: "1d" }
   );
 };
 
@@ -59,7 +59,7 @@ module.exports.loginUser = async (req, res) => {
   } catch (error) {
     return res.status(500).json({
       success: false,
-      msg: error,
+      msg: error.message,
     });
   }
 };

@@ -3,7 +3,6 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 module.exports.verifyToken = (req, res, next) => {
-  // const token = req.headers.token;
   const token = req.header("Authorization");
   const tokenCookie = req.cookies["accessToken"];
   if (token && tokenCookie) {

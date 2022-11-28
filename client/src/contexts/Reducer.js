@@ -5,6 +5,7 @@ import {
   SET_USER_LIST,
   SET_USER_DELETE,
   SET_USER_UPDATE,
+  SET_PRODUCTLINE_LIST,
 } from "./action";
 import { initState } from "./AppContext";
 
@@ -50,6 +51,11 @@ export const AuthReducer = (state, action) => {
         listUser: state.listUser.filter(
           (item) => item.id !== action.payload.id
         ),
+      };
+    case SET_PRODUCTLINE_LIST:
+      return {
+        ...state,
+        listProductLine: action.payload.listProductLine,
       };
     default:
       throw new Error("Action not match");
