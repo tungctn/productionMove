@@ -6,8 +6,8 @@ import {
   SET_USER_DELETE,
   SET_USER_UPDATE,
   SET_PRODUCTLINE_LIST,
-} from "./action";
-import { initState } from "./AppContext";
+} from "../action";
+import { initState } from "../contexts/AppContext";
 
 export const AuthReducer = (state, action) => {
   switch (action.type) {

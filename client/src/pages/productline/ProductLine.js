@@ -1,5 +1,7 @@
 import { Select } from "antd";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import ProduceSearch from "../../components/ProduceComponent/ProduceSearch";
 import TableInfo from "../../components/TableInfo/TableInfo";
 import { useAppContext } from "../../contexts/AppContext";
 import Default from "../../Layouts/Default";
@@ -12,22 +14,24 @@ const ProductLine = () => {
       key: "key",
     },
     {
-      title: "Name",
+      title: "Tên dòng sản phẩm",
       dataIndex: "name",
       key: "name",
       render: (text) => <a>{text}</a>,
     },
     {
-      title: "Code",
+      title: "Mã dòng sản phẩm",
       dataIndex: "code",
       key: "code",
     },
+    {
+      title: "Ngày sản xuất",
+      dataIndex: "createdAt",
+      key: "createdAt",
+    },
   ];
-  const [pagination, setPagination] = useState({
-    position: ["bottomCenter"],
-    pageSize: 5,
-    showSizeChanger: false,
-  });
+
+  const navigate = useNavigate();
 
   const {
     authState: { listProductLine },
@@ -35,50 +39,27 @@ const ProductLine = () => {
 
   const dataSource = listProductLine.map((productline, index) => {
     return {
-      key: index + 1,
       ...productline,
+      key: index + 1,
+      createdAt: productline.createdAt.split("T")[0],
     };
   });
 
-  const handleChange = (value) => {
-    setPagination((preState) => ({ ...preState, pageSize: value }));
-  };
-
   useEffect(() => {
     console.log(listProductLine);
-    // setDataSource()
   }, []);
 
   return (
-    <div>
-      <Default>
-        <div style={{ width: "80%", margin: "0 auto" }}>
-          <Select
-            defaultValue={5}
-            style={{ width: 120 }}
-            onChange={handleChange}
-            options={[
-              {
-                value: 5,
-                label: "5",
-              },
-              {
-                value: 10,
-                label: "10",
-              },
-              {
-                value: 15,
-                label: "15",
-              },
-            ]}
-          />
+    <div className="w-full">
+      <Default tagName="dsp">
+        <ProduceSearch />
+        <div className="mt-5">
           <TableInfo
             dataColumn={dataColumn}
             dataSource={dataSource}
-            pagination={pagination}
             onRow={(r) => ({
               onClick: () => {
-                console.log(r._id);
+                navigate(`/productline/${r._id}`);
               },
             })}
           />

@@ -1,5 +1,5 @@
 import { Button, Pagination } from "antd";
-import {Input, Table} from 'antd';
+import { Input, Table } from "antd";
 import Title from "antd/lib/skeleton/Title";
 import React, { useContext, useEffect } from "react";
 import { Outlet } from "react-router-dom";
@@ -10,7 +10,7 @@ import Default from "../../Layouts/Default";
 import "./index.css";
 
 const Home = () => {
-  const {Search} = Input;
+  const { Search } = Input;
   const {
     handleProfile,
     authState: { user },
@@ -21,68 +21,72 @@ const Home = () => {
     // console.log(authState);
   }, []);
 
-  const onSearch = (value) => {console.log(value)};
+  const onSearch = (value) => {
+    console.log(value);
+  };
   const Column = [
     {
-      title: 'Mã định danh',
-      dataIndex: 'id',
+      title: "Mã định danh",
+      dataIndex: "code",
+      key: "code",
     },
     {
-      title: 'Dòng sản phẩm',
-      dataIndex: 'productline',
+      title: "Dòng sản phẩm",
+      dataIndex: "productline",
+      key: "productline",
     },
     {
-      title: 'Nơi sản xuất',
-      dataIndex: 'location',
+      title: "Nơi sản xuất",
+      dataIndex: "location",
+      key: "location",
     },
     {
-      title: 'Ngày sản xuất',
-      dataIndex: 'date',
-    }
+      title: "Ngày sản xuất",
+      dataIndex: "createdAt",
+      key: "createdAt",
+    },
   ];
   const data = [
     {
-      key: '1',
-      id: 'A',
-      productline: 'A',
-      location: 'A',
-      date: 'A',
+      key: "1",
+      id: "A",
+      productline: "A",
+      location: "A",
+      date: "A",
     },
     {
-      key: '1',
-      id: 'A',
-      productline: 'A',
-      location: 'A',
-      date: 'A',
+      key: "1",
+      id: "A",
+      productline: "A",
+      location: "A",
+      date: "A",
     },
     {
-      key: '1',
-      id: 'A',
-      productline: 'A',
-      location: 'A',
-      date: 'A',
+      key: "1",
+      id: "A",
+      productline: "A",
+      location: "A",
+      date: "A",
     },
     {
-      key: '1',
-      id: 'A',
-      productline: 'A',
-      location: 'A',
-      date: 'A',
+      key: "1",
+      id: "A",
+      productline: "A",
+      location: "A",
+      date: "A",
     },
-  
-  ]
+  ];
 
   return (
-    <div class="w-full">
+    <div className="w-full">
       <Default tagName="kho">
         <ProduceSearch></ProduceSearch>
         <div className="mt-5">
-        <Table columns={Column} dataSource={data} 
-          pagination={{position: ['bottomCenter']}}
-        >
-        </Table>
+          <Table
+            columns={Column}
+            dataSource={data}
+            pagination={{ position: ["bottomCenter"] }}></Table>
         </div>
-        
       </Default>
     </div>
   );
