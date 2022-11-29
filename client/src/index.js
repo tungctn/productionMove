@@ -6,13 +6,16 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import AppContextProvider from "./contexts/AppContext";
 import { BrowserRouter } from "react-router-dom";
+import ProductLineContextProvider from "./contexts/ProductLineContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
-    <AppContextProvider>
-      <App />
-    </AppContextProvider>
+    <ProductLineContextProvider>
+      <AppContextProvider>
+        <App />
+      </AppContextProvider>
+    </ProductLineContextProvider>
   </BrowserRouter>
 );
 

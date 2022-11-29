@@ -8,7 +8,7 @@ import {
 } from "react";
 import { notification, Spin } from "antd";
 import { loginAPI, logoutAPI, setAuthHeader } from "../api/auth";
-import { AuthReducer } from "./Reducer";
+import { AuthReducer } from "../reducers/AuthReducer";
 import { useNavigate } from "react-router-dom";
 import axios from "../api/axios";
 import { getProfile } from "../api/user";
@@ -17,7 +17,7 @@ import {
   SET_AUTH_FAILED,
   SET_AUTH_SUCCESS,
   SET_PRODUCTLINE_LIST,
-} from "./action";
+} from "../action";
 import { getAllProductLine } from "../api/productline";
 
 export const AppContext = createContext();
@@ -67,6 +67,7 @@ const AppContextProvider = (props) => {
 
   useEffect(() => {
     loadUser();
+    console.log(authState);
   }, []);
 
   const handleLogin = async (data) => {

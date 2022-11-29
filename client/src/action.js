@@ -1,3 +1,4 @@
+
 export const SET_AUTH_BEGIN = "SET_AUTH_BEGIN";
 export const SET_AUTH_SUCCESS = "SET_AUTH_SUCCESS";
 export const SET_AUTH_FAILED = "SET_AUTH_FAILED";

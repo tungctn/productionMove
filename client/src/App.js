@@ -14,6 +14,8 @@ import RequireAuth from "./routes/RequireAuth";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { updateProduct } from "./api/product";
 import ProductLine from "./pages/productline/ProductLine";
+import ProductLineInfo from "./pages/productline/ProductLineInfo";
+import ProductLineEdit from "./pages/productline/ProductLineEdit";
 
 function App() {
   const {
@@ -32,6 +34,9 @@ function App() {
             <Route path="/home" element={<Home />} />
             <Route path="/produce" element={<Produce />} />
             <Route path="/request" element={<Request />} />
+            <Route path="/productline" element={<ProductLine />} />
+            <Route path="/productline/:id" element={<ProductLineInfo />} />
+            <Route path="/productline/:id/edit" element={<ProductLineEdit />} />
           </Route>
           <Route path="/*" element={<Page403 />} />
         </Routes>

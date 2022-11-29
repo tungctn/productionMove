@@ -6,3 +6,10 @@ export const getAllProductLine = async () => {
   });
   return response.data;
 };
+
+export const getProductLine = async (id) => {
+  const response = await axios.get(`/productline/${id}`, {
+    withCredentials: true,
+  });
+  return response.data;
+};
