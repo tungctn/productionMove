@@ -26,8 +26,8 @@ mongoose.connect(process.env.URL_CONNECT_MD, () => {
 
 app.use("/api", appRoute);
 
-app.get("/cookie", (req, res) => {
-  res.send(req.cookies["accessToken"]);
+app.get("/", (req, res) => {
+  res.send("jdsds");
 });
 
 const PORT = process.env.PORT;

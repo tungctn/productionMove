@@ -5,7 +5,7 @@ import { getProductLine } from "../../api/productline";
 import Default from "../../Layouts/Default";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 
-const ProductLineInfo = () => {
+const ProductLineInfo = (props) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [productLine, setProductLine] = useState({});
@@ -24,7 +24,7 @@ const ProductLineInfo = () => {
 
   return (
     <div>
-      <Default>
+      <Default tagName='dsp'>
         <Image src={productLine.img} width={400} preview={false} />
         <div className="text-right text-2xl text-cyan-500">
           <EditOutlined

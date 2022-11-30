@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import ProduceSearch from "../../components/ProduceComponent/ProduceSearch";
 import TableInfo from "../../components/TableInfo/TableInfo";
 import { useAppContext } from "../../contexts/AppContext";
+import { useProductLineContext } from "../../contexts/ProductLineContext";
 import Default from "../../Layouts/Default";
 
 const ProductLine = () => {
@@ -33,9 +34,13 @@ const ProductLine = () => {
 
   const navigate = useNavigate();
 
+  // const {
+  //   authState: { listProductLine },
+  // } = useAppContext();
+
   const {
-    authState: { listProductLine },
-  } = useAppContext();
+    productlineState: { listProductLine },
+  } = useProductLineContext();
 
   const dataSource = listProductLine.map((productline, index) => {
     return {
