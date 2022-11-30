@@ -15,7 +15,11 @@ const SideBar = ({ tag, ...props }) => {
       label: "Home",
       key: "home",
       icon: (
-        <img src="http://localhost:3000/image/kho.png" alt="kho" className="w-4 md:w-4 lg:w-6" />
+        <img
+          src="http://localhost:3000/image/kho.png"
+          alt="kho"
+          className="w-4 md:w-4 lg:w-6"
+        />
       ),
     },
     {
@@ -32,8 +36,8 @@ const SideBar = ({ tag, ...props }) => {
   ];
 
   const handleCLick = (record) => {
-    navigate(`/${record.key}`)
-  }
+    navigate(`/${record.key}`);
+  };
   return (
     <aside
       className="basis-1/6 bg-white drop-shadow-md justify-between items-center"
