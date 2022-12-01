@@ -1,31 +1,25 @@
-version: "3.8"
 services:
-  # mongodb: 
-  #   image: "mongo"
-  #   volumes:
-  #     - data:/data/db
-  server:
-    build: ./server
+  slackfrontend :
+    build:
+      context: ./client
+      dockerfile: Dockerfile.client
     ports:
-      - target: 8084
-        published: 8084
-        protocol: tcp
-        mode: host
-    volumes:
-      - ./server:/app
-      - /app/node_modules
-    # depends_on:
-    #   - mongodb
-
-  client:
-    build: ./client
-    ports:
-      - "3000:3000"
-    volumes:
-      - ./client/src:/app/src
-    stdin_open: true
-    tty: true
+      - "3000:3000"   
     depends_on:
-      - server
+      - db
+  nodebackend:
+    build:
+      context: ./server
+      dockerfile: Dockerfile.server
+    ports:
+      - "8001:8001"   
+    depends_on:
+      - db
+  db:
+    volumes:
+      - slack_db:/data/db
+    image: mongo:latest
+    ports:
+      - "27017:27017" 
 volumes:
-  data: 
+   slack_db:
