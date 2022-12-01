@@ -7,6 +7,7 @@ userRouter.get(
   "/",
   UserController.getUser
 );
+
 userRouter.post(
   "/", 
   UserController.createUser
