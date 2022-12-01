@@ -31,7 +31,7 @@ const userSchema = new mongoose.Schema(
         4, // warrantyCenter,
       ],
     },
-    requestList: [{ type: Schema.Types.ObjectId, ref: 'Request' }],
+    listRequest: [{ type: Schema.Types.ObjectId, ref: 'Request' }],
   },
   { timestamps: true }
 );

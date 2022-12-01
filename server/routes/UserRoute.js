@@ -4,14 +4,17 @@ const UserController = require("../Controllers/UserController");
 const userRouter = require("express").Router();
 
 userRouter.get(
-  "/profile",
-  MiddlewareAuth.verifyToken,
-  UserController.getCurrentUser
+  "/",
+  UserController.getUser
 );
 userRouter.post(
-  "/create",
-  MiddlewareAuth.verifyToken,
+  "/", 
   UserController.createUser
+);
+
+userRouter.post(
+  "/:id",
+  UserController.updateUser
 );
 
 module.exports = userRouter;
