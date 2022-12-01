@@ -1,13 +1,8 @@
-FROM node:16.16.0
-
+FROM node:16
 WORKDIR /app
-
-COPY package.json .
-
-RUN npm install
-
-COPY . .
-
+COPY ./package.json ./package.json
+COPY ./public ./public
+COPY ./src ./src
+RUN yarn install
 EXPOSE 3000
-
-CMD ["npm", "start"]
+CMD ["yarn","start"]

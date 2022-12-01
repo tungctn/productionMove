@@ -84,7 +84,10 @@ function App() {
             <Route path="/request" element={<Request />} />
             <Route path="/productline" element={<ProductLine />} />
             <Route path="/productline/:id" element={<ProductLineInfo />} />
-            <Route path="/productline/:id/edit" element={<ProductLineUpdate />} />
+            <Route
+              path="/productline/:id/edit"
+              element={<ProductLineUpdate />}
+            />
           </Route>
           <Route path="/*" element={<Page403 />} />
         </Routes>
