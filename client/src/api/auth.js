@@ -25,7 +25,7 @@ export const loginAPI = async (data) => {
 
 export const logoutAPI = async () => {
   try {
-    const response = await axios.post("/auth/profile", {
+    const response = await axios.post("/auth/logout", {
       withCredentials: true,
     });
     return response.data;

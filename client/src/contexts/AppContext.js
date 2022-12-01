@@ -27,7 +27,6 @@ export const initState = {
   user: null,
   isAuthenticated: false,
   listUser: [],
-  listProductLine: [],
 };
 
 const AppContextProvider = (props) => {
@@ -39,6 +38,17 @@ const AppContextProvider = (props) => {
       description,
       duration: 2.5,
     });
+  };
+
+  const convertObjectToArray = (obj) => {
+    let result = [];
+    const keys = Object.keys(obj);
+    const values = Object.values(obj);
+    for (let index = 0; index < keys.length; index++) {
+      const element = { propName: keys[index], value: values[index] };
+      result.push(element)
+    }
+    return result;
   };
 
   const loadUser = async () => {
@@ -67,7 +77,6 @@ const AppContextProvider = (props) => {
 
   useEffect(() => {
     loadUser();
-    console.log(authState);
   }, []);
 
   const handleLogin = async (data) => {
@@ -96,37 +105,12 @@ const AppContextProvider = (props) => {
     }
   };
 
-  const handleProfile = async () => {
-    setAuthHeader(localStorage["token"]);
-    console.log(axios.defaults);
-    const response = await getProfile();
-    if (response.success) {
-      console.log(response.data);
-    }
-  };
-
   const handleLogout = async () => {
     dispatch({ type: SET_AUTH_BEGIN });
     const response = await logoutAPI();
     localStorage.removeItem("token");
     dispatch({ type: SET_AUTH_FAILED });
   };
-
-  const loadProductLine = async () => {
-    const response = await getAllProductLine();
-    console.log(response.data);
-    if (response.success) {
-      dispatch({
-        type: SET_PRODUCTLINE_LIST,
-        payload: { listProductLine: response.data },
-      });
-    }
-  };
-
-  useEffect(() => {
-    loadProductLine();
-    console.log("productline");
-  }, []);
 
   console.log(authState);
 
@@ -135,8 +119,8 @@ const AppContextProvider = (props) => {
     dispatch,
     openNotification,
     handleLogin,
-    handleProfile,
     handleLogout,
+    convertObjectToArray
   };
 
   return (

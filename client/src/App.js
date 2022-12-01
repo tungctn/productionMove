@@ -15,8 +15,8 @@ import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { updateProduct } from "./api/product";
 import ProductLine from "./pages/productline/ProductLine";
 import ProductLineInfo from "./pages/productline/ProductLineInfo";
-import ProductLineEdit from "./pages/productline/ProductLineEdit";
 import { Pie } from "@ant-design/plots";
+import ProductLineUpdate from "./pages/productline/ProductLineUpdate";
 function App() {
   const {
     authState: { isLoading },
@@ -84,7 +84,10 @@ function App() {
             <Route path="/request" element={<Request />} />
             <Route path="/productline" element={<ProductLine />} />
             <Route path="/productline/:id" element={<ProductLineInfo />} />
-            <Route path="/productline/:id/edit" element={<ProductLineEdit />} />
+            <Route
+              path="/productline/:id/edit"
+              element={<ProductLineUpdate />}
+            />
           </Route>
           <Route path="/*" element={<Page403 />} />
         </Routes>
