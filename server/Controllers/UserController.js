@@ -1,6 +1,22 @@
 const User = require("../Models/UserModel");
 const bcrypt = require("bcrypt");
 
+module.exports.getListUser = async (req, res) => {
+  try {
+    const listUser = await User.find();
+    return res.status(200).json({
+      success: true,
+      msg: "successful",
+      data: listUser,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      msg: error.message,
+    });
+  }
+};
+
 module.exports.getUser = async (req, res) => {
   try {
     const user = await User.findById(req.user.id);
@@ -19,7 +35,7 @@ module.exports.getUser = async (req, res) => {
 
 module.exports.createUser = async (req, res) => {
   try {
-    const salt = await bcrypt .genSalt(10);
+    const salt = await bcrypt.genSalt(10);
     const hashed = await bcrypt.hash(req.body.password, salt);
     const user = await User.findOne({ email: req.body.email });
     if (user) {
@@ -32,7 +48,7 @@ module.exports.createUser = async (req, res) => {
       name: req.body.name,
       email: req.body.email,
       password: hashed,
-      role: req.body.role
+      role: req.body.role,
     }).save();
 
     return res.status(200).json({
@@ -69,6 +85,7 @@ module.exports.updateUser = async (req, res) => {
       msg: error.message,
     });
   }
+};
 }
 
 module.exports.deleteUser = async (req, res) => {
@@ -84,4 +101,5 @@ module.exports.deleteUser = async (req, res) => {
       msg: error.message,
     });
   }
+};
 }
