@@ -23,7 +23,7 @@ body {
     --border-color: #ff8c1a
   }
   
-  .ant-btn {
+  .ant-btn.ant-btn-primary {
     border-radius: 10px;
     min-width: 80px;
     height: 40px;
@@ -41,6 +41,26 @@ body {
     &:focus {
       opacity: 0.8;
       background-color: var(--button-color);
+      border: 1px solid var(--button-color);
+      color: #333333;
+    }
+  }
+
+  .ant-btn.ant-btn-default {
+    border-radius: 10px;
+    min-width: 80px;
+    height: 40px;
+    border: 1px solid #817d7d;
+    color: #333333;
+  
+    &:hover {
+      opacity: 0.8;
+      border: 1px solid var(--button-color);
+      color: #333333;
+    }
+  
+    &:focus {
+      opacity: 0.8;
       border: 1px solid var(--button-color);
       color: #333333;
     }

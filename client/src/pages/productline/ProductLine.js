@@ -1,7 +1,7 @@
 import { Select } from "antd";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import ProduceSearch from "../../components/ProduceComponent/ProduceSearch";
+import ProduceSearch from "../../components/Produce/ProduceSearch";
 import TableInfo from "../../components/TableInfo/TableInfo";
 import { useAppContext } from "../../contexts/AppContext";
 import { useProductLineContext } from "../../contexts/ProductLineContext";
@@ -33,10 +33,6 @@ const ProductLine = () => {
   ];
 
   const navigate = useNavigate();
-
-  // const {
-  //   authState: { listProductLine },
-  // } = useAppContext();
 
   const {
     productlineState: { listProductLine },

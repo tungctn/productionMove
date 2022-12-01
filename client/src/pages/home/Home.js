@@ -4,7 +4,7 @@ import Title from "antd/lib/skeleton/Title";
 import React, { useContext, useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import App from "../../App";
-import ProduceSearch from "../../components/ProduceComponent/ProduceSearch";
+import ProduceSearch from "../../components/Produce/ProduceSearch";
 import { AppContext, useAppContext } from "../../contexts/AppContext";
 import Default from "../../Layouts/Default";
 import "./index.css";

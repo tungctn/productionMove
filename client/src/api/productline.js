@@ -13,3 +13,17 @@ export const getProductLine = async (id) => {
   });
   return response.data;
 };
+
+export const updateProductLine = async (id, data) => {
+  const response = await axios.put(`/productline/${id}`, data, {
+    withCredentials: true,
+  });
+  return response.data;
+};
+
+export const deleteProductLine = async (id) => {
+  const response = await axios.delete(`/productline/${id}`, {
+    withCredentials: true,
+  });
+  return response.data;
+};

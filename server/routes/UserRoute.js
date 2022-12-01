@@ -8,6 +8,7 @@ userRouter.get(
   MiddlewareAuth.verifyToken,
   UserController.getCurrentUser
 );
+
 userRouter.post(
   "/create",
   MiddlewareAuth.verifyToken,
