@@ -46,9 +46,24 @@ const AppContextProvider = (props) => {
     const values = Object.values(obj);
     for (let index = 0; index < keys.length; index++) {
       const element = { propName: keys[index], value: values[index] };
-      result.push(element)
+      result.push(element);
     }
     return result;
+  };
+
+  const convertRoleToName = (role) => {
+    switch (role) {
+      case 1:
+        return "Ban điều hành";
+      case 2:
+        return "Cơ sở sản xuất";
+      case 3:
+        return "Đại lý phân phối";
+      case 4:
+        return "Trung tâm bảo hành";
+      default:
+        throw new Error("Role is not match");
+    }
   };
 
   const loadUser = async () => {
@@ -120,7 +135,8 @@ const AppContextProvider = (props) => {
     openNotification,
     handleLogin,
     handleLogout,
-    convertObjectToArray
+    convertObjectToArray,
+    convertRoleToName,
   };
 
   return (

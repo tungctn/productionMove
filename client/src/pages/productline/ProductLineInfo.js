@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getProductLine } from "../../api/productline";
 import Default from "../../Layouts/Default";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
-import ProductLineDetail from "../../components/ProductLine/ProductLineDetail";
+import ProductLineDetail from "../../components/ProductLineForm/DetailProductLine";
 
 const ProductLineInfo = (props) => {
   

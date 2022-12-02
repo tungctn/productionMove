@@ -17,6 +17,9 @@ import ProductLine from "./pages/productline/ProductLine";
 import ProductLineInfo from "./pages/productline/ProductLineInfo";
 import { Pie } from "@ant-design/plots";
 import ProductLineUpdate from "./pages/productline/ProductLineUpdate";
+import { useEffect } from "react";
+import User from "./pages/user/User";
+import ProductLineAdd from "./pages/productline/ProductLineAdd";
 function App() {
   const {
     authState: { isLoading },
@@ -70,6 +73,7 @@ function App() {
       },
     ],
   };
+
   return (
     <Spin spinning={isLoading} indicator={antIcon}>
       <div className="App">
@@ -82,12 +86,16 @@ function App() {
             <Route path="/home" element={<Home />} />
             <Route path="/produce" element={<Produce />} />
             <Route path="/request" element={<Request />} />
+            {/* productline */}
             <Route path="/productline" element={<ProductLine />} />
             <Route path="/productline/:id" element={<ProductLineInfo />} />
             <Route
               path="/productline/:id/edit"
               element={<ProductLineUpdate />}
             />
+            <Route path="/productline/create" element={<ProductLineAdd />} />
+            {/* account */}
+            <Route path="/user" element={<User />} />
           </Route>
           <Route path="/*" element={<Page403 />} />
         </Routes>

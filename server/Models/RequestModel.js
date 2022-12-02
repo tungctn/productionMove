@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 var User = require('./UserModel')
-var Product = require('./ProductModel')
 var Schema = mongoose.Schema
 const requestSchema = new mongoose.Schema(
   {
@@ -14,7 +13,6 @@ const requestSchema = new mongoose.Schema(
         required: true, 
         ref: 'User' 
     },
-    listProduct: [{ type: Schema.Types.ObjectId, ref: 'Product' }],
     status: {
       type: Number,
       enums: [
