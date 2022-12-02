@@ -2,6 +2,7 @@
 export const SET_AUTH_BEGIN = "SET_AUTH_BEGIN";
 export const SET_AUTH_SUCCESS = "SET_AUTH_SUCCESS";
 export const SET_AUTH_FAILED = "SET_AUTH_FAILED";
+
 export const SET_USER_LIST = "SET_USER_LIST";
 export const SET_USER_UPDATE = "SET_USER_UPDATE";
 export const SET_USER_DELETE = "SET_USER_DELETE";

@@ -52,11 +52,6 @@ export const AuthReducer = (state, action) => {
           (item) => item.id !== action.payload.id
         ),
       };
-    case SET_PRODUCTLINE_LIST:
-      return {
-        ...state,
-        listProductLine: action.payload.listProductLine,
-      };
     default:
       throw new Error("Action not match");
   }

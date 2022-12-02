@@ -1,6 +1,20 @@
 const User = require("../Models/UserModel");
 const bcrypt = require("bcrypt");
-
+module.exports.getCurrentUser = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id);
+    return res.status(200).json({
+      success: true,
+      msg: "successful",
+      data: user,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      msg: error.message,
+    });
+  }
+};
 module.exports.getListUser = async (req, res) => {
   try {
     const listUser = await User.find();
@@ -19,7 +33,7 @@ module.exports.getListUser = async (req, res) => {
 
 module.exports.getUser = async (req, res) => {
   try {
-    const user = await User.findById(req.user.id);
+    const user = await User.findById(req.params.id);
     return res.status(200).json({
       success: true,
       msg: "successful",
@@ -86,7 +100,6 @@ module.exports.updateUser = async (req, res) => {
     });
   }
 };
-}
 
 module.exports.deleteUser = async (req, res) => {
   try {
@@ -102,4 +115,3 @@ module.exports.deleteUser = async (req, res) => {
     });
   }
 };
-}

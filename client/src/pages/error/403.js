@@ -8,6 +8,7 @@ const Page403 = () => {
     <div>
       403
       <Button
+        type="primary"
         onClick={() => {
           navigate("/");
         }}>

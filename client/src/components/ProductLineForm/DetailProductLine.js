@@ -3,8 +3,8 @@ import React, { useEffect, useState } from "react";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { getProductLine } from "../../api/productline";
-import ProductLineEdit from "./ProductLineEdit";
-import ProductLineDelete from "./ProductLineDelete";
+import ProductLineEdit from "./EditProductLine";
+import ProductLineDelete from "./DeleteProductLine";
 
 const ProductLineDetail = (props) => {
   const { id } = props;

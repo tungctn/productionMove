@@ -21,6 +21,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
       minlength: 6,
+      default: "123456",
     },
     role: {
       type: Number,
@@ -31,7 +32,7 @@ const userSchema = new mongoose.Schema(
         4, // warrantyCenter,
       ],
     },
-    listRequest: [{ type: Schema.Types.ObjectId, ref: 'Request' }],
+    requestList: [{ type: Schema.Types.ObjectId, ref: "Request" }],
   },
   { timestamps: true }
 );

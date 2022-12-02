@@ -7,6 +7,13 @@ export const getAllProductLine = async () => {
   return response.data;
 };
 
+export const createProductLine = async (data) => {
+  const response = await axios.post("/productline", data, {
+    withCredentials: true,
+  });
+  return response.data;
+};
+
 export const getProductLine = async (id) => {
   const response = await axios.get(`/productline/${id}`, {
     withCredentials: true,
