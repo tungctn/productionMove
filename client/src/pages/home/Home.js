@@ -52,7 +52,7 @@ const Home = () => {
     return {
       ...product,
       key: index + 1,
-      // productLine: product.productLine.name
+      productLine: product.productLine.name,
       createdAt: product.createdAt.split("T")[0],
     };
   });

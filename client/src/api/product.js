@@ -1,3 +1,4 @@
+import { setAuthHeader } from "./auth";
 import axios from "./axios";
 
 export const updateProduct = async (data, id) => {
@@ -13,6 +14,7 @@ export const createProduct = async (data) => {
 };
 
 export const getAllProduct = async () => {
+  setAuthHeader(localStorage["token"]);
   const response = await axios.get("/product", { withCredentials: true });
   return response.data;
 };
