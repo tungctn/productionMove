@@ -27,5 +27,4 @@ productRoute.put(
   productController.updateProduct
 );
 
-
 module.exports = productRoute;
