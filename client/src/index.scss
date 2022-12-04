@@ -10,7 +10,7 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     box-sizing: border-box;
-   background: lightgrey;
+    background: #f0f0f0;
   }
   
   code {
@@ -19,8 +19,8 @@ body {
   }
   
   :root {
-    --button-color: #ffcc00;
-    --border-color: #ff8c1a
+    --button-color: #91caff;
+    --border-color: #1677ff
   }
   
   .ant-btn {
@@ -48,7 +48,7 @@ body {
 
   .ant-input {
     border-radius: 20px;
-    background-color: antiquewhite;
+    background-color: #e6f4ff;
     &:hover {
       border: 2px solid var(--border-color);
     }
@@ -60,9 +60,9 @@ body {
   
   .ant-input-affix-wrapper {
     border-radius: 20px;
-    background-color: antiquewhite;
+    background-color: #e6f4ff;
       .ant-input {
-        border: #333333;
+        border: #003eb3;
         border-radius: 1px;
         padding: 5px 0 !important;
       }
@@ -79,6 +79,7 @@ body {
   .ant-spin, .ant-spin-spinning {
     color: var(--button-color)
   }
+  
   
   
   

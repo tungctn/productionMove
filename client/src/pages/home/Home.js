@@ -79,15 +79,18 @@ const Home = () => {
 
   return (
     <div className="w-full">
-      <Default tagName="kho">
-        <ProduceSearch></ProduceSearch>
-        <div className="mt-5">
-          <Table
-            columns={Column}
-            dataSource={data}
-            pagination={{ position: ["bottomCenter"] }}></Table>
-        </div>
-      </Default>
+      <div className="container m-auto">
+        <Default tagName="kho">
+          <ProduceSearch></ProduceSearch>
+          <div className="w-11/12 mx-auto mt-5">
+            <Table
+              columns={Column}
+              dataSource={data}
+              pagination={{ position: ["bottomCenter"] }}
+              ></Table>
+          </div>
+        </Default>
+      </div>
     </div>
   );
 };

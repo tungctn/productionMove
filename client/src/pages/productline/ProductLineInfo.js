@@ -34,44 +34,46 @@ const ProductLineInfo = (props) => {
           />
           <DeleteOutlined />
         </div>
-        <Descriptions title="Thông tin chi tiết" bordered column={1}>
-          <Descriptions.Item label="Tên dòng xe">
-            {productLine.name}
-          </Descriptions.Item>
-          <Descriptions.Item label="Khối lượng bản thân">
-            {productLine.weight}
-          </Descriptions.Item>
-          <Descriptions.Item label="Dài">
-            {productLine.length}
-          </Descriptions.Item>
-          <Descriptions.Item label="Rộng">
-            {productLine.width}
-          </Descriptions.Item>
-          <Descriptions.Item label="Cao">
-            {productLine.height}
-          </Descriptions.Item>
-          <Descriptions.Item label="Khoảng cách trục bánh xe">
-            {productLine.wheelAxleDistance}
-          </Descriptions.Item>
-          <Descriptions.Item label="Chiều cao yên xe">
-            {productLine.saddleHeight}
-          </Descriptions.Item>
-          <Descriptions.Item label="Khoảng cách gầm xe">
-            {productLine.groundClearance}
-          </Descriptions.Item>
-          <Descriptions.Item label="Dung tích bình xăng">
-            {productLine.petrolTankCapacity}
-          </Descriptions.Item>
-          <Descriptions.Item label="Mức tiêu thụ nhiên liệu">
-            {productLine.fuelConsumption}
-          </Descriptions.Item>
-          <Descriptions.Item label="Dung tích xy-lanh">
-            {productLine.displacementVolume}
-          </Descriptions.Item>
-          <Descriptions.Item label="Loại động cơ">
-            {productLine.engineType}
-          </Descriptions.Item>
-        </Descriptions>
+        <div className="w-11/12 mx-auto">
+          <Descriptions title="Thông tin chi tiết" bordered column={1}>
+            <Descriptions.Item label="Tên dòng xe">
+              {productLine.name}
+            </Descriptions.Item>
+            <Descriptions.Item label="Khối lượng bản thân">
+              {productLine.weight}
+            </Descriptions.Item>
+            <Descriptions.Item label="Dài">
+              {productLine.length}
+            </Descriptions.Item>
+            <Descriptions.Item label="Rộng">
+              {productLine.width}
+            </Descriptions.Item>
+            <Descriptions.Item label="Cao">
+              {productLine.height}
+            </Descriptions.Item>
+            <Descriptions.Item label="Khoảng cách trục bánh xe">
+              {productLine.wheelAxleDistance}
+            </Descriptions.Item>
+            <Descriptions.Item label="Chiều cao yên xe">
+              {productLine.saddleHeight}
+            </Descriptions.Item>
+            <Descriptions.Item label="Khoảng cách gầm xe">
+              {productLine.groundClearance}
+            </Descriptions.Item>
+            <Descriptions.Item label="Dung tích bình xăng">
+              {productLine.petrolTankCapacity}
+            </Descriptions.Item>
+            <Descriptions.Item label="Mức tiêu thụ nhiên liệu">
+              {productLine.fuelConsumption}
+            </Descriptions.Item>
+            <Descriptions.Item label="Dung tích xy-lanh">
+              {productLine.displacementVolume}
+            </Descriptions.Item>
+            <Descriptions.Item label="Loại động cơ">
+              {productLine.engineType}
+            </Descriptions.Item>
+          </Descriptions>
+        </div>
       </Default>
     </div>
   );

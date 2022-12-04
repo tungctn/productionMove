@@ -8,7 +8,12 @@ productRoute.post(
   productController.createProduct
 );
 
-productRoute.get("/");
+productRoute.get(
+  "/",
+  verifyUser.verifyFactory_WarrantyCenter_Store,
+  // verifyUser.verifyFactory,
+  productController.getAllProduct
+);
 
 productRoute.put("/:id", productController.updateProduct);
 

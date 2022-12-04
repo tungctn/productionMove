@@ -12,7 +12,7 @@ function Produce() {
         <div class="w-full">
             <Default tagName="sx">
                 <div className="w-full h-full">
-                    <div className="mx-auto mt-5 text-3xl text-inherit text-orange-600"> Đơn sản xuất</div>
+                    <div className="mx-auto mt-5 text-3xl text-inherit text-blue-600"> Đơn sản xuất</div>
                     <div className="w-1/2 mt-20 mx-auto flex flex-col space-y-10">
                         <div className="flex flex-row space-x-10">
                             <div className="w-1/3 text-xl text-right"> Dòng sản phẩm :</div>
@@ -23,7 +23,6 @@ function Produce() {
                                         width: 200,
                                     }}
                                     onChange={handleChange}
-                                    status='warning'
                                 >
                                     <OptGroup label="ProductLine">
                                         <Option value="Dòng sản phẩm 1">Dòng sản phẩm 1</Option>
