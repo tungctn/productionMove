@@ -1,22 +1,23 @@
 import { Button, Select, Table } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./index.scss";
 
 const TableInfo = (props) => {
-  const { dataColumn, dataSource, onRow } = props;
+  const { dataColumn, dataSource, onRow, isLoading } = props;
   const [pagination, setPagination] = useState({
     position: ["bottomCenter"],
-    pageSize: 1,
+    pageSize: 3,
     showSizeChanger: false,
   });
+
   const handleChange = (value) => {
     setPagination((preState) => ({ ...preState, pageSize: value }));
   };
+
   return (
     <div>
       <Select
-        defaultValue={1}
-        // style={{ width: 120 }}
+        defaultValue={3}
         onChange={handleChange}
         options={[
           {
@@ -39,6 +40,7 @@ const TableInfo = (props) => {
         dataSource={dataSource}
         pagination={pagination}
         onRow={onRow}
+        loading={isLoading}
       />
     </div>
   );

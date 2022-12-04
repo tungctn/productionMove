@@ -6,5 +6,8 @@ export const SET_AUTH_FAILED = "SET_AUTH_FAILED";
 export const SET_USER_LIST = "SET_USER_LIST";
 export const SET_USER_UPDATE = "SET_USER_UPDATE";
 export const SET_USER_DELETE = "SET_USER_DELETE";
+export const SET_USER_ADD = "SET_USER_ADD";
 
 export const SET_PRODUCTLINE_LIST = "SET_PRODUCTLINE_LIST";
+
+export const SET_PRODUCT_LIST = "SET_PRODUCT_LIST"

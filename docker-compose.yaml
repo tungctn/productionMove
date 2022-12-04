@@ -3,10 +3,11 @@ services:
   server:
     build: ./server
     ports:
-      - target: 8084
-        published: 8084
-        protocol: tcp
-        mode: host
+      # - target: 8001
+      #   published: 8001
+      #   protocol: tcp
+      #   mode: host
+      - "8001:8001"
     volumes:
       - ./server:/app
       - /app/node_modules

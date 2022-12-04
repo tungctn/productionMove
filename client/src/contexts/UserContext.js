@@ -5,9 +5,15 @@ import {
   useReducer,
   useState,
 } from "react";
-import { getListUser } from "../api/user";
-import { SET_USER_LIST } from "../action";
+import { createUser, deleteUser, getListUser, updateUser } from "../api/user";
+import {
+  SET_USER_ADD,
+  SET_USER_DELETE,
+  SET_USER_LIST,
+  SET_USER_UPDATE,
+} from "../action";
 import { UserReducer } from "../reducers/UserReducer";
+import { useAppContext } from "./AppContext";
 
 export const UserContext = createContext();
 
@@ -17,6 +23,7 @@ export const initState = {
 
 const UserContextProvider = (props) => {
   const [userState, dispatch] = useReducer(UserReducer, initState);
+  const { convertObjectToArray, openNotification } = useAppContext();
 
   const loadListUser = async () => {
     const response = await getListUser();
@@ -34,10 +41,61 @@ const UserContextProvider = (props) => {
     loadListUser();
   }, []);
 
+  const handleAddUser = async (createForm) => {
+    const response = await createUser(createForm);
+    if (response.success) {
+      openNotification("success", response.msg);
+      // const newList = userState.listUser.push(createForm);
+      dispatch({
+        type: SET_USER_ADD,
+        payload: {
+          ...response.data,
+        },
+      });
+      console.log(userState);
+    } else {
+      openNotification("error", "Failed");
+    }
+  };
+
+  const handleEditUser = async (editForm, id) => {
+    const response = await updateUser(convertObjectToArray(editForm), id);
+    if (response.success) {
+      openNotification("success", response.msg);
+      dispatch({
+        type: SET_USER_UPDATE,
+        payload: {
+          ...editForm,
+          id: id,
+        },
+      });
+    } else {
+      openNotification("error", "Failed");
+    }
+  };
+
+  const handleDeleteUser = async (id) => {
+    const response = await deleteUser(id);
+    if (response.success) {
+      openNotification("success", response.msg);
+      dispatch({
+        type: SET_USER_DELETE,
+        payload: {
+          id: id,
+        },
+      });
+    } else {
+      openNotification("error", "Failed");
+    }
+  };
+
   const data = {
     userState,
     dispatch,
-    loadListUser
+    loadListUser,
+    handleEditUser,
+    handleDeleteUser,
+    handleAddUser,
   };
 
   return (

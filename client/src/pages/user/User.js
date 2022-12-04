@@ -13,8 +13,6 @@ import { useUserContext } from "../../contexts/UserContext";
 import Default from "../../Layouts/Default";
 
 const User = () => {
-  const [visible, setVisible] = useState(false);
-  const [id, setId] = useState();
   const dataColumn = [
     {
       title: "STT",
@@ -66,15 +64,9 @@ const User = () => {
     };
   });
 
-  const handelCancel = () => {
-    setVisible(false);
-  };
-
-  const setValue = (id) => {
-    setVisible(true);
-    setId(id);
-  };
-
+  useEffect(() => {
+    console.log(listUser);
+  }, []);
   return (
     <div className="w-full">
       <Default tagName="tk">
@@ -82,6 +74,7 @@ const User = () => {
         <div className="mt-5">
           <AddUser />
           <TableInfo dataColumn={dataColumn} dataSource={dataSource} />
+          {/* dsds */}
         </div>
       </Default>
     </div>
