@@ -1,7 +1,13 @@
-FROM node:16
+FROM node:16.16.0
+
 WORKDIR /app
-COPY ./package.json ./package.json
-COPY ./index.js ./index.js
-RUN yarn install 
-EXPOSE 8001
-CMD ["yarn", "start"]
+
+COPY package.json .
+
+RUN npm install
+
+COPY . .
+
+EXPOSE 8084
+
+CMD ["npm", "start"]

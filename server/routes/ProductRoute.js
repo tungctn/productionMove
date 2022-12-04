@@ -2,13 +2,9 @@ const productRoute = require("express").Router();
 const productController = require("../Controllers/ProductController");
 const verifyUser = require("../Middleware/verifyUser");
 
-productRoute.post(
-  "/",
-  verifyUser.verifyFactory,
-  productController.createProduct
-);
+productRoute.post("/", verifyUser.verifyAdmin, productController.createProduct);
 
-productRoute.get("/");
+productRoute.get("/", productController.productList);
 
 productRoute.put("/:id", productController.updateProduct);
 

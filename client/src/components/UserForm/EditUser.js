@@ -14,7 +14,7 @@ const EditUser = (props) => {
   const [formData, setFormData] = useState({});
   const navigate = useNavigate();
   const { convertObjectToArray, openNotification } = useAppContext();
-  const { loadListUser } = useUserContext();
+  const { loadListUser, handleEditUser } = useUserContext();
   const loadUser = async (id) => {
     const response = await getUser(id);
     if (response.success) {
@@ -37,22 +37,18 @@ const EditUser = (props) => {
   };
 
   const handleOk = async () => {
-    const response = await updateUser(convertObjectToArray(formData), id);
-    if (response.success) {
-      openNotification("success", response.msg);
-      loadListUser();
-    }
+    await handleEditUser(formData, id);
     setVisible(false);
   };
 
   useEffect(() => {
     loadUser(id);
-    if (Object.keys(user).length > 0) {
+    if (Object.keys(user).length > 0 && visible) {
       form.setFieldsValue({
         ...user,
       });
     }
-  }, [id, Object.keys(user).length]);
+  }, [id, Object.keys(user).length, visible]);
 
   return (
     <div>

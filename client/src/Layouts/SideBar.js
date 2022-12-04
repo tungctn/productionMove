@@ -7,9 +7,13 @@ import {
   InsuranceFilled,
 } from "@ant-design/icons";
 import { Menu } from "antd";
+import { useAppContext } from "../contexts/AppContext";
 
 const SideBar = ({ tag, ...props }) => {
   const navigate = useNavigate();
+  const {
+    authState: { user },
+  } = useAppContext();
 
   return (
     <aside
@@ -88,22 +92,24 @@ const SideBar = ({ tag, ...props }) => {
               <span className="ml-3">Dòng sản phẩm</span>
             </Link>
           </li>
-          <li>
-            <Link
-              to="/user"
-              className={
-                tag !== "tk"
-                  ? "flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-                  : "flex items-center p-2 text-base font-normal text-gray-900 rounded-lg bg-orange-100"
-              }>
-              <img
-                src="http://localhost:3000/image/kho.png"
-                alt="kho"
-                className="w-4 md:w-4 lg:w-6"
-              />
-              <span className="ml-3">Tài khoản</span>
-            </Link>
-          </li>
+          {user.role === 1 && (
+            <li>
+              <Link
+                to="/user"
+                className={
+                  tag !== "tk"
+                    ? "flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                    : "flex items-center p-2 text-base font-normal text-gray-900 rounded-lg bg-orange-100"
+                }>
+                <img
+                  src="http://localhost:3000/image/kho.png"
+                  alt="kho"
+                  className="w-4 md:w-4 lg:w-6"
+                />
+                <span className="ml-3">Tài khoản</span>
+              </Link>
+            </li>
+          )}
         </ul>
       </div>
     </aside>
