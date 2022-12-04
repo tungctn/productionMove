@@ -1,9 +1,13 @@
 const productLineRoute = require('express').Router()
 const ProductLineController = require('../Controllers/ProductLineController')
-productLineRoute.post('/', ProductLineController.createProductLine)
+const verifyUser = require("../Middleware/verifyUser");
+
 productLineRoute.get('/:id', ProductLineController.getProductLine)
-productLineRoute.put('/:id', ProductLineController.updateProductLine)
-productLineRoute.delete('/:id', ProductLineController.deleteProductLine)
 productLineRoute.get('/', ProductLineController.productLineList)
+
+productLineRoute.post('/', verifyUser.verifyAdmin, ProductLineController.createProductLine)
+productLineRoute.put('/:id', verifyUser.verifyAdmin, ProductLineController.updateProductLine)
+productLineRoute.delete('/:id', verifyUser.verifyAdmin, ProductLineController.deleteProductLine)
+
 
 module.exports = productLineRoute
