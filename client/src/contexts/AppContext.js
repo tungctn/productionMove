@@ -91,6 +91,7 @@ const AppContextProvider = (props) => {
 
   useEffect(() => {
     loadUser();
+    setAuthHeader(localStorage["token"]);
   }, []);
 
   const handleLogin = async (data) => {
