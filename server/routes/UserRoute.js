@@ -8,10 +8,15 @@ userRouter.get(
   MiddlewareAuth.verifyToken,
   UserController.getCurrentUser
 );
-userRouter.post(
-  "/create",
-  MiddlewareAuth.verifyToken,
-  UserController.createUser
-);
+
+userRouter.get("/", UserController.getListUser);
+
+userRouter.get("/:id", UserController.getUser);
+
+userRouter.post("/", UserController.createUser);
+
+userRouter.put("/:id", UserController.updateUser);
+
+userRouter.delete("/:id", UserController.deleteUser);
 
 module.exports = userRouter;

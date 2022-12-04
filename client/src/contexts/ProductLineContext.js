@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useReducer } from "react";
-import { getAllProductLine, getProductLine } from "../api/productline";
+import { getAllProductLine, updateProductLine } from "../api/productline";
 import { ProductLineReducer } from "../reducers/ProductLineReducer";
 import { SET_PRODUCTLINE_INFO, SET_PRODUCTLINE_LIST } from "../action";
 import { useParams } from "react-router-dom";
@@ -27,8 +27,6 @@ const ProductLineContextProvider = (props) => {
     }
   };
 
-  
-
   useEffect(() => {
     loadListProductLine();
   }, []);
@@ -36,6 +34,7 @@ const ProductLineContextProvider = (props) => {
   const data = {
     productlineState,
     dispatch,
+    loadListProductLine
   };
 
   return (

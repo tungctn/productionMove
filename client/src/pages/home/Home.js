@@ -4,8 +4,10 @@ import Title from "antd/lib/skeleton/Title";
 import React, { useContext, useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import App from "../../App";
-import ProduceSearch from "../../components/ProduceComponent/ProduceSearch";
+import ProduceSearch from "../../components/Produce/ProduceSearch";
+import TableInfo from "../../components/TableInfo/TableInfo";
 import { AppContext, useAppContext } from "../../contexts/AppContext";
+import { useProductContext } from "../../contexts/ProductContext";
 import Default from "../../Layouts/Default";
 import "./index.css";
 
@@ -16,29 +18,29 @@ const Home = () => {
     authState: { user },
     authState,
   } = useAppContext();
-  useEffect(() => {
-    console.log(user);
-    // console.log(authState);
-  }, []);
-
-  const onSearch = (value) => {
-    console.log(value);
-  };
-  const Column = [
+  const {
+    productState: { listProduct },
+  } = useProductContext();
+  const dataColumn = [
+    {
+      title: "STT",
+      dataIndex: "key",
+      key: "key",
+    },
     {
       title: "Mã định danh",
-      dataIndex: "code",
-      key: "code",
+      dataIndex: "identifier",
+      key: "identifier",
     },
     {
       title: "Dòng sản phẩm",
-      dataIndex: "productline",
-      key: "productline",
+      dataIndex: "productLine",
+      key: "productLine",
     },
     {
-      title: "Nơi sản xuất",
-      dataIndex: "location",
-      key: "location",
+      title: "Trạng thái",
+      dataIndex: "status",
+      key: "status",
     },
     {
       title: "Ngày sản xuất",
@@ -46,51 +48,23 @@ const Home = () => {
       key: "createdAt",
     },
   ];
-  const data = [
-    {
-      key: "1",
-      id: "A",
-      productline: "A",
-      location: "A",
-      date: "A",
-    },
-    {
-      key: "1",
-      id: "A",
-      productline: "A",
-      location: "A",
-      date: "A",
-    },
-    {
-      key: "1",
-      id: "A",
-      productline: "A",
-      location: "A",
-      date: "A",
-    },
-    {
-      key: "1",
-      id: "A",
-      productline: "A",
-      location: "A",
-      date: "A",
-    },
-  ];
+  const dataSource = listProduct.map((product, index) => {
+    return {
+      ...product,
+      key: index + 1,
+      productLine: product.productLine.name,
+      createdAt: product.createdAt.split("T")[0],
+    };
+  });
 
   return (
     <div className="w-full">
-      <div className="container m-auto">
-        <Default tagName="kho">
-          <ProduceSearch></ProduceSearch>
-          <div className="w-11/12 mx-auto mt-5">
-            <Table
-              columns={Column}
-              dataSource={data}
-              pagination={{ position: ["bottomCenter"] }}
-              ></Table>
-          </div>
-        </Default>
-      </div>
+      <Default tagName="kho">
+        <ProduceSearch></ProduceSearch>
+        <div className="mt-5">
+          <TableInfo dataColumn={dataColumn} dataSource={dataSource} />
+        </div>
+      </Default>
     </div>
   );
 };

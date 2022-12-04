@@ -1,13 +1,9 @@
 const AuthMiddleware = require("./isLogged");
 
-module.exports.verifyAdmin = async (req, res, next) => {
+module.exports.verifyAdmin = (req, res, next) => {
   AuthMiddleware.verifyToken(req, res, () => {
     if (req.user.role === 1) {
       next();
-      return res.status(200).json({
-        success: true,
-        msg: "successful",
-      });
     } else {
       return res.status(403).json({
         success: false,
@@ -51,6 +47,19 @@ module.exports.verifyWarrantyCenter = async (req, res, next) => {
       return res.status(403).json({
         success: false,
         msg: "You're not Warranty Center",
+      });
+    }
+  });
+};
+
+module.exports.verifyFactory_WarrantyCenter_Store = async (req, res, next) => {
+  AuthMiddleware.verifyToken(req, res, () => {
+    if (req.user.role === 2 || req.user.role === 3 || req.user.role === 4) {
+      next();
+    } else {
+      return res.status(403).json({
+        success: false,
+        msg: "You're not Warranty Center or Factory or Store",
       });
     }
   });

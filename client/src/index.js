@@ -7,15 +7,23 @@ import reportWebVitals from "./reportWebVitals";
 import AppContextProvider from "./contexts/AppContext";
 import { BrowserRouter } from "react-router-dom";
 import ProductLineContextProvider from "./contexts/ProductLineContext";
+import UserContextProvider from "./contexts/UserContext";
+import ProductContextProvider, {
+  ProductContext,
+} from "./contexts/ProductContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
-    <ProductLineContextProvider>
-      <AppContextProvider>
-        <App />
-      </AppContextProvider>
-    </ProductLineContextProvider>
+    <AppContextProvider>
+      <ProductContextProvider>
+        <ProductLineContextProvider>
+          <UserContextProvider>
+            <App />
+          </UserContextProvider>
+        </ProductLineContextProvider>
+      </ProductContextProvider>
+    </AppContextProvider>
   </BrowserRouter>
 );
 

@@ -1,4 +1,4 @@
-import {SET_PRODUCT_LIST } from "../action";
+import { SET_PRODUCT_LIST } from "../action";
 
 export const ProductReducer = (state, action) => {
   switch (action.type) {

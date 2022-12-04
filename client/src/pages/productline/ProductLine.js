@@ -1,7 +1,7 @@
-import { Select } from "antd";
+import { Button, Select } from "antd";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import ProduceSearch from "../../components/ProduceComponent/ProduceSearch";
+import ProduceSearch from "../../components/Produce/ProduceSearch";
 import TableInfo from "../../components/TableInfo/TableInfo";
 import { useAppContext } from "../../contexts/AppContext";
 import { useProductLineContext } from "../../contexts/ProductLineContext";
@@ -34,12 +34,9 @@ const ProductLine = () => {
 
   const navigate = useNavigate();
 
-  // const {
-  //   authState: { listProductLine },
-  // } = useAppContext();
-
   const {
     productlineState: { listProductLine },
+    loadListProductLine,
   } = useProductLineContext();
 
   const dataSource = listProductLine.map((productline, index) => {
@@ -51,14 +48,22 @@ const ProductLine = () => {
   });
 
   useEffect(() => {
-    console.log(listProductLine);
+    loadListProductLine();
   }, []);
 
   return (
     <div className="w-full">
       <Default tagName="dsp">
         <ProduceSearch />
-        <div className="w-11/12 mx-auto mt-5">
+        <div className="mt-5">
+          <Button
+            className="float-right"
+            type="primary"
+            onClick={() => {
+              navigate("/productline/create");
+            }}>
+            Add
+          </Button>
           <TableInfo
             dataColumn={dataColumn}
             dataSource={dataSource}

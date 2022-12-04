@@ -41,6 +41,10 @@ const SideBar = ({ tag, childrenTag, ...props }) => {
     navigate(`/${record.key}`);
   };
 
+  const {
+    authState: { user },
+  } = useAppContext();
+
   return (
     <aside
       className="basis-1/6 bg-white drop-shadow-md justify-between items-center"
@@ -121,17 +125,40 @@ const SideBar = ({ tag, childrenTag, ...props }) => {
             )}
           </li>
           <li>
-            {tag !== "dsp" && (
+            <Link
+              to="/productline"
+              className={
+                tag !== "dsp"
+                  ? "flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                  : "flex items-center p-2 text-base font-normal text-gray-900 rounded-lg bg-orange-100"
+              }>
+              <img
+                src="http://localhost:3000/image/kho.png"
+                alt="dsp"
+                className="w-4 md:w-4 lg:w-6"
+              />
+              <span className="ml-3">Dòng sản phẩm</span>
+            </Link>
+          </li>
+          {user.role === 1 && (
+            <li>
               <Link
-                to="/productline"
-                className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                to="/user"
+                className={
+                  tag !== "tk"
+                    ? "flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                    : "flex items-center p-2 text-base font-normal text-gray-900 rounded-lg bg-orange-100"
+                }>
                 <img
-                  src="http://localhost:3000/image/request.png"
-                  alt="request"
-                  className="w-4 md:w-4 lg:w-6"></img>
-                <span className="ml-3">Dòng sản phẩm</span>
+                  src="http://localhost:3000/image/kho.png"
+                  alt="kho"
+                  className="w-4 md:w-4 lg:w-6"
+                />
+                <span className="ml-3">Tài khoản</span>
               </Link>
+              </li>
             )}
+            <li>
             {tag === "dsp" && (
               <div className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg bg-[#e6f4ff]">
                 <img
@@ -231,13 +258,6 @@ const SideBar = ({ tag, childrenTag, ...props }) => {
             )}
           </li>
         </ul>
-        {/* <Menu
-          defaultSelectedKeys={["home"]}
-          mode="inline"
-          theme="light"
-          items={items}
-          onClick={handleCLick}
-        /> */}
       </div>
     </aside>
   );
