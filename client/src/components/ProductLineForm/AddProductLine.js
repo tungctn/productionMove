@@ -7,13 +7,13 @@ import { useAppContext } from "../../contexts/AppContext";
 const AddProductLine = () => {
   const navigate = useNavigate();
   const { openNotification } = useAppContext();
-  
+
   const onFinish = async (values) => {
     const response = await createProductLine(values);
     if (response.success) {
       openNotification("success", response.msg);
-      
-      navigate('/productline');
+
+      navigate("/productline");
     }
   };
   return (
@@ -34,6 +34,30 @@ const AddProductLine = () => {
             },
           ]}>
           <Input name="name" placeholder="input placeholder" />
+        </Form.Item>
+        <Form.Item
+          label="Hình ảnh"
+          type="file"
+          name="img"
+          rules={[
+            {
+              required: true,
+              message: "Please input your img!",
+            },
+          ]}>
+          <Input type="file" name="img" placeholder="input placeholder" />
+        </Form.Item>
+        <Form.Item
+          label="Mã dòng sản phẩm"
+          type="text"
+          name="code"
+          rules={[
+            {
+              required: true,
+              message: "Please input your code!",
+            },
+          ]}>
+          <Input name="code" placeholder="input placeholder" />
         </Form.Item>
         {/* Khối lượng bản thân */}
         <Form.Item

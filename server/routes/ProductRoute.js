@@ -2,6 +2,7 @@ const productRoute = require("express").Router();
 const productController = require("../Controllers/ProductController");
 const verifyUser = require("../Middleware/verifyUser");
 
+
 productRoute.get(
   "/",
   verifyUser.verifyFactory_WarrantyCenter_Store,

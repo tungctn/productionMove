@@ -9,17 +9,13 @@ const DeleteUser = (props) => {
   const { id } = props;
   const [visible, setVisible] = useState(false);
   const { openNotification } = useAppContext();
-  const { loadListUser } = useUserContext();
+  const { loadListUser, handleDeleteUser } = useUserContext();
   const handelCancel = () => {
     setVisible(false);
   };
 
   const handleOk = async () => {
-    const response = await deleteUser(id);
-    if (response.success) {
-      openNotification("success", response.msg);
-      loadListUser();
-    }
+    await handleDeleteUser(id)
     setVisible(false);
   };
 

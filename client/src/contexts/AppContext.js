@@ -26,7 +26,6 @@ export const initState = {
   isLoading: false,
   user: null,
   isAuthenticated: false,
-  listUser: [],
 };
 
 const AppContextProvider = (props) => {

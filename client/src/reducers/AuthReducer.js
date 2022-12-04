@@ -32,26 +32,7 @@ export const AuthReducer = (state, action) => {
         ...state,
         listUser: action.payload.users,
       };
-    case SET_USER_UPDATE:
-      return {
-        ...state,
-        listUser: state.listUser.map((item) => {
-          if (item.id === action.payload.id) {
-            return {
-              ...item,
-              ...action.payload,
-            };
-          }
-          return item;
-        }),
-      };
-    case SET_USER_DELETE:
-      return {
-        ...state,
-        listUser: state.listUser.filter(
-          (item) => item.id !== action.payload.id
-        ),
-      };
+    
     default:
       throw new Error("Action not match");
   }

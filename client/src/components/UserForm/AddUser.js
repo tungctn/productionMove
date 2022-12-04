@@ -10,7 +10,7 @@ const AddUser = () => {
   const [formData, setFormData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const { openNotification } = useAppContext();
-  const { loadListUser } = useUserContext();
+  const { loadListUser, handleAddUser } = useUserContext();
 
   const showModal = () => {
     setVisible(true);
@@ -28,11 +28,7 @@ const AddUser = () => {
 
   const handleOk = async () => {
     setIsLoading(true);
-    const response = await createUser(formData);
-    if (response.success) {
-      openNotification("success", response.msg);
-      loadListUser();
-    }
+    await handleAddUser(formData);
     setVisible(false);
   };
   return (
