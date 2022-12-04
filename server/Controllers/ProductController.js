@@ -34,9 +34,9 @@ module.exports.createProduct = async (req, res, next) => {
   }
 };
 
-module.exports.productList = async (req, res, next) => {
+module.exports.getAllProduct = async (req, res, next) => {
   try {
-    const listProduct = await ProductModel.find();
+    const listProduct = await ProductModel.find({location: req.user.id}).populate('productLine');
     return res.status(200).json({
       success: true,
       msg: "successful",
