@@ -5,7 +5,6 @@ const verifyUser = require("../Middleware/verifyUser");
 productRoute.get(
   "/",
   verifyUser.verifyFactory_WarrantyCenter_Store,
-  // verifyUser.verifyFactory,
   productController.getAllProduct
 );
 

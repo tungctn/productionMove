@@ -5,8 +5,7 @@ dotenv.config();
 module.exports.verifyToken = (req, res, next) => {
   const token = req.header("Authorization");
   const tokenCookie = req.cookies["accessToken"];
-  if (token || tokenCookie) {
-    // const accessToken = token.split(" ")[1];
+  if (token && tokenCookie) {
     const accessToken = token.replace("Bearer ", "");
     jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
       if (err) {

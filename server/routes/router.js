@@ -5,11 +5,13 @@ const userRoute = require("./UserRoute");
 const productLineRoute = require("./ProductLineRoute");
 const productRoute = require("./ProductRoute");
 const requestRoute = require("./RequestRoute");
+const factoryRoute = require("./FactoryRoute");
 
 appRoute.use('/auth', authRoute);
 appRoute.use('/user', userRoute);
 appRoute.use('/productline', productLineRoute);
 appRoute.use('/product',productRoute);
 appRoute.use('/request', requestRoute);
+appRoute.use('/factory', factoryRoute);
 
 module.exports = appRoute;
