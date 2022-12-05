@@ -20,6 +20,13 @@ import ProductLineUpdate from "./pages/productline/ProductLineUpdate";
 import { useEffect } from "react";
 import User from "./pages/user/User";
 import ProductLineAdd from "./pages/productline/ProductLineAdd";
+import jwt from "jwt-decode";
+import removeCookie from "./hooks/removeCookie";
+import { setAuthHeader } from "./api/auth";
+import RequireNotAdmin from "./routes/RequireNotAdmin";
+import Import from "./pages/import/Productline";
+import ImportDetail from "./pages/import/ImportDetail";
+import Factory from "./pages/import/Factory";
 function App() {
   const {
     authState: { isLoading },
@@ -83,7 +90,9 @@ function App() {
             <Route path="/" element={<Login />} />
           </Route>
           <Route path="/" element={<RequireAuth />}>
-            <Route path="/home" element={<Home />} />
+            <Route path="/" element={<RequireNotAdmin />}>
+              <Route path="/home" element={<Home />} />
+            </Route>
             <Route path="/produce" element={<Produce />} />
             <Route path="/request" element={<Request />} />
             {/* productline */}
@@ -96,8 +105,11 @@ function App() {
             <Route path="/productline/create" element={<ProductLineAdd />} />
             {/* account */}
             <Route path="/user" element={<User />} />
+            <Route path="/import/productline" element={<Import />} />
+            <Route path="/import/productline/:id" element={<ImportDetail />} />
+            <Route path="/import/productline/:id/factory" element={<Factory />} />
           </Route>
-          <Route path="/*" element={<Page403 />} />
+          <Route path="/403" element={<Page403 />} />
         </Routes>
       </div>
     </Spin>

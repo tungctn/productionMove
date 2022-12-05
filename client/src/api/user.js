@@ -1,9 +1,7 @@
 import axios from "./axios";
 
 export const getProfile = async () => {
-  const response = await axios.get("/user/profile", {
-    withCredentials: true,
-  });
+  const response = await axios.get("/user/profile");
   return response.data;
 };
 

@@ -1,4 +1,4 @@
-import { Image, Descriptions, Modal } from "antd";
+import { Image, Descriptions, Modal, Button } from "antd";
 import React, { useEffect, useState } from "react";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
@@ -7,7 +7,7 @@ import ProductLineEdit from "./EditProductLine";
 import ProductLineDelete from "./DeleteProductLine";
 
 const ProductLineDetail = (props) => {
-  const { id } = props;
+  const { id, page } = props;
   const navigate = useNavigate();
   const [productLine, setProductLine] = useState({});
   const [visible, setVisible] = useState(false);
@@ -34,14 +34,28 @@ const ProductLineDetail = (props) => {
   return (
     <div>
       <Image src={productLine.img} width={400} preview={false} />
-      <div className="text-right text-2xl text-cyan-500">
-        <EditOutlined
-          onClick={() => {
-            navigate(`/productline/${id}/edit`);
-          }}
-        />
-        <DeleteOutlined onClick={handleDelete} />
-      </div>
+      {page === "productline" && (
+        <div className="text-right text-2xl text-cyan-500">
+          <EditOutlined
+            onClick={() => {
+              navigate(`/productline/${id}/edit`);
+            }}
+          />
+          <DeleteOutlined onClick={handleDelete} />
+        </div>
+      )}
+      {page === "import" && (
+        <div className="text-right text-2xl text-cyan-500">
+          <Button
+            onClick={() => {
+              navigate(`/import/productline/${id}/factory`);
+            }}
+            type="primary">
+            Đặt hàng
+          </Button>
+        </div>
+      )}
+
       <Descriptions title="Thông tin chi tiết" bordered column={1}>
         <Descriptions.Item label="Tên dòng xe">
           {productLine.name}
@@ -74,6 +88,7 @@ const ProductLineDetail = (props) => {
           {productLine.engineType}
         </Descriptions.Item>
       </Descriptions>
+
       <ProductLineDelete
         id={id}
         handleCancel={handleCancel}

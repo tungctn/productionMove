@@ -5,15 +5,16 @@ import { useProductLineContext } from "../../contexts/ProductLineContext";
 import { useState } from "react";
 import { createProduct } from "../../api/product";
 import { useAppContext } from "../../contexts/AppContext";
+import { useNavigate } from "react-router-dom";
 function Produce() {
   const { Option, OptGroup } = Select;
   const [formData, setFormData] = useState({});
-
+  const navigate = useNavigate();
   const {
     productlineState: { listProductLine },
   } = useProductLineContext();
 
-  const { openNotification } = useAppContext();
+  const { openNotification, refreshPage } = useAppContext();
 
   const onValueChange = (e) => {
     const propName = e.target.name;
@@ -30,6 +31,8 @@ function Produce() {
     const response = await createProduct(formData);
     if (response.success) {
       openNotification("success", response.msg);
+      navigate("/home");
+      refreshPage();
     }
   };
 
@@ -46,7 +49,6 @@ function Produce() {
               <div className="w-1/3 text-xl text-right"> Dòng sản phẩm :</div>
               <div className="w-2/3">
                 <Select
-                
                   defaultValue="Chọn dòng sản phẩm"
                   style={{
                     width: 200,

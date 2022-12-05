@@ -38,7 +38,7 @@ const AddUser = () => {
       </Button>
       <Modal
         title="Sửa thông tin"
-        confirmLoading={isLoading}
+        // confirmLoading={isLoading}
         open={visible}
         onOk={handleOk}
         destroyOnClose={true}

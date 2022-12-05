@@ -19,6 +19,8 @@ import {
   SET_PRODUCTLINE_LIST,
 } from "../action";
 import { getAllProductLine } from "../api/productline";
+import removeCookie from "../hooks/removeCookie";
+import getCookie from "../hooks/getCookie";
 
 export const AppContext = createContext();
 
@@ -49,6 +51,10 @@ const AppContextProvider = (props) => {
     }
     return result;
   };
+
+  function refreshPage() {
+    window.location.reload(false);
+  }
 
   const convertRoleToName = (role) => {
     switch (role) {
@@ -91,7 +97,6 @@ const AppContextProvider = (props) => {
 
   useEffect(() => {
     loadUser();
-    setAuthHeader(localStorage["token"]);
   }, []);
 
   const handleLogin = async (data) => {
@@ -110,6 +115,7 @@ const AppContextProvider = (props) => {
         },
       });
       openNotification("success", "Login success");
+      refreshPage();
       console.log(localStorage);
     } else {
       console.log(response.msg);
@@ -122,7 +128,7 @@ const AppContextProvider = (props) => {
 
   const handleLogout = async () => {
     dispatch({ type: SET_AUTH_BEGIN });
-    const response = await logoutAPI();
+    await logoutAPI();
     localStorage.removeItem("token");
     dispatch({ type: SET_AUTH_FAILED });
   };
@@ -137,6 +143,7 @@ const AppContextProvider = (props) => {
     handleLogout,
     convertObjectToArray,
     convertRoleToName,
+    refreshPage,
   };
 
   return (
