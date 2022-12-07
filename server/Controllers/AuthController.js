@@ -12,9 +12,9 @@ module.exports.genarateAccessToken = (user) => {
       email: user.email,
       admin: user.admin,
       role: user.role,
+      requestList: user.requestList,
     },
-    process.env.ACCESS_TOKEN_SECRET,
-    // { expiresIn: "365d" }
+    process.env.ACCESS_TOKEN_SECRET
   );
 };
 

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import "./index.scss";
 
 const TableInfo = (props) => {
-  const { dataColumn, dataSource, onRow, isLoading, setTitle } = props;
+  const { dataColumn, dataSource, onRow, isLoading, setTitle, role } = props;
   const [pagination, setPagination] = useState({
     position: ["bottomCenter"],
     pageSize: 5,

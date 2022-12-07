@@ -3,7 +3,6 @@ import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
 import Login from "./pages/login/Login";
 import Home from "./pages/home/Home";
 import Produce from "./pages/home/Produce";
-import Request from "./pages/home/Request";
 import "./index.scss";
 import Page403 from "./pages/error/403";
 import { useAppContext } from "./contexts/AppContext";
@@ -27,9 +26,11 @@ import RequireNotAdmin from "./routes/RequireNotAdmin";
 import Import from "./pages/import/Productline";
 import ImportDetail from "./pages/import/ImportDetail";
 import Factory from "./pages/import/Factory";
+import Request from "./pages/request/Request";
+import axios from "./api/axios";
 function App() {
   const {
-    authState: { isLoading },
+    authState: { isLoading, user },
   } = useAppContext();
 
   const antIcon = <LoadingOutlined />;
@@ -83,6 +84,13 @@ function App() {
 
   return (
     <Spin spinning={isLoading} indicator={antIcon}>
+      <Button
+        onClick={async () => {
+          const response = await axios.get("/request");
+          console.log(response.data);
+        }}>
+        test
+      </Button>
       <div className="App">
         {/* <Pie {...config} /> */}
         <Routes>
@@ -107,7 +115,10 @@ function App() {
             <Route path="/user" element={<User />} />
             <Route path="/import/productline" element={<Import />} />
             <Route path="/import/productline/:id" element={<ImportDetail />} />
-            <Route path="/import/productline/:id/factory" element={<Factory />} />
+            <Route
+              path="/import/productline/:id/factory"
+              element={<Factory />}
+            />
           </Route>
           <Route path="/403" element={<Page403 />} />
         </Routes>

@@ -6,7 +6,7 @@ import {
   useReducer,
   useState,
 } from "react";
-import { notification, Spin } from "antd";
+import { notification, Spin, Switch } from "antd";
 import { loginAPI, logoutAPI, setAuthHeader } from "../api/auth";
 import { AuthReducer } from "../reducers/AuthReducer";
 import { useNavigate } from "react-router-dom";
@@ -68,6 +68,38 @@ const AppContextProvider = (props) => {
         return "Trung tâm bảo hành";
       default:
         throw new Error("Role is not match");
+    }
+  };
+
+  const convertTypeToName = (type) => {
+    switch (type) {
+      case 0:
+        return "yêu cầu nhập sản phẩm";
+      case 1:
+        return "yêu cầu bảo hành";
+      case 2:
+        return "yêu cầu nhận sản phẩm đã bảo hành xong";
+      case 3:
+        return "yêu cầu trả lại sản phẩm do không bảo hành được";
+      case 4:
+        return "yêu cầu trả lại cơ sở sản xuất do lâu không bán được";
+      default:
+        throw new Error("type is not match");
+    }
+  };
+
+  const convertStatusToName = (status) => {
+    switch (status) {
+      case 1:
+        return "requested";
+      case 2:
+        return "pending";
+      case 3:
+        return "accept";
+      case 4:
+        return "reject";
+      default:
+        throw new Error("status is not match");
     }
   };
 
@@ -144,6 +176,8 @@ const AppContextProvider = (props) => {
     convertObjectToArray,
     convertRoleToName,
     refreshPage,
+    convertTypeToName,
+    convertStatusToName
   };
 
   return (

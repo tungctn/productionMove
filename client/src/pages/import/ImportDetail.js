@@ -7,7 +7,7 @@ const ImportDetail = () => {
   const { id } = useParams();
   return (
     <div>
-      <Default>
+      <Default tagName="nh">
         <ProductLineDetail id={id} page="import" />
       </Default>
     </div>
