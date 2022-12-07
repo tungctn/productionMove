@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { Column } from '@ant-design/plots';
 
-const DemoPie = (data, ...props) => {
+const DemoPie = (props) => {
+  const data = props.data;
   const config = {
     data,
     xField: 'type',

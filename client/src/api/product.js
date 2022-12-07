@@ -15,6 +15,6 @@ export const createProduct = async (data) => {
 
 export const getAllProduct = async () => {
   setAuthHeader(localStorage["token"]);
-  const response = await axios.get("/product", { withCredentials: true });
+  const response = await axios.get(`/product`, { withCredentials: true });
   return response.data;
 };

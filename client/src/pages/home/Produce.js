@@ -37,7 +37,7 @@ function Produce() {
     <div class="w-full">
       <Default tagName="sx">
         <div className="w-full h-full">
-          <div className="mx-auto mt-5 text-3xl text-inherit text-orange-600">
+          <div className="mx-auto mt-5 text-3xl text-blue-700 font-bold">
             {" "}
             Đơn sản xuất
           </div>
@@ -52,7 +52,7 @@ function Produce() {
                     width: 200,
                   }}
                   onChange={onSelectChange}
-                  status="warning">
+                  >
                   {listProductLine.map((productline, index) => {
                     return (
                       <Option value={productline._id}>

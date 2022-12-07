@@ -13,9 +13,6 @@ import Auth from "./routes/Auth";
 import RequireAuth from "./routes/RequireAuth";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { updateProduct } from "./api/product";
-import ProductLine from "./pages/productline/ProductLine";
-import ProductLineInfo from "./pages/productline/ProductLineInfo";
-import ProductLineEdit from "./pages/productline/ProductLineEdit";
 import Statistic from "./pages/statistic/Statistic";
 import Status from "./pages/statistic/Status";
 import { Pie } from "@ant-design/plots";
@@ -42,17 +39,18 @@ function App() {
             <Route path="/home" element={<Home />} />
             <Route path="/produce" element={<Produce />} />
             <Route path="/request" element={<Request />} />
-            {/* productline */}
+            {/* productline
             <Route path="/productline" element={<ProductLine />} />
             <Route path="/productline/:id" element={<ProductLineInfo />} />
             <Route path="/productline/:id/edit" element={<ProductLineEdit />} />
-            <Route path="/statistic" element={<Statistic />} />
-            <Route path="/statistic/status" element={<Status />} />
             <Route
               path="/productline/:id/edit"
               element={<ProductLineUpdate />}
             />
-            <Route path="/productline/create" element={<ProductLineAdd />} />
+            <Route path="/productline/create" element={<ProductLineAdd />} />*/}
+            {/*statistic*/}
+            <Route path="/statistic" element={<Statistic />} />
+            <Route path="/statistic/status" element={<Status />} />
             {/* account */}
             <Route path="/user" element={<User />} />
           </Route>

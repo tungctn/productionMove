@@ -8,6 +8,7 @@ import {
 } from "@ant-design/icons";
 import { Menu } from "antd";
 import { useState } from "react";
+import { useAppContext } from "../contexts/AppContext";
 
 const SideBar = ({ tag, childrenTag, ...props }) => {
   const navigate = useNavigate();
@@ -140,6 +141,7 @@ const SideBar = ({ tag, childrenTag, ...props }) => {
               <span className="ml-3">Dòng sản phẩm</span>
             </Link>
           </li>
+          {/*
           {user.role === 1 && (
             <li>
               <Link
@@ -157,7 +159,7 @@ const SideBar = ({ tag, childrenTag, ...props }) => {
                 <span className="ml-3">Tài khoản</span>
               </Link>
               </li>
-            )}
+              )}*/}
             <li>
             {tag === "dsp" && (
               <div className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg bg-[#e6f4ff]">

@@ -29,6 +29,7 @@ const ProductContextProvider = (props) => {
       });
     }
   };
+  console.log('productcontext');
 
   useEffect(() => {
     loadListProduct();
