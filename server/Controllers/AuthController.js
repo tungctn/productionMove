@@ -11,10 +11,10 @@ module.exports.genarateAccessToken = (user) => {
       name: user.name,
       email: user.email,
       admin: user.admin,
-      role: user.role
+      role: user.role,
+      requestList: user.requestList,
     },
-    process.env.ACCESS_TOKEN_SECRET,
-    // { expiresIn: "1d" }
+    process.env.ACCESS_TOKEN_SECRET
   );
 };
 
@@ -41,7 +41,7 @@ module.exports.loginUser = async (req, res) => {
     }
 
     if (user && validPassword) {
-      const accessToken = this.genarateAccessToken(user)
+      const accessToken = this.genarateAccessToken(user);
 
       res.cookie("accessToken", accessToken, {
         httpOnly: true,
@@ -64,11 +64,10 @@ module.exports.loginUser = async (req, res) => {
   }
 };
 
-
 module.exports.userLogout = async (req, res, next) => {
   res.clearCookie("accessToken");
   return res.status(200).json({
     success: true,
     msg: "Logout successful",
   });
-}
+};

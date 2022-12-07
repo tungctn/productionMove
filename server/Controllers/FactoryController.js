@@ -10,7 +10,7 @@ module.exports.quantityInStock = async (req, res, next) => {
         productLine: req.body.productLine,
         location: factory.id,
       });
-      quantityInStock.push({ factory: factory, amount: listProduct.length });
+      quantityInStock.push({ factory: factory, listProduct: listProduct });
     }
     return res.status(200).json({
       success: true,

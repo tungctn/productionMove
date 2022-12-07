@@ -1,12 +1,16 @@
-
-import { Outlet, Navigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Outlet, Navigate, useLocation } from "react-router-dom";
 import { useAppContext } from "../contexts/AppContext";
 
 const Auth = () => {
   console.log("Auth");
+  const [location, setLocation] = useState("/home");
+  useEffect(() => {
+    setLocation(window.location.pathname);
+  }, [window.location.pathname]);
 
   const {
-    authState: { isLoading, isAuthenticated },
+    authState: { isLoading, isAuthenticated, user },
   } = useAppContext();
   let body;
 
@@ -15,7 +19,13 @@ const Auth = () => {
   } else if (!isAuthenticated) {
     body = <Outlet />;
   } else {
-    body = <Navigate to="/home" />;
+    switch (user.role) {
+      case 1:
+        body = <Navigate to="/productline" />;
+        break;
+      default:
+        body = <Navigate to="/home" />;
+    }
   }
 
   return <>{body}</>;

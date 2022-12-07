@@ -1,17 +1,17 @@
-const mongoose = require('mongoose');
-var User = require('./UserModel')
-var Schema = mongoose.Schema
+const mongoose = require("mongoose");
+var User = require("./UserModel");
+var Schema = mongoose.Schema;
 const requestSchema = new mongoose.Schema(
   {
-    requester: { 
-        type: Schema.Types.ObjectId, 
-        required: true,
-        ref: 'User'
+    requester: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: "User",
     },
-    recipient: { 
-        type: Schema.Types.ObjectId,
-        required: true, 
-        ref: 'User' 
+    recipient: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: "User",
     },
     status: {
       type: Number,
@@ -19,19 +19,34 @@ const requestSchema = new mongoose.Schema(
         1, //'requested',
         2, //'pending',
         3, //'accept',
+        4, //'reject',
       ],
     },
     type: {
       type: Number,
       enums: [
-        0, // yêu cầu nhập sản phẩm 
+        0, // yêu cầu nhập sản phẩm
         1, // yêu cầu bảo hành
         2, // yêu cầu nhận sản phẩm đã bảo hành xong
         3, // yêu cầu trả lại sản phẩm do không bảo hành được
         4, // yêu cầu trả lại cơ sở sản xuất do lâu không bán được
       ],
     },
+    listProduct: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Product",
+      },
+    ],
+    feedback: {
+      type: String,
+      default: "",
+    },
+    note: {
+      type: String,
+      default: "",
+    },
   },
   { timestamps: true }
 );
-module.exports = mongoose.model('Request', requestSchema);
+module.exports = mongoose.model("Request", requestSchema);

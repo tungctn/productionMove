@@ -20,6 +20,7 @@ const Home = () => {
   } = useAppContext();
   const {
     productState: { listProduct },
+    loadListProduct,
   } = useProductContext();
   const dataColumn = [
     {
@@ -48,6 +49,8 @@ const Home = () => {
       key: "createdAt",
     },
   ];
+  
+
   const dataSource = listProduct.map((product, index) => {
     return {
       ...product,
