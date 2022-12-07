@@ -1,9 +1,14 @@
 import { Button } from "antd";
-import React from "react";
+import React, { useEffect } from "react";
 import LoginForm from "../../components/LoginForm/LoginForm";
+import removeCookie from "../../hooks/removeCookie";
 import "./index.css";
 
-const login = () => {
+const Login = () => {
+  useEffect(() => {
+    
+  }, []);
+
   return (
     <div>
       <LoginForm />
@@ -11,4 +16,4 @@ const login = () => {
   );
 };
 
-export default login;
+export default Login;

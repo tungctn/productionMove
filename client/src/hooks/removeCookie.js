@@ -1,8 +1,8 @@
-import React from 'react'
-import Cookie from 'js-cookie'
+import React from "react";
+import Cookie from "js-cookie";
 
 const removeCookie = (cookiename) => {
-  return Cookie.remove(cookiename)
-}
+  Cookie.remove(cookiename);
+};
 
-export default removeCookie
+export default removeCookie;

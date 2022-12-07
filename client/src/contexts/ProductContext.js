@@ -9,6 +9,7 @@ import {
 import { useParams } from "react-router-dom";
 import { ProductReducer } from "../reducers/ProductReducer";
 import { getAllProduct } from "../api/product";
+import { useAppContext } from "./AppContext";
 
 export const ProductContext = createContext();
 
@@ -18,7 +19,9 @@ export const initState = {
 
 const ProductContextProvider = (props) => {
   const [productState, dispatch] = useReducer(ProductReducer, initState);
-
+  const {
+    authState: { user },
+  } = useAppContext();
   const loadListProduct = async () => {
     const response = await getAllProduct();
     console.log(response);
@@ -32,7 +35,7 @@ const ProductContextProvider = (props) => {
   console.log('productcontext');
 
   useEffect(() => {
-    loadListProduct();
+    loadListProduct()
   }, []);
 
   const data = {

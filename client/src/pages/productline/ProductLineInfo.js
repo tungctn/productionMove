@@ -13,7 +13,7 @@ const ProductLineInfo = (props) => {
   return (
     <div>
       <Default tagName='dsp'>
-        <ProductLineDetail id={id} />
+        <ProductLineDetail page="productline" id={id} />
       </Default>
     </div>
   );
