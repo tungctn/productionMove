@@ -82,11 +82,18 @@ function App() {
     ],
   };
 
+  useEffect(() => {
+    console.log(axios.defaults);
+    if (localStorage["token"]) {
+      setAuthHeader(localStorage["token"]);
+    }
+  }, []);
+
   return (
     <Spin spinning={isLoading} indicator={antIcon}>
       <Button
         onClick={async () => {
-          const response = await axios.get("/request");
+          const response = await axios.get("/productline");
           console.log(response.data);
         }}>
         test

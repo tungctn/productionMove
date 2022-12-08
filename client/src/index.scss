@@ -101,5 +101,10 @@ body {
     color: var(--button-color)
   }
   
+  .ant-tag {
+    &:hover {
+      cursor: pointer;
+    }
+  }
   
   

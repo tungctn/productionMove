@@ -10,6 +10,7 @@ import { useParams } from "react-router-dom";
 import { ProductReducer } from "../reducers/ProductReducer";
 import { getAllProduct } from "../api/product";
 import { useAppContext } from "./AppContext";
+import { setAuthHeader } from "../api/auth";
 
 export const ProductContext = createContext();
 
@@ -21,8 +22,11 @@ const ProductContextProvider = (props) => {
   const [productState, dispatch] = useReducer(ProductReducer, initState);
   const {
     authState: { user },
+    refreshPage,
   } = useAppContext();
   const loadListProduct = async () => {
+    setAuthHeader(localStorage["token"]);
+    // refreshPage();
     const response = await getAllProduct();
     console.log(response);
     if (response.success) {
@@ -30,12 +34,10 @@ const ProductContextProvider = (props) => {
         type: SET_PRODUCT_LIST,
         payload: { listProduct: response.data },
       });
+    } else {
+      localStorage.removeItem("token");
     }
   };
-
-  useEffect(() => {
-    loadListProduct()
-  }, []);
 
   const data = {
     productState,
