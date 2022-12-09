@@ -49,7 +49,9 @@ const Home = () => {
       key: "createdAt",
     },
   ];
-  
+  useEffect(() => {
+    loadListProduct();
+  }, []);
 
   const dataSource = listProduct.map((product, index) => {
     return {

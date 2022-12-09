@@ -109,9 +109,10 @@ const AppContextProvider = (props) => {
       dispatch({ type: SET_AUTH_FAILED });
       return;
     }
-    dispatch({ type: SET_AUTH_BEGIN });
+
     setAuthHeader(localStorage["token"]);
     const response = await getProfile();
+    dispatch({ type: SET_AUTH_BEGIN });
     console.log(response.data);
     if (response.success) {
       dispatch({
@@ -122,6 +123,7 @@ const AppContextProvider = (props) => {
       });
     } else {
       localStorage.removeItem("token");
+      openNotification('error',response.msg)
       setAuthHeader(null);
       dispatch({ type: SET_AUTH_FAILED });
     }
@@ -147,7 +149,6 @@ const AppContextProvider = (props) => {
         },
       });
       openNotification("success", "Login success");
-      refreshPage();
       console.log(localStorage);
     } else {
       console.log(response.msg);
@@ -177,7 +178,7 @@ const AppContextProvider = (props) => {
     convertRoleToName,
     refreshPage,
     convertTypeToName,
-    convertStatusToName
+    convertStatusToName,
   };
 
   return (

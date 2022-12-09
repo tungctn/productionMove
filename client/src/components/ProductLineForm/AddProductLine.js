@@ -12,7 +12,6 @@ const AddProductLine = () => {
     const response = await createProductLine(values);
     if (response.success) {
       openNotification("success", response.msg);
-
       navigate("/productline");
     }
   };

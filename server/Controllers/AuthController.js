@@ -14,7 +14,8 @@ module.exports.genarateAccessToken = (user) => {
       role: user.role,
       requestList: user.requestList,
     },
-    process.env.ACCESS_TOKEN_SECRET
+    process.env.ACCESS_TOKEN_SECRET,
+    { expiresIn: "12h" }
   );
 };
 
