@@ -335,6 +335,7 @@ const SideBar = ({ tag, childrenTag, ...props }) => {
               </div>
             )}
           </li>
+          {/*
           {user.role === 3 && (
             <li>
               <Link
@@ -352,7 +353,7 @@ const SideBar = ({ tag, childrenTag, ...props }) => {
                 <span className="ml-3">Nhập hàng</span>
               </Link>
             </li>
-          )}
+              )}*/}
       </ul>
     </div>
     </aside >

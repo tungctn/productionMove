@@ -1,33 +1,27 @@
 import "./App.css";
-import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Login from "./pages/login/Login";
 import Home from "./pages/home/Home";
 import Produce from "./pages/home/Produce";
 import "./index.scss";
 import Page403 from "./pages/error/403";
 import { useAppContext } from "./contexts/AppContext";
-import { Button, Form, Input, Spin } from "antd";
+import { Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 import Auth from "./routes/Auth";
 import RequireAuth from "./routes/RequireAuth";
-import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { updateProduct } from "./api/product";
 import Statistic from "./pages/statistic/Statistic";
 import Status from "./pages/statistic/Status";
-import { Pie } from "@ant-design/plots";
+import ProductLine from "./pages/productline/ProductLine";
+import ProductLineInfo from "./pages/productline/ProductLineInfo";
 import ProductLineUpdate from "./pages/productline/ProductLineUpdate";
-import { useEffect } from "react";
 import User from "./pages/user/User";
 import ProductLineAdd from "./pages/productline/ProductLineAdd";
-import jwt from "jwt-decode";
-import removeCookie from "./hooks/removeCookie";
-import { setAuthHeader } from "./api/auth";
 import RequireNotAdmin from "./routes/RequireNotAdmin";
 import Import from "./pages/import/Productline";
 import ImportDetail from "./pages/import/ImportDetail";
 import Factory from "./pages/import/Factory";
 import Request from "./pages/request/Request";
-import axios from "./api/axios";
 function App() {
   const {
     authState: { isLoading, user },
@@ -37,13 +31,13 @@ function App() {
 
   return (
     <Spin spinning={isLoading} indicator={antIcon}>
-      <Button
+      {/*<Button
         onClick={async () => {
           const response = await axios.get("/request");
           console.log(response.data);
         }}>
         test
-      </Button>
+      </Button>*/}
       <div className="App">
         {/* <Pie {...config} /> */}
         <Routes>
@@ -56,15 +50,15 @@ function App() {
             </Route>
             <Route path="/produce" element={<Produce />} />
             <Route path="/request" element={<Request />} />
-            {/* productline
+            {/* productline*/}
             <Route path="/productline" element={<ProductLine />} />
             <Route path="/productline/:id" element={<ProductLineInfo />} />
-            <Route path="/productline/:id/edit" element={<ProductLineEdit />} />
+           {/* <Route path="/productline/:id/edit" element={<ProductLineEdit />} />*/}
             <Route
               path="/productline/:id/edit"
               element={<ProductLineUpdate />}
             />
-            <Route path="/productline/create" element={<ProductLineAdd />} />*/}
+            <Route path="/productline/create" element={<ProductLineAdd />} />
             {/*statistic*/}
             <Route path="/statistic" element={<Statistic />} />
             <Route path="/statistic/status" element={<Status />} />

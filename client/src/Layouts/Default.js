@@ -6,8 +6,6 @@ import "antd/dist/antd.css";
 import { useAppContext } from "../contexts/AppContext";
 
 function Default(props) {
-  console.log(props);
-
   return (
     <div className="flex flex-row h-screen w-full">
       <SideBar tag={props.tagName} childrenTag={props.childrenName}></SideBar>
