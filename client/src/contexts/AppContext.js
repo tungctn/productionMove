@@ -103,6 +103,37 @@ const AppContextProvider = (props) => {
     }
   };
 
+  const convertStatusToNameProduct = (type) => {
+    switch (type) {
+      case 0:
+        return "mới sản xuất";
+      case 1:
+        return "đưa về đại lý";
+      case 2:
+        return "đã bán";
+      case 3:
+        return "lỗi cần bảo hành";
+      case 4:
+        return "đang bảo hành";
+      case 5:
+        return "đã bảo hành xong";
+      case 6:
+        return "đã trả lại cho khách hàng";
+      case 7:
+        return "lỗi, cần trả về nhà máy";
+      case 8:
+        return "lỗi, đã đưa về cơ sở sản xuất";
+      case 9:
+        return "lỗi cần triệu hồi";
+      case 10:
+        return "hết thời gian bảo hành";
+      case 11:
+        return "trả lại cơ sở sản xuất do lâu không bán được";
+      default:
+        throw new Error("type is not match");
+    }
+  };
+
   const loadUser = async () => {
     console.log("load user");
     if (!localStorage["token"]) {
@@ -123,7 +154,7 @@ const AppContextProvider = (props) => {
       });
     } else {
       localStorage.removeItem("token");
-      openNotification('error',response.msg)
+      openNotification("error", response.msg);
       setAuthHeader(null);
       dispatch({ type: SET_AUTH_FAILED });
     }
@@ -161,9 +192,10 @@ const AppContextProvider = (props) => {
 
   const handleLogout = async () => {
     dispatch({ type: SET_AUTH_BEGIN });
-    await logoutAPI();
+    const response = await logoutAPI();
     localStorage.removeItem("token");
     dispatch({ type: SET_AUTH_FAILED });
+    openNotification("success", response.msg);
   };
 
   console.log(authState);
@@ -179,6 +211,7 @@ const AppContextProvider = (props) => {
     refreshPage,
     convertTypeToName,
     convertStatusToName,
+    convertStatusToNameProduct
   };
 
   return (

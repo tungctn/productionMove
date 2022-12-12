@@ -1,5 +1,5 @@
 import { SyncOutlined } from "@ant-design/icons";
-import { Modal, Tag } from "antd";
+import { Input, Modal, Tag } from "antd";
 import React, { useEffect, useState } from "react";
 import { getAllRequest } from "../../api/request";
 import TableInfo from "../../components/TableInfo/TableInfo";
@@ -7,6 +7,7 @@ import { useAppContext } from "../../contexts/AppContext";
 import Default from "../../Layouts/Default";
 
 const Request = () => {
+  const { TextArea } = Input;
   const {
     authState: { user },
     convertTypeToName,
@@ -32,9 +33,7 @@ const Request = () => {
   const handleClick = (status, type, recipient, requester) => {
     if (status === 2) {
       console.log("1");
-      setDesc(
-        `${requester} ${convertTypeToName(type)} từ ${recipient} </br> udfdu`
-      );
+      setDesc(`${requester} ${convertTypeToName(type)} từ ${recipient}`);
       setVisible(true);
     }
   };
@@ -112,7 +111,20 @@ const Request = () => {
   return (
     <div class="w-full">
       <Default tagName="yc">
-        <TableInfo dataColumn={dataColumn} dataSource={dataSource} />
+        <TableInfo
+          onRow={(record) => ({
+            onClick: () => {
+              handleClick(
+                record.status,
+                record.type,
+                record.requester,
+                record.recipient
+              );
+            },
+          })}
+          dataColumn={dataColumn}
+          dataSource={dataSource}
+        />
       </Default>
       <Modal
         open={visible}
@@ -121,7 +133,13 @@ const Request = () => {
         okText="Chấp nhận"
         onCancel={handleCancel}
         onOk={handleOk}>
-        {desc}
+        <p>{desc}</p>
+        {/* <p><TextArea
+          status="warning"
+          showCount={true}
+          maxLength={500}
+          placeholder="Phản hồi"
+        /></p> */}
       </Modal>
     </div>
   );

@@ -7,7 +7,7 @@ import ProductLineEdit from "./EditProductLine";
 import ProductLineDelete from "./DeleteProductLine";
 
 const ProductLineDetail = (props) => {
-  const { id, page } = props;
+  const { id, page, status } = props;
   const navigate = useNavigate();
   const [productLine, setProductLine] = useState({});
   const [visible, setVisible] = useState(false);
@@ -55,7 +55,17 @@ const ProductLineDetail = (props) => {
           </Button>
         </div>
       )}
-
+      {page === "status" && (
+        <div className="text-right text-2xl text-cyan-500">
+          <Button
+            onClick={() => {
+              // navigate(`/home/${id}/status`);
+            }}
+            type="primary">
+            {status}
+          </Button>
+        </div>
+      )}
       <Descriptions title="Thông tin chi tiết" bordered column={1}>
         <Descriptions.Item label="Tên dòng xe">
           {productLine.name}

@@ -28,6 +28,7 @@ import ImportDetail from "./pages/import/ImportDetail";
 import Factory from "./pages/import/Factory";
 import Request from "./pages/request/Request";
 import axios from "./api/axios";
+import ProductType from "./pages/home/ProductType";
 function App() {
   const {
     authState: { isLoading, user },
@@ -105,9 +106,10 @@ function App() {
             <Route path="/" element={<Login />} />
           </Route>
           <Route path="/" element={<RequireAuth />}>
-            <Route path="/" element={<RequireNotAdmin />}>
-              <Route path="/home" element={<Home />} />
-            </Route>
+            {/* <Route path="/" element={<RequireNotAdmin />}> */}
+            <Route path="/home" element={<Home />} />
+            <Route path="/home/:id" element={<ProductType />} />
+            {/* </Route> */}
             <Route path="/produce" element={<Produce />} />
             <Route path="/request" element={<Request />} />
             {/* productline */}

@@ -1,7 +1,7 @@
 import { setAuthHeader } from "./auth";
 import axios from "./axios";
 
-export const updateProduct = async (data, id) => {
+export const updateProduct = async (id, data) => {
   const response = await axios.put(`/product/${id}`, data);
   return response.data;
 };
@@ -14,10 +14,11 @@ export const createProduct = async (data) => {
 };
 
 export const getAllProduct = async () => {
-  try {
-    const response = await axios.get("/product");
-    return response.data;
-  } catch (error) {
-    
-  }
+  const response = await axios.get("/product");
+  return response.data;
+};
+
+export const getProduct = async (id) => {
+  const response = await axios.get(`/product/${id}`);
+  return response.data;
 };

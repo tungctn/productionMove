@@ -25,7 +25,7 @@ const ProductContextProvider = (props) => {
     refreshPage,
   } = useAppContext();
   const loadListProduct = async () => {
-    setAuthHeader(localStorage["token"]);
+    // setAuthHeader(localStorage["token"]);
     // refreshPage();
     const response = await getAllProduct();
     console.log(response);
