@@ -2,7 +2,7 @@ import { Button, Input, Select } from "antd";
 import Default from "../../Layouts/Default";
 import { DownOutlined } from "@ant-design/icons";
 import { useProductLineContext } from "../../contexts/ProductLineContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createProduct } from "../../api/product";
 import { useAppContext } from "../../contexts/AppContext";
 import { useNavigate } from "react-router-dom";
@@ -12,6 +12,7 @@ function Produce() {
   const navigate = useNavigate();
   const {
     productlineState: { listProductLine },
+    loadListProductLine,
   } = useProductLineContext();
 
   const { openNotification, refreshPage } = useAppContext();
@@ -33,8 +34,14 @@ function Produce() {
       openNotification("success", response.msg);
       navigate("/home");
       refreshPage();
+    } else {
+      openNotification("error", response.msg);
     }
   };
+
+  useEffect(() => {
+    loadListProductLine();
+  }, []);
 
   return (
     <div class="w-full">

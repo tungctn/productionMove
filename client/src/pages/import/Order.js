@@ -1,16 +1,22 @@
 import { Button, Form, Input, Modal } from "antd";
 import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { createRequest } from "../../api/request";
 import { useAppContext } from "../../contexts/AppContext";
+import { useRequestContext } from "../../contexts/RequestContext";
 
 const Order = (props) => {
   const { record } = props;
+  const { id } = useParams();
+  const navigate = useNavigate();
   const [visible, setVisible] = useState(false);
   const [input, setInput] = useState();
+  const { handleCreateRequest } = useRequestContext();
   const [formText, setFormText] = useState({ note: "", type: 0 });
   const {
     openNotification,
     authState: { user },
+    refreshPage,
   } = useAppContext();
 
   const showModal = () => {
@@ -31,24 +37,14 @@ const Order = (props) => {
     console.log(user);
   }, []);
   const handleOk = async () => {
-    console.log(input);
-    let listProduct = [];
-    
-    for (let index = 0; index < Number(input); index++) {
-      listProduct.push(record.listProduct[index]._id);
-    }
-    const response = await createRequest({
+    await handleCreateRequest({
       requester: user._id,
       recipient: record.factory._id,
-      listProduct: listProduct,
+      amount: Number(input),
+      productLine: id,
       ...formText,
     });
-    if (response.success) {
-      openNotification("success", response.msg);
-    } else {
-      openNotification("error", response.msg);
-    }
-    console.log(listProduct);
+
     setVisible(false);
   };
   return (
@@ -79,22 +75,6 @@ const Order = (props) => {
               onChange={onValueChange}
             />
           </Form.Item>
-          {/* <Form.Item
-            label="Phản hồi"
-            type="text"
-            name="feedback"
-            rules={[
-              {
-                required: true,
-                message: "Please input your name!",
-              },
-            ]}>
-            <Input
-              name="feedback"
-              placeholder="input placeholder"
-              onChange={onChange}
-            />
-          </Form.Item> */}
           <Form.Item label="Ghi chú" type="text" name="note">
             <Input
               name="note"

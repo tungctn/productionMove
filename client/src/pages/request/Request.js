@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { getAllRequest } from "../../api/request";
 import TableInfo from "../../components/TableInfo/TableInfo";
 import { useAppContext } from "../../contexts/AppContext";
+import { useRequestContext } from "../../contexts/RequestContext";
 import Default from "../../Layouts/Default";
 
 const Request = () => {
@@ -13,7 +14,11 @@ const Request = () => {
     convertTypeToName,
     convertStatusToName,
   } = useAppContext();
-  const [listRequest, setListRequest] = useState([]);
+  const {
+    requestState: { listRequest },
+    loadListRequest,
+  } = useRequestContext();
+  // const [listRequest, setListRequest] = useState([]);
   const [visible, setVisible] = useState(false);
   const [desc, setDesc] = useState("");
   const color = (status) => {
@@ -87,24 +92,24 @@ const Request = () => {
     },
   ];
 
-  const loadListRequest = async () => {
-    const response = await getAllRequest();
-    if (response.success) {
-      console.log(response.data);
-      setListRequest(response.data);
-    }
-  };
+  // const loadListRequest = async () => {
+  //   const response = await getAllRequest();
+  //   if (response.success) {
+  //     console.log(response.data);
+  //     // setListRequest(response.data);
+  //   }
+  // };
 
   useEffect(() => {
-    loadListRequest();
+    console.log(listRequest);
   }, []);
 
   const dataSource = listRequest?.map((request, index) => {
     return {
       ...request,
       key: index + 1,
-      requester: request.requester.name,
-      recipient: request.recipient.name,
+      requester: request?.requester.name,
+      recipient: request?.recipient.name,
     };
   });
 
@@ -120,6 +125,7 @@ const Request = () => {
                 record.requester,
                 record.recipient
               );
+              console.log(record);
             },
           })}
           dataColumn={dataColumn}
@@ -134,12 +140,6 @@ const Request = () => {
         onCancel={handleCancel}
         onOk={handleOk}>
         <p>{desc}</p>
-        {/* <p><TextArea
-          status="warning"
-          showCount={true}
-          maxLength={500}
-          placeholder="Phản hồi"
-        /></p> */}
       </Modal>
     </div>
   );

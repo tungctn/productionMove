@@ -180,6 +180,7 @@ const AppContextProvider = (props) => {
         },
       });
       openNotification("success", "Login success");
+      refreshPage()
       console.log(localStorage);
     } else {
       console.log(response.msg);
@@ -196,6 +197,7 @@ const AppContextProvider = (props) => {
     localStorage.removeItem("token");
     dispatch({ type: SET_AUTH_FAILED });
     openNotification("success", response.msg);
+    // refreshPage();
   };
 
   console.log(authState);
@@ -211,7 +213,7 @@ const AppContextProvider = (props) => {
     refreshPage,
     convertTypeToName,
     convertStatusToName,
-    convertStatusToNameProduct
+    convertStatusToNameProduct,
   };
 
   return (

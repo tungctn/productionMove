@@ -20,6 +20,11 @@ const productSchema = new mongoose.Schema(
       required: true,
       ref: "User",
     },
+    store: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "User",
+    },
     status: {
       type: Number,
       enums: [

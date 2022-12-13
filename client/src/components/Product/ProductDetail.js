@@ -1,4 +1,4 @@
-import { Image, Descriptions, Modal, Button, Form, Input } from "antd";
+import { Image, Descriptions, Modal, Button, Form, Input, Select } from "antd";
 import React, { useEffect, useState } from "react";
 import {
   EditOutlined,
@@ -10,17 +10,28 @@ import { useNavigate } from "react-router-dom";
 import { getProductLine } from "../../api/productline";
 import { getProduct, updateProduct } from "../../api/product";
 import { useAppContext } from "../../contexts/AppContext";
+import { useUserContext } from "../../contexts/UserContext";
 
 const ProductDetail = (props) => {
   const { id, page, status } = props;
   const navigate = useNavigate();
-  const { convertStatusToNameProduct, openNotification } = useAppContext();
+  const {
+    convertStatusToNameProduct,
+    openNotification,
+    convertObjectToArray,
+    authState: { user },
+  } = useAppContext();
   const [product, setProduct] = useState({});
   const [productLine, setProductLine] = useState({});
   const [visible, setVisible] = useState(false);
   const [formData, setFormData] = useState({});
   const [showClient, setShowClient] = useState(false);
   const [showProduct, setShowProduct] = useState(false);
+  const [location, setLocation] = useState();
+  const [type, setType] = useState();
+  const {
+    userState: { listUser },
+  } = useUserContext();
   const loadProduct = async (id) => {
     const response = await getProduct(id);
     console.log(response.data);
@@ -32,9 +43,30 @@ const ProductDetail = (props) => {
       });
     }
   };
+  const dataOption4 = listUser
+    ?.filter((users) => users.role === 4)
+    .map((users, index) => {
+      return {
+        ...users,
+        label: users.name,
+        value: users._id,
+      };
+    });
+
+  const dataOption2 = listUser
+    ?.filter((users) => users.role === 2)
+    .map((users, index) => {
+      return {
+        ...users,
+        label: users.name,
+        value: users._id,
+      };
+    });
 
   useEffect(() => {
     loadProduct(id);
+    console.log(dataOption4);
+    console.log(dataOption2);
   }, [id]);
 
   const onValueChange = (e) => {
@@ -45,25 +77,96 @@ const ProductDetail = (props) => {
   };
 
   const handleOk = async () => {
-    const response = await updateProduct(id, [
-      { propName: "customer", value: formData },
-      { propName: "isSold", value: true },
-      { propName: "status", value: 2 },
-    ]);
-    if (response.success) {
-      openNotification("success", response.msg);
-      setVisible(false);
-    } else {
-      openNotification("error", "Failed");
+    if (product?.status === 1) {
+      const response = await updateProduct(id, [
+        { propName: "customer", value: formData },
+        { propName: "isSold", value: true },
+        { propName: "status", value: 2 },
+      ]);
+      if (response.success) {
+        openNotification("success", response.msg);
+        setVisible(false);
+      } else {
+        openNotification("error", "Failed");
+      }
+    } else if (product?.status === 2) {
+      const response = await updateProduct(
+        id,
+        convertObjectToArray({ status: 3 })
+      );
+      if (response.success) {
+        openNotification("success", response.msg);
+        loadProduct(id);
+        setVisible(false);
+      } else {
+        openNotification("error", "Failed");
+      }
+    } else if (product?.status === 3) {
+      const response = await updateProduct(
+        id,
+        convertObjectToArray({ status: 4, location: location })
+      );
+      if (response.success) {
+        openNotification("success", response.msg);
+        loadProduct(id);
+        navigate("/");
+        setVisible(false);
+      } else {
+        openNotification("error", "Failed");
+      }
+    } else if (product?.status === 4 && !type) {
+      const response = await updateProduct(
+        id,
+        convertObjectToArray({ status: 5 })
+      );
+      if (response.success) {
+        openNotification("success", response.msg);
+        loadProduct(id);
+        navigate("/");
+        setVisible(false);
+      } else {
+        openNotification("error", "Failed");
+      }
+    } else if (product?.status === 4 && type === 1) {
+      const response = await updateProduct(
+        id,
+        convertObjectToArray({ status: 7 })
+      );
+      if (response.success) {
+        openNotification("success", response.msg);
+        loadProduct(id);
+        navigate("/");
+        setVisible(false);
+      } else {
+        openNotification("error", "Failed");
+      }
+    } else if (product?.status === 7) {
+      
     }
   };
 
   const handleCancel = () => {
     setVisible(false);
+    setType(null);
   };
 
-  const showModal = () => {
-    setVisible(true);
+  const showModal = (type) => {
+    if (type === 1) {
+      setType(1);
+      setVisible(true);
+    } else {
+      setVisible(true);
+      setType(null);
+    }
+  };
+
+  const onWarrantyChange = (location) => {
+    setLocation(location);
+  };
+
+  const onFactoryChange = (location) => {
+    setLocation(location);
+    console.log(location);
   };
 
   return (
@@ -71,13 +174,50 @@ const ProductDetail = (props) => {
       <Image src={productLine.img} width={400} preview={false} />
       <h2 className="font-bold text-base">Trạng thái: {product?.statusName}</h2>
       <div className="text-right text-2xl text-cyan-500">
-        {/* {!product?.isSold ? ( */}
-          <Button onClick={showModal} type="primary">
-            {product?.statusName}
-          </Button>
-        {/* ) : (
-          <Button type="primary">{product?.statusName}</Button>
-        )} */}
+        {user.role === 3 && (
+          <div>
+            {product?.status === 1 && (
+              <Button onClick={showModal} type="primary">
+                Bán sản phẩm
+              </Button>
+            )}
+            {product?.status === 2 && (
+              <Button onClick={showModal} type="primary">
+                Sản phẩm bị lỗi
+              </Button>
+            )}
+            {product?.status === 3 && (
+              <Button onClick={showModal} type="primary">
+                Gửi sản phẩm đi bảo hành
+              </Button>
+            )}
+          </div>
+        )}
+        {user.role === 4 && (
+          <div>
+            {product?.status === 4 && (
+              <div>
+                <Button onClick={showModal} type="primary">
+                  Đã bảo hành xong
+                </Button>
+                <Button
+                  onClick={() => {
+                    showModal(1);
+                  }}
+                  type="primary">
+                  Không thể bảo hành
+                </Button>
+              </div>
+            )}
+            {product?.status === 7 && (
+              <div>
+                <Button onClick={showModal} type="primary">
+                  Trả về nhà máy
+                </Button>
+              </div>
+            )}
+          </div>
+        )}
       </div>
       {product?.isSold && (
         <h1
@@ -235,11 +375,75 @@ const ProductDetail = (props) => {
         <Modal
           destroyOnClose={true}
           open={visible}
-          title="Thông tin khách hàng"
+          title="Sản phẩm bị lỗi"
           onCancel={handleCancel}
           onOk={handleOk}
           okText="Ok"
-          cancelText="Cancel"></Modal>
+          cancelText="Cancel">
+          <p>Bạn có chắc chắn sản phẩm này bị lỗi không?</p>
+        </Modal>
+      )}
+      {product?.status === 3 && (
+        <Modal
+          destroyOnClose={true}
+          open={visible}
+          title="Sản phẩm bị lỗi"
+          onCancel={handleCancel}
+          onOk={handleOk}
+          okText="Ok"
+          cancelText="Cancel">
+          <p>Bạn có chắc chắn muốn gửi sản phẩm đi bảo hành không?</p>
+          <Select
+            showSearch
+            placeholder="Select a warrantyCenter"
+            optionFilterProp="children"
+            onChange={onWarrantyChange}
+            // onSearch={onSearch}
+            filterOption={(input, option) =>
+              (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
+            }
+            options={dataOption4}
+          />
+        </Modal>
+      )}
+      {product?.status === 4 && (
+        <Modal
+          destroyOnClose={true}
+          open={visible}
+          title="Sản phẩm bị lỗi"
+          onCancel={handleCancel}
+          onOk={handleOk}
+          okText="Ok"
+          cancelText="Cancel">
+          {type === 1 ? (
+            <p>Bạn có chắc sản phẩm không thể bảo hành không?</p>
+          ) : (
+            <p>Bạn đã bảo hành xong?</p>
+          )}
+        </Modal>
+      )}
+      {product?.status === 7 && (
+        <Modal
+          destroyOnClose={true}
+          open={visible}
+          title="Sản phẩm bị lỗi"
+          onCancel={handleCancel}
+          onOk={handleOk}
+          okText="Ok"
+          cancelText="Cancel">
+          <p>Bạn có chắc chắn muốn trả sản phẩm về nhà máy không?</p>
+          <Select
+            showSearch
+            placeholder="Select a factory"
+            optionFilterProp="children"
+            onChange={onFactoryChange}
+            // onSearch={onSearch}
+            filterOption={(input, option) =>
+              (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
+            }
+            options={dataOption2}
+          />
+        </Modal>
       )}
     </div>
   );
