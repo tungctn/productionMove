@@ -28,7 +28,10 @@ const ProductDetail = (props) => {
   const [showClient, setShowClient] = useState(false);
   const [showProduct, setShowProduct] = useState(false);
   const [location, setLocation] = useState();
-  const [type, setType] = useState();
+  const [type, setType] = useState(0);
+  // type = 0: da bao hanh xong
+  // type = 1: loi can tra ve nha may
+  // type = 2: tra san pham
   const {
     userState: { listUser },
   } = useUserContext();
@@ -77,7 +80,7 @@ const ProductDetail = (props) => {
   };
 
   const handleOk = async () => {
-    if (product?.status === 1) {
+    if (product?.status === 1 && type === 0) {
       const response = await updateProduct(id, [
         { propName: "customer", value: formData },
         { propName: "isSold", value: true },
@@ -85,6 +88,19 @@ const ProductDetail = (props) => {
       ]);
       if (response.success) {
         openNotification("success", response.msg);
+        loadProduct(id);
+        setVisible(false);
+      } else {
+        openNotification("error", "Failed");
+      }
+    } else if (product?.status === 1 && type === 2) {
+      const response = await updateProduct(
+        id,
+        convertObjectToArray({ status: 6 })
+      );
+      if (response.success) {
+        openNotification("success", response.msg);
+        loadProduct(id);
         setVisible(false);
       } else {
         openNotification("error", "Failed");
@@ -114,7 +130,7 @@ const ProductDetail = (props) => {
       } else {
         openNotification("error", "Failed");
       }
-    } else if (product?.status === 4 && !type) {
+    } else if (product?.status === 4 && type === 0) {
       const response = await updateProduct(
         id,
         convertObjectToArray({ status: 5 })
@@ -141,22 +157,24 @@ const ProductDetail = (props) => {
         openNotification("error", "Failed");
       }
     } else if (product?.status === 7) {
-      
     }
   };
 
   const handleCancel = () => {
     setVisible(false);
-    setType(null);
+    setType(0);
   };
 
   const showModal = (type) => {
-    if (type === 1) {
+    if (type === 0) {
+      setType(0);
+      setVisible(true);
+    } else if (type === 1) {
       setType(1);
       setVisible(true);
-    } else {
+    } else if (type === 2) {
+      setType(2);
       setVisible(true);
-      setType(null);
     }
   };
 
@@ -169,6 +187,8 @@ const ProductDetail = (props) => {
     console.log(location);
   };
 
+  const handleBack = () => {};
+
   return (
     <div>
       <Image src={productLine.img} width={400} preview={false} />
@@ -177,9 +197,14 @@ const ProductDetail = (props) => {
         {user.role === 3 && (
           <div>
             {product?.status === 1 && (
-              <Button onClick={showModal} type="primary">
-                Bán sản phẩm
-              </Button>
+              <div>
+                <Button onClick={() => showModal(0)} type="primary">
+                  Bán sản phẩm
+                </Button>
+                <Button type="primary" onClick={() => showModal(2)}>
+                  Trả sản phẩm
+                </Button>
+              </div>
             )}
             {product?.status === 2 && (
               <Button onClick={showModal} type="primary">
@@ -294,7 +319,7 @@ const ProductDetail = (props) => {
         </Descriptions>
       )}
 
-      {product?.status === 1 && (
+      {product?.status === 1 && type === 0 && (
         <Modal
           destroyOnClose={true}
           open={visible}
@@ -369,6 +394,18 @@ const ProductDetail = (props) => {
               />
             </Form.Item>
           </Form>
+        </Modal>
+      )}
+      {product?.status === 1 && type === 2 && (
+        <Modal
+          destroyOnClose={true}
+          open={visible}
+          title="Trả sản phẩm"
+          onCancel={handleCancel}
+          onOk={handleOk}
+          okText="Ok"
+          cancelText="Cancel">
+          Bạn có chắc chắn sản phẩm này bị lỗi không?
         </Modal>
       )}
       {product?.status === 2 && (

@@ -34,12 +34,11 @@ const requestSchema = new mongoose.Schema(
       ],
       required: true,
     },
-    product:
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Product",
-        default: null
-      },
+    product: {
+      type: Schema.Types.ObjectId,
+      ref: "Product",
+      default: null,
+    },
     feedback: {
       type: String,
       default: "",
@@ -49,11 +48,15 @@ const requestSchema = new mongoose.Schema(
       default: "",
     },
     amount: Number,
-    proudctLine: {
+    productLine: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "ProductLine",
-      require: true,  
-    }
+      require: true,
+    },
+    refRequest: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Request", 
+    },
   },
   { timestamps: true }
 );

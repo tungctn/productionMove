@@ -18,5 +18,16 @@ requestRoute.post(
   verifyUser.verifyFactory_WarrantyCenter_Store,
   requestController.createRequest
 );
+requestRoute.put(
+  "/handleImportRequest",
+  verifyUser.verifyFactory,
+  requestController.handleImportRequest
+);
+
+requestRoute.put(
+  "/:id",
+  verifyUser.verifyFactory_WarrantyCenter_Store,
+  requestController.updateRequest
+);
 
 module.exports = requestRoute;
