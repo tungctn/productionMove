@@ -4,7 +4,7 @@ import ProductDetail from "../../components/Product/ProductDetail";
 import ProductLineDetail from "../../components/ProductLineForm/DetailProductLine";
 import Default from "../../Layouts/Default";
 
-const ProductType = () => {
+const ProductStatus = () => {
   const { id } = useParams();
   return (
     <div>
@@ -15,4 +15,4 @@ const ProductType = () => {
   );
 };
 
-export default ProductType;
+export default ProductStatus;

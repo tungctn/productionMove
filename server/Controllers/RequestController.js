@@ -58,7 +58,9 @@ module.exports.createRequest = async (req, res) => {
 
 module.exports.getRequest = async (req, res) => {
   try {
-    const request = await RequestModel.findById(req.params.id);
+    const request = await RequestModel.findById(req.params.id).populate(
+      "product"
+    );
     return res.status(200).json({
       success: true,
       msg: "successful",
@@ -79,7 +81,8 @@ module.exports.getAllRequest = async (req, res) => {
       let request = await RequestModel.findById(requestID)
         .populate("recipient")
         .populate("requester")
-        .populate("productLine");
+        .populate("productLine")
+        .populate("product");
       listRequest.push(request);
     }
 
@@ -138,7 +141,7 @@ module.exports.updateRequest = async (req, res, next) => {
     const newRequest = await RequestModel.findById(req.params.id);
     return res.status(200).json({
       success: true,
-      msg: "successful",
+      msg: "successfully",
       data: newRequest,
     });
   } catch (error) {

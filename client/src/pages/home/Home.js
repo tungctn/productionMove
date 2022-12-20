@@ -18,6 +18,7 @@ const Home = () => {
     handleProfile,
     authState: { user },
     authState,
+    convertStatusToNameProduct,
   } = useAppContext();
   const {
     productState: { listProduct },
@@ -54,6 +55,7 @@ const Home = () => {
       ...product,
       key: index + 1,
       productline: product.productLine.name,
+      status: convertStatusToNameProduct(product.status),
     };
   });
 

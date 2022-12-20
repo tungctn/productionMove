@@ -22,7 +22,8 @@ export const initState = {
 };
 
 const UserContextProvider = (props) => {
-  const [userState, dispatch] = useReducer(UserReducer, initState);
+  const { authState } = useAppContext();
+  const [userState, dispatch] = useReducer(UserReducer, authState);
   const { convertObjectToArray, openNotification } = useAppContext();
 
   const loadListUser = async () => {

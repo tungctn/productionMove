@@ -15,7 +15,7 @@ module.exports.genarateAccessToken = (user) => {
       requestList: user.requestList,
     },
     process.env.ACCESS_TOKEN_SECRET,
-    { expiresIn: "12h" }
+    { expiresIn: "10h" }
   );
 };
 

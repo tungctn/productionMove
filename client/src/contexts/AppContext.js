@@ -1,26 +1,9 @@
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useReducer,
-  useState,
-} from "react";
-import { notification, Spin, Switch } from "antd";
+import { createContext, useContext, useEffect, useReducer } from "react";
+import { notification } from "antd";
 import { loginAPI, logoutAPI, setAuthHeader } from "../api/auth";
 import { AuthReducer } from "../reducers/AuthReducer";
-import { useNavigate } from "react-router-dom";
-import axios from "../api/axios";
 import { getProfile } from "../api/user";
-import {
-  SET_AUTH_BEGIN,
-  SET_AUTH_FAILED,
-  SET_AUTH_SUCCESS,
-  SET_PRODUCTLINE_LIST,
-} from "../action";
-import { getAllProductLine } from "../api/productline";
-import removeCookie from "../hooks/removeCookie";
-import getCookie from "../hooks/getCookie";
+import { SET_AUTH_BEGIN, SET_AUTH_FAILED, SET_AUTH_SUCCESS } from "../action";
 
 export const AppContext = createContext();
 
@@ -28,10 +11,13 @@ export const initState = {
   isLoading: false,
   user: null,
   isAuthenticated: false,
+  listProductLine: [],
+  listProduct: [],
+  listRequest: [],
+  listUser: [],
 };
 
 const AppContextProvider = (props) => {
-  const navigate = useNavigate();
   const [authState, dispatch] = useReducer(AuthReducer, initState);
   const openNotification = (type, message, description) => {
     notification[type]({
@@ -91,13 +77,13 @@ const AppContextProvider = (props) => {
   const convertStatusToName = (status) => {
     switch (status) {
       case 1:
-        return "requested";
+        return "Đã gửi yêu cầu";
       case 2:
-        return "pending";
+        return "Chờ xử lý";
       case 3:
-        return "accept";
+        return "Chấp nhận";
       case 4:
-        return "reject";
+        return "Từ chối";
       default:
         throw new Error("status is not match");
     }
@@ -135,7 +121,6 @@ const AppContextProvider = (props) => {
   };
 
   const loadUser = async () => {
-    console.log("load user");
     if (!localStorage["token"]) {
       dispatch({ type: SET_AUTH_FAILED });
       return;
@@ -144,7 +129,6 @@ const AppContextProvider = (props) => {
     setAuthHeader(localStorage["token"]);
     const response = await getProfile();
     dispatch({ type: SET_AUTH_BEGIN });
-    console.log(response.data);
     if (response.success) {
       dispatch({
         type: SET_AUTH_SUCCESS,
@@ -153,6 +137,7 @@ const AppContextProvider = (props) => {
         },
       });
     } else {
+      console.log("112213213");
       localStorage.removeItem("token");
       openNotification("error", response.msg);
       setAuthHeader(null);
@@ -180,7 +165,7 @@ const AppContextProvider = (props) => {
         },
       });
       openNotification("success", "Login success");
-      refreshPage()
+      refreshPage();
       console.log(localStorage);
     } else {
       console.log(response.msg);
@@ -197,7 +182,6 @@ const AppContextProvider = (props) => {
     localStorage.removeItem("token");
     dispatch({ type: SET_AUTH_FAILED });
     openNotification("success", response.msg);
-    // refreshPage();
   };
 
   console.log(authState);

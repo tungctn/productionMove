@@ -1,5 +1,5 @@
 import { SyncOutlined } from "@ant-design/icons";
-import { Input, Modal, Tag } from "antd";
+import { Button, Input, Modal, Tag } from "antd";
 import React, { useEffect, useState } from "react";
 import {
   getAllRequest,
@@ -10,6 +10,8 @@ import TableInfo from "../../components/TableInfo/TableInfo";
 import { useAppContext } from "../../contexts/AppContext";
 import { useRequestContext } from "../../contexts/RequestContext";
 import Default from "../../Layouts/Default";
+import { updateProduct } from "../../api/product";
+import ProduceSearch from "../../components/Produce/ProduceSearch";
 
 const Request = () => {
   const { TextArea } = Input;
@@ -33,6 +35,7 @@ const Request = () => {
   const [id, setId] = useState();
   const [refId, setRefId] = useState();
   const [feedback, setFeedback] = useState({});
+  const [record, setRecord] = useState({});
   const color = (status) => {
     switch (status) {
       case 1:
@@ -47,64 +50,140 @@ const Request = () => {
         throw new Error("status is not match");
     }
   };
-  const handleClick = (
-    id,
-    status,
-    type,
-    requester,
-    recipient,
-    amount,
-    productLine,
-    refRequest
-  ) => {
-    if (status === 2) {
-      console.log("1");
-      setDesc(<h1>{convertTypeToName(type)}</h1>);
+  const handleClick = (record) =>
+    // id,
+    // status,
+    // type,
+    // requester,
+    // recipient,
+    // amount,
+    // productLine,
+    // refRequest
+    {
       setVisible(true);
-    }
-    if (type === 0) {
-      setInformation(
-        `${requester.name} muốn nhập ${amount} sản phẩm loại ${productLine.name} từ ${recipient.name}`
-      );
-      setData({
-        ...data,
-        amount: amount,
-        store: requester._id,
-        productLine: productLine._id,
-      });
-      setId(id);
-      setRefId(refRequest);
-    }
-  };
+      // if (status === 2) {
+      setDesc(<h1>{convertTypeToName(record.type)}</h1>);
+      if (record.type === 0) {
+        setInformation(
+          `${record.requester.name} muốn nhập ${record.amount} sản phẩm loại ${record.productLine.name} từ ${record.recipient.name}`
+        );
+        setData({
+          ...data,
+          amount: record.amount,
+          store: record.requester._id,
+          productLine: record.productLine._id,
+        });
+      } else if (record.type === 4) {
+        setInformation(
+          `${record.requester.name} yêu cầu trả sản phẩm từ ${record.recipient.name}`
+        );
+        setData({
+          ...data,
+          amount: record.amount,
+          store: record.recipient._id,
+          productLine: record.productLine._id,
+        });
+      } else if (record.type === 1) {
+        setInformation(
+          `${record.requester.name} yêu cầu bảo hành sản phẩm từ ${record.recipient.name}`
+        );
+        setData({
+          ...data,
+          amount: record.amount,
+          store: record.requester._id,
+          productLine: record.product.productLine._id,
+        });
+      } else if (record.type === 2) {
+        setInformation(
+          `${record.requester.name} yêu cầu nhân sản phẩm bảo hành từ ${record.recipient.name}`
+        );
+        setData({
+          ...data,
+          amount: record.amount,
+          store: record.requester._id,
+          productLine: record.product.productLine._id,
+        });
+      } else {
+        setInformation("");
+        setData({});
+        setId("");
+        setRefId("");
+      }
+      // }
+    };
   const handleOk = async () => {
-    const response = await handleImportRequest(data);
-    console.log(response);
+    let response;
+    console.log(record);
+    if (record.type === 0) {
+      response = await handleImportRequest(data);
+      console.log(data);
+    } else if (record.type === 4) {
+      response = await updateProduct(
+        record.product._id,
+        convertObjectToArray({
+          ...feedback,
+          status: 11,
+          location: record.product.factory,
+        })
+      );
+    } else if (record.type === 1) {
+      response = await updateProduct(
+        record.product._id,
+        convertObjectToArray({
+          ...feedback,
+          status: 4,
+          location: user._id,
+        })
+      );
+    } else if (record.type === 2) {
+      response = await updateProduct(
+        record.product._id,
+        convertObjectToArray({
+          ...feedback,
+          status: 5,
+          location: user._id,
+        })
+      );
+    } else if (record.type === 3) {
+      response = await updateProduct(
+        record.product._id,
+        convertObjectToArray({
+          ...feedback,
+          status: 8,
+          location: user._id,
+        })
+      );
+    }
     if (response.success) {
       openNotification("success", response.msg);
-      await updateRequest(id, convertObjectToArray({ ...feedback, status: 3 }));
       await updateRequest(
-        refId,
+        record._id,
+        convertObjectToArray({ ...feedback, status: 3 })
+      );
+      await updateRequest(
+        record.refRequest,
         convertObjectToArray({ ...feedback, status: 3 })
       );
       refreshPage();
       setVisible(false);
-    } else {
-      openNotification("error", response.msg);
     }
   };
-  const handleCancel = async () => {
-    const response = await handleImportRequest(data);
-    console.log(response);
-    if (response.success) {
-      openNotification("success", response.msg);
-      await updateRequest(id, convertObjectToArray({ ...feedback, status: 4 }));
-      await updateRequest(
-        refId,
-        convertObjectToArray({ ...feedback, status: 4 })
-      );
-      refreshPage();
+  const handleReject = async () => {
+    const response1 = await updateRequest(
+      id,
+      convertObjectToArray({ ...feedback, status: 4 })
+    );
+    const response2 = await updateRequest(
+      refId,
+      convertObjectToArray({ ...feedback, status: 4 })
+    );
+    if (response1.success && response2.success) {
+      openNotification("success", response1.msg);
+      setVisible(false);
+    } else {
+      openNotification("error", response1.msg);
+      setVisible(false);
     }
-    setVisible(false);
   };
   const dataColumn = [
     {
@@ -135,16 +214,9 @@ const Request = () => {
       render: (text, record) => (
         <Tag
           onClick={() => {
-            handleClick(
-              record._id,
-              record.status,
-              record.type,
-              record.requester,
-              record.recipient,
-              record.amount,
-              record.productLine,
-              record.refRequest
-            );
+            if (record.status === 2) {
+              handleClick(record);
+            }
           }}
           color={color(record.status)}>
           {convertStatusToName(text)}
@@ -153,16 +225,9 @@ const Request = () => {
     },
   ];
 
-  // const loadListRequest = async () => {
-  //   const response = await getAllRequest();
-  //   if (response.success) {
-  //     console.log(response.data);
-  //     // setListRequest(response.data);
-  //   }
-  // };
-
   useEffect(() => {
     console.log(listRequest);
+    console.log(record);
   }, []);
 
   const dataSource = listRequest
@@ -184,21 +249,27 @@ const Request = () => {
     setFeedback({ feedback: e.target.value });
   };
 
+  const handleCancel = () => {
+    setVisible(false);
+  };
+
+  useEffect(() => {
+    if (!visible) {
+      console.log(record);
+    }
+  }, [visible]);
+
   return (
-    <div class="w-full">
+    <div className="w-full">
       <Default tagName="yc">
+        <ProduceSearch />
         <TableInfo
           onRow={(record) => ({
             onClick: () => {
-              handleClick(
-                record.status,
-                record.type,
-                record.requester,
-                record.recipient,
-                record.amount,
-                record.productLine,
-                record.refRequest
-              );
+              if (record.status === 2) {
+                handleClick(record);
+                setRecord(record);
+              }
               console.log(record);
             },
           })}
@@ -207,12 +278,18 @@ const Request = () => {
         />
       </Default>
       <Modal
+        destroyOnClose={true}
         open={visible}
         title="Thông tin đơn hàng"
-        cancelText="Từ chối"
-        okText="Chấp nhận"
-        onCancel={handleCancel}
-        onOk={handleOk}>
+        footer={[
+          <Button key="1" onClick={handleReject}>
+            Từ chối
+          </Button>,
+          <Button key="2" type="primary" onClick={handleOk}>
+            Chấp nhận
+          </Button>,
+        ]}
+        onCancel={handleCancel}>
         <div>{desc}</div>
         <div>{information}</div>
         Phản hồi:

@@ -28,8 +28,8 @@ import ImportDetail from "./pages/import/ImportDetail";
 import Factory from "./pages/import/Factory";
 import Request from "./pages/request/Request";
 import axios from "./api/axios";
-import ProductType from "./pages/home/ProductType";
-import Form from "react-bootstrap/Form";
+import ProductStatus from "./pages/home/ProductStatus";
+
 function App() {
   const {
     authState: { isLoading, user },
@@ -93,13 +93,6 @@ function App() {
 
   return (
     <Spin spinning={isLoading} indicator={antIcon}>
-      <Button
-        onClick={async () => {
-          const response = await axios.get("/productline");
-          console.log(response.data);
-        }}>
-        test
-      </Button>
       <div className="App">
         {/* <Pie {...config} /> */}
         <Routes>
@@ -107,10 +100,10 @@ function App() {
             <Route path="/" element={<Login />} />
           </Route>
           <Route path="/" element={<RequireAuth />}>
-            {/* <Route path="/" element={<RequireNotAdmin />}> */}
-            <Route path="/home" element={<Home />} />
-            <Route path="/home/:id" element={<ProductType />} />
-            {/* </Route> */}
+            <Route path="/" element={<RequireNotAdmin />}>
+              <Route path="/home" element={<Home />} />
+              <Route path="/home/:id" element={<ProductStatus />} />
+            </Route>
             <Route path="/produce" element={<Produce />} />
             <Route path="/request" element={<Request />} />
             {/* productline */}
@@ -123,6 +116,7 @@ function App() {
             <Route path="/productline/create" element={<ProductLineAdd />} />
             {/* account */}
             <Route path="/user" element={<User />} />
+            {/* importProductLine */}
             <Route path="/import/productline" element={<Import />} />
             <Route path="/import/productline/:id" element={<ImportDetail />} />
             <Route

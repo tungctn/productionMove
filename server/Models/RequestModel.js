@@ -26,11 +26,11 @@ const requestSchema = new mongoose.Schema(
     type: {
       type: Number,
       enums: [
-        0, // yêu cầu nhập sản phẩm
-        1, // yêu cầu bảo hành
-        2, // yêu cầu nhận sản phẩm đã bảo hành xong
+        0, // yêu cầu nhập sản phẩm 1
+        1, // yêu cầu bảo hành 1
+        2, // yêu cầu nhận sản phẩm đã bảo hành xong 1
         3, // yêu cầu trả lại sản phẩm do không bảo hành được
-        4, // yêu cầu trả lại cơ sở sản xuất do lâu không bán được
+        4, // yêu cầu trả lại cơ sở sản xuất do lâu không bán được 1
       ],
       required: true,
     },

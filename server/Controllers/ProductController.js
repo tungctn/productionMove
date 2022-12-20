@@ -54,9 +54,11 @@ module.exports.getAllProduct = async (req, res, next) => {
 
 module.exports.getProduct = async (req, res, next) => {
   try {
-    const product = await ProductModel.findById(req.params.id).populate(
-      "productLine"
-    );
+    const product = await ProductModel.findById(req.params.id)
+      .populate("productLine")
+      .populate("factory")
+      .populate("location")
+      .populate("store");
     return res.status(200).json({
       success: true,
       msg: "successful",

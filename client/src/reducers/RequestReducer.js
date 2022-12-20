@@ -1,6 +1,6 @@
 import React from "react";
 import { SET_REQUEST_ADD, SET_REQUEST_FAILED, SET_REQUEST_LIST } from "../action";
-import { initState } from "../contexts/RequestContext";
+import { initState } from "../contexts/AppContext";
 
 export const RequestReducer = (state, action) => {
   switch (action.type) {

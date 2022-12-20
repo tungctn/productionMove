@@ -44,7 +44,7 @@ function Produce() {
   }, []);
 
   return (
-    <div class="w-full">
+    <div className="w-full">
       <Default tagName="sx">
         <div className="w-full h-full">
           <div className="mx-auto mt-5 text-3xl text-inherit text-orange-600">
@@ -64,7 +64,7 @@ function Produce() {
                   status="warning">
                   {listProductLine.map((productline, index) => {
                     return (
-                      <Option value={productline._id}>
+                      <Option value={productline._id} key={productline._id}>
                         {productline.name}
                       </Option>
                     );
