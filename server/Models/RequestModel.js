@@ -21,23 +21,24 @@ const requestSchema = new mongoose.Schema(
         3, //'accept',
         4, //'reject',
       ],
+      required: true,
     },
     type: {
       type: Number,
       enums: [
-        0, // yêu cầu nhập sản phẩm
-        1, // yêu cầu bảo hành
-        2, // yêu cầu nhận sản phẩm đã bảo hành xong
+        0, // yêu cầu nhập sản phẩm 1
+        1, // yêu cầu bảo hành 1
+        2, // yêu cầu nhận sản phẩm đã bảo hành xong 1
         3, // yêu cầu trả lại sản phẩm do không bảo hành được
-        4, // yêu cầu trả lại cơ sở sản xuất do lâu không bán được
+        4, // yêu cầu trả lại cơ sở sản xuất do lâu không bán được 1
       ],
+      required: true,
     },
-    listProduct: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Product",
-      },
-    ],
+    product: {
+      type: Schema.Types.ObjectId,
+      ref: "Product",
+      default: null,
+    },
     feedback: {
       type: String,
       default: "",
@@ -45,6 +46,16 @@ const requestSchema = new mongoose.Schema(
     note: {
       type: String,
       default: "",
+    },
+    amount: Number,
+    productLine: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "ProductLine",
+      require: true,
+    },
+    refRequest: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Request", 
     },
   },
   { timestamps: true }

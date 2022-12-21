@@ -5,12 +5,15 @@ import {
   PartitionOutlined,
   CrownFilled,
   InsuranceFilled,
+  MenuOutlined,
+  LeftCircleOutlined,
 } from "@ant-design/icons";
 import { Menu } from "antd";
 import { useState } from "react";
 import { useAppContext } from "../contexts/AppContext";
+import { useEffect } from "react";
 
-const SideBar = ({ tag, childrenTag, ...props }) => {
+const SideBar = (props) => {
   const navigate = useNavigate();
   const [openStatistic, setOpenStatistic] = useState('false');
   const items = [
@@ -45,17 +48,37 @@ const SideBar = ({ tag, childrenTag, ...props }) => {
   const {
     authState: { user },
   } = useAppContext();
-
+  const { tag, open, onClick } = props;
+  const elems = document.querySelectorAll("a > span");
+  useEffect(() => {
+    if (!open) {
+      for (let index = 0; index < elems.length; index++) {
+        elems[index].style.display = "none";
+      }
+    } else {
+      for (let index = 0; index < elems.length; index++) {
+        elems[index].style.display = "block";
+      }
+    }
+  }, [open]);
   return (
     <aside
-      className="basis-1/6 h-fit sm:min-h-full bg-white drop-shadow-md justify-between items-center"
+      className={`${
+        open ? "basis-1/6" : "basis-1/12"
+      } duration-300 bg-white drop-shadow-md justify-between items-center relative`}
       aria-label="Sidebar">
-      <div>
-        <img
-          src="http://localhost:3000/image/logo.png"
-          alt="logo"
-          className="mt-2 w-32 md:w-40 lg:w-44 xl:w-48 mx-auto"
-        />
+      <div onClick={onClick}>
+        {open ? (
+          <img
+            src="http://localhost:3000/image/logo.png"
+            alt="logo"
+            className="w-8 md:w-8 lg:w-16 h-8 md:h-8 lg:h-16 mx-auto"
+          />
+        ) : (
+          <div className="w-8 md:w-8 lg:w-16 h-8 md:h-8 lg:h-16 mx-auto text-5xl">
+            <MenuOutlined />
+          </div>
+        )}
       </div>
       <div className="overflow-y-auto max-h-screen container mx-auto py-4 px-3 mt-10 rounded dark:bg-gray-800">
         <ul className="space-y-4">

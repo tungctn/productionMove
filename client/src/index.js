@@ -11,18 +11,23 @@ import UserContextProvider from "./contexts/UserContext";
 import ProductContextProvider, {
   ProductContext,
 } from "./contexts/ProductContext";
+import RequestContextProvider, {
+  RequestContext,
+} from "./contexts/RequestContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
     <AppContextProvider>
-      <ProductContextProvider>
-        <ProductLineContextProvider>
-          <UserContextProvider>
-            <App />
-          </UserContextProvider>
-        </ProductLineContextProvider>
-      </ProductContextProvider>
+      <RequestContextProvider>
+        <ProductContextProvider>
+          <ProductLineContextProvider>
+            <UserContextProvider>
+              <App />
+            </UserContextProvider>
+          </ProductLineContextProvider>
+        </ProductContextProvider>
+      </RequestContextProvider>
     </AppContextProvider>
   </BrowserRouter>
 );

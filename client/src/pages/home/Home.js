@@ -2,7 +2,7 @@ import { Button, Pagination } from "antd";
 import { Input, Table } from "antd";
 import Title from "antd/lib/skeleton/Title";
 import React, { useContext, useEffect } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import App from "../../App";
 import ProduceSearch from "../../components/Produce/ProduceSearch";
 import TableInfo from "../../components/TableInfo/TableInfo";
@@ -13,10 +13,12 @@ import "./index.css";
 
 const Home = () => {
   const { Search } = Input;
+  const navigate = useNavigate();
   const {
     handleProfile,
     authState: { user },
     authState,
+    convertStatusToNameProduct,
   } = useAppContext();
   const {
     productState: { listProduct },
@@ -35,18 +37,13 @@ const Home = () => {
     },
     {
       title: "Dòng sản phẩm",
-      dataIndex: "productLine",
-      key: "productLine",
+      dataIndex: "productline",
+      key: "productline",
     },
     {
       title: "Trạng thái",
       dataIndex: "status",
       key: "status",
-    },
-    {
-      title: "Ngày sản xuất",
-      dataIndex: "createdAt",
-      key: "createdAt",
     },
   ];
   useEffect(() => {
@@ -57,8 +54,8 @@ const Home = () => {
     return {
       ...product,
       key: index + 1,
-      productLine: product.productLine.name,
-      createdAt: product.createdAt.split("T")[0],
+      productline: product.productLine.name,
+      status: convertStatusToNameProduct(product.status),
     };
   });
 
@@ -67,7 +64,16 @@ const Home = () => {
       <Default tagName="kho">
         <ProduceSearch></ProduceSearch>
         <div className="mt-5">
-          <TableInfo dataColumn={dataColumn} dataSource={dataSource} />
+          <TableInfo
+            onRow={(r) => ({
+              onClick: () => {
+                navigate(`/home/${r._id}`);
+                console.log(r);
+              },
+            })}
+            dataColumn={dataColumn}
+            dataSource={dataSource}
+          />
         </div>
       </Default>
     </div>

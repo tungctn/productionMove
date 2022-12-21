@@ -2,7 +2,7 @@ import { Button, Input, Select } from "antd";
 import Default from "../../Layouts/Default";
 import { DownOutlined } from "@ant-design/icons";
 import { useProductLineContext } from "../../contexts/ProductLineContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createProduct } from "../../api/product";
 import { useAppContext } from "../../contexts/AppContext";
 import { useNavigate } from "react-router-dom";
@@ -12,6 +12,7 @@ function Produce() {
   const navigate = useNavigate();
   const {
     productlineState: { listProductLine },
+    loadListProductLine,
   } = useProductLineContext();
 
   const { openNotification, refreshPage } = useAppContext();
@@ -33,11 +34,17 @@ function Produce() {
       openNotification("success", response.msg);
       navigate("/home");
       refreshPage();
+    } else {
+      openNotification("error", response.msg);
     }
   };
 
+  useEffect(() => {
+    loadListProductLine();
+  }, []);
+
   return (
-    <div class="w-full">
+    <div className="w-full">
       <Default tagName="sx">
         <div className="w-full h-full">
           <div className="mx-auto mt-5 text-3xl text-blue-700 font-bold">
@@ -57,7 +64,7 @@ function Produce() {
                   >
                   {listProductLine.map((productline, index) => {
                     return (
-                      <Option value={productline._id}>
+                      <Option value={productline._id} key={productline._id}>
                         {productline.name}
                       </Option>
                     );

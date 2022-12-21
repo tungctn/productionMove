@@ -19,14 +19,10 @@ export const initState = {
 };
 
 const ProductContextProvider = (props) => {
-  const [productState, dispatch] = useReducer(ProductReducer, initState);
-  const {
-    authState: { user },
-    refreshPage,
-  } = useAppContext();
+  const { authState, refreshPage } = useAppContext(); // get authState from AppContext
+  const [productState, dispatch] = useReducer(ProductReducer, authState);
+
   const loadListProduct = async () => {
-    setAuthHeader(localStorage["token"]);
-    // refreshPage();
     const response = await getAllProduct();
     console.log(response);
     if (response.success) {

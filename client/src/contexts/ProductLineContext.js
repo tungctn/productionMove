@@ -4,6 +4,7 @@ import { ProductLineReducer } from "../reducers/ProductLineReducer";
 import { SET_PRODUCTLINE_INFO, SET_PRODUCTLINE_LIST } from "../action";
 import { useParams } from "react-router-dom";
 import { setAuthHeader } from "../api/auth";
+import { useAppContext } from "./AppContext";
 
 export const ProductLineContext = createContext();
 
@@ -12,9 +13,10 @@ export const initState = {
 };
 
 const ProductLineContextProvider = (props) => {
+  const { authState } = useAppContext(); // get authState from AppContext
   const [productlineState, dispatch] = useReducer(
     ProductLineReducer,
-    initState
+    authState
   );
 
   const loadListProductLine = async () => {

@@ -1,26 +1,9 @@
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useReducer,
-  useState,
-} from "react";
-import { notification, Spin, Switch } from "antd";
+import { createContext, useContext, useEffect, useReducer } from "react";
+import { notification } from "antd";
 import { loginAPI, logoutAPI, setAuthHeader } from "../api/auth";
 import { AuthReducer } from "../reducers/AuthReducer";
-import { useNavigate } from "react-router-dom";
-import axios from "../api/axios";
 import { getProfile } from "../api/user";
-import {
-  SET_AUTH_BEGIN,
-  SET_AUTH_FAILED,
-  SET_AUTH_SUCCESS,
-  SET_PRODUCTLINE_LIST,
-} from "../action";
-import { getAllProductLine } from "../api/productline";
-import removeCookie from "../hooks/removeCookie";
-import getCookie from "../hooks/getCookie";
+import { SET_AUTH_BEGIN, SET_AUTH_FAILED, SET_AUTH_SUCCESS } from "../action";
 
 export const AppContext = createContext();
 
@@ -28,10 +11,13 @@ export const initState = {
   isLoading: false,
   user: null,
   isAuthenticated: false,
+  listProductLine: [],
+  listProduct: [],
+  listRequest: [],
+  listUser: [],
 };
 
 const AppContextProvider = (props) => {
-  const navigate = useNavigate();
   const [authState, dispatch] = useReducer(AuthReducer, initState);
   const openNotification = (type, message, description) => {
     notification[type]({
@@ -91,20 +77,50 @@ const AppContextProvider = (props) => {
   const convertStatusToName = (status) => {
     switch (status) {
       case 1:
-        return "requested";
+        return "Đã gửi yêu cầu";
       case 2:
-        return "pending";
+        return "Chờ xử lý";
       case 3:
-        return "accept";
+        return "Chấp nhận";
       case 4:
-        return "reject";
+        return "Từ chối";
       default:
         throw new Error("status is not match");
     }
   };
 
+  const convertStatusToNameProduct = (type) => {
+    switch (type) {
+      case 0:
+        return "mới sản xuất";
+      case 1:
+        return "đưa về đại lý";
+      case 2:
+        return "đã bán";
+      case 3:
+        return "lỗi cần bảo hành";
+      case 4:
+        return "đang bảo hành";
+      case 5:
+        return "đã bảo hành xong";
+      case 6:
+        return "đã trả lại cho khách hàng";
+      case 7:
+        return "lỗi, cần trả về nhà máy";
+      case 8:
+        return "lỗi, đã đưa về cơ sở sản xuất";
+      case 9:
+        return "lỗi cần triệu hồi";
+      case 10:
+        return "hết thời gian bảo hành";
+      case 11:
+        return "trả lại cơ sở sản xuất do lâu không bán được";
+      default:
+        throw new Error("type is not match");
+    }
+  };
+
   const loadUser = async () => {
-    console.log("load user");
     if (!localStorage["token"]) {
       dispatch({ type: SET_AUTH_FAILED });
       return;
@@ -113,7 +129,6 @@ const AppContextProvider = (props) => {
     setAuthHeader(localStorage["token"]);
     const response = await getProfile();
     dispatch({ type: SET_AUTH_BEGIN });
-    console.log(response.data);
     if (response.success) {
       dispatch({
         type: SET_AUTH_SUCCESS,
@@ -122,8 +137,9 @@ const AppContextProvider = (props) => {
         },
       });
     } else {
+      console.log("112213213");
       localStorage.removeItem("token");
-      openNotification('error',response.msg)
+      openNotification("error", response.msg);
       setAuthHeader(null);
       dispatch({ type: SET_AUTH_FAILED });
     }
@@ -149,6 +165,7 @@ const AppContextProvider = (props) => {
         },
       });
       openNotification("success", "Login success");
+      refreshPage();
       console.log(localStorage);
     } else {
       console.log(response.msg);
@@ -161,9 +178,10 @@ const AppContextProvider = (props) => {
 
   const handleLogout = async () => {
     dispatch({ type: SET_AUTH_BEGIN });
-    await logoutAPI();
+    const response = await logoutAPI();
     localStorage.removeItem("token");
     dispatch({ type: SET_AUTH_FAILED });
+    openNotification("success", response.msg);
   };
 
   console.log(authState);
@@ -179,6 +197,7 @@ const AppContextProvider = (props) => {
     refreshPage,
     convertTypeToName,
     convertStatusToName,
+    convertStatusToNameProduct,
   };
 
   return (

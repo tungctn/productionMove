@@ -6,7 +6,7 @@ import Produce from "./pages/home/Produce";
 import "./index.scss";
 import Page403 from "./pages/error/403";
 import { useAppContext } from "./contexts/AppContext";
-import { Spin } from "antd";
+import { Button, Input, Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 import Auth from "./routes/Auth";
 import RequireAuth from "./routes/RequireAuth";
@@ -23,8 +23,9 @@ import Import from "./pages/import/Productline";
 import ImportDetail from "./pages/import/ImportDetail";
 import Factory from "./pages/import/Factory";
 import Request from "./pages/request/Request";
-import {useEffect} from "react";
-import { setAuthHeader } from "./api/auth";
+import axios from "./api/axios";
+import ProductStatus from "./pages/home/ProductStatus";
+
 function App() {
   const {
     authState: { isLoading, user },
@@ -41,13 +42,6 @@ function App() {
 
   return (
     <Spin spinning={isLoading} indicator={antIcon}>
-      {/*<Button
-        onClick={async () => {
-          const response = await axios.get("/productline");
-          console.log(response.data);
-        }}>
-        test
-      </Button>*/}
       <div className="App">
         {/* <Pie {...config} /> */}
         <Routes>
@@ -57,6 +51,7 @@ function App() {
           <Route path="/" element={<RequireAuth />}>
             <Route path="/" element={<RequireNotAdmin />}>
               <Route path="/home" element={<Home />} />
+              <Route path="/home/:id" element={<ProductStatus />} />
             </Route>
             <Route path="/produce" element={<Produce />} />
             <Route path="/request" element={<Request />} />
@@ -75,6 +70,7 @@ function App() {
             <Route path="/statistic/manufacture_factory" element={<ManufactureFactory />} />
             {/* account */}
             <Route path="/user" element={<User />} />
+            {/* importProductLine */}
             <Route path="/import/productline" element={<Import />} />
             <Route path="/import/productline/:id" element={<ImportDetail />} />
             <Route

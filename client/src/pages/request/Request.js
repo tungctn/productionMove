@@ -1,20 +1,41 @@
 import { SyncOutlined } from "@ant-design/icons";
-import { Modal, Tag } from "antd";
+import { Button, Input, Modal, Tag } from "antd";
 import React, { useEffect, useState } from "react";
-import { getAllRequest } from "../../api/request";
+import {
+  getAllRequest,
+  handleImportRequest,
+  updateRequest,
+} from "../../api/request";
 import TableInfo from "../../components/TableInfo/TableInfo";
 import { useAppContext } from "../../contexts/AppContext";
+import { useRequestContext } from "../../contexts/RequestContext";
 import Default from "../../Layouts/Default";
+import { updateProduct } from "../../api/product";
+import ProduceSearch from "../../components/Produce/ProduceSearch";
 
 const Request = () => {
+  const { TextArea } = Input;
   const {
     authState: { user },
     convertTypeToName,
     convertStatusToName,
+    openNotification,
+    convertObjectToArray,
+    refreshPage,
   } = useAppContext();
-  const [listRequest, setListRequest] = useState([]);
+  const {
+    requestState: { listRequest },
+    loadListRequest,
+  } = useRequestContext();
+  // const [listRequest, setListRequest] = useState([]);
   const [visible, setVisible] = useState(false);
   const [desc, setDesc] = useState("");
+  const [information, setInformation] = useState("");
+  const [data, setData] = useState({});
+  const [id, setId] = useState();
+  const [refId, setRefId] = useState();
+  const [feedback, setFeedback] = useState({});
+  const [record, setRecord] = useState({});
   const color = (status) => {
     switch (status) {
       case 1:
@@ -29,20 +50,140 @@ const Request = () => {
         throw new Error("status is not match");
     }
   };
-  const handleClick = (status, type, recipient, requester) => {
-    if (status === 2) {
-      console.log("1");
-      setDesc(
-        `${requester} ${convertTypeToName(type)} từ ${recipient} </br> udfdu`
-      );
+  const handleClick = (record) =>
+    // id,
+    // status,
+    // type,
+    // requester,
+    // recipient,
+    // amount,
+    // productLine,
+    // refRequest
+    {
       setVisible(true);
+      // if (status === 2) {
+      setDesc(<h1>{convertTypeToName(record.type)}</h1>);
+      if (record.type === 0) {
+        setInformation(
+          `${record.requester.name} muốn nhập ${record.amount} sản phẩm loại ${record.productLine.name} từ ${record.recipient.name}`
+        );
+        setData({
+          ...data,
+          amount: record.amount,
+          store: record.requester._id,
+          productLine: record.productLine._id,
+        });
+      } else if (record.type === 4) {
+        setInformation(
+          `${record.requester.name} yêu cầu trả sản phẩm từ ${record.recipient.name}`
+        );
+        setData({
+          ...data,
+          amount: record.amount,
+          store: record.recipient._id,
+          productLine: record.productLine._id,
+        });
+      } else if (record.type === 1) {
+        setInformation(
+          `${record.requester.name} yêu cầu bảo hành sản phẩm từ ${record.recipient.name}`
+        );
+        setData({
+          ...data,
+          amount: record.amount,
+          store: record.requester._id,
+          productLine: record.product.productLine._id,
+        });
+      } else if (record.type === 2) {
+        setInformation(
+          `${record.requester.name} yêu cầu nhân sản phẩm bảo hành từ ${record.recipient.name}`
+        );
+        setData({
+          ...data,
+          amount: record.amount,
+          store: record.requester._id,
+          productLine: record.product.productLine._id,
+        });
+      } else {
+        setInformation("");
+        setData({});
+        setId("");
+        setRefId("");
+      }
+      // }
+    };
+  const handleOk = async () => {
+    let response;
+    console.log(record);
+    if (record.type === 0) {
+      response = await handleImportRequest(data);
+      console.log(data);
+    } else if (record.type === 4) {
+      response = await updateProduct(
+        record.product._id,
+        convertObjectToArray({
+          ...feedback,
+          status: 11,
+          location: record.product.factory,
+        })
+      );
+    } else if (record.type === 1) {
+      response = await updateProduct(
+        record.product._id,
+        convertObjectToArray({
+          ...feedback,
+          status: 4,
+          location: user._id,
+        })
+      );
+    } else if (record.type === 2) {
+      response = await updateProduct(
+        record.product._id,
+        convertObjectToArray({
+          ...feedback,
+          status: 5,
+          location: user._id,
+        })
+      );
+    } else if (record.type === 3) {
+      response = await updateProduct(
+        record.product._id,
+        convertObjectToArray({
+          ...feedback,
+          status: 8,
+          location: user._id,
+        })
+      );
+    }
+    if (response.success) {
+      openNotification("success", response.msg);
+      await updateRequest(
+        record._id,
+        convertObjectToArray({ ...feedback, status: 3 })
+      );
+      await updateRequest(
+        record.refRequest,
+        convertObjectToArray({ ...feedback, status: 3 })
+      );
+      refreshPage();
+      setVisible(false);
     }
   };
-  const handleOk = () => {
-    setVisible(false);
-  };
-  const handleCancel = () => {
-    setVisible(false);
+  const handleReject = async () => {
+    const response1 = await updateRequest(
+      id,
+      convertObjectToArray({ ...feedback, status: 4 })
+    );
+    const response2 = await updateRequest(
+      refId,
+      convertObjectToArray({ ...feedback, status: 4 })
+    );
+    if (response1.success && response2.success) {
+      openNotification("success", response1.msg);
+      setVisible(false);
+    } else {
+      openNotification("error", response1.msg);
+      setVisible(false);
+    }
   };
   const dataColumn = [
     {
@@ -52,13 +193,13 @@ const Request = () => {
     },
     {
       title: "Người gửi",
-      dataIndex: "requester",
-      key: "requester",
+      dataIndex: "requester1",
+      key: "requester1",
     },
     {
       title: "Người nhận",
-      dataIndex: "recipient",
-      key: "recipient",
+      dataIndex: "recipient1",
+      key: "recipient1",
     },
     {
       title: "Loai yêu cầu",
@@ -73,13 +214,9 @@ const Request = () => {
       render: (text, record) => (
         <Tag
           onClick={() => {
-            handleClick(
-              record.status,
-              record.type,
-              record.requester,
-              record.recipient
-            );
-            console.log(record);
+            if (record.status === 2) {
+              handleClick(record);
+            }
           }}
           color={color(record.status)}>
           {convertStatusToName(text)}
@@ -88,40 +225,75 @@ const Request = () => {
     },
   ];
 
-  const loadListRequest = async () => {
-    const response = await getAllRequest();
-    if (response.success) {
-      console.log(response.data);
-      setListRequest(response.data);
-    }
+  useEffect(() => {
+    console.log(listRequest);
+    console.log(record);
+  }, []);
+
+  const dataSource = listRequest
+    ?.sort((a, b) => {
+      return new Date(b.createdAt) - new Date(a.createdAt);
+    })
+    .map((request, index) => {
+      return {
+        ...request,
+        key: index + 1,
+        requester1: request?.requester.name,
+        recipient1: request?.recipient.name,
+      };
+    });
+  const onChange = (e) => {
+    // setFeedback(e.target.value);
+    console.log(e.target.value);
+    // setData({ ...data, feedback: e.target.value });
+    setFeedback({ feedback: e.target.value });
+  };
+
+  const handleCancel = () => {
+    setVisible(false);
   };
 
   useEffect(() => {
-    loadListRequest();
-  }, []);
-
-  const dataSource = listRequest?.map((request, index) => {
-    return {
-      ...request,
-      key: index + 1,
-      requester: request.requester.name,
-      recipient: request.recipient.name,
-    };
-  });
+    if (!visible) {
+      console.log(record);
+    }
+  }, [visible]);
 
   return (
-    <div class="w-full">
+    <div className="w-full">
       <Default tagName="yc">
-        <TableInfo dataColumn={dataColumn} dataSource={dataSource} />
+        <ProduceSearch />
+        <TableInfo
+          onRow={(record) => ({
+            onClick: () => {
+              if (record.status === 2) {
+                handleClick(record);
+                setRecord(record);
+              }
+              console.log(record);
+            },
+          })}
+          dataColumn={dataColumn}
+          dataSource={dataSource}
+        />
       </Default>
       <Modal
+        destroyOnClose={true}
         open={visible}
         title="Thông tin đơn hàng"
-        cancelText="Từ chối"
-        okText="Chấp nhận"
-        onCancel={handleCancel}
-        onOk={handleOk}>
-        {desc}
+        footer={[
+          <Button key="1" onClick={handleReject}>
+            Từ chối
+          </Button>,
+          <Button key="2" type="primary" onClick={handleOk}>
+            Chấp nhận
+          </Button>,
+        ]}
+        onCancel={handleCancel}>
+        <div>{desc}</div>
+        <div>{information}</div>
+        Phản hồi:
+        <TextArea onChange={onChange} />
       </Modal>
     </div>
   );
