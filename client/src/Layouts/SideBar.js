@@ -48,7 +48,7 @@ const SideBar = ({ tag, childrenTag, ...props }) => {
 
   return (
     <aside
-      className="basis-1/6 bg-white drop-shadow-md justify-between items-center"
+      className="basis-1/6 h-fit sm:min-h-full bg-white drop-shadow-md justify-between items-center"
       aria-label="Sidebar">
       <div>
         <img
@@ -259,11 +259,11 @@ const SideBar = ({ tag, childrenTag, ...props }) => {
                   <span className="ml-3">Thống kê</span>
                 </Link>
                   { childrenTag &&
-                    <div className="flex flex-col items-start ml-11 text-xs lg:text-base space-y-1">
+                    <div className="flex flex-col items-start ml-11 text-xs lg:text-sm space-y-1">
                       {
                         childrenTag == 'stt' &&
                         <div className="rounded-lg bg-[#e6f4ff]">
-                          <Link to="/statistic/status" className="p-2 text-xs lg:text-base font-normal text-gray-900">
+                          <Link to="/statistic/status" className="p-2 text-xs lg:text-sm font-normal text-gray-900">
                             Theo trạng thái
                           </Link>
                         </div>
@@ -271,19 +271,19 @@ const SideBar = ({ tag, childrenTag, ...props }) => {
                       {
                         childrenTag !== 'stt' &&
                         <div>
-                          <Link> Theo trạng thái</Link>
+                          <Link to="/statistic/status"> Theo trạng thái</Link>
                         </div>
                       }
                       {
                         childrenTag == 'produce' &&
-                        <div>
-                          <Link>Theo cơ sở sản xuất</Link>
+                        <div className="rounded-lg bg-[#e6f4ff]">
+                          <Link to="/statistic/manufacture_factory" className="p-2 text-xs lg:text-sm font-normal text-gray-900">Theo cơ sở sản xuất</Link>
                         </div>
                       }
                       {
                         childrenTag !== 'produce' &&
                         <div>
-                          <Link>Theo cơ sở sản xuất</Link>
+                          <Link to="/statistic/manufacture_factory">Theo cơ sở sản xuất</Link>
                         </div>
                       }
                       {
@@ -326,9 +326,9 @@ const SideBar = ({ tag, childrenTag, ...props }) => {
                     className="w-4 md:w-4 lg:w-6"></img>
                   <span className="ml-3">Thống kê</span>
                 </Link>
-                <div className="flex flex-col items-start ml-11 text-xs lg:text-base space-y-1">
+                <div className="flex flex-col items-start ml-11 text-xs lg:text-sm space-y-1">
                   <div> <Link to="/statistic/status">Theo trạng thái</Link></div>
-                  <div> <Link>Theo cơ sở sản xuất</Link></div>
+                  <div> <Link to="/statistic/manufacture_factory">Theo cơ sở sản xuất</Link></div>
                   <div> <Link>Theo đại lý phân phối</Link></div>
                   <div> <Link>Theo trung tâm bảo hành</Link></div>
                 </div>

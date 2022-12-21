@@ -38,7 +38,6 @@ const ProductContextProvider = (props) => {
       localStorage.removeItem("token");
     }
   };
-  console.log('productcontext');
 
   const data = {
     productState,

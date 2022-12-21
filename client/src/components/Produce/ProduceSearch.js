@@ -11,7 +11,7 @@ const ProduceSearch = () => {
             <div className="container rounded-2xl">
                 <div className="flex items-center space-x-5">
                     <Input
-                        placeholder="Search Here!"
+                        placeholder="Tìm kiếm ở đây!"
                         onChange={(e) => setName(e.target.value)}
                         value={name}
                         allowClear

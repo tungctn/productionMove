@@ -7,14 +7,17 @@ function Statistic() {
         productState: { listProduct },
       } = useProductContext();
     var sumProduct = 0;
-    const dataSource = listProduct.map((product) => {
-        sumProduct += product.productLine.amount;
-        return {
-          ...product,
-          type: product.identifier,
-          sales: product.productLine.amount,
-        };
-      });
+    const data = listProduct.map(product => {
+      return product.productLine.code;
+    })
+    var c = data.reduce((count, value) => {
+      return count[value] ? count[value]++ : count[value] = 1, count
+    }, {});
+    var sumProduct = 0;
+    var dataSource = Object.keys(c).map(key => { 
+        sumProduct += c[key];
+        return { type: key, sales: c[key]}
+    })
 
     return(
         <Default tagName="stt">

@@ -26,7 +26,6 @@ function Status() {
         sumProduct += c[key];
         return { type: key, sales: c[key]}
     })
-    console.log(dataSource)
 
     
 

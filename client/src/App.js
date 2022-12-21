@@ -12,6 +12,7 @@ import Auth from "./routes/Auth";
 import RequireAuth from "./routes/RequireAuth";
 import Statistic from "./pages/statistic/Statistic";
 import Status from "./pages/statistic/Status";
+import ManufactureFactory from "./pages/statistic/ManufactureFactory";
 import ProductLine from "./pages/productline/ProductLine";
 import ProductLineInfo from "./pages/productline/ProductLineInfo";
 import ProductLineUpdate from "./pages/productline/ProductLineUpdate";
@@ -22,6 +23,8 @@ import Import from "./pages/import/Productline";
 import ImportDetail from "./pages/import/ImportDetail";
 import Factory from "./pages/import/Factory";
 import Request from "./pages/request/Request";
+import {useEffect} from "react";
+import { setAuthHeader } from "./api/auth";
 function App() {
   const {
     authState: { isLoading, user },
@@ -30,7 +33,7 @@ function App() {
   const antIcon = <LoadingOutlined />;
 
   useEffect(() => {
-    console.log(axios.defaults);
+    //console.log(axios.defaults);
     if (localStorage["token"]) {
       setAuthHeader(localStorage["token"]);
     }
@@ -69,6 +72,7 @@ function App() {
             {/*statistic*/}
             <Route path="/statistic" element={<Statistic />} />
             <Route path="/statistic/status" element={<Status />} />
+            <Route path="/statistic/manufacture_factory" element={<ManufactureFactory />} />
             {/* account */}
             <Route path="/user" element={<User />} />
             <Route path="/import/productline" element={<Import />} />

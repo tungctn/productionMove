@@ -11,11 +11,11 @@ const Header = () => {
   const items = [
     {
       key: 1,
-      label: <a className="text">Profile</a>,
+      label: <a className="text">Thông tin</a>,
     },
     {
       key: 2,
-      label: <a onClick={handleLogout}>Log out</a>,
+      label: <a onClick={handleLogout}>Đăng xuất</a>,
     },
   ];
   return (

@@ -11,7 +11,7 @@ function Default(props) {
       <SideBar tag={props.tagName} childrenTag={props.childrenName}></SideBar>
       <div className="basis-5/6 h-full">
         <Header />
-        <div className="bg-white mt-3 ml-3 rounded-md h-[calc(100%-60px)] overflow-y-scroll">
+        <div className="bg-white mt-3 ml-3 rounded-md h-[calc(100%-16px)] min-[560px]:h-[calc(100%-20px)] min-[720px]:h-[calc(100%-60px)] overflow-y-scroll">
           {props.children}
         </div>
       </div>
