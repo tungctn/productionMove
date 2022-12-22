@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import ProductLineEdit from "../../components/ProductLineForm/EditProductLine";
-import Default from "../../Layouts/Default";
+import Default from "../../layouts/Default";
 
 const ProductLineUpdate = () => {
   const { id } = useParams();

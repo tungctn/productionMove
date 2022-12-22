@@ -36,22 +36,24 @@ const productSchema = new mongoose.Schema(
         6, // đã trả lại cho khách hàng 1
         7, // lỗi, cần trả về cơ sở sản xuất 1
         8, // lỗi, đã đưa về cơ sở sản xuất 1
-        9, // lỗi cần triệu hồi 
-        10, // hết thời gian bảo hành 
+        9, // lỗi cần triệu hồi
+        10, // hết thời gian bảo hành
         11, // trả lại cơ sở sản xuất do lâu không bán được 1
       ],
-      default: 0
+      default: 0,
     },
     isSold: {
       type: Boolean,
-      default: false
+      default: false,
     },
     customer: {
       name: String,
       address: String,
       email: String,
-      phone: String
-    }
+      phone: String,
+      soldDate: Date,
+    },
+    deadTime: Date
   },
   { timestamps: true }
 );

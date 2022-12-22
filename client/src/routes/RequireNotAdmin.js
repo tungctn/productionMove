@@ -7,7 +7,6 @@ const RequireNotAdmin = () => {
     authState: { user },
     openNotification,
   } = useAppContext();
-  //   let body;
   return user.role === 1 ? (
     openNotification("error", "you are not authorized")
   ) : (

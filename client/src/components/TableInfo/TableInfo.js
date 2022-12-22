@@ -1,14 +1,19 @@
+import { LoadingOutlined } from "@ant-design/icons";
 import { Button, Select, Table } from "antd";
 import React, { useEffect, useState } from "react";
 import "./index.scss";
 
 const TableInfo = (props) => {
-  const { dataColumn, dataSource, onRow, isLoading, setTitle, role } = props;
+  const { dataColumn, dataSource, onRow, loading, setTitle, role } = props;
   const [pagination, setPagination] = useState({
     position: ["bottomCenter"],
     pageSize: 5,
     showSizeChanger: false,
   });
+  const tableLoading = {
+    spinning: loading,
+    indicator: <LoadingOutlined />,
+  }
 
   const handleChange = (value) => {
     setPagination((preState) => ({ ...preState, pageSize: value }));
@@ -40,8 +45,9 @@ const TableInfo = (props) => {
         dataSource={dataSource}
         pagination={pagination}
         onRow={onRow}
-        loading={isLoading}
+        loading={tableLoading}
         title={setTitle}
+        
       />
     </div>
   );

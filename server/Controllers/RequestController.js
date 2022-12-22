@@ -77,7 +77,8 @@ module.exports.getRequest = async (req, res) => {
 module.exports.getAllRequest = async (req, res) => {
   try {
     const listRequest = [];
-    for (const requestID of req.user.requestList) {
+    const user = await UserModel.findById(req.user.id);
+    for (const requestID of user.requestList) {
       let request = await RequestModel.findById(requestID)
         .populate("recipient")
         .populate("requester")

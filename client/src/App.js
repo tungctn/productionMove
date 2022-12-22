@@ -19,8 +19,6 @@ import ProductLineUpdate from "./pages/productline/ProductLineUpdate";
 import { useEffect } from "react";
 import User from "./pages/user/User";
 import ProductLineAdd from "./pages/productline/ProductLineAdd";
-import jwt from "jwt-decode";
-import removeCookie from "./hooks/removeCookie";
 import { setAuthHeader } from "./api/auth";
 import RequireNotAdmin from "./routes/RequireNotAdmin";
 import Import from "./pages/import/Productline";
@@ -28,11 +26,12 @@ import ImportDetail from "./pages/import/ImportDetail";
 import Factory from "./pages/import/Factory";
 import Request from "./pages/request/Request";
 import axios from "./api/axios";
-import ProductStatus from "./pages/home/ProductStatus";
+import Product from "./pages/product/Product";
 
 function App() {
   const {
     authState: { isLoading, user },
+    openSideBar,
   } = useAppContext();
 
   const antIcon = <LoadingOutlined />;
@@ -89,6 +88,7 @@ function App() {
     if (localStorage["token"]) {
       setAuthHeader(localStorage["token"]);
     }
+    console.log(openSideBar);
   }, []);
 
   return (
@@ -100,10 +100,9 @@ function App() {
             <Route path="/" element={<Login />} />
           </Route>
           <Route path="/" element={<RequireAuth />}>
-            <Route path="/" element={<RequireNotAdmin />}>
-              <Route path="/home" element={<Home />} />
-              <Route path="/home/:id" element={<ProductStatus />} />
-            </Route>
+            <Route path="/home" element={<Home />} />
+            <Route path="/product/:id" element={<Product />} />
+
             <Route path="/produce" element={<Produce />} />
             <Route path="/request" element={<Request />} />
             {/* productline */}

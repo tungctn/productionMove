@@ -4,7 +4,7 @@ import { SET_REQUEST_ADD, SET_REQUEST_LIST } from "../action";
 import { createRequest, getAllRequest } from "../api/request";
 import { RequestReducer } from "../reducers/RequestReducer";
 import { useAppContext } from "./AppContext";
-import { setAuthHeader } from '../api/auth';
+import { setAuthHeader } from "../api/auth";
 
 export const RequestContext = createContext();
 
@@ -18,7 +18,6 @@ export const RequestContextProvider = (props) => {
   const { openNotification } = useAppContext();
   const [requestState, dispatch] = useReducer(RequestReducer, authState);
   const loadListRequest = async () => {
-    setAuthHeader(localStorage['token'])
     const response = await getAllRequest();
     if (response.success) {
       dispatch({

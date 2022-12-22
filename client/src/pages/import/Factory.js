@@ -4,11 +4,12 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { quantityInStock } from "../../api/factory";
 import TableInfo from "../../components/TableInfo/TableInfo";
-import Default from "../../Layouts/Default";
+import Default from "../../layouts/Default";
 import Order from "./Order";
 
 const Factory = () => {
   const [listQuantity, setListQuantity] = useState([]);
+  const [loading, setLoading] = useState(false);
   const { id } = useParams();
   const dataColumn = [
     {
@@ -36,10 +37,11 @@ const Factory = () => {
   ];
 
   const loadListQuantity = async () => {
+    setLoading(true);
     const response = await quantityInStock(id);
     if (response.success) {
       setListQuantity(response.data);
-      console.log(response.data);
+      setLoading(false);
     }
   };
 
@@ -59,7 +61,11 @@ const Factory = () => {
   return (
     <div>
       <Default tagName="nh">
-        <TableInfo dataColumn={dataColumn} dataSource={dataSource} />
+        <TableInfo
+          dataColumn={dataColumn}
+          dataSource={dataSource}
+          loading={loading}
+        />
       </Default>
     </div>
   );

@@ -1,16 +1,12 @@
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { Button, Select } from "antd";
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
 import ProduceSearch from "../../components/Produce/ProduceSearch";
 import TableInfo from "../../components/TableInfo/TableInfo";
 import AddUser from "../../components/UserForm/AddUser";
 import DeleteUser from "../../components/UserForm/DeleteUser";
 import EditUser from "../../components/UserForm/EditUser";
 import { useAppContext } from "../../contexts/AppContext";
-import { useProductLineContext } from "../../contexts/ProductLineContext";
 import { useUserContext } from "../../contexts/UserContext";
-import Default from "../../Layouts/Default";
+import Default from "../../layouts/Default";
 
 const User = () => {
   const dataColumn = [
@@ -47,11 +43,8 @@ const User = () => {
     },
   ];
 
-  const navigate = useNavigate();
-
   const {
-    userState: { listUser },
-    loadListUser,
+    userState: { listUser, isLoading },
   } = useUserContext();
 
   const { convertRoleToName } = useAppContext();
@@ -64,17 +57,17 @@ const User = () => {
     };
   });
 
-  useEffect(() => {
-    console.log(listUser);
-  }, []);
   return (
     <div className="w-full">
       <Default tagName="tk">
         <ProduceSearch />
         <div className="mt-5">
           <AddUser />
-          <TableInfo dataColumn={dataColumn} dataSource={dataSource} />
-          {/* dsds */}
+          <TableInfo
+            dataColumn={dataColumn}
+            dataSource={dataSource}
+            loading={isLoading}
+          />
         </div>
       </Default>
     </div>

@@ -1,4 +1,5 @@
 import { Button, Form, Input, Modal } from "antd";
+import TextArea from "antd/lib/input/TextArea";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { createRequest } from "../../api/request";
@@ -8,7 +9,6 @@ import { useRequestContext } from "../../contexts/RequestContext";
 const Order = (props) => {
   const { record } = props;
   const { id } = useParams();
-  const navigate = useNavigate();
   const [visible, setVisible] = useState(false);
   const [input, setInput] = useState();
   const { handleCreateRequest } = useRequestContext();
@@ -76,7 +76,7 @@ const Order = (props) => {
             />
           </Form.Item>
           <Form.Item label="Ghi chú" type="text" name="note">
-            <Input
+            <TextArea
               name="note"
               placeholder="Lưu ý cho cơ sở sản xuất"
               onChange={onChange}

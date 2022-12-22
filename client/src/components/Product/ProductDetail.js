@@ -1,28 +1,22 @@
 import { Image, Descriptions, Modal, Button, Form, Input, Select } from "antd";
 import React, { useEffect, useState } from "react";
-import {
-  EditOutlined,
-  DeleteOutlined,
-  UpOutlined,
-  DownOutlined,
-} from "@ant-design/icons";
+import { UpOutlined, DownOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
-import { getProductLine } from "../../api/productline";
 import { getProduct, updateProduct } from "../../api/product";
 import { useAppContext } from "../../contexts/AppContext";
 import { useUserContext } from "../../contexts/UserContext";
-import { createRequest } from "../../api/request";
 import { setAuthHeader } from "../../api/auth";
 import { useRequestContext } from "../../contexts/RequestContext";
 
 const ProductDetail = (props) => {
-  const { id, page, status } = props;
+  const { id } = props;
   const { TextArea } = Input;
   const navigate = useNavigate();
   const {
     convertStatusToNameProduct,
     openNotification,
     convertObjectToArray,
+    convertUnitToName,
     authState: { user },
   } = useAppContext();
   const { handleCreateRequest } = useRequestContext();
@@ -45,7 +39,6 @@ const ProductDetail = (props) => {
   // type = null: da bao hanh xong
   // type = 1: loi can tra ve nha may
   // type = 2: tra san pham
-  const [form] = Form.useForm();
   const {
     userState: { listUser },
   } = useUserContext();
@@ -72,7 +65,7 @@ const ProductDetail = (props) => {
   };
   const dataOption4 = listUser
     ?.filter((users) => users.role === 4)
-    .map((users, index) => {
+    .map((users) => {
       return {
         ...users,
         label: users.name,
@@ -82,7 +75,7 @@ const ProductDetail = (props) => {
 
   const dataOption2 = listUser
     ?.filter((users) => users.role === 2)
-    .map((users, index) => {
+    .map((users) => {
       return {
         ...users,
         label: users.name,
@@ -92,23 +85,46 @@ const ProductDetail = (props) => {
 
   useEffect(() => {
     loadProduct(id);
-    console.log(dataOption4);
-    console.log(dataOption2);
   }, [id]);
 
   const onValueChange = (e) => {
     const propName = e.target.name;
     const value = e.target.value;
     setFormData({ ...formData, [propName]: value });
-    console.log(formData);
   };
 
+  const deadDate = (date, period, unit) => {
+    const newDate = new Date(date);
+    switch (unit) {
+      case 0:
+        newDate.setDate(newDate.getDate() + period);
+        break;
+      case 1:
+        newDate.setMonth(newDate.getMonth() + period);
+        break;
+      case 2:
+        newDate.setFullYear(newDate.getFullYear() + period);
+        break;
+      default:
+        break;
+    }
+    return newDate;
+  };
   const handleOk = async () => {
+    let response;
     if (product?.status === 1 && !type) {
-      const response = await updateProduct(id, [
-        { propName: "customer", value: formData },
+      response = await updateProduct(id, [
+        { propName: "customer", value: { ...formData, soldDate: new Date() } },
         { propName: "isSold", value: true },
         { propName: "status", value: 2 },
+        {
+          propName: "deadTime",
+          value: deadDate(
+            new Date(),
+            productLine?.timePeriod.period,
+            productLine?.timePeriod.unit
+          ),
+        },
       ]);
       if (response.success) {
         openNotification("success", response.msg);
@@ -118,7 +134,7 @@ const ProductDetail = (props) => {
         openNotification("error", "Failed");
       }
     } else if (product?.status === 1 && type === 2) {
-      const response = await createRequest(requestData);
+      response = await handleCreateRequest(requestData);
       if (response.success) {
         openNotification("success", response.msg);
         loadProduct(id);
@@ -127,10 +143,7 @@ const ProductDetail = (props) => {
         openNotification("error", "Failed");
       }
     } else if (product?.status === 2) {
-      const response = await updateProduct(
-        id,
-        convertObjectToArray({ status: 3 })
-      );
+      response = await updateProduct(id, convertObjectToArray({ status: 3 }));
       if (response.success) {
         openNotification("success", response.msg);
         loadProduct(id);
@@ -139,25 +152,35 @@ const ProductDetail = (props) => {
         openNotification("error", "Failed");
       }
     } else if (product?.status === 3) {
-      const response = await handleCreateRequest({
-        note: note,
-        product: product?._id,
-        recipient: location,
-        requester: user._id,
-        type: 1,
-      });
-      if (response.success) {
-        openNotification("success", response.msg);
-        navigate("/");
-        setVisible(false);
+      const dateNow = new Date();
+      if (new Date(dateNow) - new Date(product?.deadTime) <= 0) {
+        response = await handleCreateRequest({
+          note: note,
+          product: product?._id,
+          recipient: location,
+          requester: user._id,
+          type: 1,
+        });
+        if (response.success) {
+          openNotification("success", response.msg);
+          navigate("/");
+          setVisible(false);
+        } else {
+          openNotification("error", "Failed");
+        }
       } else {
-        openNotification("error", "Failed");
+        response = await updateProduct(
+          id,
+          convertObjectToArray({ status: 10 })
+        );
+        if (response.success) {
+          openNotification("success", "Đã hết hạn bảo hành");
+          loadProduct(id);
+          setVisible(false);
+        }
       }
     } else if (product?.status === 4 && !type) {
-      const response = await updateProduct(
-        id,
-        convertObjectToArray({ status: 5 })
-      );
+      response = await updateProduct(id, convertObjectToArray({ status: 5 }));
       if (response.success) {
         openNotification("success", response.msg);
         loadProduct(id);
@@ -167,10 +190,7 @@ const ProductDetail = (props) => {
         openNotification("error", "Failed");
       }
     } else if (product?.status === 4 && type === 1) {
-      const response = await updateProduct(
-        id,
-        convertObjectToArray({ status: 7 })
-      );
+      response = await updateProduct(id, convertObjectToArray({ status: 7 }));
       if (response.success) {
         openNotification("success", response.msg);
         loadProduct(id);
@@ -179,7 +199,7 @@ const ProductDetail = (props) => {
         openNotification("error", "Failed");
       }
     } else if (product?.status === 5 && user.role === 4) {
-      const response = await handleCreateRequest({
+      response = await handleCreateRequest({
         note: note,
         product: product?._id,
         recipient: product?.store._id,
@@ -194,10 +214,7 @@ const ProductDetail = (props) => {
         openNotification("error", "Failed");
       }
     } else if (product?.status === 5 && user.role === 3) {
-      const response = await updateProduct(
-        id,
-        convertObjectToArray({ status: 6 })
-      );
+      response = await updateProduct(id, convertObjectToArray({ status: 6 }));
       if (response.success) {
         openNotification("success", response.msg);
         loadProduct(id);
@@ -207,7 +224,7 @@ const ProductDetail = (props) => {
         openNotification("error", "Failed");
       }
     } else if (product?.status === 7) {
-      const response = await handleCreateRequest({
+      response = await handleCreateRequest({
         product: id,
         recipient: product.factory._id,
         requester: user._id,
@@ -241,13 +258,11 @@ const ProductDetail = (props) => {
   };
 
   const onWarrantyChange = (location) => {
-    console.log(location);
     setLocation(location);
   };
 
   const onFactoryChange = (location) => {
     setLocation(location);
-    console.log(location);
   };
 
   const onNoteChange = (e) => {
@@ -346,6 +361,9 @@ const ProductDetail = (props) => {
           <Descriptions.Item label="Số điện thoại">
             {product?.customer?.phone}
           </Descriptions.Item>
+          <Descriptions.Item label="Ngày bán">
+            {product?.customer?.soldDate.split("T")[0]}
+          </Descriptions.Item>
         </Descriptions>
       )}
 
@@ -393,6 +411,10 @@ const ProductDetail = (props) => {
           </Descriptions.Item>
           <Descriptions.Item label="Loại động cơ">
             {productLine.engineType}
+          </Descriptions.Item>
+          <Descriptions.Item label="Thời hạn bảo hành">
+            {productLine.timePeriod.period}{" "}
+            {convertUnitToName(productLine.timePeriod.unit)}
           </Descriptions.Item>
         </Descriptions>
       )}
@@ -581,7 +603,6 @@ const ProductDetail = (props) => {
             placeholder="Select a factory"
             optionFilterProp="children"
             onChange={onFactoryChange}
-            // onSearch={onSearch}
             filterOption={(input, option) =>
               (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
             }

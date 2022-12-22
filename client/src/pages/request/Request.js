@@ -9,7 +9,7 @@ import {
 import TableInfo from "../../components/TableInfo/TableInfo";
 import { useAppContext } from "../../contexts/AppContext";
 import { useRequestContext } from "../../contexts/RequestContext";
-import Default from "../../Layouts/Default";
+import Default from "../../layouts/Default";
 import { updateProduct } from "../../api/product";
 import ProduceSearch from "../../components/Produce/ProduceSearch";
 
@@ -24,10 +24,9 @@ const Request = () => {
     refreshPage,
   } = useAppContext();
   const {
-    requestState: { listRequest },
+    requestState: { listRequest, isLoading },
     loadListRequest,
   } = useRequestContext();
-  // const [listRequest, setListRequest] = useState([]);
   const [visible, setVisible] = useState(false);
   const [desc, setDesc] = useState("");
   const [information, setInformation] = useState("");
@@ -50,67 +49,56 @@ const Request = () => {
         throw new Error("status is not match");
     }
   };
-  const handleClick = (record) =>
-    // id,
-    // status,
-    // type,
-    // requester,
-    // recipient,
-    // amount,
-    // productLine,
-    // refRequest
-    {
-      setVisible(true);
-      // if (status === 2) {
-      setDesc(<h1>{convertTypeToName(record.type)}</h1>);
-      if (record.type === 0) {
-        setInformation(
-          `${record.requester.name} muốn nhập ${record.amount} sản phẩm loại ${record.productLine.name} từ ${record.recipient.name}`
-        );
-        setData({
-          ...data,
-          amount: record.amount,
-          store: record.requester._id,
-          productLine: record.productLine._id,
-        });
-      } else if (record.type === 4) {
-        setInformation(
-          `${record.requester.name} yêu cầu trả sản phẩm từ ${record.recipient.name}`
-        );
-        setData({
-          ...data,
-          amount: record.amount,
-          store: record.recipient._id,
-          productLine: record.productLine._id,
-        });
-      } else if (record.type === 1) {
-        setInformation(
-          `${record.requester.name} yêu cầu bảo hành sản phẩm từ ${record.recipient.name}`
-        );
-        setData({
-          ...data,
-          amount: record.amount,
-          store: record.requester._id,
-          productLine: record.product.productLine._id,
-        });
-      } else if (record.type === 2) {
-        setInformation(
-          `${record.requester.name} yêu cầu nhân sản phẩm bảo hành từ ${record.recipient.name}`
-        );
-        setData({
-          ...data,
-          amount: record.amount,
-          store: record.requester._id,
-          productLine: record.product.productLine._id,
-        });
-      } else {
-        setInformation("");
-        setData({});
-        setId("");
-        setRefId("");
-      }
-      // }
-    };
+  const handleClick = (record) => {
+    setVisible(true);
+    setDesc(<h1>{convertTypeToName(record.type)}</h1>);
+    if (record.type === 0) {
+      setInformation(
+        `${record.requester.name} muốn nhập ${record.amount} sản phẩm loại ${record.productLine.name} từ ${record.recipient.name}`
+      );
+      setData({
+        ...data,
+        amount: record.amount,
+        store: record.requester._id,
+        productLine: record.productLine._id,
+      });
+    } else if (record.type === 4) {
+      setInformation(
+        `${record.requester.name} yêu cầu trả sản phẩm từ ${record.recipient.name}`
+      );
+      setData({
+        ...data,
+        amount: record.amount,
+        store: record.recipient._id,
+        productLine: record.productLine._id,
+      });
+    } else if (record.type === 1) {
+      setInformation(
+        `${record.requester.name} yêu cầu bảo hành sản phẩm từ ${record.recipient.name}`
+      );
+      setData({
+        ...data,
+        amount: record.amount,
+        store: record.requester._id,
+        productLine: record.product.productLine._id,
+      });
+    } else if (record.type === 2) {
+      setInformation(
+        `${record.requester.name} yêu cầu nhân sản phẩm bảo hành từ ${record.recipient.name}`
+      );
+      setData({
+        ...data,
+        amount: record.amount,
+        store: record.requester._id,
+        productLine: record.product.productLine._id,
+      });
+    } else {
+      setInformation("");
+      setData({});
+      setId("");
+      setRefId("");
+    }
+  };
   const handleOk = async () => {
     let response;
     console.log(record);
@@ -166,15 +154,18 @@ const Request = () => {
       );
       refreshPage();
       setVisible(false);
+    } else {
+      openNotification("error", response.msg);
+      // setVisible(false);
     }
   };
   const handleReject = async () => {
     const response1 = await updateRequest(
-      id,
+      record._id,
       convertObjectToArray({ ...feedback, status: 4 })
     );
     const response2 = await updateRequest(
-      refId,
+      record.refRequest,
       convertObjectToArray({ ...feedback, status: 4 })
     );
     if (response1.success && response2.success) {
@@ -226,13 +217,12 @@ const Request = () => {
   ];
 
   useEffect(() => {
-    console.log(listRequest);
-    console.log(record);
+    loadListRequest();
   }, []);
 
   const dataSource = listRequest
     ?.sort((a, b) => {
-      return new Date(b.createdAt) - new Date(a.createdAt);
+      return new Date(b?.createdAt) - new Date(a?.createdAt);
     })
     .map((request, index) => {
       return {
@@ -243,21 +233,12 @@ const Request = () => {
       };
     });
   const onChange = (e) => {
-    // setFeedback(e.target.value);
-    console.log(e.target.value);
-    // setData({ ...data, feedback: e.target.value });
     setFeedback({ feedback: e.target.value });
   };
 
   const handleCancel = () => {
     setVisible(false);
   };
-
-  useEffect(() => {
-    if (!visible) {
-      console.log(record);
-    }
-  }, [visible]);
 
   return (
     <div className="w-full">
@@ -275,6 +256,7 @@ const Request = () => {
           })}
           dataColumn={dataColumn}
           dataSource={dataSource}
+          loading={isLoading}
         />
       </Default>
       <Modal
