@@ -1,9 +1,18 @@
-import { createContext, useContext, useEffect, useReducer } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useReducer,
+  useState,
+} from "react";
 import { notification } from "antd";
 import { loginAPI, logoutAPI, setAuthHeader } from "../api/auth";
 import { AuthReducer } from "../reducers/AuthReducer";
 import { getProfile } from "../api/user";
 import { SET_AUTH_BEGIN, SET_AUTH_FAILED, SET_AUTH_SUCCESS } from "../action";
+import { useRequestContext } from "./RequestContext";
+import { useProductContext } from "./ProductContext";
+import { useProductLineContext } from "./ProductLineContext";
 
 export const AppContext = createContext();
 
@@ -19,6 +28,7 @@ export const initState = {
 
 const AppContextProvider = (props) => {
   const [authState, dispatch] = useReducer(AuthReducer, initState);
+
   const openNotification = (type, message, description) => {
     notification[type]({
       message,
@@ -26,7 +36,7 @@ const AppContextProvider = (props) => {
       duration: 2.5,
     });
   };
-
+  const [openSidebar, setOpenSidebar] = useState(true);
   const convertObjectToArray = (obj) => {
     let result = [];
     const keys = Object.keys(obj);
@@ -120,6 +130,19 @@ const AppContextProvider = (props) => {
     }
   };
 
+  const convertUnitToName = (unit) => {
+    switch (unit) {
+      case 0:
+        return "ngày";
+      case 1:
+        return "tháng";
+      case 2:
+        return "năm";
+      default:
+        throw new Error("unit is not match");
+    }
+  };
+
   const loadUser = async () => {
     if (!localStorage["token"]) {
       dispatch({ type: SET_AUTH_FAILED });
@@ -137,7 +160,6 @@ const AppContextProvider = (props) => {
         },
       });
     } else {
-      console.log("112213213");
       localStorage.removeItem("token");
       openNotification("error", response.msg);
       setAuthHeader(null);
@@ -154,8 +176,8 @@ const AppContextProvider = (props) => {
       type: SET_AUTH_BEGIN,
     });
     const response = await loginAPI(data);
+    // refreshPage();
     if (response.success) {
-      console.log(response);
       localStorage.setItem("token", response.accessToken);
       setAuthHeader(localStorage["token"]);
       dispatch({
@@ -165,7 +187,6 @@ const AppContextProvider = (props) => {
         },
       });
       openNotification("success", "Login success");
-      refreshPage();
       console.log(localStorage);
     } else {
       console.log(response.msg);
@@ -189,6 +210,8 @@ const AppContextProvider = (props) => {
   const data = {
     authState,
     dispatch,
+    openSidebar,
+    setOpenSidebar,
     openNotification,
     handleLogin,
     handleLogout,
@@ -198,6 +221,7 @@ const AppContextProvider = (props) => {
     convertTypeToName,
     convertStatusToName,
     convertStatusToNameProduct,
+    convertUnitToName,
   };
 
   return (

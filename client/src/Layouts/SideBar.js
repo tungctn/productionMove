@@ -16,6 +16,7 @@ const SideBar = (props) => {
   const navigate = useNavigate();
   const {
     authState: { user },
+    openSideBar,
   } = useAppContext();
   const { tag, open, onClick, childrenTag } = props;
   const elems = document.querySelectorAll("a > span");
@@ -44,7 +45,7 @@ const SideBar = (props) => {
             className="w-8 md:w-8 lg:w-16 h-8 md:h-8 lg:h-16 mx-auto"
           />
         ) : (
-          <div className="w-8 md:w-8 lg:w-16 h-8 md:h-8 lg:h-16 mx-auto text-5xl">
+          <div className="w-8 md:w-8 lg:w-16 h-8 md:h-8 lg:h-16 mx-auto text-5xl hover:bg-red-500">
             <MenuOutlined />
           </div>
         )}
@@ -63,9 +64,9 @@ const SideBar = (props) => {
                 <img
                   src="http://localhost:3000/image/kho.png"
                   alt="kho"
-                  className="w-4 md:w-4 lg:w-6"
+                  className={`w-4 md:w-4 lg:w-6 ${!open && "mx-auto"}`}
                 />
-                <span className="ml-3">Kho</span>
+                {open && <span className="ml-3">Kho</span>}
               </Link>
             </li>
           )}
@@ -81,9 +82,9 @@ const SideBar = (props) => {
                 <img
                   src="http://localhost:3000/image/daily.png"
                   alt="kho"
-                  className="w-4 md:w-4 lg:w-6"
+                  className={`w-4 md:w-4 lg:w-6 ${!open && "mx-auto"}`}
                 />
-                <span className="ml-3">Sản xuẩt</span>
+                {open && <span className="ml-3">Sản xuẩt</span>}
               </Link>
             </li>
           )}
@@ -100,9 +101,9 @@ const SideBar = (props) => {
                 <img
                   src="http://localhost:3000/image/request.png"
                   alt="kho"
-                  className="w-4 md:w-4 lg:w-6"
+                  className={`w-4 md:w-4 lg:w-6 ${!open && "mx-auto"}`}
                 />
-                <span className="ml-3">Yêu Cầu</span>
+                {open && <span className="ml-3">Yêu Cầu</span>}
               </Link>
             </li>
           )}
@@ -119,9 +120,9 @@ const SideBar = (props) => {
                 <img
                   src="http://localhost:3000/image/kho.png"
                   alt="dsp"
-                  className="w-4 md:w-4 lg:w-6"
+                  className={`w-4 md:w-4 lg:w-6 ${!open && "mx-auto"}`}
                 />
-                <span className="ml-3">Dòng sản phẩm</span>
+                {open && <span className="ml-3">Dòng sản phẩm</span>}
               </Link>
             </li>
           )}
@@ -138,9 +139,9 @@ const SideBar = (props) => {
                 <img
                   src="http://localhost:3000/image/kho.png"
                   alt="kho"
-                  className="w-4 md:w-4 lg:w-6"
+                  className={`w-4 md:w-4 lg:w-6 ${!open && "mx-auto"}`}
                 />
-                <span className="ml-3">Tài khoản</span>
+                {open && <span className="ml-3">Tài khoản</span>}
               </Link>
             </li>
           )}
@@ -157,9 +158,9 @@ const SideBar = (props) => {
                 <img
                   src="http://localhost:3000/image/kho.png"
                   alt="kho"
-                  className="w-4 md:w-4 lg:w-6"
+                  className={`w-4 md:w-4 lg:w-6 ${!open && "mx-auto"}`}
                 />
-                <span className="ml-3">Nhập hàng</span>
+                {open && <span className="ml-3">Nhập hàng</span>}
               </Link>
             </li>
           )}

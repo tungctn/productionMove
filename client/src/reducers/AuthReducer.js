@@ -3,9 +3,6 @@ import {
   SET_AUTH_FAILED,
   SET_AUTH_SUCCESS,
   SET_USER_LIST,
-  SET_USER_DELETE,
-  SET_USER_UPDATE,
-  SET_PRODUCTLINE_LIST,
 } from "../action";
 import { initState } from "../contexts/AppContext";
 

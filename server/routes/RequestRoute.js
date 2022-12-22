@@ -1,8 +1,8 @@
 const requestRoute = require("express").Router();
 const requestController = require("../Controllers/RequestController");
 const verifyUser = require("../Middleware/verifyUser");
+const MiddlewareAuth = require("../Middleware/isLogged");
 
-// requestRoute.post("/", requestController.createRequest);
 requestRoute.get(
   "/:id",
   verifyUser.verifyFactory_WarrantyCenter_Store,

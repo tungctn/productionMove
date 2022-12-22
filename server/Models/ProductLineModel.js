@@ -63,6 +63,20 @@ const productLineSchema = new mongoose.Schema(
       type: String,
       require: true,
     },
+    timePeriod: {
+      period: {
+        type: Number,
+        require: true,
+      },
+      unit: {
+        type: Number,
+        enum: [
+          0, // 'ngày',
+          1, // 'tháng',
+          2, // 'năm',
+        ],
+      },
+    },
   },
   { timestamps: true }
 );

@@ -5,7 +5,7 @@ import ProduceSearch from "../../components/Produce/ProduceSearch";
 import TableInfo from "../../components/TableInfo/TableInfo";
 import { useAppContext } from "../../contexts/AppContext";
 import { useProductLineContext } from "../../contexts/ProductLineContext";
-import Default from "../../Layouts/Default";
+import Default from "../../layouts/Default";
 
 const ProductLine = () => {
   const dataColumn = [
@@ -35,9 +35,13 @@ const ProductLine = () => {
   const navigate = useNavigate();
 
   const {
-    productlineState: { listProductLine },
+    productlineState: { listProductLine, isLoading },
     loadListProductLine,
   } = useProductLineContext();
+
+  const {
+    authState: { user },
+  } = useAppContext();
 
   const dataSource = listProductLine.map((productline, index) => {
     return {
@@ -48,7 +52,9 @@ const ProductLine = () => {
   });
 
   useEffect(() => {
-    loadListProductLine();
+    if (user.role !== 1) {
+      loadListProductLine();
+    }
   }, []);
 
   return (
@@ -72,6 +78,7 @@ const ProductLine = () => {
                 navigate(`/productline/${r._id}`);
               },
             })}
+            loading={isLoading}
           />
         </div>
       </Default>

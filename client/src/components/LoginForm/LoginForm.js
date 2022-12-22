@@ -1,10 +1,8 @@
-import React, { useContext, useEffect, useState } from "react";
+import React from "react";
 import { Form, Input, Button } from "antd";
-import "antd/dist/antd.css";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { AppContext, useAppContext } from "../../contexts/AppContext";
+import { useAppContext } from "../../contexts/AppContext";
 import "./index.css";
-import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
   const { handleLogin } = useAppContext();

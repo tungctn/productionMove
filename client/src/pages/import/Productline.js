@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import ProduceSearch from "../../components/Produce/ProduceSearch";
 import TableInfo from "../../components/TableInfo/TableInfo";
 import { useProductLineContext } from "../../contexts/ProductLineContext";
-import Default from "../../Layouts/Default";
+import Default from "../../layouts/Default";
 
 const Import = () => {
   const dataColumn = [
@@ -32,7 +32,7 @@ const Import = () => {
   ];
   const navigate = useNavigate();
   const {
-    productlineState: { listProductLine },
+    productlineState: { listProductLine, isLoading },
     loadListProductLine,
   } = useProductLineContext();
 
@@ -62,6 +62,7 @@ const Import = () => {
               },
             })}
             setTitle={() => "Chọn dòng sản phẩm cần nhập"}
+            loading={isLoading}
           />
         </div>
       </Default>

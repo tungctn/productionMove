@@ -1,5 +1,6 @@
 import {
   SET_USER_ADD,
+  SET_USER_BEGIN,
   SET_USER_DELETE,
   SET_USER_LIST,
   SET_USER_UPDATE,
@@ -7,10 +8,16 @@ import {
 
 export const UserReducer = (state, action) => {
   switch (action.type) {
+    case SET_USER_BEGIN:
+      return {
+        ...state,
+        isLoading: true,
+      };
     case SET_USER_LIST:
       return {
         ...state,
         listUser: action.payload.listUser,
+        isLoading: false,
       };
     case SET_USER_ADD:
       return {

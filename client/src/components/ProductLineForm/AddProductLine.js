@@ -21,7 +21,6 @@ const AddProductLine = () => {
         layout="vertical"
         onFinish={onFinish}
         initialValues={{ remember: true }}>
-        {/* Tên dòng xe */}
         <Form.Item
           label="Tên dòng xe"
           type="text"
@@ -44,7 +43,7 @@ const AddProductLine = () => {
               message: "Please input your img!",
             },
           ]}>
-          <Input type="file" name="img" placeholder="input placeholder" />
+          <Input type="text" name="img" placeholder="input placeholder" />
         </Form.Item>
         <Form.Item
           label="Mã dòng sản phẩm"

@@ -8,6 +8,7 @@ import {
 import { createUser, deleteUser, getListUser, updateUser } from "../api/user";
 import {
   SET_USER_ADD,
+  SET_USER_BEGIN,
   SET_USER_DELETE,
   SET_USER_LIST,
   SET_USER_UPDATE,
@@ -27,6 +28,7 @@ const UserContextProvider = (props) => {
   const { convertObjectToArray, openNotification } = useAppContext();
 
   const loadListUser = async () => {
+    dispatch({ type: SET_USER_BEGIN });
     const response = await getListUser();
     if (response.success) {
       dispatch({

@@ -1,4 +1,3 @@
-
 import { Outlet, Navigate } from "react-router-dom";
 import { useAppContext } from "../contexts/AppContext";
 

@@ -19,6 +19,7 @@ import ProductLineInfo from "./pages/productline/ProductLineInfo";
 import ProductLineUpdate from "./pages/productline/ProductLineUpdate";
 import User from "./pages/user/User";
 import ProductLineAdd from "./pages/productline/ProductLineAdd";
+import { setAuthHeader } from "./api/auth";
 import RequireNotAdmin from "./routes/RequireNotAdmin";
 import Import from "./pages/import/Productline";
 import ImportDetail from "./pages/import/ImportDetail";
@@ -31,10 +32,12 @@ import Sale from "./pages/statistic/Sale";
 import Center from "./pages/statistic/Center";
 import FactoryStatistic from "./pages/statistic/FactoryStatistic";
 import SoldStatistic from "./pages/statistic/SoldStatistic";
+import Product from "./pages/product/Product";
 
 function App() {
   const {
     authState: { isLoading, user },
+    openSideBar,
   } = useAppContext();
 
   const antIcon = <LoadingOutlined />;
@@ -44,6 +47,7 @@ function App() {
     if (localStorage["token"]) {
       setAuthHeader(localStorage["token"]);
     }
+    console.log(openSideBar);
   }, []);
 
   return (
@@ -55,10 +59,9 @@ function App() {
             <Route path="/" element={<Login />} />
           </Route>
           <Route path="/" element={<RequireAuth />}>
-            <Route path="/" element={<RequireNotAdmin />}>
-              <Route path="/home" element={<Home />} />
-              <Route path="/home/:id" element={<ProductStatus />} />
-            </Route>
+            <Route path="/home" element={<Home />} />
+            <Route path="/product/:id" element={<Product />} />
+
             <Route path="/produce" element={<Produce />} />
             <Route path="/request" element={<Request />} />
             {/* productline*/}

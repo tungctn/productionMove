@@ -1,6 +1,6 @@
 import React from "react";
 import AddProductLine from "../../components/ProductLineForm/AddProductLine";
-import Default from "../../Layouts/Default";
+import Default from "../../layouts/Default";
 
 const ProductLineAdd = () => {
   return (

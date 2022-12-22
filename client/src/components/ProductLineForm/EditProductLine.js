@@ -25,7 +25,6 @@ const ProductLineEdit = (props) => {
     console.log(formData);
   };
   const onFinish = async (values) => {
-    console.log(formData);
     const response = await updateProductLine(
       id,
       convertObjectToArray(formData)

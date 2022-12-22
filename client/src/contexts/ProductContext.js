@@ -4,6 +4,7 @@ import { ProductLineReducer } from "../reducers/ProductLineReducer";
 import {
   SET_PRODUCTLINE_INFO,
   SET_PRODUCTLINE_LIST,
+  SET_PRODUCT_BEGIN,
   SET_PRODUCT_LIST,
 } from "../action";
 import { useParams } from "react-router-dom";
@@ -23,6 +24,7 @@ const ProductContextProvider = (props) => {
   const [productState, dispatch] = useReducer(ProductReducer, authState);
 
   const loadListProduct = async () => {
+    dispatch({ type: SET_PRODUCT_BEGIN });
     const response = await getAllProduct();
     console.log(response);
     if (response.success) {

@@ -1,29 +1,21 @@
-import { Button, Pagination } from "antd";
-import { Input, Table } from "antd";
-import Title from "antd/lib/skeleton/Title";
-import React, { useContext, useEffect } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
-import App from "../../App";
+import { Input } from "antd";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import ProduceSearch from "../../components/Produce/ProduceSearch";
 import TableInfo from "../../components/TableInfo/TableInfo";
-import { AppContext, useAppContext } from "../../contexts/AppContext";
+import { useAppContext } from "../../contexts/AppContext";
 import { useProductContext } from "../../contexts/ProductContext";
-import Default from "../../Layouts/Default";
-import "./index.css";
+import { useRequestContext } from "../../contexts/RequestContext";
+import Default from "../../layouts/Default";
 
 const Home = () => {
-  const { Search } = Input;
   const navigate = useNavigate();
+  const { convertStatusToNameProduct } = useAppContext();
   const {
-    handleProfile,
-    authState: { user },
-    authState,
-    convertStatusToNameProduct,
-  } = useAppContext();
-  const {
-    productState: { listProduct },
+    productState: { listProduct, isLoading },
     loadListProduct,
   } = useProductContext();
+  const { loadListRequest } = useRequestContext();
   const dataColumn = [
     {
       title: "STT",
@@ -48,6 +40,7 @@ const Home = () => {
   ];
   useEffect(() => {
     loadListProduct();
+    loadListRequest();
   }, []);
 
   const dataSource = listProduct.map((product, index) => {
@@ -62,17 +55,18 @@ const Home = () => {
   return (
     <div className="w-full">
       <Default tagName="kho">
-        <ProduceSearch></ProduceSearch>
+        <ProduceSearch />
         <div className="mt-5">
           <TableInfo
             onRow={(r) => ({
               onClick: () => {
-                navigate(`/home/${r._id}`);
+                navigate(`/product/${r._id}`);
                 console.log(r);
               },
             })}
             dataColumn={dataColumn}
             dataSource={dataSource}
+            loading={isLoading}
           />
         </div>
       </Default>
