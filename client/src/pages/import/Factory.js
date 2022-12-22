@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { quantityInStock } from "../../api/factory";
 import TableInfo from "../../components/TableInfo/TableInfo";
-import Default from "../../layouts/Default";
+import Default from "../../Layouts/Default";
 import Order from "./Order";
 
 const Factory = () => {

@@ -1,7 +1,7 @@
 import React from "react";
 import ProductDetail from "../../components/Product/ProductDetail";
 import { useParams } from "react-router-dom";
-import Default from "../../layouts/Default";
+import Default from "../../Layouts/Default";
 
 const Product = () => {
   const { id } = useParams();

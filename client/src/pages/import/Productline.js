@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import ProduceSearch from "../../components/Produce/ProduceSearch";
 import TableInfo from "../../components/TableInfo/TableInfo";
 import { useProductLineContext } from "../../contexts/ProductLineContext";
-import Default from "../../layouts/Default";
+import Default from "../../Layouts/Default";
 
 const Import = () => {
   const dataColumn = [

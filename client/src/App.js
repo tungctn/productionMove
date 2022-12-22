@@ -26,8 +26,6 @@ import ImportDetail from "./pages/import/ImportDetail";
 import Factory from "./pages/import/Factory";
 import Request from "./pages/request/Request";
 import axios from "./api/axios";
-import ProductStatus from "./pages/home/ProductStatus";
-import { setAuthHeader } from "./api/auth";
 import Sale from "./pages/statistic/Sale";
 import Center from "./pages/statistic/Center";
 import FactoryStatistic from "./pages/statistic/FactoryStatistic";

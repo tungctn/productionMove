@@ -5,7 +5,7 @@ import ProduceSearch from "../../components/Produce/ProduceSearch";
 import TableInfo from "../../components/TableInfo/TableInfo";
 import { useAppContext } from "../../contexts/AppContext";
 import { useProductLineContext } from "../../contexts/ProductLineContext";
-import Default from "../../layouts/Default";
+import Default from "../../Layouts/Default";
 
 const ProductLine = () => {
   const dataColumn = [
