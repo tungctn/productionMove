@@ -1,5 +1,6 @@
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
+import { useEffect} from "react";
 import Login from "./pages/login/Login";
 import Home from "./pages/home/Home";
 import Produce from "./pages/home/Produce";
@@ -25,6 +26,11 @@ import Factory from "./pages/import/Factory";
 import Request from "./pages/request/Request";
 import axios from "./api/axios";
 import ProductStatus from "./pages/home/ProductStatus";
+import { setAuthHeader } from "./api/auth";
+import Sale from "./pages/statistic/Sale";
+import Center from "./pages/statistic/Center";
+import FactoryStatistic from "./pages/statistic/FactoryStatistic";
+import SoldStatistic from "./pages/statistic/SoldStatistic";
 
 function App() {
   const {
@@ -68,6 +74,10 @@ function App() {
             <Route path="/statistic" element={<Statistic />} />
             <Route path="/statistic/status" element={<Status />} />
             <Route path="/statistic/manufacture_factory" element={<ManufactureFactory />} />
+            <Route path="/statistic/sale" element={<Sale />} />
+            <Route path="/statistic/center" element={<Center />} />
+            <Route path="/statistic/factory_statistic" element={<FactoryStatistic />} />
+            <Route path="/statistic/sold_statistic" element={< SoldStatistic/>} />
             {/* account */}
             <Route path="/user" element={<User />} />
             {/* importProductLine */}

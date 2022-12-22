@@ -30,7 +30,7 @@ function Status() {
     
 
     return (
-        <Default childrenName="stt">
+        <Default tagName='stt' childrenName="stt">
             <div className="w-1/4 mx-auto mt-10 items-start">
 
                 <label for="countries" className="block mb-2 text-xl font-medium text-blue-600 dark:text-white">Chọn trạng thái</label>

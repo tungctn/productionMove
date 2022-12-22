@@ -11,15 +11,15 @@ const Header = () => {
   const items = [
     {
       key: 1,
-      label: <a className="text">Thông tin</a>,
+      label: <a className="text">Profile</a>,
     },
     {
       key: 2,
-      label: <a onClick={handleLogout}>Đăng xuất</a>,
+      label: <a onClick={handleLogout}>Log out</a>,
     },
   ];
   return (
-    <div className=" bg-white drop-shadow-xl h-12">
+    <div className=" bg-white drop-shadow-xl h-16">
       <div className="flex flex-row-reverse w-full h-full">
         <Dropdown menu={{ items }} className="mr-5 my-auto">
           <a onClick={(e) => e.preventDefault()}>

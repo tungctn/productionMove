@@ -5,7 +5,7 @@ import { useUserContext } from "../../contexts/UserContext";
 import { useAppContext } from "../../contexts/AppContext";
 import { useState } from "react";
 
-function ManufactureFactory() {
+function Center() {
 
     const [productState, setProductState] = useState('0');
     const {
@@ -45,21 +45,21 @@ function ManufactureFactory() {
     });
     console.log(dataSource1);
 
-    const dataFactory = dataSource1.filter(user => (user.role == 'Cơ sở sản xuất'));
+    const dataFactory = dataSource1.filter(user => (user.role == 'Trung tâm bảo hành'));
 
 
 
 
     return (
-        <Default tagName='stt' childrenName="produce">
+        <Default tagName='stt' childrenName="center">
             <div className="w-1/4 mx-auto mt-10 items-start">
 
-                <label for="countries" className="block mb-2 text-xl font-medium text-blue-600 dark:text-white">Chọn cơ sở sản xuất</label>
+                <label for="countries" className="block mb-2 text-xl font-medium text-blue-600 dark:text-white">Chọn trung tâm bảo hành</label>
                 <select id="countries" className="bg-gray-50 border border-gray-300 text-blue-800 font-medium text-sm rounded-lg ring-1 focus:ring-blue-500
                                             focus:border-blue-500 focus:outline-none block w-full py-3 px-1"
                     onChange={handleChange}
                 >
-                    <option>Cơ sở sản xuất</option>
+                    <option>Trung tâm bảo hành</option>
                     {dataFactory.map(factory => {
                         return (<option key={factory.key} value={factory._id}>{factory.name}</option>)
                     })}
@@ -84,4 +84,4 @@ function ManufactureFactory() {
 
 }
 
-export default ManufactureFactory;
+export default Center;

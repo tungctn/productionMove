@@ -5,7 +5,7 @@ import { useUserContext } from "../../contexts/UserContext";
 import { useAppContext } from "../../contexts/AppContext";
 import { useState } from "react";
 
-function ManufactureFactory() {
+function Sale() {
 
     const [productState, setProductState] = useState('0');
     const {
@@ -15,6 +15,7 @@ function ManufactureFactory() {
     const handleChange = (event) => {
         setProductState(event.target.value);
     }
+    console.log(listProduct);
 
     const dataFiltered = listProduct.filter(product => (product.factory == productState)).map(filteredProduct => {
         return filteredProduct.productLine.code;
@@ -43,23 +44,22 @@ function ManufactureFactory() {
             role: convertRoleToName(user.role),
         };
     });
-    console.log(dataSource1);
 
-    const dataFactory = dataSource1.filter(user => (user.role == 'Cơ sở sản xuất'));
+    const dataFactory = dataSource1.filter(user => (user.role == 'Đại lý phân phối'));
 
 
 
 
     return (
-        <Default tagName='stt' childrenName="produce">
+        <Default tagName='stt' childrenName="sales">
             <div className="w-1/4 mx-auto mt-10 items-start">
 
-                <label for="countries" className="block mb-2 text-xl font-medium text-blue-600 dark:text-white">Chọn cơ sở sản xuất</label>
+                <label for="countries" className="block mb-2 text-xl font-medium text-blue-600 dark:text-white">Chọn đại lý phân phối</label>
                 <select id="countries" className="bg-gray-50 border border-gray-300 text-blue-800 font-medium text-sm rounded-lg ring-1 focus:ring-blue-500
                                             focus:border-blue-500 focus:outline-none block w-full py-3 px-1"
                     onChange={handleChange}
                 >
-                    <option>Cơ sở sản xuất</option>
+                    <option>Đại lý phân phối</option>
                     {dataFactory.map(factory => {
                         return (<option key={factory.key} value={factory._id}>{factory.name}</option>)
                     })}
@@ -84,4 +84,4 @@ function ManufactureFactory() {
 
 }
 
-export default ManufactureFactory;
+export default Sale;
