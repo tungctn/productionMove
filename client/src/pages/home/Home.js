@@ -6,7 +6,7 @@ import TableInfo from "../../components/TableInfo/TableInfo";
 import { useAppContext } from "../../contexts/AppContext";
 import { useProductContext } from "../../contexts/ProductContext";
 import { useRequestContext } from "../../contexts/RequestContext";
-import Default from "../../layouts/Default";
+import Default from "../../Layouts/Default";
 
 const Home = () => {
   const navigate = useNavigate();

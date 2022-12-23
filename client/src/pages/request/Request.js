@@ -9,7 +9,7 @@ import {
 import TableInfo from "../../components/TableInfo/TableInfo";
 import { useAppContext } from "../../contexts/AppContext";
 import { useRequestContext } from "../../contexts/RequestContext";
-import Default from "../../layouts/Default";
+import Default from "../../Layouts/Default";
 import { updateProduct } from "../../api/product";
 import ProduceSearch from "../../components/Produce/ProduceSearch";
 

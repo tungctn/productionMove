@@ -1,5 +1,5 @@
 import { Button, Form, Input, Select } from "antd";
-import Default from "../../layouts/Default";
+import Default from "../../Layouts/Default";
 import { DownOutlined } from "@ant-design/icons";
 import { useProductLineContext } from "../../contexts/ProductLineContext";
 import { useEffect, useState } from "react";
@@ -52,7 +52,7 @@ const Produce = () => {
     <div className="w-full">
       <Default tagName="sx">
         <div className="w-full h-full">
-          <div className="mx-auto mt-5 text-3xl text-inherit text-orange-600">
+          <div className="mx-auto mt-5 text-3xl text-blue-700 font-bold">
             {" "}
             Đơn sản xuất
           </div>

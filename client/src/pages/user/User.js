@@ -6,7 +6,7 @@ import DeleteUser from "../../components/UserForm/DeleteUser";
 import EditUser from "../../components/UserForm/EditUser";
 import { useAppContext } from "../../contexts/AppContext";
 import { useUserContext } from "../../contexts/UserContext";
-import Default from "../../layouts/Default";
+import Default from "../../Layouts/Default";
 
 const User = () => {
   const dataColumn = [

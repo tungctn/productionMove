@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import ProductLineDetail from "../../components/ProductLineForm/DetailProductLine";
-import Default from "../../layouts/Default";
+import Default from "../../Layouts/Default";
 
 const ImportDetail = () => {
   const { id } = useParams();

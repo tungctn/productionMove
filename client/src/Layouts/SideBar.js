@@ -18,7 +18,19 @@ const SideBar = (props) => {
     authState: { user },
     openSideBar,
   } = useAppContext();
-  const { tag, open, onClick } = props;
+  const { tag, open, onClick, childrenTag } = props;
+  const elems = document.querySelectorAll("a > span");
+  useEffect(() => {
+    if (!open) {
+      for (let index = 0; index < elems.length; index++) {
+        elems[index].style.display = "none";
+      }
+    } else {
+      for (let index = 0; index < elems.length; index++) {
+        elems[index].style.display = "block";
+      }
+    }
+  }, [open]);
   return (
     <aside
       className={`${
@@ -47,7 +59,7 @@ const SideBar = (props) => {
                 className={
                   tag !== "kho"
                     ? "flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-                    : "flex items-center p-2 text-base font-normal text-gray-900 rounded-lg bg-orange-100"
+                    : "flex items-center p-2 text-base font-normal text-gray-900 rounded-lg bg-[#e6f4ff]"
                 }>
                 <img
                   src="http://localhost:3000/image/kho.png"
@@ -65,7 +77,7 @@ const SideBar = (props) => {
                 className={
                   tag !== "sx"
                     ? "flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-                    : "flex items-center p-2 text-base font-normal text-gray-900 rounded-lg bg-orange-100"
+                    : "flex items-center p-2 text-base font-normal text-gray-900 rounded-lg bg-[#e6f4ff]"
                 }>
                 <img
                   src="http://localhost:3000/image/daily.png"
@@ -84,7 +96,7 @@ const SideBar = (props) => {
                 className={
                   tag !== "yc"
                     ? "flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-                    : "flex items-center p-2 text-base font-normal text-gray-900 rounded-lg bg-orange-100"
+                    : "flex items-center p-2 text-base font-normal text-gray-900 rounded-lg bg-[#e6f4ff]"
                 }>
                 <img
                   src="http://localhost:3000/image/request.png"
@@ -103,7 +115,7 @@ const SideBar = (props) => {
                 className={
                   tag !== "dsp"
                     ? "flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-                    : "flex items-center p-2 text-base font-normal text-gray-900 rounded-lg bg-orange-100"
+                    : "flex items-center p-2 text-base font-normal text-gray-900 rounded-lg bg-[#e6f4ff]"
                 }>
                 <img
                   src="http://localhost:3000/image/kho.png"
@@ -122,7 +134,7 @@ const SideBar = (props) => {
                 className={
                   tag !== "tk"
                     ? "flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-                    : "flex items-center p-2 text-base font-normal text-gray-900 rounded-lg bg-orange-100"
+                    : "flex items-center p-2 text-base font-normal text-gray-900 rounded-lg bg-[#e6f4ff]"
                 }>
                 <img
                   src="http://localhost:3000/image/kho.png"
@@ -141,7 +153,7 @@ const SideBar = (props) => {
                 className={
                   tag !== "nh"
                     ? "flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-                    : "flex items-center p-2 text-base font-normal text-gray-900 rounded-lg bg-orange-100"
+                    : "flex items-center p-2 text-base font-normal text-gray-900 rounded-lg bg-[#e6f4ff]"
                 }>
                 <img
                   src="http://localhost:3000/image/kho.png"
@@ -152,6 +164,79 @@ const SideBar = (props) => {
               </Link>
             </li>
           )}
+          {user.role === 1 && (
+            <li>
+               <Link
+                 to="/statistic"
+                 className= {
+                  (tag === 'stt' && !childrenTag)
+                  ? "flex items-center p-2 text-base font-normal text-gray-900 rounded-lg bg-[#e6f4ff]"
+                  : "flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700" }>
+                 <img
+                   src="http://localhost:3000/image/statistic.png"
+                   alt="statistic"
+                   className="w-4 md:w-4 lg:w-6"></img>
+                 <span className="ml-3">Thống kê</span>
+               </Link>
+                {
+                  tag === 'stt' && 
+                    <div className="flex flex-col items-start ml-11 text-xs lg:text-sm space-y-1">
+                      <div className={
+                        childrenTag === 'stt' ? "p-1 rounded-lg bg-[#e6f4ff]" : "" }>
+                          <Link to="/statistic/status" className="text-xs lg:text-sm font-normal text-gray-900"> Theo trạng thái </Link>
+                      </div>
+
+                      <div className={
+                        childrenTag === 'produce' ? "p-1 rounded-lg bg-[#e6f4ff]" : "" }>
+                          <Link to="/statistic/manufacture_factory" className="text-xs lg:text-sm font-normal text-gray-900">Theo cơ sở sản xuất</Link>
+                      </div>
+
+                      <div className={
+                        childrenTag === 'sales' ? "p-1 rounded-lg bg-[#e6f4ff]" : "" }>
+                          <Link to="/statistic/sale" className="text-xs lg:text-sm font-normal text-gray-900">Theo đại lý phân phối</Link>
+                      </div>
+                      
+                      <div className={
+                        childrenTag === 'center' ? "p-1 rounded-lg bg-[#e6f4ff]" : "" }>
+                          <Link to="/statistic/center" className="text-xs lg:text-sm font-normal text-gray-900">Theo trung tâm bảo hành</Link>
+                        </div>
+                    </div>
+                }
+            </li>
+          )}
+          {
+            user.role === 2 && (
+              <li>
+                <Link to="/statistic/factory_statistic"
+                className= {
+                  tag === 'fs'
+                  ? "flex items-center p-2 text-base font-normal text-gray-900 rounded-lg bg-[#e6f4ff]"
+                  : "flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700" }>
+                <img
+                   src="http://localhost:3000/image/statistic.png"
+                   alt="statistic"
+                   className="w-4 md:w-4 lg:w-6"></img>
+                 <span className="ml-3">Thống kê sản phẩm</span>
+                </Link>
+              </li>
+          )}
+          {
+            user.role === 2 && (
+              <li>
+                <Link to="/statistic/sold_statistic"
+                className= {
+                  tag === 'ss'
+                  ? "flex items-center p-2 text-base font-normal text-gray-900 rounded-lg bg-[#e6f4ff]"
+                  : "flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700" }>
+                <img
+                   src="http://localhost:3000/image/statistic.png"
+                   alt="statistic"
+                   className="w-4 md:w-4 lg:w-6"></img>
+                 <span className="ml-3">Thống kế sản phẩm bán ra</span>
+                </Link>
+              </li>
+          )}
+
         </ul>
       </div>
     </aside>

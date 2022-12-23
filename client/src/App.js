@@ -1,5 +1,6 @@
 import "./App.css";
-import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
+import { useEffect} from "react";
 import Login from "./pages/login/Login";
 import Home from "./pages/home/Home";
 import Produce from "./pages/home/Produce";
@@ -10,13 +11,12 @@ import { Button, Input, Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 import Auth from "./routes/Auth";
 import RequireAuth from "./routes/RequireAuth";
-import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { updateProduct } from "./api/product";
+import Statistic from "./pages/statistic/Statistic";
+import Status from "./pages/statistic/Status";
+import ManufactureFactory from "./pages/statistic/ManufactureFactory";
 import ProductLine from "./pages/productline/ProductLine";
 import ProductLineInfo from "./pages/productline/ProductLineInfo";
-import { Pie } from "@ant-design/plots";
 import ProductLineUpdate from "./pages/productline/ProductLineUpdate";
-import { useEffect } from "react";
 import User from "./pages/user/User";
 import ProductLineAdd from "./pages/productline/ProductLineAdd";
 import { setAuthHeader } from "./api/auth";
@@ -26,6 +26,10 @@ import ImportDetail from "./pages/import/ImportDetail";
 import Factory from "./pages/import/Factory";
 import Request from "./pages/request/Request";
 import axios from "./api/axios";
+import Sale from "./pages/statistic/Sale";
+import Center from "./pages/statistic/Center";
+import FactoryStatistic from "./pages/statistic/FactoryStatistic";
+import SoldStatistic from "./pages/statistic/SoldStatistic";
 import Product from "./pages/product/Product";
 
 function App() {
@@ -35,56 +39,9 @@ function App() {
   } = useAppContext();
 
   const antIcon = <LoadingOutlined />;
-  const data = [
-    {
-      type: "分类一",
-      value: 27,
-    },
-    {
-      type: "分类二",
-      value: 25,
-    },
-    {
-      type: "分类三",
-      value: 18,
-    },
-    {
-      type: "分类四",
-      value: 15,
-    },
-    {
-      type: "分类五",
-      value: 10,
-    },
-    {
-      type: "其他",
-      value: 5,
-    },
-  ];
-
-  const config = {
-    appendPadding: 10,
-    data,
-    angleField: "value",
-    colorField: "type",
-    radius: 0.75,
-    label: {
-      type: "spider",
-      labelHeight: 28,
-      content: "{name}\n{percentage}",
-    },
-    interactions: [
-      {
-        type: "element-selected",
-      },
-      {
-        type: "element-active",
-      },
-    ],
-  };
 
   useEffect(() => {
-    console.log(axios.defaults);
+    //console.log(axios.defaults);
     if (localStorage["token"]) {
       setAuthHeader(localStorage["token"]);
     }
@@ -105,14 +62,23 @@ function App() {
 
             <Route path="/produce" element={<Produce />} />
             <Route path="/request" element={<Request />} />
-            {/* productline */}
+            {/* productline*/}
             <Route path="/productline" element={<ProductLine />} />
             <Route path="/productline/:id" element={<ProductLineInfo />} />
+           {/* <Route path="/productline/:id/edit" element={<ProductLineEdit />} />*/}
             <Route
               path="/productline/:id/edit"
               element={<ProductLineUpdate />}
             />
             <Route path="/productline/create" element={<ProductLineAdd />} />
+            {/*statistic*/}
+            <Route path="/statistic" element={<Statistic />} />
+            <Route path="/statistic/status" element={<Status />} />
+            <Route path="/statistic/manufacture_factory" element={<ManufactureFactory />} />
+            <Route path="/statistic/sale" element={<Sale />} />
+            <Route path="/statistic/center" element={<Center />} />
+            <Route path="/statistic/factory_statistic" element={<FactoryStatistic />} />
+            <Route path="/statistic/sold_statistic" element={< SoldStatistic/>} />
             {/* account */}
             <Route path="/user" element={<User />} />
             {/* importProductLine */}

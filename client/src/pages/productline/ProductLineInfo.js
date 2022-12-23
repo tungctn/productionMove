@@ -2,7 +2,7 @@ import { Badge, Descriptions, Image } from "antd";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getProductLine } from "../../api/productline";
-import Default from "../../layouts/Default";
+import Default from "../../Layouts/Default";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import ProductLineDetail from "../../components/ProductLineForm/DetailProductLine";
 
