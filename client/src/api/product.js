@@ -18,7 +18,13 @@ export const getAllProduct = async () => {
   return response.data;
 };
 
+export const getProductByUser = async () => {
+  const response = await axios.get("/product/user");
+  return response.data;
+};
+
 export const getProduct = async (id) => {
   const response = await axios.get(`/product/${id}`);
   return response.data;
 };
+

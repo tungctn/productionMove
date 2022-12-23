@@ -34,11 +34,27 @@ module.exports.createProduct = async (req, res, next) => {
   }
 };
 
-module.exports.getAllProduct = async (req, res, next) => {
+module.exports.getProductByUser = async (req, res, next) => {
   try {
     const listProduct = await ProductModel.find({
       location: req.user.id,
     }).populate("productLine");
+    return res.status(200).json({
+      success: true,
+      msg: "successful",
+      data: listProduct,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      msg: error.message,
+    });
+  }
+};
+
+module.exports.getAllProduct = async (req, res, next) => {
+  try {
+    const listProduct = await ProductModel.find().populate("productLine");
     return res.status(200).json({
       success: true,
       msg: "successful",
