@@ -1,6 +1,10 @@
 import { createContext, useContext, useEffect, useReducer } from "react";
 import { useNavigate } from "react-router-dom";
-import { SET_REQUEST_ADD, SET_REQUEST_LIST } from "../action";
+import {
+  SET_REQUEST_ADD,
+  SET_REQUEST_BEGIN,
+  SET_REQUEST_LIST,
+} from "../action";
 import { createRequest, getAllRequest } from "../api/request";
 import { RequestReducer } from "../reducers/RequestReducer";
 import { useAppContext } from "./AppContext";
@@ -18,6 +22,9 @@ export const RequestContextProvider = (props) => {
   const { openNotification } = useAppContext();
   const [requestState, dispatch] = useReducer(RequestReducer, authState);
   const loadListRequest = async () => {
+    dispatch({
+      type: SET_REQUEST_BEGIN,
+    });
     const response = await getAllRequest();
     if (response.success) {
       dispatch({
@@ -41,11 +48,8 @@ export const RequestContextProvider = (props) => {
       openNotification("error", response.msg);
     }
   };
-  useEffect(() => {
-    loadListRequest();
-  }, []);
 
-  console.log(requestState);
+  // console.log(requestState);
 
   const data = {
     requestState,

@@ -24,7 +24,6 @@ const ProductLineContextProvider = (props) => {
   );
 
   const loadListProductLine = async () => {
-    // setAuthHeader(localStorage["token"]);
     dispatch({ type: SET_PRODUCTLINE_BEGIN });
     const response = await getAllProductLine();
     console.log(response);

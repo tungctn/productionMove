@@ -40,10 +40,6 @@ const UserContextProvider = (props) => {
     }
   };
 
-  useEffect(() => {
-    loadListUser();
-  }, []);
-
   const handleAddUser = async (createForm) => {
     const response = await createUser(createForm);
     if (response.success) {

@@ -13,7 +13,7 @@ const Home = () => {
   const { convertStatusToNameProduct } = useAppContext();
   const {
     productState: { listProduct, isLoading },
-    loadListProduct,
+    loadUserProduct,
   } = useProductContext();
   const { loadListRequest } = useRequestContext();
   const dataColumn = [
@@ -39,8 +39,7 @@ const Home = () => {
     },
   ];
   useEffect(() => {
-    loadListProduct();
-    loadListRequest();
+    loadUserProduct();
   }, []);
 
   const dataSource = listProduct.map((product, index) => {

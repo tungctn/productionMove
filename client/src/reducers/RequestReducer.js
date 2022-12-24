@@ -24,7 +24,6 @@ export const RequestReducer = (state, action) => {
         ...state,
         listRequest: [...state.listRequest, { ...action.payload }],
       };
-
     default:
       throw new Error("Action not match");
   }

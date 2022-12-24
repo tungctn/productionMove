@@ -5,13 +5,12 @@ import { useAppContext } from "../contexts/AppContext";
 const Auth = () => {
   console.log("Auth");
   const [location, setLocation] = useState("/home");
-  useEffect(() => {
-    setLocation(window.location.pathname);
-  }, [window.location.pathname]);
 
   const {
-    authState: { isLoading, isAuthenticated, user },
+    authState: { isLoading, isAuthenticated, user, url },
+    loadUser,
   } = useAppContext();
+
   let body;
 
   if (isLoading) {
@@ -19,13 +18,14 @@ const Auth = () => {
   } else if (!isAuthenticated) {
     body = <Outlet />;
   } else {
-    switch (user.role) {
-      case 1:
-        body = <Navigate to="/productline" />;
-        break;
-      default:
-        body = <Navigate to="/home" />;
-    }
+    // switch (user.role) {
+    //   case 1:
+    //     body = <Navigate to="/productline" />;
+    //     break;
+    //   default:
+    //     body = <Navigate to="/home" />;
+    // }
+    body = <Navigate to={url} />;
   }
 
   return <>{body}</>;

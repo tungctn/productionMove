@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
+const response = require("../utils/Response");
 dotenv.config();
 
 module.exports.verifyToken = (req, res, next) => {
@@ -9,18 +10,20 @@ module.exports.verifyToken = (req, res, next) => {
     const accessToken = token.replace("Bearer ", "");
     jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
       if (err) {
-        return res.status(403).json({
-          success: false,
-          msg: "token is not valid",
-        });
+        response.sendErrorResponse(res, "token is not valid", 403);
+        // return res.status(403).json({
+        //   success: false,
+        //   msg: "token is not valid",
+        // });
       }
       req.user = user;
       next();
     });
   } else {
-    return res.status(401).json({
-      success: false,
-      msg: "you are not authenticated",
-    });
+    response.sendErrorResponse(res, "you are not authenticated", 401);
+    // return res.status(401).json({
+    //   success: false,
+    //   msg: "you are not authenticated",
+    // });
   }
 };

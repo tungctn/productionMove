@@ -1,13 +1,15 @@
 const AuthController = require("../Controllers/AuthController");
 const MiddlewareAuth = require("../Middleware/isLogged");
+const TryCatch = require("../utils/TryCatch");
 
 const authRouter = require("express").Router();
 
-authRouter.post("/login", AuthController.loginUser);
+authRouter.post("/login", TryCatch(AuthController.loginUser));
 authRouter.post(
   "/logout",
   MiddlewareAuth.verifyToken,
-  AuthController.userLogout
+  TryCatch(AuthController.userLogout)
+  // AuthController.userLogout
 );
 
 module.exports = authRouter;

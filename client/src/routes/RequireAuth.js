@@ -5,13 +5,18 @@ const RequireAuth = () => {
   console.log("RequireAuth");
   const {
     authState: { isLoading, isAuthenticated },
+    openNotification,
   } = useAppContext();
 
   if (isLoading) {
     return <></>;
   }
-
-  return <>{isAuthenticated ? <Outlet /> : <Navigate to="/" />}</>;
+  if (!isAuthenticated) {
+    // openNotification("error", "you are not authorized");
+    return <Navigate to="/" />;
+  } else {
+    return <Outlet />;
+  }
 };
 
 export default RequireAuth;

@@ -20,10 +20,10 @@ export const initState = {
 };
 
 const ProductContextProvider = (props) => {
-  const { authState, refreshPage } = useAppContext(); // get authState from AppContext
+  const { authState, loadUser } = useAppContext(); // get authState from AppContext
   const [productState, dispatch] = useReducer(ProductReducer, authState);
 
-  const loadListProduct = async () => {
+  const loadUserProduct = async () => {
     dispatch({ type: SET_PRODUCT_BEGIN });
     const response = await getProductByUser();
     console.log(response);
@@ -32,15 +32,27 @@ const ProductContextProvider = (props) => {
         type: SET_PRODUCT_LIST,
         payload: { listProduct: response.data },
       });
-    } else {
-      localStorage.removeItem("token");
     }
   };
+
+  const loadAllProduct = async () => {
+    dispatch({ type: SET_PRODUCT_BEGIN });
+    const response = await getAllProduct();
+    console.log(response);
+    if (response.success) {
+      dispatch({
+        type: SET_PRODUCT_LIST,
+        payload: { listProduct: response.data },
+      });
+    }
+  };
+
 
   const data = {
     productState,
     dispatch,
-    loadListProduct,
+    loadUserProduct,
+    loadAllProduct,
   };
 
   return (

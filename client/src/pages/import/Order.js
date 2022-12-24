@@ -14,9 +14,7 @@ const Order = (props) => {
   const { handleCreateRequest } = useRequestContext();
   const [formText, setFormText] = useState({ note: "", type: 0 });
   const {
-    openNotification,
     authState: { user },
-    refreshPage,
   } = useAppContext();
 
   const showModal = () => {
