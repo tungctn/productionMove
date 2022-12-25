@@ -1,5 +1,6 @@
 const ProductLineModel = require("../Models/ProductLineModel");
 const ProductModel = require("../Models/ProductModel");
+const response = require("../utils/Response");
 
 module.exports.createProduct = async (req, res, next) => {
   try {
@@ -75,11 +76,12 @@ module.exports.getProduct = async (req, res, next) => {
       .populate("factory")
       .populate("location")
       .populate("store");
-    return res.status(200).json({
-      success: true,
-      msg: "successful",
-      data: product,
-    });
+    response.sendSuccessResponse(res, product, "successful", 200);
+    // return res.status(200).json({
+    //   success: true,
+    //   msg: "successful",
+    //   data: product,
+    // });
   } catch (error) {
     return res.status(500).json({
       success: false,
@@ -98,11 +100,12 @@ module.exports.updateProduct = async (req, res, next) => {
       $set: { ...updateOps },
     });
     const newProduct = await ProductModel.findById(req.params.id);
-    return res.status(200).json({
-      success: true,
-      msg: "successful",
-      data: newProduct,
-    });
+    response.sendSuccessResponse(res, newProduct, "successful", 200);
+    // return res.status(200).json({
+    //   success: true,
+    //   msg: "successful",
+    //   data: newProduct,
+    // });
   } catch (error) {
     return res.status(500).json({
       success: false,
@@ -114,10 +117,11 @@ module.exports.updateProduct = async (req, res, next) => {
 module.exports.deleteProduct = async (req, res, next) => {
   try {
     await ProductModel.findByIdAndDelete(req.params.id);
-    return res.status(200).json({
-      success: true,
-      msg: "successful",
-    });
+    response.sendSuccessResponse(res, null, "successful", 200);
+    // return res.status(200).json({
+    //   success: true,
+    //   msg: "successful",
+    // });
   } catch (error) {
     return res.status(500).json({
       success: false,

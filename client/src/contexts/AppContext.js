@@ -13,10 +13,12 @@ import { SET_AUTH_BEGIN, SET_AUTH_FAILED, SET_AUTH_SUCCESS } from "../action";
 import { useRequestContext } from "./RequestContext";
 import { useProductContext } from "./ProductContext";
 import { useProductLineContext } from "./ProductLineContext";
+import { useNavigate } from "react-router-dom";
 
 export const AppContext = createContext();
 
 export const initState = {
+  url: window.location.pathname,
   isLoading: false,
   user: null,
   isAuthenticated: false,
@@ -28,7 +30,7 @@ export const initState = {
 
 const AppContextProvider = (props) => {
   const [authState, dispatch] = useReducer(AuthReducer, initState);
-
+  const navigate = useNavigate();
   const openNotification = (type, message, description) => {
     notification[type]({
       message,
@@ -150,8 +152,8 @@ const AppContextProvider = (props) => {
     }
 
     setAuthHeader(localStorage["token"]);
-    const response = await getProfile();
     dispatch({ type: SET_AUTH_BEGIN });
+    const response = await getProfile();
     if (response.success) {
       dispatch({
         type: SET_AUTH_SUCCESS,
@@ -187,6 +189,11 @@ const AppContextProvider = (props) => {
         },
       });
       openNotification("success", "Login success");
+      if (response.data.role === 1) {
+        navigate("/productline");
+      } else {
+        navigate("/home");
+      }
       console.log(localStorage);
     } else {
       console.log(response.msg);
@@ -208,6 +215,7 @@ const AppContextProvider = (props) => {
   console.log(authState);
 
   const data = {
+    loadUser,
     authState,
     dispatch,
     openSidebar,

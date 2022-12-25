@@ -52,9 +52,9 @@ const ProductLine = () => {
   });
 
   useEffect(() => {
-    if (user.role !== 1) {
+    // if (user.role !== 1) {
       loadListProductLine();
-    }
+    // }
   }, []);
 
   return (

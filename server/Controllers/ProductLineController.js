@@ -1,4 +1,5 @@
 const ProductLineModel = require("../Models/ProductLineModel");
+const response = require("../utils/Response");
 
 module.exports.createProductLine = async (req, res, next) => {
   try {
@@ -19,11 +20,12 @@ module.exports.createProductLine = async (req, res, next) => {
       // engineType: req.body.engineType,
       ...req.body
     }).save();
-    return res.status(200).json({
-      success: true,
-      msg: "successful",
-      data: newProductLine,
-    });
+    response.sendSuccessResponse(res, newProductLine, "successful", 200);
+    // return res.status(200).json({
+    //   success: true,
+    //   msg: "successful",
+    //   data: newProductLine,
+    // });
   } catch (error) {
     return res.status(500).json({
       success: false,
@@ -35,11 +37,12 @@ module.exports.createProductLine = async (req, res, next) => {
 module.exports.getProductLine = async (req, res, next) => {
   try {
     const productLine = await ProductLineModel.findById(req.params.id);
-    return res.status(200).json({
-      success: true,
-      msg: "successful",
-      data: productLine,
-    });
+    response.sendSuccessResponse(res, productLine, "successful", 200);
+    // return res.status(200).json({
+    //   success: true,
+    //   msg: "successful",
+    //   data: productLine,
+    // });
   } catch (error) {
     return res.status(500).json({
       success: false,
@@ -62,11 +65,12 @@ module.exports.updateProductLine = async (req, res, next) => {
       }
     );
     const newProduct = await ProductLineModel.findById(req.params.id);
-    return res.status(200).json({
-      success: true,
-      msg: "successful",
-      data: newProduct,
-    });
+    response.sendSuccessResponse(res, newProduct, "successful", 200);
+    // return res.status(200).json({
+    //   success: true,
+    //   msg: "successful",
+    //   data: newProduct,
+    // });
   } catch (error) {
     return res.status(500).json({
       success: false,
@@ -78,10 +82,11 @@ module.exports.updateProductLine = async (req, res, next) => {
 module.exports.deleteProductLine = async (req, res, next) => {
   try {
     await ProductLineModel.findByIdAndDelete(req.params.id);
-    return res.status(200).json({
-      success: true,
-      msg: "successful",
-    });
+    response.sendSuccessResponse(res, null, "successful", 200);
+    // return res.status(200).json({
+    //   success: true,
+    //   msg: "successful",
+    // });
   } catch (error) {
     return res.status(500).json({
       success: false,
@@ -91,17 +96,18 @@ module.exports.deleteProductLine = async (req, res, next) => {
 };
 
 module.exports.productLineList = async (req, res, next) => {
-  try {
+  // try {
     const listProductLine = await ProductLineModel.find();
+
     return res.status(200).json({
       success: true,
       msg: "successful",
       data: listProductLine,
     });
-  } catch (error) {
-    return res.status(500).json({
-      success: false,
-      msg: error,
-    });
-  }
+  // } catch (error) {
+  //   return res.status(500).json({
+  //     success: false,
+  //     msg: error,
+  //   });
+  // }
 };

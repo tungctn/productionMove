@@ -1,28 +1,33 @@
 const productLineRoute = require("express").Router();
 const ProductLineController = require("../Controllers/ProductLineController");
 const verifyUser = require("../Middleware/verifyUser");
+const TryCatch = require("../utils/TryCatch");
 
-productLineRoute.get("/:id", ProductLineController.getProductLine);
+productLineRoute.get("/:id", TryCatch(ProductLineController.getProductLine));
 productLineRoute.get(
   "/",
   verifyUser.verifyFactory_WarrantyCenter_Store,
-  ProductLineController.productLineList
+  TryCatch(ProductLineController.productLineList)
+  // ProductLineController.productLineList
 );
 
 productLineRoute.post(
   "/",
   verifyUser.verifyAdmin,
-  ProductLineController.createProductLine
+  TryCatch(ProductLineController.createProductLine)
+  // ProductLineController.createProductLine
 );
 productLineRoute.put(
   "/:id",
   verifyUser.verifyAdmin,
-  ProductLineController.updateProductLine
+  TryCatch(ProductLineController.updateProductLine)
+  // ProductLineController.updateProductLine
 );
 productLineRoute.delete(
   "/:id",
   verifyUser.verifyAdmin,
-  ProductLineController.deleteProductLine
+  TryCatch(ProductLineController.deleteProductLine)
+  // ProductLineController.deleteProductLine
 );
 
 module.exports = productLineRoute;

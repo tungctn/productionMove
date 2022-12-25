@@ -1,6 +1,6 @@
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
-import { useEffect} from "react";
+import { useEffect } from "react";
 import Login from "./pages/login/Login";
 import Home from "./pages/home/Home";
 import Produce from "./pages/home/Produce";
@@ -31,21 +31,19 @@ import Center from "./pages/statistic/Center";
 import FactoryStatistic from "./pages/statistic/FactoryStatistic";
 import SoldStatistic from "./pages/statistic/SoldStatistic";
 import Product from "./pages/product/Product";
+import Profile from "./pages/profile/Profile";
 
 function App() {
   const {
-    authState: { isLoading, user },
-    openSideBar,
+    authState: { isLoading },
   } = useAppContext();
 
   const antIcon = <LoadingOutlined />;
 
   useEffect(() => {
-    //console.log(axios.defaults);
     if (localStorage["token"]) {
       setAuthHeader(localStorage["token"]);
     }
-    console.log(openSideBar);
   }, []);
 
   return (
@@ -57,6 +55,7 @@ function App() {
             <Route path="/" element={<Login />} />
           </Route>
           <Route path="/" element={<RequireAuth />}>
+            <Route path="/profile" element={<Profile />} />
             <Route path="/home" element={<Home />} />
             <Route path="/product/:id" element={<Product />} />
 
@@ -65,7 +64,7 @@ function App() {
             {/* productline*/}
             <Route path="/productline" element={<ProductLine />} />
             <Route path="/productline/:id" element={<ProductLineInfo />} />
-           {/* <Route path="/productline/:id/edit" element={<ProductLineEdit />} />*/}
+            {/* <Route path="/productline/:id/edit" element={<ProductLineEdit />} />*/}
             <Route
               path="/productline/:id/edit"
               element={<ProductLineUpdate />}
@@ -74,11 +73,20 @@ function App() {
             {/*statistic*/}
             <Route path="/statistic" element={<Statistic />} />
             <Route path="/statistic/status" element={<Status />} />
-            <Route path="/statistic/manufacture_factory" element={<ManufactureFactory />} />
+            <Route
+              path="/statistic/manufacture_factory"
+              element={<ManufactureFactory />}
+            />
             <Route path="/statistic/sale" element={<Sale />} />
             <Route path="/statistic/center" element={<Center />} />
-            <Route path="/statistic/factory_statistic" element={<FactoryStatistic />} />
-            <Route path="/statistic/sold_statistic" element={< SoldStatistic/>} />
+            <Route
+              path="/statistic/factory_statistic"
+              element={<FactoryStatistic />}
+            />
+            <Route
+              path="/statistic/sold_statistic"
+              element={<SoldStatistic />}
+            />
             {/* account */}
             <Route path="/user" element={<User />} />
             {/* importProductLine */}

@@ -45,11 +45,16 @@ const User = () => {
 
   const {
     userState: { listUser, isLoading },
+    loadListUser,
   } = useUserContext();
 
   const { convertRoleToName } = useAppContext();
 
-  const dataSource = listUser.map((user, index) => {
+  useEffect(() => {
+    loadListUser();
+  }, []);
+
+  const dataSource = listUser?.map((user, index) => {
     return {
       ...user,
       key: index + 1,

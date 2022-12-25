@@ -2,6 +2,7 @@ import React from "react";
 import { DownOutlined } from "@ant-design/icons";
 import { Dropdown, Space } from "antd";
 import { useAppContext } from "../contexts/AppContext";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const {
@@ -11,7 +12,11 @@ const Header = () => {
   const items = [
     {
       key: 1,
-      label: <a className="text">Profile</a>,
+      label: (
+        <Link className="text" to="/profile">
+          Profile
+        </Link>
+      ),
     },
     {
       key: 2,
