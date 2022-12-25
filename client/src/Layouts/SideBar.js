@@ -21,9 +21,9 @@ const SideBar = (props) => {
   const { tag, open, onClick, childrenTag } = props;
   const elems = document.querySelectorAll("a > span");
   const imgs = document.querySelectorAll("a > img");
-
+  console.log(childrenTag);
   useEffect(() => {
-    console.log(imgs);
+    //console.log(imgs);
   }, [open]);
 
   return (
@@ -46,7 +46,7 @@ const SideBar = (props) => {
         )}
       </div>
       <div className="overflow-y-auto max-h-screen mx-auto py-4 px-3 mt-10 rounded dark:bg-gray-800">
-        <ul className="space-y-4">
+        <ul className="space-y-2">
           {user.role !== 1 && (
             <li>
               <Link
@@ -61,7 +61,7 @@ const SideBar = (props) => {
                   alt="kho"
                   className={`w-4 md:w-4 lg:w-6 ${!open && "mx-auto"}`}
                 />
-                {open && <span className="ml-3">Kho</span>}
+                {open && <span className="ml-3 text-xs sm:text-sm md:text-base ">Kho</span>}
               </Link>
             </li>
           )}
@@ -79,7 +79,7 @@ const SideBar = (props) => {
                   alt="kho"
                   className={`w-4 md:w-4 lg:w-6 ${!open && "mx-auto"}`}
                 />
-                {open && <span className="ml-3">Sản xuẩt</span>}
+                {open && <span className="ml-3 text-xs sm:text-sm md:text-base">Sản xuẩt</span>}
               </Link>
             </li>
           )}
@@ -98,7 +98,7 @@ const SideBar = (props) => {
                   alt="kho"
                   className={`w-4 md:w-4 lg:w-6 ${!open && "mx-auto"}`}
                 />
-                {open && <span className="ml-3">Yêu Cầu</span>}
+                {open && <span className="ml-3 text-xs sm:text-sm md:text-base">Yêu Cầu</span>}
               </Link>
             </li>
           )}
@@ -117,7 +117,7 @@ const SideBar = (props) => {
                   alt="dsp"
                   className={`w-4 md:w-4 lg:w-6 ${!open && "mx-auto"}`}
                 />
-                {open && <span className="ml-3">Dòng sản phẩm</span>}
+                {open && <span className="ml-3 text-xs sm:text-sm md:text-base">Dòng sản phẩm</span>}
               </Link>
             </li>
           )}
@@ -136,7 +136,7 @@ const SideBar = (props) => {
                   alt="kho"
                   className={`w-4 md:w-4 lg:w-6 ${!open && "mx-auto"}`}
                 />
-                {open && <span className="ml-3">Tài khoản</span>}
+                {open && <span className="ml-3 text-xs sm:text-sm md:text-base">Tài khoản</span>}
               </Link>
             </li>
           )}
@@ -155,7 +155,7 @@ const SideBar = (props) => {
                   alt="kho"
                   className={`w-4 md:w-4 lg:w-6 ${!open && "mx-auto"}`}
                 />
-                {open && <span className="ml-3">Nhập hàng</span>}
+                {open && <span className="ml-3 text-xs sm:text-sm md:text-base">Nhập hàng</span>}
               </Link>
             </li>
           )}
@@ -172,7 +172,7 @@ const SideBar = (props) => {
                   src="http://localhost:3000/image/statistic.png"
                   alt="statistic"
                   className="w-4 md:w-4 lg:w-6"></img>
-                {open && <span className="ml-3">Thống kê</span>}
+                {open && <span className="ml-3 text-xs sm:text-sm md:text-base">Thống kê</span>}
               </Link>
               {tag === "stt" && (
                 <div className="flex flex-col items-start ml-11 text-xs lg:text-sm space-y-1">
@@ -230,12 +230,12 @@ const SideBar = (props) => {
               )}
             </li>
           )}
-          {user.role === 2 && (
+          {(user.role === 2 || user.role === 3 || user.role === 4) && (
             <li>
               <Link
-                to="/statistic/factory_statistic"
+                to="/statistic/product_statistic"
                 className={
-                  tag === "fs"
+                  tag === "ps"
                     ? "flex items-center p-2 text-base font-normal text-gray-900 rounded-lg bg-[#e6f4ff]"
                     : "flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
                 }>
@@ -243,11 +243,11 @@ const SideBar = (props) => {
                   src="http://localhost:3000/image/statistic.png"
                   alt="statistic"
                   className="w-4 md:w-4 lg:w-6"></img>
-                <span className="ml-3">Thống kê sản phẩm</span>
+                <span className="ml-3 text-xs sm:text-sm md:text-base">Thống kê sản phẩm</span>
               </Link>
             </li>
           )}
-          {user.role === 2 && (
+          {(user.role === 2 || user.role === 3) && (
             <li>
               <Link
                 to="/statistic/sold_statistic"
@@ -260,8 +260,53 @@ const SideBar = (props) => {
                   src="http://localhost:3000/image/statistic.png"
                   alt="statistic"
                   className="w-4 md:w-4 lg:w-6"></img>
-                <span className="ml-3">Thống kế sản phẩm bán ra</span>
+                <span className="ml-3 text-xs sm:text-sm md:text-base">Thống kế sản phẩm bán ra</span>
               </Link>
+            </li>
+          )}
+          {user.role === 2 && (
+            <li>
+              <Link
+                to="/statistic/failed_statistic"
+                className={
+                  tag === "fs" && !childrenTag
+                    ? "flex items-center p-2 text-base font-normal text-gray-900 rounded-lg bg-[#e6f4ff]"
+                    : "flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                }>
+                <img
+                  src="http://localhost:3000/image/statistic.png"
+                  alt="statistic"
+                  className="w-4 md:w-4 lg:w-6"></img>
+                <span className="ml-3 text-xs sm:text-sm md:text-base">Thống kế sản phẩm bị lỗi</span>
+              </Link>
+              {tag === "fs" && (
+                <div className="flex flex-col items-start ml-11 text-xs lg:text-sm space-y-1">
+                  <div
+                    className={
+                      childrenTag === "fpl" ? "p-1 rounded-lg bg-[#e6f4ff]" : ""
+                    }>
+                    <Link
+                      to="/statistic/failed_productline"
+                      className="text-xs lg:text-sm font-normal text-gray-900">
+                      {" "}
+                      Theo dòng sản phẩm{" "}
+                    </Link>
+                  </div>
+
+                  <div
+                    className={
+                      childrenTag === "fmf"
+                        ? "p-1 rounded-lg bg-[#e6f4ff]"
+                        : ""
+                    }>
+                    <Link
+                      to="/statistic/failed_manufacture_factory"
+                      className="text-xs lg:text-sm font-normal text-gray-900">
+                      Theo đại lý phân phối
+                    </Link>
+                  </div>
+                </div>
+              )}
             </li>
           )}
         </ul>

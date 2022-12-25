@@ -18,14 +18,14 @@ const Auth = () => {
   } else if (!isAuthenticated) {
     body = <Outlet />;
   } else {
-    // switch (user.role) {
-    //   case 1:
-    //     body = <Navigate to="/productline" />;
-    //     break;
-    //   default:
-    //     body = <Navigate to="/home" />;
-    // }
-    body = <Navigate to={url} />;
+     switch (user.role) {
+       case 1:
+         body = <Navigate to="/productline" />;
+         break;
+       default:
+         body = <Navigate to="/home" />;
+     }
+    //body = <Navigate to={url} />;
   }
 
   return <>{body}</>;

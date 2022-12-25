@@ -60,7 +60,7 @@ const ProductLine = () => {
   return (
     <div className="w-full">
       <Default tagName="dsp">
-        <ProduceSearch />
+        <ProduceSearch data={dataSource}/>
         <div className="mt-5">
           <Button
             className="float-right"
