@@ -13,7 +13,6 @@ const ProductLineDetail = (props) => {
   const [visible, setVisible] = useState(false);
   const loadProductLine = async (id) => {
     const response = await getProductLine(id);
-    console.log(response.data);
     if (response.success) {
       setProductLine(response.data);
     }
