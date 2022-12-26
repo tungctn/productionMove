@@ -17,7 +17,7 @@ function Status() {
   const dataFiltered = listProduct
     ?.filter((product) => product.status === Number(productState))
     .map((filteredProduct) => {
-      return filteredProduct.productLine.code;
+      return filteredProduct.identifier;
     });
 
   var c = dataFiltered.reduce((count, value) => {
@@ -67,7 +67,7 @@ function Status() {
           <div>
             <DemoPie data={dataSource}></DemoPie>
             <div className="mt-5 text-xl text-blue-900 font-bold">
-              Tổng số: {sumProduct}
+              Tổng số sản phẩm: {sumProduct}
             </div>
           </div>
         )}

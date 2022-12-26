@@ -10,7 +10,7 @@ function Statistic() {
   } = useProductContext();
   var sumProduct = 0;
   const data = listProduct.map((product) => {
-    return product.productLine.code;
+    return product.identifier;
   });
   var c = data.reduce((count, value) => {
     return count[value] ? count[value]++ : (count[value] = 1), count;
@@ -31,7 +31,7 @@ function Statistic() {
       <div className="w-5/6 mx-auto mt-20">
         <DemoPie data={dataSource}></DemoPie>
         <div className="mt-5 text-xl text-blue-900 font-bold">
-          Tổng số lượng: {sumProduct}
+          Tổng số sản phẩm: {sumProduct}
         </div>
       </div>
     </Default>

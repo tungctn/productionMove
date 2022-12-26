@@ -2,7 +2,7 @@ import { Outlet, Navigate } from "react-router-dom";
 import { useAppContext } from "../contexts/AppContext";
 
 const RequireAuth = () => {
-  console.log("RequireAuth");
+  //console.log("RequireAuth");
   const {
     authState: { isLoading, isAuthenticated },
     openNotification,

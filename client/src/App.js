@@ -28,10 +28,13 @@ import Request from "./pages/request/Request";
 import axios from "./api/axios";
 import Sale from "./pages/statistic/Sale";
 import Center from "./pages/statistic/Center";
-import FactoryStatistic from "./pages/statistic/FactoryStatistic";
+import ProductStatistic from "./pages/statistic/ProductStatistic";
 import SoldStatistic from "./pages/statistic/SoldStatistic";
 import Product from "./pages/product/Product";
 import Profile from "./pages/profile/Profile";
+import FailedStatistic from "./pages/statistic/FailedStatistic";
+import FailedManufacturefactory from "./pages/statistic/FailedManufacturefactory";
+import FailedProductLine from "./pages/statistic/FailedProductLine";
 
 function App() {
   const {
@@ -80,13 +83,26 @@ function App() {
             <Route path="/statistic/sale" element={<Sale />} />
             <Route path="/statistic/center" element={<Center />} />
             <Route
-              path="/statistic/factory_statistic"
-              element={<FactoryStatistic />}
+              path="/statistic/product_statistic"
+              element={<ProductStatistic />}
             />
             <Route
               path="/statistic/sold_statistic"
               element={<SoldStatistic />}
             />
+            <Route 
+              path="/statistic/failed_statistic"
+              element={<FailedStatistic />}
+            />
+            <Route 
+              path="/statistic/failed_manufacture_factory"
+              element={<FailedManufacturefactory />}
+            />
+            <Route 
+              path="/statistic/failed_productline"
+              element={<FailedProductLine />}
+            />
+
             {/* account */}
             <Route path="/user" element={<User />} />
             {/* importProductLine */}

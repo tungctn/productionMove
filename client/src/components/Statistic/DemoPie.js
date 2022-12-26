@@ -8,6 +8,8 @@ const DemoPie = (props) => {
     data,
     xField: 'type',
     yField: 'sales',
+    maxColumnWidth: 100,
+    minColumnWidth: 10,
     label: {
       position: 'middle',
       style: {
@@ -23,7 +25,7 @@ const DemoPie = (props) => {
     },
     meta: {
       type: {
-        alias: 'Dòng sản phẩm',
+        alias: 'Tên sản phẩm',
       },
       sales: {
         alias: 'Số lượng',
@@ -34,3 +36,4 @@ const DemoPie = (props) => {
 };
 
 export default DemoPie;
+

@@ -3,7 +3,7 @@ import { SearchOutlined, FilterOutlined } from "@ant-design/icons";
 import React from "react";
 import { useState } from "react";
 
-const ProduceSearch = () => {
+const ProduceSearch = (props) => {
   const [name, setName] = useState("");
 
   return (
