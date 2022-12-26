@@ -26,11 +26,13 @@ const requestSchema = new mongoose.Schema(
     type: {
       type: Number,
       enums: [
-        0, // yêu cầu nhập sản phẩm 1
-        1, // yêu cầu bảo hành 1
-        2, // yêu cầu nhận sản phẩm đã bảo hành xong 1
+        0, // yêu cầu nhập sản phẩm
+        1, // yêu cầu bảo hành
+        2, // yêu cầu nhận sản phẩm đã bảo hành xong
         3, // yêu cầu trả lại sản phẩm do không bảo hành được
-        4, // yêu cầu trả lại cơ sở sản xuất do lâu không bán được 1
+        4, // yêu cầu trả lại cơ sở sản xuất do lâu không bán được
+        5, // yêu cầu bàn giao sản phẩm mới cho khách hàng
+        6, // yêu cầu triệu hồi sản phẩm
       ],
       required: true,
     },
@@ -55,7 +57,7 @@ const requestSchema = new mongoose.Schema(
     },
     refRequest: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Request", 
+      ref: "Request",
     },
   },
   { timestamps: true }

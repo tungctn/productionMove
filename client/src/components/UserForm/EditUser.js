@@ -1,5 +1,5 @@
 import { EditFilled, EditOutlined } from "@ant-design/icons";
-import { Button, Modal, Form, Input } from "antd";
+import { Button, Modal, Form, Input, Select } from "antd";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getUser, updateUser } from "../../api/user";
@@ -13,7 +13,8 @@ const EditUser = (props) => {
   const [user, setUser] = useState({});
   const [formData, setFormData] = useState({});
   const navigate = useNavigate();
-  const { convertObjectToArray, openNotification } = useAppContext();
+  const { convertObjectToArray, openNotification, convertRoleToName } =
+    useAppContext();
   const { loadListUser, handleEditUser } = useUserContext();
   const loadUser = async (id) => {
     const response = await getUser(id);
@@ -39,6 +40,12 @@ const EditUser = (props) => {
   const handleOk = async () => {
     await handleEditUser(formData, id);
     setVisible(false);
+    loadListUser();
+  };
+
+  const onRoleChange = (value) => {
+    console.log(value);
+    setFormData({ ...formData, role: value });
   };
 
   useEffect(() => {
@@ -86,8 +93,36 @@ const EditUser = (props) => {
                 message: "Please input your role!",
               },
             ]}>
+            <Select
+              showSearch
+              placeholder="Select a warrantyCenter"
+              optionFilterProp="children"
+              onChange={onRoleChange}
+              // onSearch={onSearch}
+              filterOption={(input, option) =>
+                (option?.label ?? "")
+                  .toLowerCase()
+                  .includes(input.toLowerCase())
+              }
+              options={[
+                { label: "Cơ sở sản xuất", value: 2 },
+                { label: "Đại lý phân phối", value: 3 },
+                { label: "Trung tâm bảo hành", value: 4 },
+              ]}
+            />
+          </Form.Item>
+          <Form.Item
+            label="Email"
+            type="text"
+            name="email"
+            rules={[
+              {
+                required: true,
+                message: "Please input your email!",
+              },
+            ]}>
             <Input
-              name="role"
+              name="email"
               placeholder="input placeholder"
               onChange={onValueChange}
             />

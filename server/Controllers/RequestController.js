@@ -1,6 +1,7 @@
 const RequestModel = require("../Models/RequestModel");
 const UserModel = require("../Models/UserModel");
 const ProductModel = require("../Models/ProductModel");
+const response = require("../utils/Response");
 module.exports.createRequest = async (req, res) => {
   try {
     const requesterId = req.body.requester;
@@ -58,9 +59,9 @@ module.exports.createRequest = async (req, res) => {
 
 module.exports.getRequest = async (req, res) => {
   try {
-    const request = await RequestModel.findById(req.params.id).populate(
-      "product"
-    );
+    const request = await RequestModel.findById(req.params.id)
+      .populate("product")
+      .populate("productLine");
     return res.status(200).json({
       success: true,
       msg: "successful",

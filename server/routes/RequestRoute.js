@@ -18,7 +18,8 @@ requestRoute.get(
 );
 requestRoute.post(
   "/",
-  verifyUser.verifyFactory_WarrantyCenter_Store,
+  // verifyUser.verifyFactory_WarrantyCenter_Store,
+  MiddlewareAuth.verifyToken, 
   TryCatch(requestController.createRequest)
   // requestController.createRequest
 );

@@ -26,7 +26,7 @@ const ProductContextProvider = (props) => {
   const loadUserProduct = async () => {
     dispatch({ type: SET_PRODUCT_BEGIN });
     const response = await getProductByUser();
-    console.log(response);
+    // console.log(response);
     if (response.success) {
       dispatch({
         type: SET_PRODUCT_LIST,

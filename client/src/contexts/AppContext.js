@@ -50,6 +50,30 @@ const AppContextProvider = (props) => {
     return result;
   };
 
+  const deadDate = (product, date) => {
+    const newDate = new Date(date);
+    switch (product.productLine.timePeriod.unit) {
+      case 0:
+        newDate.setDate(
+          newDate.getDate() + product.productLine.timePeriod.period
+        );
+        break;
+      case 1:
+        newDate.setMonth(
+          newDate.getMonth() + product.productLine.timePeriod.period
+        );
+        break;
+      case 2:
+        newDate.setFullYear(
+          newDate.getFullYear() + product.productLine.timePeriod.period
+        );
+        break;
+      default:
+        break;
+    }
+    return newDate;
+  };
+
   function refreshPage() {
     window.location.reload(false);
   }
@@ -81,6 +105,10 @@ const AppContextProvider = (props) => {
         return "yêu cầu trả lại sản phẩm do không bảo hành được";
       case 4:
         return "yêu cầu trả lại cơ sở sản xuất do lâu không bán được";
+      case 5:
+        return "yêu cầu bàn giao sản phẩm mới cho khách hàng";
+      case 6:
+        return "yêu cầu triệu hồi sản phẩm";
       default:
         throw new Error("type is not match");
     }
@@ -230,6 +258,7 @@ const AppContextProvider = (props) => {
     convertStatusToName,
     convertStatusToNameProduct,
     convertUnitToName,
+    deadDate,
   };
 
   return (

@@ -16,7 +16,8 @@ const Order = (props) => {
   const {
     authState: { user },
   } = useAppContext();
-
+  const { loadListRequest } = useRequestContext();
+  const navigate = useNavigate();
   const showModal = () => {
     setVisible(true);
   };
@@ -42,7 +43,7 @@ const Order = (props) => {
       productLine: id,
       ...formText,
     });
-
+    loadListRequest();
     setVisible(false);
   };
   return (

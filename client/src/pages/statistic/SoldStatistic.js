@@ -25,6 +25,9 @@ function SoldStatistic() {
   const monthChange = (e) => {
     setMonth(e.target.value);
   };
+  useEffect(() => {
+    loadUserProduct();
+  }, []);
 
   var dataFiltered = listProduct;
   console.log(dataFiltered);
@@ -50,7 +53,7 @@ function SoldStatistic() {
   var nho = [];
   var YearData;
   if (listProduct) {
-    YearData = listProduct.map((data) => {
+    YearData = listProduct?.map((data) => {
       var string = data.createdAt.slice(0, 4);
       if (nho[string] !== "1") {
         nho[string] = "1";
@@ -80,10 +83,6 @@ function SoldStatistic() {
     });
   }
   if (year !== "0") quarters = [1, 2, 3, 4];
-  useEffect(() => {
-    // loadAllProduct();
-    loadUserProduct();
-  }, []);
 
   return (
     <Default tagName="ss">

@@ -41,6 +41,7 @@ const ProductDetail = (props) => {
   // type = 2: tra san pham
   const {
     userState: { listUser },
+    loadListUser,
   } = useUserContext();
   const loadProduct = async (id) => {
     setAuthHeader(localStorage["token"]);
@@ -85,6 +86,7 @@ const ProductDetail = (props) => {
 
   useEffect(() => {
     loadProduct(id);
+    loadListUser();
   }, [id]);
 
   const onValueChange = (e) => {
@@ -230,7 +232,13 @@ const ProductDetail = (props) => {
         requester: user._id,
         type: 3,
       });
-      if (response.success) {
+      const response1 = await handleCreateRequest({
+        product: id,
+        recipient: product.store._id,
+        requester: user._id,
+        type: 5,
+      });
+      if (response.success && response1.success) {
         openNotification("success", response.msg);
         navigate("/request");
         setVisible(false);
@@ -597,8 +605,8 @@ const ProductDetail = (props) => {
           onOk={handleOk}
           okText="Ok"
           cancelText="Cancel">
-          <p>Bạn có chắc chắn muốn trả sản phẩm về nhà máy không?</p>
-          <Select
+          <p>Bạn có chắc chắn muốn trả sản phẩm về nhà máy {factory} không?</p>
+          {/* <Select
             showSearch
             placeholder="Select a factory"
             optionFilterProp="children"
@@ -607,7 +615,7 @@ const ProductDetail = (props) => {
               (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
             }
             options={dataOption2}
-          />
+          /> */}
         </Modal>
       )}
     </div>

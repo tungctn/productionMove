@@ -10,8 +10,11 @@ import TableInfo from "../../components/TableInfo/TableInfo";
 import { useAppContext } from "../../contexts/AppContext";
 import { useRequestContext } from "../../contexts/RequestContext";
 import Default from "../../Layouts/Default";
-import { updateProduct } from "../../api/product";
+import { getProduct, updateProduct } from "../../api/product";
 import ProduceSearch from "../../components/Produce/ProduceSearch";
+import { useProductContext } from "../../contexts/ProductContext";
+import { useNavigate } from "react-router-dom";
+import { getProductLine } from "../../api/productline";
 
 const Request = () => {
   const { TextArea } = Input;
@@ -22,11 +25,17 @@ const Request = () => {
     openNotification,
     convertObjectToArray,
     refreshPage,
+    deadDate,
   } = useAppContext();
   const {
     requestState: { listRequest, isLoading },
     loadListRequest,
   } = useRequestContext();
+  const {
+    productState: { listProduct },
+    loadUserProduct,
+  } = useProductContext();
+  const navigate = useNavigate();
   const [visible, setVisible] = useState(false);
   const [desc, setDesc] = useState("");
   const [information, setInformation] = useState("");
@@ -35,6 +44,7 @@ const Request = () => {
   const [refId, setRefId] = useState();
   const [feedback, setFeedback] = useState({});
   const [record, setRecord] = useState({});
+  const [note, setNote] = useState("");
   const color = (status) => {
     switch (status) {
       case 1:
@@ -52,6 +62,7 @@ const Request = () => {
   const handleClick = (record) => {
     setVisible(true);
     setDesc(<h1>{convertTypeToName(record.type)}</h1>);
+    setNote(record.note); 
     if (record.type === 0) {
       setInformation(
         `${record.requester.name} muốn nhập ${record.amount} sản phẩm loại ${record.productLine.name} từ ${record.recipient.name}`
@@ -90,6 +101,16 @@ const Request = () => {
         ...data,
         amount: record.amount,
         store: record.requester._id,
+        productLine: record.product.productLine._id,
+      });
+    } else if (record.type === 5) {
+      setInformation(
+        `${record.requester.name} yêu cầu ${record.recipient.name} bàn giao sản phẩm mới cho khách hàng do ${record.product.identifier} bị hỏng không thể sửa chữa và đã được gửi về nhà máy.`
+      );
+      setData({
+        ...data,
+        amount: record.amount,
+        store: record.recipient._id,
         productLine: record.product.productLine._id,
       });
     } else {
@@ -139,8 +160,32 @@ const Request = () => {
           ...feedback,
           status: 8,
           location: user._id,
+          isSold: false,
+          customer: {},
         })
       );
+    } else if (record.type === 5) {
+      const dataProduct = listProduct?.filter((product) => {
+        return (
+          product.status === 1 &&
+          product.productLine._id === record.product.productLine
+        );
+      });
+      console.log(listProduct);
+      if (dataProduct.length === 0) {
+        openNotification("error", "Không có sản phẩm để bàn giao");
+        return;
+      } else {
+        response = await updateProduct(
+          dataProduct[0]._id,
+          convertObjectToArray({
+            status: 2,
+            customer: { ...record.product.customer, soldDate: new Date() },
+            isSold: true,
+            deadDate: deadDate(dataProduct[0], new Date()),
+          })
+        );
+      }
     }
     if (response.success) {
       openNotification("success", response.msg);
@@ -152,11 +197,11 @@ const Request = () => {
         record.refRequest,
         convertObjectToArray({ ...feedback, status: 3 })
       );
-      refreshPage();
+      // navigate("/request");
+      loadListRequest();
       setVisible(false);
     } else {
       openNotification("error", response.msg);
-      // setVisible(false);
     }
   };
   const handleReject = async () => {
@@ -170,6 +215,7 @@ const Request = () => {
     );
     if (response1.success && response2.success) {
       openNotification("success", response1.msg);
+      loadListRequest();
       setVisible(false);
     } else {
       openNotification("error", response1.msg);
@@ -218,6 +264,7 @@ const Request = () => {
 
   useEffect(() => {
     loadListRequest();
+    loadUserProduct();
   }, []);
 
   const dataSource = listRequest
@@ -274,6 +321,7 @@ const Request = () => {
         onCancel={handleCancel}>
         <div>{desc}</div>
         <div>{information}</div>
+        <div>Ghi chú: {note}</div>
         Phản hồi:
         <TextArea onChange={onChange} />
       </Modal>

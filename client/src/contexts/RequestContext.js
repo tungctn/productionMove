@@ -17,7 +17,10 @@ export const initState = {
 };
 
 export const RequestContextProvider = (props) => {
-  const { authState } = useAppContext();
+  const {
+    authState: { user },
+    authState,
+  } = useAppContext();
   const navigate = useNavigate();
   const { openNotification } = useAppContext();
   const [requestState, dispatch] = useReducer(RequestReducer, authState);
@@ -43,7 +46,10 @@ export const RequestContextProvider = (props) => {
         },
       });
       openNotification("success", response.msg);
-      navigate("/request");
+      if (user.role !== 1) {
+        navigate("/request");
+      }
+      loadListRequest();
     } else {
       openNotification("error", response.msg);
     }

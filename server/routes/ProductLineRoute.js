@@ -2,11 +2,13 @@ const productLineRoute = require("express").Router();
 const ProductLineController = require("../Controllers/ProductLineController");
 const verifyUser = require("../Middleware/verifyUser");
 const TryCatch = require("../utils/TryCatch");
+const MiddlewareAuth = require("../Middleware/isLogged");
 
 productLineRoute.get("/:id", TryCatch(ProductLineController.getProductLine));
 productLineRoute.get(
   "/",
-  verifyUser.verifyFactory_WarrantyCenter_Store,
+  // verifyUser.verifyFactory_WarrantyCenter_Store,
+  MiddlewareAuth.verifyToken,
   TryCatch(ProductLineController.productLineList)
   // ProductLineController.productLineList
 );

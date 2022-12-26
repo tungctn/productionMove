@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { getProductLine } from "../../api/productline";
 import ProductLineEdit from "./EditProductLine";
 import ProductLineDelete from "./DeleteProductLine";
+import SummonProductLine from "./SummonProductLine";
 
 const ProductLineDetail = (props) => {
   const { id, page, status } = props;
@@ -23,10 +24,6 @@ const ProductLineDetail = (props) => {
     setVisible(false);
   };
 
-  const handleDelete = () => {
-    setVisible(true);
-  };
-
   useEffect(() => {
     loadProductLine(id);
   }, [id]);
@@ -41,7 +38,7 @@ const ProductLineDetail = (props) => {
               navigate(`/productline/${id}/edit`);
             }}
           />
-          <DeleteOutlined onClick={handleDelete} />
+          <ProductLineDelete id={id} />
         </div>
       )}
       {page === "import" && (
@@ -66,6 +63,7 @@ const ProductLineDetail = (props) => {
           </Button>
         </div>
       )}
+      <SummonProductLine productLine={productLine} />
       <Descriptions title="Thông tin chi tiết" bordered column={1}>
         <Descriptions.Item label="Tên dòng xe">
           {productLine.name}

@@ -66,9 +66,9 @@ body {
     }
   }
 
-  .ant-input {
-    border-radius: 20px;
-    background-color: #e6f4ff;
+  .ant-input, .ant-select, .ant-select-selector {
+    border-radius: 20px !important;
+    background-color: #e6f4ff !important;
     &:hover {
       border: 2px solid var(--border-color);
     }
@@ -77,6 +77,8 @@ body {
       border: 2px solid var(--border-color);
     }
   }
+
+  
   
   .ant-input-affix-wrapper {
     border-radius: 20px;
@@ -106,5 +108,16 @@ body {
     }
   }
   
+  .ant-select {
+    border-radius: 20px;
+    background-color: #e6f4ff;
+    &:hover {
+      border: 2px solid var(--border-color);
+    }
+  
+    &:focus {
+      border: 2px solid var(--border-color);
+    }
+  }
   
   
