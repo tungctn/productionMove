@@ -46,4 +46,10 @@ userRouter.delete(
   // UserController.deleteUser
 );
 
+userRouter.post(
+  "/search",
+  verifyUser.verifyAdmin,
+  TryCatch(UserController.searchUser)
+);
+
 module.exports = userRouter;

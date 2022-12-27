@@ -31,7 +31,7 @@ const DeleteUser = (props) => {
         onOk={handleOk}
         destroyOnClose={true}
         onCancel={handelCancel}>
-        Bạn có muốn sa thải nhân viên này?
+        Bạn có muốn xoá người dùng này?
       </Modal>
     </div>
   );

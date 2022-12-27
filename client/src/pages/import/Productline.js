@@ -40,7 +40,7 @@ const Import = () => {
     loadListProductLine();
   }, []);
 
-  const dataSource = listProductLine.map((productline, index) => {
+  const dataSource = listProductLine?.map((productline, index) => {
     return {
       ...productline,
       key: index + 1,

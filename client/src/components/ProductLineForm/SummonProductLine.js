@@ -27,6 +27,7 @@ const SummonProductLine = (props) => {
           productLine: productLine._id,
           recipient: users._id,
           type: 6,
+          note: `Yêu cầu triệu hồi sản phẩm loại ${productLine.name}`, 
         });
         console.log(users);
       }

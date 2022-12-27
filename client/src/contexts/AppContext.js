@@ -222,9 +222,9 @@ const AppContextProvider = (props) => {
       } else {
         navigate("/home");
       }
-      console.log(localStorage);
+      //console.log(localStorage);
     } else {
-      console.log(response.msg);
+      //console.log(response.msg);
       dispatch({
         type: SET_AUTH_FAILED,
       });
@@ -240,7 +240,7 @@ const AppContextProvider = (props) => {
     openNotification("success", response.msg);
   };
 
-  console.log(authState);
+ // console.log(authState);
 
   const data = {
     loadUser,

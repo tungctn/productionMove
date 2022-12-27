@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import ProduceSearch from "../../components/Produce/ProduceSearch";
+import SearchUser from "../../components/SearchFilter/SearchUser";
 import TableInfo from "../../components/TableInfo/TableInfo";
 import AddUser from "../../components/UserForm/AddUser";
 import DeleteUser from "../../components/UserForm/DeleteUser";
@@ -65,7 +65,7 @@ const User = () => {
   return (
     <div className="w-full">
       <Default tagName="tk">
-        <ProduceSearch />
+        <SearchUser data={dataSource} />
         <div className="mt-5">
           <AddUser />
           <TableInfo

@@ -106,6 +106,7 @@ module.exports.handleImportRequest = async (req, res) => {
     const listProduct = await ProductModel.find({
       location: req.user.id,
       productLine: req.body.productLine,
+      status: 0,
     });
     if (req.body.amount > listProduct.length) {
       return res.status(200).json({

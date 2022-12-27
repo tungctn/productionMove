@@ -1,6 +1,7 @@
 import Default from "../../Layouts/Default";
 import DemoPie from "../../components/Statistic/DemoPie";
 import { useProductContext } from "../../contexts/ProductContext";
+import { useAppContext } from "../../contexts/AppContext";
 import { useEffect, useState } from "react";
 
 function SoldStatistic() {
@@ -13,6 +14,9 @@ function SoldStatistic() {
     loadAllProduct,
     loadUserProduct,
   } = useProductContext();
+  const {
+    authState: { user },
+  } = useAppContext();
   const yearChange = (e) => {
     setYear(e.target.value);
     setQuarter("-1");
@@ -26,28 +30,35 @@ function SoldStatistic() {
     setMonth(e.target.value);
   };
   useEffect(() => {
-    loadUserProduct();
+    // loadUserProduct();
+    loadAllProduct();
   }, []);
 
   var dataFiltered = listProduct;
-  console.log(dataFiltered);
   if (dataFiltered) {
-    dataFiltered = dataFiltered.filter((data) => !data.isSold);
+    dataFiltered = dataFiltered.filter((data) => data.isSold === true);
+  }
+  if (dataFiltered) {
+    if (user.role === 2)
+      dataFiltered = dataFiltered.filter((data) => data.factory == user._id);
+    else if (user.role === 3)
+      dataFiltered = dataFiltered.filter((data) => data.store == user._id);
   }
   if (year !== "0") {
     dataFiltered = dataFiltered.filter(
-      (data) => data.createdAt.slice(0, 4) == year
+      (data) => data.customer.soldDate.slice(0, 4) == year
     );
   }
   if (dataFiltered && quarter !== "-1") {
     dataFiltered = dataFiltered.filter(
       (data) =>
-        Math.floor((data.createdAt.slice(5, 7) - -3) / 4) == Number(quarter)
+        Math.floor((data.customer.soldDate.slice(5, 7) - -3) / 4) ==
+        Number(quarter)
     );
   }
   if (dataFiltered && month !== "0") {
     dataFiltered = dataFiltered.filter(
-      (data) => Number(data.createdAt.slice(5, 7)) === Number(month)
+      (data) => Number(data.customer.soldDate.slice(5, 7)) === Number(month)
     );
   }
   var nho = [];
@@ -60,11 +71,33 @@ function SoldStatistic() {
         return string;
       }
     });
+    console.log(listProduct);
+    YearData = listProduct?.filter((data) => data.isSold === true);
+    console.log(YearData);
+    if (YearData) {
+      YearData = YearData.map((data) =>
+        data.customer.soldDate.slice(0, 4)
+      ).filter((data, index, self) => {
+        console.log(self);
+        return self.indexOf(data) === index;
+      });
+      // .filter((data) => {
+      //   var string = data.customer.soldDate.slice(0, 4) * 1;
+      //   let valid = false;
+      //   if (nho[string] !== "1") {
+      //     nho[string] = "1";
+      //     valid = true;
+      //   }
+      //   return valid === true;
+      // });
+    }
+    console.log(YearData);
   }
+  console.log(listProduct);
   var c, sumProduct, dataSource;
   if (dataFiltered) {
     dataFiltered = dataFiltered.map((data) => {
-      return data.productLine.code;
+      return data.identifier;
     });
     c = dataFiltered.reduce((count, value) => {
       return count[value] ? count[value]++ : (count[value] = 1), count;
@@ -100,7 +133,7 @@ function SoldStatistic() {
                                                     focus:border-blue-500 focus:outline-none block w-full py-3 px-1"
               onChange={yearChange}>
               <option value="0"></option>
-              {YearData.map((year) => {
+              {YearData?.map((year) => {
                 return (
                   <option key={year} value={year}>
                     {" "}
@@ -164,18 +197,25 @@ function SoldStatistic() {
         </div>
       </div>
       <div className="w-5/6 mx-auto mt-10">
-        {dataSource.length !== 0 && (
+        {dataSource.length !== 0 && year !== "0" && (
           <div>
             <DemoPie data={dataSource}></DemoPie>
             <div className="mt-5 text-xl text-blue-900 font-bold">
-              Tổng số: {sumProduct}
+              Tổng số sản phẩm: {sumProduct}
             </div>
           </div>
         )}
-        {dataSource.length == 0 && (
+        {dataSource.length == 0 && year !== "0" && (
           <div className="container justify-items-center">
             <div className="text-3xl text-blue-200 mt-20">
               Không có sản phẩm nào !
+            </div>
+          </div>
+        )}
+        {year === "0" && (
+          <div className="container justify-items-center">
+            <div className="text-3xl text-blue-200 mt-20">
+              Mời chọn năm thống kê !
             </div>
           </div>
         )}

@@ -62,7 +62,7 @@ const Request = () => {
   const handleClick = (record) => {
     setVisible(true);
     setDesc(<h1>{convertTypeToName(record.type)}</h1>);
-    setNote(record.note); 
+    setNote(record.note);
     if (record.type === 0) {
       setInformation(
         `${record.requester.name} muốn nhập ${record.amount} sản phẩm loại ${record.productLine.name} từ ${record.recipient.name}`
@@ -186,8 +186,26 @@ const Request = () => {
           })
         );
       }
+    } else if (record.type === 6) {
+      const dataProduct = listProduct?.filter((product) => {
+        console.log(product);
+        console.log(record);
+        return product.productLine._id === record.productLine._id;
+      });
+      console.log(dataProduct);
+      for (let i = 0; i < dataProduct?.length; i++) {
+        const product = dataProduct[i];
+        console.log(product);
+        response = await updateProduct(
+          product._id,
+          convertObjectToArray({
+            ...feedback,
+            status: 9,
+          })
+        );
+      }
     }
-    if (response.success) {
+    if (response?.success) {
       openNotification("success", response.msg);
       await updateRequest(
         record._id,
@@ -201,7 +219,7 @@ const Request = () => {
       loadListRequest();
       setVisible(false);
     } else {
-      openNotification("error", response.msg);
+      openNotification("error", response?.msg);
     }
   };
   const handleReject = async () => {

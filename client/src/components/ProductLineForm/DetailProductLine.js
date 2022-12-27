@@ -14,7 +14,6 @@ const ProductLineDetail = (props) => {
   const [visible, setVisible] = useState(false);
   const loadProductLine = async (id) => {
     const response = await getProductLine(id);
-    console.log(response.data);
     if (response.success) {
       setProductLine(response.data);
     }
@@ -32,13 +31,16 @@ const ProductLineDetail = (props) => {
     <div>
       <Image src={productLine.img} width={400} preview={false} />
       {page === "productline" && (
-        <div className="text-right text-2xl text-cyan-500">
-          <EditOutlined
-            onClick={() => {
-              navigate(`/productline/${id}/edit`);
-            }}
-          />
-          <ProductLineDelete id={id} />
+        <div>
+          <div className="text-right text-2xl text-cyan-500">
+            <EditOutlined
+              onClick={() => {
+                navigate(`/productline/${id}/edit`);
+              }}
+            />
+            <ProductLineDelete id={id} />
+          </div>
+          <SummonProductLine productLine={productLine} />
         </div>
       )}
       {page === "import" && (
@@ -63,7 +65,7 @@ const ProductLineDetail = (props) => {
           </Button>
         </div>
       )}
-      <SummonProductLine productLine={productLine} />
+
       <Descriptions title="Thông tin chi tiết" bordered column={1}>
         <Descriptions.Item label="Tên dòng xe">
           {productLine.name}

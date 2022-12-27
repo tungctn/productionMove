@@ -115,3 +115,41 @@ module.exports.deleteUser = async (req, res) => {
     });
   }
 };
+
+module.exports.searchUser = async (req, res) => {
+  try {
+    const filter = req.body.filter;
+    let listUser = [];
+    if (req.body.role) {
+      if (req.body.input && filter) {
+        listUser = await User.find({
+          role: req.body.role,
+          $or: [{ [filter]: { $regex: req.body.input, $options: "i" } }],
+        });
+      } else {
+        listUser = await User.find({
+          role: req.body.role,
+        });
+      }
+    } else {
+      if (req.body.input && filter) {
+        listUser = await User.find({
+          $or: [{ [filter]: { $regex: req.body.input, $options: "i" } }],
+        });
+      } else {
+        listUser = await User.find();
+      }
+    }
+
+    return res.status(200).json({
+      success: true,
+      msg: "successful",
+      data: listUser,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      msg: error.message,
+    });
+  }
+};

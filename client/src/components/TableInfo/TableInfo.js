@@ -1,5 +1,5 @@
 import { LoadingOutlined } from "@ant-design/icons";
-import { Button, Select, Table } from "antd";
+import { BackTop, Button, Select, Table } from "antd";
 import React, { useEffect, useState } from "react";
 import "./index.scss";
 
@@ -13,11 +13,12 @@ const TableInfo = (props) => {
   const tableLoading = {
     spinning: loading,
     indicator: <LoadingOutlined />,
-  }
+  };
 
   const handleChange = (value) => {
     setPagination((preState) => ({ ...preState, pageSize: value }));
   };
+  const tableEle = React.createRef();
 
   return (
     <div>
@@ -47,7 +48,11 @@ const TableInfo = (props) => {
         onRow={onRow}
         loading={tableLoading}
         title={setTitle}
-        
+        ref={tableEle}
+        id="table"
+      />
+      <BackTop
+        visibilityHeight={50}
       />
     </div>
   );

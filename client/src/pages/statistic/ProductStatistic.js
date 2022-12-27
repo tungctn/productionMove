@@ -1,19 +1,72 @@
 import Default from "../../Layouts/Default";
 import DemoPie from "../../components/Statistic/DemoPie";
 import { useProductContext } from "../../contexts/ProductContext";
+import { useAppContext } from "../../contexts/AppContext";
 import { useEffect, useState } from "react";
 
-function FactoryStatistic() {
+function ProductStatistic() {
   const [productState, setProductState] = useState("-1");
   const [year, setYear] = useState("0");
   const [quarter, setQuarter] = useState("-1");
   const [month, setMonth] = useState("0");
+  const stateList = [
+    {
+      id: 0,
+      type: "Mới sản xuất",
+    },
+    {
+      id: 1,
+      type: "Được đưa về đại lý",
+    },
+    {
+      id: 2,
+      type: "Đã bán",
+    },
+    {
+      id: 3,
+      type: "Lỗi cần bảo hành",
+    },
+    {
+      id: 4,
+      type: "Đang bảo hành",
+    },
+    {
+      id: 5,
+      type: "Đã bảo hành xong",
+    },
+    {
+      id: 6,
+      type: "Đã trả lại cho khách hàng",
+    },
+    {
+      id: 7,
+      type: "Lỗi, cần đưa về cơ sở sản xuất",
+    },
+    {
+      id: 8,
+      type: "Lỗi, đã đưa về cơ sở sản xuất",
+    },
+    {
+      id: 9,
+      type: "Lỗi cần thu hồi",
+    },
+    {
+      id: 10,
+      type: "Đã hết thời gian bảo hành",
+    },
+    {
+      id: 11,
+      type: "Trả lại cơ sở sản xuất do lâu không được bán",
+    },
+  ];
 
   const {
     productState: { listProduct },
     loadAllProduct,
-    loadUserProduct,
   } = useProductContext();
+  const {
+    authState: { user },
+  } = useAppContext();
 
   const handleChange = (e) => {
     setProductState(e.target.value);
@@ -32,6 +85,36 @@ function FactoryStatistic() {
   };
 
   var dataFiltered = listProduct;
+  let stateData;
+  if (user.role === 2) {
+    stateData = stateList.filter(
+      (state) =>
+        state.id === 0 || state.id === 1 || (state.id >= 8 && state.id <= 11)
+    );
+    dataFiltered = dataFiltered.filter((data) => data.factory === user._id);
+  } else if (user.role === 3) {
+    stateData = stateList
+      .filter(
+        (state) =>
+          state.id === 1 ||
+          state.id === 3 ||
+          state.id === 5 ||
+          state.id === 6 ||
+          (state.id >= 9 && state.is <= 11)
+      )
+      .map((state) => {
+        if (state.id === 1) state.type = "Chưa bán";
+        return state;
+      });
+    dataFiltered = dataFiltered.filter((data) => data.store === user._id);
+  } else {
+    stateData = stateList.filter(
+      (state) =>
+        state.id === 4 || state.id === 5 || state.id === 7 || state.id === 8
+    );
+    dataFiltered = dataFiltered.filter((data) => data.location === user._id);
+  }
+
   if (year !== "0") {
     dataFiltered = dataFiltered.filter(
       (data) => data.createdAt.slice(0, 4) == year
@@ -48,33 +131,32 @@ function FactoryStatistic() {
       (data) => Number(data.createdAt.slice(5, 7)) === Number(month)
     );
   }
-  console.log(year);
   if (dataFiltered) {
     if (productState !== "-1") {
-      dataFiltered = dataFiltered.filter(
-        (product) => product.status == productState
-      );
-      if (dataFiltered) {
-        dataFiltered = dataFiltered.map((filteredProduct) => {
-          return filteredProduct.productLine.code;
-        });
+      if (productState === "3") {
+        dataFiltered = dataFiltered
+          .filter(
+            (product) =>
+              product.status == 3 ||
+              product.status == 4 ||
+              product.status == 7 ||
+              product.status == 8
+          )
+          .map((product) => {
+            return product.identifier;
+          });
+      } else {
+        dataFiltered = dataFiltered
+          .filter((product) => product.status == productState)
+          .map((data) => {
+            return data.identifier;
+          });
       }
     } else {
       dataFiltered = dataFiltered.map((data) => {
-        return data.productLine.code;
+        return data.identifier;
       });
     }
-  }
-  var nho = [];
-  var YearData;
-  if (listProduct) {
-    YearData = listProduct.map((data) => {
-      var string = data.createdAt.slice(0, 4);
-      if (nho[string] !== "1") {
-        nho[string] = "1";
-        return string;
-      }
-    });
   }
   var c, sumProduct, dataSource;
   if (dataFiltered) {
@@ -87,22 +169,38 @@ function FactoryStatistic() {
       return { type: key, sales: c[key] };
     });
   }
+
+  var nho = [];
+  var YearData;
+  if (listProduct) {
+    YearData = listProduct
+      .filter((data) => {
+        var string = data.createdAt.slice(0, 4) * 1;
+        let valid = false;
+        if (nho[string] !== "1") {
+          nho[string] = "1";
+          valid = true;
+        }
+        return valid === true;
+      })
+      .map((data) => data.createdAt.slice(0, 4));
+  }
   var months, number, quarters;
+  if (year !== "0") quarters = [1, 2, 3, 4];
   if (quarter !== "-1") {
     number = [1, 2, 3];
     months = number.map((i) => {
       return quarter * 3 + i;
     });
   }
-  if (year !== "0") quarters = [1, 2, 3, 4];
 
   useEffect(() => {
-    // loadAllProduct();
-    loadUserProduct();
+    loadAllProduct();
+    //loadUserProduct();
   }, []);
 
   return (
-    <Default tagName="fs">
+    <Default tagName="ps">
       <div className="flex mt-5">
         <div className="basis-1/4">
           <div className="w-2/3 mx-auto">
@@ -116,21 +214,14 @@ function FactoryStatistic() {
               className="bg-gray-50 border border-gray-300 text-blue-800 font-medium text-sm rounded-lg ring-1 focus:ring-blue-500
                                                     focus:border-blue-500 focus:outline-none block w-full py-3 px-1"
               onChange={handleChange}>
-              <option value="-1">Tất cả</option>
-              <option value="0">Mới sản xuất</option>
-              <option value="1">Được đưa về đại lý</option>
-              <option value="2">Đã bán</option>
-              <option value="3">Lỗi cần bảo hành</option>
-              <option value="4">Đang bảo hành</option>
-              <option value="5">Đã bảo hành xong</option>
-              <option value="6">Đã trả lại cho khách hàng</option>
-              <option value="7">Lỗi cần đưa về nhà máy</option>
-              <option value="8">Lỗi cần đưa về cơ sở sản xuất</option>
-              <option value="9">Lỗi cần thu hồi</option>
-              <option value="10">Đã hết thời gian bảo hành</option>
-              <option value="11">
-                Trả lại cơ sở sản xuất do lâu không được bán
-              </option>
+              <option value="-1"></option>
+              {stateData.map((state) => {
+                return (
+                  <option value={state.id} key={state.id}>
+                    {state.type}
+                  </option>
+                );
+              })}
             </select>
           </div>
         </div>
@@ -147,14 +238,15 @@ function FactoryStatistic() {
                                                     focus:border-blue-500 focus:outline-none block w-full py-3 px-1"
               onChange={yearChange}>
               <option value="0"></option>
-              {YearData.map((year) => {
-                return (
-                  <option key={year} value={year}>
-                    {" "}
-                    {year}{" "}
-                  </option>
-                );
-              })}
+              {YearData &&
+                YearData.map((year) => {
+                  return (
+                    <option key={year} value={year}>
+                      {" "}
+                      {year}{" "}
+                    </option>
+                  );
+                })}
             </select>
           </div>
         </div>
@@ -171,15 +263,14 @@ function FactoryStatistic() {
               onChange={quarterChange}
               disabled={year == "0" ? true : false}>
               <option value="-1"></option>
-              {quarters &&
-                quarters.map((quart) => {
-                  return (
-                    <option value={quart - 1} key={quart}>
-                      {" "}
-                      Quý {quart}
-                    </option>
-                  );
-                })}
+              {quarters?.map((quart) => {
+                return (
+                  <option value={quart - 1} key={quart}>
+                    {" "}
+                    Quý {quart}
+                  </option>
+                );
+              })}
             </select>
           </div>
         </div>
@@ -211,18 +302,25 @@ function FactoryStatistic() {
         </div>
       </div>
       <div className="w-5/6 mx-auto mt-10">
-        {dataSource.length !== 0 && (
+        {dataSource.length > 0 && productState !== "-1" && (
           <div>
             <DemoPie data={dataSource}></DemoPie>
             <div className="mt-5 text-xl text-blue-900 font-bold">
-              Tổng số: {sumProduct}
+              Tổng số sản phẩm: {sumProduct}
             </div>
           </div>
         )}
-        {dataSource.length == 0 && (
+        {dataSource.length === 0 && productState !== "-1" && (
           <div className="container justify-items-center">
             <div className="text-3xl text-blue-200 mt-20">
               Không có sản phẩm nào !
+            </div>
+          </div>
+        )}
+        {productState === "-1" && (
+          <div className="container justify-items-center">
+            <div className="text-3xl text-blue-200 mt-20">
+              Mời chọn loại thống kê !
             </div>
           </div>
         )}
@@ -231,4 +329,4 @@ function FactoryStatistic() {
   );
 }
 
-export default FactoryStatistic;
+export default ProductStatistic;

@@ -7,7 +7,7 @@ import Produce from "./pages/home/Produce";
 import "./index.scss";
 import Page403 from "./pages/error/403";
 import { useAppContext } from "./contexts/AppContext";
-import { Button, Input, Spin } from "antd";
+import { BackTop, Button, Input, Spin, Table } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 import Auth from "./routes/Auth";
 import RequireAuth from "./routes/RequireAuth";
@@ -28,10 +28,14 @@ import Request from "./pages/request/Request";
 import axios from "./api/axios";
 import Sale from "./pages/statistic/Sale";
 import Center from "./pages/statistic/Center";
-import FactoryStatistic from "./pages/statistic/FactoryStatistic";
+import ProductStatistic from "./pages/statistic/ProductStatistic";
 import SoldStatistic from "./pages/statistic/SoldStatistic";
 import Product from "./pages/product/Product";
 import Profile from "./pages/profile/Profile";
+import FailedStatistic from "./pages/statistic/FailedStatistic";
+import FailedManufacturefactory from "./pages/statistic/FailedManufacturefactory";
+import FailedProductLine from "./pages/statistic/FailedProductLine";
+import Default from "./Layouts/Default";
 
 function App() {
   const {
@@ -45,6 +49,28 @@ function App() {
       setAuthHeader(localStorage["token"]);
     }
   }, []);
+  let columns = [
+    {
+      title: "id",
+      dataIndex: "key",
+      key: "name",
+    },
+    {
+      title: "aa",
+      dataIndex: "aa",
+      key: "aa",
+    },
+    {
+      title: "bb",
+      dataIndex: "bb",
+      key: "b",
+    },
+  ];
+
+  let items = [];
+  for (let i = 0; i < 30; i++) {
+    items.push({ key: `${i}`, aa: `xxx`, bb: "read" });
+  }
 
   return (
     <Spin spinning={isLoading} indicator={antIcon}>
@@ -80,13 +106,26 @@ function App() {
             <Route path="/statistic/sale" element={<Sale />} />
             <Route path="/statistic/center" element={<Center />} />
             <Route
-              path="/statistic/factory_statistic"
-              element={<FactoryStatistic />}
+              path="/statistic/product_statistic"
+              element={<ProductStatistic />}
             />
             <Route
               path="/statistic/sold_statistic"
               element={<SoldStatistic />}
             />
+            <Route
+              path="/statistic/failed_statistic"
+              element={<FailedStatistic />}
+            />
+            <Route
+              path="/statistic/failed_manufacture_factory"
+              element={<FailedManufacturefactory />}
+            />
+            <Route
+              path="/statistic/failed_productline"
+              element={<FailedProductLine />}
+            />
+
             {/* account */}
             <Route path="/user" element={<User />} />
             {/* importProductLine */}
@@ -100,7 +139,12 @@ function App() {
           <Route path="/403" element={<Page403 />} />
         </Routes>
       </div>
+
     </Spin>
+    // <Default>
+    //   <Table dataSource={items} columns={columns} pagination={false} />
+    //   <BackTop />
+    // </Default>
   );
 }
 

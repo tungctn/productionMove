@@ -6,20 +6,20 @@ import { useAppContext } from "../../contexts/AppContext";
 import { useEffect, useState } from "react";
 
 function Center() {
-  const [productState, setProductState] = useState("0");
+  const [center, setCenter] = useState("0");
   const {
     productState: { listProduct },
     loadAllProduct,
   } = useProductContext();
 
   const handleChange = (event) => {
-    setProductState(event.target.value);
+    setCenter(event.target.value);
   };
 
   const dataFiltered = listProduct
-    .filter((product) => product.location == productState)
+    .filter((product) => product.location == center)
     .map((filteredProduct) => {
-      return filteredProduct.productLine.name;
+      return filteredProduct.identifier;
     });
 
   var c = dataFiltered.reduce((count, value) => {
@@ -78,15 +78,22 @@ function Center() {
         </select>
       </div>
       <div className="w-5/6 mx-auto mt-10">
+      {center === '0' && (
+          <div className="container justify-items-center">
+            <div className="text-3xl text-blue-200 mt-32">
+              Mời chọn trung tâm bảo hành !
+            </div>
+          </div>
+        )}
         {dataSource.length !== 0 && (
           <div>
             <DemoPie data={dataSource}></DemoPie>
             <div className="mt-5 text-xl text-blue-900 font-bold">
-              Tổng số: {sumProduct}
+              Tổng số sản phẩm: {sumProduct}
             </div>
           </div>
         )}
-        {dataSource.length == 0 && (
+        {center !== '0' && dataSource.length == 0 && (
           <div className="container justify-items-center">
             <div className="text-3xl text-blue-200 mt-32">
               Không có sản phẩm nào !

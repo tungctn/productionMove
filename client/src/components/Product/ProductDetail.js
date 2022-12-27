@@ -231,14 +231,31 @@ const ProductDetail = (props) => {
         recipient: product.factory._id,
         requester: user._id,
         type: 3,
+        note: note,
       });
       const response1 = await handleCreateRequest({
         product: id,
         recipient: product.store._id,
         requester: user._id,
         type: 5,
+        note: note,
       });
       if (response.success && response1.success) {
+        openNotification("success", response.msg);
+        navigate("/request");
+        setVisible(false);
+      } else {
+        openNotification("error", "Failed");
+      }
+    } else if (product?.status === 9) {
+      response = await handleCreateRequest({
+        product: id,
+        recipient: location,
+        requester: user._id,
+        type: 1,
+        note: note,
+      });
+      if (response?.success) {
         openNotification("success", response.msg);
         navigate("/request");
         setVisible(false);
@@ -343,6 +360,11 @@ const ProductDetail = (props) => {
               </div>
             )}
           </div>
+        )}
+        {product?.status === 9 && (
+          <Button onClick={showModal} type="primary">
+            Triệu hồi sản phẩm
+          </Button>
         )}
       </div>
       {product?.isSold && (
@@ -616,6 +638,35 @@ const ProductDetail = (props) => {
             }
             options={dataOption2}
           /> */}
+          <div>Ghi chú:</div>
+          <TextArea onChange={onNoteChange} />
+        </Modal>
+      )}
+      {product?.status === 9 && (
+        <Modal
+          destroyOnClose={true}
+          open={visible}
+          title="Sản phẩm bị lỗi"
+          onCancel={handleCancel}
+          onOk={handleOk}
+          okText="Ok"
+          cancelText="Cancel">
+          <p>
+            Bạn có chắc chắn muốn đưa sản phẩm về trung tâm bảo hành để sửa chữa
+            không?
+          </p>
+          <Select
+            showSearch
+            placeholder="Select a warrantyCenter"
+            optionFilterProp="children"
+            onChange={onWarrantyChange}
+            filterOption={(input, option) =>
+              (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
+            }
+            options={dataOption4}
+          />
+          <div>Ghi chú:</div>
+          <TextArea onChange={onNoteChange} />
         </Modal>
       )}
     </div>

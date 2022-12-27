@@ -31,3 +31,10 @@ export const deleteUser = async (id) => {
   const response = await axios.delete(`/user/${id}`, { withCredentials: true });
   return response.data;
 };
+
+export const searchUser = async (data) => {
+  const response = await axios.post("/user/search", data, {
+    withCredentials: true,
+  });
+  return response.data;
+}

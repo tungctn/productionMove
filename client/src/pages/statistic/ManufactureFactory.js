@@ -6,20 +6,20 @@ import { useAppContext } from "../../contexts/AppContext";
 import { useEffect, useState } from "react";
 
 function ManufactureFactory() {
-  const [productState, setProductState] = useState("0");
+  const [factory, setFactory] = useState("0");
   const {
     productState: { listProduct },
     loadAllProduct,
   } = useProductContext();
 
   const handleChange = (event) => {
-    setProductState(event.target.value);
+    setFactory(event.target.value);
   };
-
+  console.log(listProduct);
   const dataFiltered = listProduct
-    ?.filter((product) => product.factory === productState)
+    ?.filter((product) => product.factory === factory)
     .map((filteredProduct) => {
-      return filteredProduct.productLine.name;
+      return filteredProduct.identifier;
     });
 
   var c = dataFiltered.reduce((count, value) => {
@@ -79,15 +79,22 @@ function ManufactureFactory() {
         </select>
       </div>
       <div className="w-5/6 mx-auto mt-10">
+        {factory === '0' &&  (
+          <div className="container justify-items-center">
+            <div className="text-3xl text-blue-200 mt-32">
+              Mời chọn cơ sở sản xuất !
+            </div>
+          </div>
+        )}
         {dataSource.length !== 0 && (
           <div>
             <DemoPie data={dataSource}></DemoPie>
             <div className="mt-5 text-xl text-blue-900 font-bold">
-              Tổng số: {sumProduct}
+              Tổng số sản phẩm: {sumProduct}
             </div>
           </div>
         )}
-        {dataSource.length === 0 && (
+        {factory !== '0' && dataSource.length === 0 && (
           <div className="container justify-items-center">
             <div className="text-3xl text-blue-200 mt-32">
               Không có sản phẩm nào !

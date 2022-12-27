@@ -5,7 +5,7 @@ import {
   useReducer,
   useState,
 } from "react";
-import { createUser, deleteUser, getListUser, updateUser } from "../api/user";
+import { createUser, deleteUser, getListUser, searchUser, updateUser } from "../api/user";
 import {
   SET_USER_ADD,
   SET_USER_BEGIN,
@@ -30,6 +30,19 @@ const UserContextProvider = (props) => {
   const loadListUser = async () => {
     dispatch({ type: SET_USER_BEGIN });
     const response = await getListUser();
+    if (response.success) {
+      dispatch({
+        type: SET_USER_LIST,
+        payload: {
+          listUser: response.data,
+        },
+      });
+    }
+  };
+
+  const handleSearchUser = async (searchForm) => {
+    dispatch({ type: SET_USER_BEGIN });
+    const response = await searchUser(searchForm);
     if (response.success) {
       dispatch({
         type: SET_USER_LIST,
@@ -95,6 +108,7 @@ const UserContextProvider = (props) => {
     handleEditUser,
     handleDeleteUser,
     handleAddUser,
+    handleSearchUser,
   };
 
   return (
