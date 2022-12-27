@@ -19,7 +19,7 @@ function Center() {
   const dataFiltered = listProduct
     .filter((product) => product.location == center)
     .map((filteredProduct) => {
-      return filteredProduct.identifier;
+      return filteredProduct.productLine.name;
     });
 
   var c = dataFiltered.reduce((count, value) => {

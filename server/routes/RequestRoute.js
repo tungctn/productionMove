@@ -19,7 +19,7 @@ requestRoute.get(
 requestRoute.post(
   "/",
   // verifyUser.verifyFactory_WarrantyCenter_Store,
-  MiddlewareAuth.verifyToken, 
+  MiddlewareAuth.verifyToken,
   TryCatch(requestController.createRequest)
   // requestController.createRequest
 );
@@ -35,6 +35,12 @@ requestRoute.put(
   verifyUser.verifyFactory_WarrantyCenter_Store,
   TryCatch(requestController.updateRequest)
   // requestController.updateRequest
+);
+
+requestRoute.post(
+  "/search",
+  verifyUser.verifyFactory_WarrantyCenter_Store,
+  TryCatch(requestController.searchRequest)
 );
 
 module.exports = requestRoute;

@@ -19,7 +19,7 @@ function ManufactureFactory() {
   const dataFiltered = listProduct
     ?.filter((product) => product.factory === factory)
     .map((filteredProduct) => {
-      return filteredProduct.identifier;
+      return filteredProduct.productLine.name;
     });
 
   var c = dataFiltered.reduce((count, value) => {

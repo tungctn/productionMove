@@ -20,3 +20,8 @@ export const updateRequest = async (id, data) => {
   const response = await axios.put(`/request/${id}`, data);
   return response.data;
 };
+
+export const searchRequest = async (data) => {
+  const response = await axios.post("/request/search", data);
+  return response.data;
+};

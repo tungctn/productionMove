@@ -17,7 +17,7 @@ function Status() {
   const dataFiltered = listProduct
     ?.filter((product) => product.status === Number(productState))
     .map((filteredProduct) => {
-      return filteredProduct.identifier;
+      return filteredProduct.productLine.name;
     });
 
   var c = dataFiltered.reduce((count, value) => {

@@ -9,7 +9,7 @@ import {
 } from "../action";
 import { useParams } from "react-router-dom";
 import { ProductReducer } from "../reducers/ProductReducer";
-import { getAllProduct, getProductByUser } from "../api/product";
+import { getAllProduct, getProductByUser, searchProduct } from "../api/product";
 import { useAppContext } from "./AppContext";
 import { setAuthHeader } from "../api/auth";
 
@@ -46,12 +46,24 @@ const ProductContextProvider = (props) => {
     }
   };
 
+  const handleSearchProduct = async (searchForm) => {
+    dispatch({ type: SET_PRODUCT_BEGIN });
+    const response = await searchProduct(searchForm);
+    if (response.success) {
+      dispatch({
+        type: SET_PRODUCT_LIST,
+        payload: { listProduct: response.data },
+      });
+    }
+  };
+
 
   const data = {
     productState,
     dispatch,
     loadUserProduct,
     loadAllProduct,
+    handleSearchProduct,
   };
 
   return (

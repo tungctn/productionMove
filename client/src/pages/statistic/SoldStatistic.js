@@ -97,7 +97,7 @@ function SoldStatistic() {
   var c, sumProduct, dataSource;
   if (dataFiltered) {
     dataFiltered = dataFiltered.map((data) => {
-      return data.identifier;
+      return data.productLine.name;
     });
     c = dataFiltered.reduce((count, value) => {
       return count[value] ? count[value]++ : (count[value] = 1), count;

@@ -143,18 +143,18 @@ function ProductStatistic() {
               product.status == 8
           )
           .map((product) => {
-            return product.identifier;
+            return product.productLine.name;
           });
       } else {
         dataFiltered = dataFiltered
           .filter((product) => product.status == productState)
           .map((data) => {
-            return data.identifier;
+            return data.productLine.name;
           });
       }
     } else {
       dataFiltered = dataFiltered.map((data) => {
-        return data.identifier;
+        return data.productLine.name;
       });
     }
   }

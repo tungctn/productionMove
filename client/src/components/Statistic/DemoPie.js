@@ -1,19 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import ReactDOM from 'react-dom';
-import { Column } from '@ant-design/plots';
+import React, { useState, useEffect } from "react";
+import ReactDOM from "react-dom";
+import { Column } from "@ant-design/plots";
 
 const DemoPie = (props) => {
   const data = props.data;
+  console.log(data);
   const config = {
     data,
-    xField: 'type',
-    yField: 'sales',
+    xField: "type",
+    yField: "sales",
     maxColumnWidth: 100,
     minColumnWidth: 10,
+    color: "green",
     label: {
-      position: 'middle',
+      position: "middle",
       style: {
-        fill: '#FFFFFF',
+        fill: "#FFFFFF",
         opacity: 0.6,
       },
     },
@@ -25,15 +27,15 @@ const DemoPie = (props) => {
     },
     meta: {
       type: {
-        alias: 'Tên sản phẩm',
+        alias: "Tên sản phẩm",
       },
       sales: {
-        alias: 'Số lượng',
+        alias: "Số lượng",
       },
     },
+    
   };
   return <Column {...config} />;
 };
 
 export default DemoPie;
-

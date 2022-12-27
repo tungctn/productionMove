@@ -15,6 +15,7 @@ import ProduceSearch from "../../components/Produce/ProduceSearch";
 import { useProductContext } from "../../contexts/ProductContext";
 import { useNavigate } from "react-router-dom";
 import { getProductLine } from "../../api/productline";
+import SearchRequest from "../../components/SearchFilter/SearchRequest";
 
 const Request = () => {
   const { TextArea } = Input;
@@ -308,7 +309,7 @@ const Request = () => {
   return (
     <div className="w-full">
       <Default tagName="yc">
-        <ProduceSearch />
+        <SearchRequest />
         <TableInfo
           onRow={(record) => ({
             onClick: () => {

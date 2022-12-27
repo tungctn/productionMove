@@ -154,3 +154,73 @@ module.exports.updateRequest = async (req, res, next) => {
     });
   }
 };
+module.exports.searchRequest = async (req, res) => {
+  // req.body.type
+  // req.body.status
+  // req.body.requester
+  try {
+    let listRequest = [];
+    const user = await UserModel.findById(req.user.id);
+    for (const requestID of user.requestList) {
+      let request = await RequestModel.findById(requestID)
+        .populate("recipient")
+        .populate("requester")
+        .populate("productLine")
+        .populate("product");
+      listRequest.push(request);
+    }
+    console.log(req.body.type);
+    if (req.body.type || req.body.type === 0) { 
+      listRequest = listRequest.filter((request) => {
+        return request.type === req.body.type;
+      });
+      if (req.body.status) {
+        listRequest = listRequest.filter((request) => {
+          return request.status == req.body.status;
+        });
+        if (req.body.requester) {
+          listRequest = listRequest.filter((request) => {
+            return request.requester._id == req.body.requester;
+          });
+        } else {
+          listRequest = listRequest;
+        }
+      } else {
+        if (req.body.requester) {
+          listRequest = listRequest.filter((request) => {
+            return request.requester._id == req.body.requester;
+          });
+        } else {
+          listRequest = listRequest;
+        }
+      }
+    } else {
+      if (req.body.status) {
+        listRequest = listRequest.filter((request) => {
+          return request.status == req.body.status;
+        });
+        if (req.body.requester) {
+          listRequest = listRequest.filter((request) => {
+            return request.requester._id == req.body.requester;
+          });
+        } else {
+          listRequest = listRequest;
+        }
+      } else {
+        if (req.body.requester) {
+          listRequest = listRequest.filter((request) => {
+            return request.requester._id == req.body.requester;
+          });
+        } else {
+          listRequest = listRequest;
+        }
+      }
+    }
+    response.sendSuccessResponse(res, listRequest, "successful", 200);
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      msg: error.message,
+    });
+  }
+};

@@ -5,7 +5,7 @@ import {
   SET_REQUEST_BEGIN,
   SET_REQUEST_LIST,
 } from "../action";
-import { createRequest, getAllRequest } from "../api/request";
+import { createRequest, getAllRequest, searchRequest } from "../api/request";
 import { RequestReducer } from "../reducers/RequestReducer";
 import { useAppContext } from "./AppContext";
 import { setAuthHeader } from "../api/auth";
@@ -55,6 +55,16 @@ export const RequestContextProvider = (props) => {
     }
   };
 
+  const handleSearchRequest = async (searchForm) => {
+    dispatch({ type: SET_REQUEST_BEGIN });
+    const response = await searchRequest(searchForm);
+    if (response.success) {
+      dispatch({
+        type: SET_REQUEST_LIST,
+        payload: { listRequest: response.data },
+      });
+    }
+  };
   // console.log(requestState);
 
   const data = {
@@ -62,6 +72,7 @@ export const RequestContextProvider = (props) => {
     dispatch,
     loadListRequest,
     handleCreateRequest,
+    handleSearchRequest,
   };
   return (
     <RequestContext.Provider value={data}>

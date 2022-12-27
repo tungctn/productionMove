@@ -28,3 +28,7 @@ export const getProduct = async (id) => {
   return response.data;
 };
 
+export const searchProduct = async (data) => {
+  const response = await axios.post("/product/search", data);
+  return response.data;
+};

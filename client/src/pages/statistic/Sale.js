@@ -19,7 +19,7 @@ function Sale() {
   const dataFiltered = listProduct
     ?.filter((product) => product.store === sales)
     .map((filteredProduct) => {
-      return filteredProduct.identifier;
+      return filteredProduct.productLine.name;
     });
 
   var c = dataFiltered?.reduce((count, value) => {

@@ -2,6 +2,7 @@ import { Input } from "antd";
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import ProduceSearch from "../../components/Produce/ProduceSearch";
+import SearchProduct from "../../components/SearchFilter/SearchProduct";
 import TableInfo from "../../components/TableInfo/TableInfo";
 import { useAppContext } from "../../contexts/AppContext";
 import { useProductContext } from "../../contexts/ProductContext";
@@ -50,11 +51,12 @@ const Home = () => {
       status: convertStatusToNameProduct(product.status),
     };
   });
+  
 
   return (
     <div className="w-full">
       <Default tagName="kho">
-        <ProduceSearch />
+        <SearchProduct />
         <div className="mt-5">
           <TableInfo
             onRow={(r) => ({

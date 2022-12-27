@@ -39,4 +39,10 @@ productRoute.put(
   // productController.updateProduct
 );
 
+productRoute.post(
+  "/search",
+  verifyUser.verifyFactory_WarrantyCenter_Store,
+  TryCatch(productController.searchProduct)
+)
+
 module.exports = productRoute;

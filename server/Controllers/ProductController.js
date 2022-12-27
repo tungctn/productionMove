@@ -129,3 +129,64 @@ module.exports.deleteProduct = async (req, res, next) => {
     });
   }
 };
+
+module.exports.searchProduct = async (req, res, next) => {
+  try {
+    req.body.input = req.body.input?.toUpperCase();
+    let listProduct = await ProductModel.find({
+      location: req.user.id,
+    }).populate("productLine");
+    if (req.body.status || req.body.status === 0) {
+      listProduct = listProduct.filter((item) => {
+        return item.status === req.body.status;
+      });
+      if (req.body.prdl) {
+        listProduct = listProduct.filter((item) => {
+          return item.productLine._id === req.body.prdl;
+        });
+        if (req.body.input) {
+          listProduct = listProduct.filter((item) => {
+            return item.identifier.includes(req.body.input);
+          });
+        } else {
+          listProduct = listProduct;
+        }
+      } else {
+        if (req.body.input) {
+          listProduct = listProduct.filter((item) => {
+            return item.identifier.includes(req.body.input);
+          });
+        } else {
+          listProduct = listProduct;
+        }
+      }
+    } else {
+      if (req.body.prdl) {
+        listProduct = listProduct.filter((item) => {
+          return item.productLine._id == req.body.prdl;
+        });
+        if (req.body.input) {
+          listProduct = listProduct.filter((item) => {
+            return item.identifier.includes(req.body.input);
+          });
+        } else {
+          listProduct = listProduct;
+        }
+      } else {
+        if (req.body.input) {
+          listProduct = listProduct.filter((item) => {
+            return item.identifier.includes(req.body.input);
+          });
+        } else {
+          listProduct = listProduct;
+        }
+      }
+    }
+    response.sendSuccessResponse(res, listProduct, "successful", 200);
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      msg: error.message,
+    });
+  }
+};
