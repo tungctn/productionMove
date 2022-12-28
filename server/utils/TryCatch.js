@@ -4,7 +4,7 @@ module.exports = (func) => {
   return (req, res, next) => {
     // try {
     func(req, res, next).catch((error) => {
-      response.sendErrorServerResponse(res, error);
+      return response.sendErrorServerResponse(res, error);
     });
     // } catch (error) {
     //   response.sendErrorServerResponse(res, error);

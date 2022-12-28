@@ -49,28 +49,6 @@ function App() {
       setAuthHeader(localStorage["token"]);
     }
   }, []);
-  let columns = [
-    {
-      title: "id",
-      dataIndex: "key",
-      key: "name",
-    },
-    {
-      title: "aa",
-      dataIndex: "aa",
-      key: "aa",
-    },
-    {
-      title: "bb",
-      dataIndex: "bb",
-      key: "b",
-    },
-  ];
-
-  let items = [];
-  for (let i = 0; i < 30; i++) {
-    items.push({ key: `${i}`, aa: `xxx`, bb: "read" });
-  }
 
   return (
     <Spin spinning={isLoading} indicator={antIcon}>
@@ -141,10 +119,6 @@ function App() {
       </div>
 
     </Spin>
-    // <Default>
-    //   <Table dataSource={items} columns={columns} pagination={false} />
-    //   <BackTop />
-    // </Default>
   );
 }
 

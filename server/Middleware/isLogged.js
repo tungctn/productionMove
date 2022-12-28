@@ -10,7 +10,7 @@ module.exports.verifyToken = (req, res, next) => {
     const accessToken = token.replace("Bearer ", "");
     jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
       if (err) {
-        response.sendErrorResponse(res, "token is not valid", 403);
+        return response.sendErrorResponse(res, "Phiên đăng nhập đã hết hạn", 403);
         // return res.status(403).json({
         //   success: false,
         //   msg: "token is not valid",
@@ -20,7 +20,7 @@ module.exports.verifyToken = (req, res, next) => {
       next();
     });
   } else {
-    response.sendErrorResponse(res, "you are not authenticated", 401);
+    return response.sendErrorResponse(res, "Bạn cần đăng nhập", 401);
     // return res.status(401).json({
     //   success: false,
     //   msg: "you are not authenticated",

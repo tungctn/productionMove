@@ -6,7 +6,11 @@ module.exports.verifyAdmin = (req, res, next) => {
     if (req.user.role === 1) {
       next();
     } else {
-      response.sendErrorResponse(res, "You're not admin", 403);
+      return response.sendErrorResponse(
+        res,
+        "Bạn không thuộc ban điều hành",
+        403
+      );
       // return res.status(403).json({
       //   success: false,
       //   msg: "You're not admin",
@@ -20,7 +24,11 @@ module.exports.verifyFactory = async (req, res, next) => {
     if (req.user.role === 2) {
       next();
     } else {
-      response.sendErrorResponse(res, "You're not Factory", 403);
+      return response.sendErrorResponse(
+        res,
+        "Bạn không thuộc cơ sở sản xuất",
+        403
+      );
       // return res.status(403).json({
       //   success: false,
       //   msg: "You're not Factory",
@@ -34,7 +42,11 @@ module.exports.verifyStore = async (req, res, next) => {
     if (req.user.role === 3) {
       next();
     } else {
-      response.sendErrorResponse(res, "You're not Store", 403);
+      return response.sendErrorResponse(
+        res,
+        "Bạn không thuộc đại lý phân phối",
+        403
+      );
       // return res.status(403).json({
       //   success: false,
       //   msg: "You're not Store",
@@ -48,7 +60,11 @@ module.exports.verifyWarrantyCenter = async (req, res, next) => {
     if (req.user.role === 4) {
       next();
     } else {
-      response.sendErrorResponse(res, "You're not Warranty Center", 403);
+      return response.sendErrorResponse(
+        res,
+        "Bạn không thuộc trung tâm bảo hành",
+        403
+      );
       // return res.status(403).json({
       //   success: false,
       //   msg: "You're not Warranty Center",
@@ -62,9 +78,9 @@ module.exports.verifyFactory_WarrantyCenter_Store = async (req, res, next) => {
     if (req.user.role === 2 || req.user.role === 3 || req.user.role === 4) {
       next();
     } else {
-      response.sendErrorResponse(
+      return response.sendErrorResponse(
         res,
-        "You're not Warranty Center or Factory or Store",
+        "Bạn không thuộc cơ sở sản xuất, đại lý phân phối, trung tâm bảo hành",
         403
       );
       // return res.status(403).json({

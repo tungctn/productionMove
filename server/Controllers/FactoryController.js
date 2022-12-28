@@ -19,7 +19,7 @@ module.exports.quantityInStock = async (req, res, next) => {
     //   msg: "successful",
     //   data: quantityInStock,
     // });
-    response.sendSuccessResponse(res, quantityInStock, "successful", 200);
+    return response.sendSuccessResponse(res, quantityInStock, "", 200);
   // } catch (error) {
   //   return res.status(500).json({
   //     success: false,
@@ -27,3 +27,5 @@ module.exports.quantityInStock = async (req, res, next) => {
   //   });
   // }
 };
+
+

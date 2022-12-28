@@ -3,7 +3,7 @@ const ProductModel = require("../Models/ProductModel");
 const response = require("../utils/Response");
 
 module.exports.createProduct = async (req, res, next) => {
-  try {
+  // try {
     const productLine = await ProductLineModel.findById(req.body.id);
     var listProduct = [];
     for (
@@ -22,76 +22,80 @@ module.exports.createProduct = async (req, res, next) => {
     await ProductLineModel.findByIdAndUpdate(req.body.id, {
       amount: productLine.amount + req.body.amount,
     });
-    return res.status(200).json({
-      success: true,
-      msg: "successful",
-      data: listProduct,
-    });
-  } catch (error) {
-    return res.status(500).json({
-      success: false,
-      msg: error.message,
-    });
-  }
+    // return res.status(200).json({
+    //   success: true,
+    //   msg: "successful",
+    //   data: listProduct,
+    // });
+    return response.sendSuccessResponse(res, listProduct, `Nhập thành công ${listProduct.length} sản phẩm`, 200);
+  // } catch (error) {
+  //   return res.status(500).json({
+  //     success: false,
+  //     msg: error.message,
+  //   });
+  // }
 };
 
 module.exports.getProductByUser = async (req, res, next) => {
-  try {
+  // try {
     const listProduct = await ProductModel.find({
       location: req.user.id,
     }).populate("productLine");
-    return res.status(200).json({
-      success: true,
-      msg: "successful",
-      data: listProduct,
-    });
-  } catch (error) {
-    return res.status(500).json({
-      success: false,
-      msg: error.message,
-    });
-  }
+
+    // return res.status(200).json({
+    //   success: true,
+    //   msg: "successful",
+    //   data: listProduct,
+    // });
+    return response.sendSuccessResponse(res, listProduct, "", 200);
+  // } catch (error) {
+  //   return res.status(500).json({
+  //     success: false,
+  //     msg: error.message,
+  //   });
+  // }
 };
 
 module.exports.getAllProduct = async (req, res, next) => {
-  try {
+  // try {
     const listProduct = await ProductModel.find().populate("productLine");
-    return res.status(200).json({
-      success: true,
-      msg: "successful",
-      data: listProduct,
-    });
-  } catch (error) {
-    return res.status(500).json({
-      success: false,
-      msg: error.message,
-    });
-  }
+    // return res.status(200).json({
+    //   success: true,
+    //   msg: "successful",
+    //   data: listProduct,
+    // });
+    return response.sendSuccessResponse(res, listProduct, "", 200);
+  // } catch (error) {
+  //   return res.status(500).json({
+  //     success: false,
+  //     msg: error.message,
+  //   });
+  // }
 };
 
 module.exports.getProduct = async (req, res, next) => {
-  try {
+  // try {
     const product = await ProductModel.findById(req.params.id)
       .populate("productLine")
       .populate("factory")
       .populate("location")
       .populate("store");
-    response.sendSuccessResponse(res, product, "successful", 200);
+    return response.sendSuccessResponse(res, product, "", 200);
     // return res.status(200).json({
     //   success: true,
     //   msg: "successful",
     //   data: product,
     // });
-  } catch (error) {
-    return res.status(500).json({
-      success: false,
-      msg: error.message,
-    });
-  }
+  // } catch (error) {
+  //   return res.status(500).json({
+  //     success: false,
+  //     msg: error.message,
+  //   });
+  // }
 };
 
 module.exports.updateProduct = async (req, res, next) => {
-  try {
+  // try {
     const updateOps = {};
     for (const ops of req.body) {
       updateOps[ops.propName] = ops.value;
@@ -100,38 +104,38 @@ module.exports.updateProduct = async (req, res, next) => {
       $set: { ...updateOps },
     });
     const newProduct = await ProductModel.findById(req.params.id);
-    response.sendSuccessResponse(res, newProduct, "successful", 200);
+    return response.sendSuccessResponse(res, newProduct, "Cập nhật sản phẩm thành công", 200);
     // return res.status(200).json({
     //   success: true,
     //   msg: "successful",
     //   data: newProduct,
     // });
-  } catch (error) {
-    return res.status(500).json({
-      success: false,
-      msg: error.message,
-    });
-  }
+  // } catch (error) {
+  //   return res.status(500).json({
+  //     success: false,
+  //     msg: error.message,
+  //   });
+  // }
 };
 
 module.exports.deleteProduct = async (req, res, next) => {
-  try {
+  // try {
     await ProductModel.findByIdAndDelete(req.params.id);
-    response.sendSuccessResponse(res, null, "successful", 200);
+    return response.sendSuccessResponse(res, null, "Xoá sản phẩm thành công", 200);
     // return res.status(200).json({
     //   success: true,
     //   msg: "successful",
     // });
-  } catch (error) {
-    return res.status(500).json({
-      success: false,
-      msg: error.message,
-    });
-  }
+  // } catch (error) {
+  //   return res.status(500).json({
+  //     success: false,
+  //     msg: error.message,
+  //   });
+  // }
 };
 
 module.exports.searchProduct = async (req, res, next) => {
-  try {
+  // try {
     req.body.input = req.body.input?.toUpperCase();
     let listProduct = await ProductModel.find({
       location: req.user.id,
@@ -182,11 +186,11 @@ module.exports.searchProduct = async (req, res, next) => {
         }
       }
     }
-    response.sendSuccessResponse(res, listProduct, "successful", 200);
-  } catch (error) {
-    return res.status(500).json({
-      success: false,
-      msg: error.message,
-    });
-  }
+    return response.sendSuccessResponse(res, listProduct, "successful", 200);
+  // } catch (error) {
+  //   return res.status(500).json({
+  //     success: false,
+  //     msg: error.message,
+  //   });
+  // }
 };

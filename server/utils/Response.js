@@ -18,6 +18,6 @@ module.exports.sendErrorResponse = (res, error, status) => {
 module.exports.sendErrorServerResponse = (res, error) => {
   return res.status(500).json({
     success: false,
-    msg: error,
+    msg: error.message,
   });
-}
+};

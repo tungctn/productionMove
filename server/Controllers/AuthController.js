@@ -16,11 +16,11 @@ module.exports.genarateAccessToken = (user) => {
       requestList: user.requestList,
     },
     process.env.ACCESS_TOKEN_SECRET,
-    { expiresIn: "10h" }
+    { expiresIn: "10s" }
   );
 };
 
-module.exports.loginUser = async (req, res) => {
+module.exports.loginUser = async (req, res, next) => {
   // try {
     const user = await User.findOne({ email: req.body.email });
     if (!user) {
@@ -28,7 +28,7 @@ module.exports.loginUser = async (req, res) => {
       //   success: false,
       //   msg: "wrong email",
       // });
-      response.sendErrorResponse(res, "wrong email", 404);
+      return response.sendErrorResponse(res, "Email không tồn tại", 404);
     }
 
     const validPassword = await bcrypt.compare(
@@ -41,7 +41,7 @@ module.exports.loginUser = async (req, res) => {
       //   success: false,
       //   msg: "wrong password",
       // });
-      response.sendErrorResponse(res, "wrong password", 404);
+      return response.sendErrorResponse(res, "Sai mật khẩu", 404);
     }
 
     if (user && validPassword) {
@@ -57,7 +57,7 @@ module.exports.loginUser = async (req, res) => {
         success: true,
         data: user,
         accessToken: accessToken,
-        msg: "successful",
+        msg: "Đăng nhập thành công",
       });
     }
   // } catch (error) {
@@ -75,5 +75,5 @@ module.exports.userLogout = async (req, res, next) => {
   //   success: true,
   //   msg: "Logout successful",
   // });
-  response.sendSuccessResponse(res, "", "Logout successful", 200);
+  return response.sendSuccessResponse(res, "", "Đăng xuất thành công", 200);
 };
