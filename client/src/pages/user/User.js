@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import SearchUser from "../../components/SearchFilter/SearchUser";
 import TableInfo from "../../components/TableInfo/TableInfo";
-import AddUser from "../../components/UserForm/AddUser";
 import DeleteUser from "../../components/UserForm/DeleteUser";
 import EditUser from "../../components/UserForm/EditUser";
 import { useAppContext } from "../../contexts/AppContext";
@@ -67,12 +66,13 @@ const User = () => {
       <Default tagName="tk">
         <SearchUser data={dataSource} />
         <div className="mt-5">
-          <AddUser />
-          <TableInfo
-            dataColumn={dataColumn}
-            dataSource={dataSource}
-            loading={isLoading}
-          />
+          <div className="w-11/12 mx-auto">
+            <TableInfo
+              dataColumn={dataColumn}
+              dataSource={dataSource}
+              loading={isLoading}
+            />
+          </div>
         </div>
       </Default>
     </div>

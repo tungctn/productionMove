@@ -54,24 +54,15 @@ const ProductLine = () => {
 
   useEffect(() => {
     // if (user.role !== 1) {
-      loadListProductLine();
+    loadListProductLine();
     // }
   }, []);
 
   return (
     <div className="w-full">
       <Default tagName="dsp">
-        {/* <ProduceSearch data={dataSource}/> */}
         <SearchProductLine />
         <div className="mt-5">
-          <Button
-            className="float-right"
-            type="primary"
-            onClick={() => {
-              navigate("/productline/create");
-            }}>
-            Add
-          </Button>
           <TableInfo
             dataColumn={dataColumn}
             dataSource={dataSource}

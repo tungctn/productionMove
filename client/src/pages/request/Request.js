@@ -11,7 +11,6 @@ import { useAppContext } from "../../contexts/AppContext";
 import { useRequestContext } from "../../contexts/RequestContext";
 import Default from "../../Layouts/Default";
 import { getProduct, updateProduct } from "../../api/product";
-import ProduceSearch from "../../components/Produce/ProduceSearch";
 import { useProductContext } from "../../contexts/ProductContext";
 import { useNavigate } from "react-router-dom";
 import { getProductLine } from "../../api/productline";
@@ -310,20 +309,22 @@ const Request = () => {
     <div className="w-full">
       <Default tagName="yc">
         <SearchRequest />
-        <TableInfo
-          onRow={(record) => ({
-            onClick: () => {
-              if (record.status === 2) {
-                handleClick(record);
-                setRecord(record);
-              }
-              console.log(record);
-            },
-          })}
-          dataColumn={dataColumn}
-          dataSource={dataSource}
-          loading={isLoading}
-        />
+        <div className="w-11/12 mx-auto">
+          <TableInfo
+            onRow={(record) => ({
+              onClick: () => {
+                if (record.status === 2) {
+                  handleClick(record);
+                  setRecord(record);
+                }
+                console.log(record);
+              },
+            })}
+            dataColumn={dataColumn}
+            dataSource={dataSource}
+            loading={isLoading}
+          />
+        </div>
       </Default>
       <Modal
         destroyOnClose={true}

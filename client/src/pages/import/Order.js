@@ -65,12 +65,12 @@ const Order = (props) => {
             rules={[
               {
                 required: true,
-                message: "Please input your name!",
+                message: "Hãy nhập số lượng của bạn!",
               },
             ]}>
             <Input
               name="amount"
-              placeholder="input placeholder"
+              placeholder="Nhập số lượng"
               onChange={onValueChange}
             />
           </Form.Item>

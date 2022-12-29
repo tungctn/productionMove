@@ -1,7 +1,6 @@
 import { Input } from "antd";
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import ProduceSearch from "../../components/Produce/ProduceSearch";
 import SearchProduct from "../../components/SearchFilter/SearchProduct";
 import TableInfo from "../../components/TableInfo/TableInfo";
 import { useAppContext } from "../../contexts/AppContext";
@@ -57,7 +56,7 @@ const Home = () => {
     <div className="w-full">
       <Default tagName="kho">
         <SearchProduct />
-        <div className="mt-5">
+        <div className="w-11/12 mt-5 mx-auto">
           <TableInfo
             onRow={(r) => ({
               onClick: () => {
