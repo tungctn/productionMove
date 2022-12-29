@@ -11,7 +11,7 @@ const DemoPie = (props) => {
     yField: "sales",
     maxColumnWidth: 100,
     minColumnWidth: 10,
-    color: "green",
+    // color: "green",
     label: {
       position: "middle",
       style: {

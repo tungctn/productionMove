@@ -100,7 +100,7 @@ function ProductStatistic() {
           state.id === 3 ||
           state.id === 5 ||
           state.id === 6 ||
-          (state.id >= 9 && state.is <= 11)
+          (state.id >= 9 && state.id <= 11)
       )
       .map((state) => {
         if (state.id === 1) state.type = "Chưa bán";

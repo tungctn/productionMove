@@ -1,11 +1,15 @@
 import { Button, Form, Input, Modal } from "antd";
 import { useState } from "react";
 import bcrypt from "bcryptjs-react";
+import { changePassword, checkPassword } from "../../api/user";
+import { useAppContext } from "../../contexts/AppContext";
 
 const ChangePass = (props) => {
   const { user } = props;
   const [visible, setVisible] = useState(false);
-
+  const [formData, setFormData] = useState({});
+  const { openNotification } = useAppContext();
+  let isError = false;
   const showModal = () => {
     setVisible(true);
   };
@@ -14,12 +18,21 @@ const ChangePass = (props) => {
     setVisible(false);
   };
 
-  const handleOk = () => {
-    setVisible(false);
+  const handleOk = async () => {
+    console.log(formData);
+    if (isError === false) {
+      const response = await changePassword(formData);
+      if (response.success) {
+        openNotification("success", response.msg);
+        setVisible(false);
+      }
+    }
   };
 
   const onValueChange = (e) => {
-    console.log(bcrypt.hashSync(e.target.value, 10) === user.password);
+    const propName = e.target.name;
+    const value = e.target.value;
+    setFormData({ ...formData, [propName]: value });
   };
   return (
     <div>
@@ -40,28 +53,32 @@ const ChangePass = (props) => {
               {
                 required: true,
                 message: "Please input  your password!",
+                isError: true,
               },
               {
                 min: 6,
                 message: "Password must be at least 6 characters!",
+                isError: true,
               },
               {
                 max: 20,
                 message: "Password must be at most 20 characters!",
               },
               {
-                validator: (_, value) => {
-                  if (
-                    value &&
-                    bcrypt.hash(value, bcrypt.genSalt(10)) !== user.password
-                  ) {
+                validator: async (_, value) => {
+                  const response = await checkPassword({
+                    password: value,
+                    current: user.password,
+                  });
+                  if (response.success === false) {
+                    isError = true;
                     return Promise.reject("Password is incorrect!");
                   }
                   return Promise.resolve();
                 },
               },
             ]}>
-            <Input.Password onChange={onValueChange} />
+            <Input.Password name="password" onChange={onValueChange} />
           </Form.Item>
           <Form.Item
             label="Mật khẩu mới"
@@ -79,37 +96,8 @@ const ChangePass = (props) => {
                 max: 20,
                 message: "Password must be at most 20 characters!",
               },
-              {
-                pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/,
-                message:
-                  "Password must contain at least 1 uppercase letter, 1 lowercase letter and 1 number!",
-              },
             ]}>
-            <Input.Password />
-          </Form.Item>
-          <Form.Item
-            label="Nhập lại mật khẩu mới"
-            name="rePassword"
-            rules={[
-              {
-                required: true,
-                message: "Please input your password!",
-              },
-              {
-                min: 6,
-                message: "Password must be at least 6 characters!",
-              },
-              {
-                max: 20,
-                message: "Password must be at most 20 characters!",
-              },
-              {
-                pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,20}$/,
-                message:
-                  "Password must contain at least 1 uppercase letter, 1 lowercase letter and 1 number!",
-              },
-            ]}>
-            <Input.Password />
+            <Input.Password name="newPassword" onChange={onValueChange} />
           </Form.Item>
         </Form>
       </Modal>

@@ -32,4 +32,10 @@ productLineRoute.delete(
   // ProductLineController.deleteProductLine
 );
 
+productLineRoute.post(
+  "/search",
+  // verifyUser.verifyAdmin,
+  TryCatch(ProductLineController.searchProductLine)
+  // ProductLineController.searchProductLine
+);
 module.exports = productLineRoute;

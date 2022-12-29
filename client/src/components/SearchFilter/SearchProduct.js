@@ -17,7 +17,6 @@ const SearchProduct = (props) => {
     loadListProductLine,
   } = useProductLineContext();
   useEffect(() => {
-    // handleSearchUser({ ...form });
     handleSearchProduct({ ...form });
     console.log(form);
   }, [form]);
@@ -117,26 +116,7 @@ const SearchProduct = (props) => {
             allowClear
             style={{ width: 120 }}
           />
-          <div className="w-[40px] h-[40px] rounded-full border border-solid border-gray-300 hover:border-blue-500">
-            <button className="mt-[5px]">
-              <SearchOutlined
-                style={{
-                  color: "#1677ff",
-                  width: "40px",
-                }}
-              />
-            </button>
-          </div>
-          <div className="w-[40px] h-[40px] rounded-full border border-solid border-gray-300 hover:border-blue-500">
-            <button className="mt-[5px]">
-              <FilterOutlined
-                style={{
-                  color: "#1677ff",
-                  width: "40px",
-                }}
-              />
-            </button>
-          </div>
+          
         </div>
       </div>
     </div>

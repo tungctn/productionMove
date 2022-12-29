@@ -52,4 +52,18 @@ userRouter.post(
   TryCatch(UserController.searchUser)
 );
 
+userRouter.post(
+  "/changePassword",
+  MiddlewareAuth.verifyToken,
+  TryCatch(UserController.changePassword)
+  // UserController.changePassword
+);
+
+userRouter.post(
+  "/checkPassword",
+  // MiddlewareAuth.verifyToken,
+  TryCatch(UserController.checkPassword)
+  // UserController.checkPassword
+);
+
 module.exports = userRouter;

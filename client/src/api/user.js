@@ -37,4 +37,18 @@ export const searchUser = async (data) => {
     withCredentials: true,
   });
   return response.data;
-}
+};
+
+export const changePassword = async (data) => {
+  const response = await axios.post("/user/changePassword", data, {
+    withCredentials: true,
+  });
+  return response.data;
+};
+
+export const checkPassword = async (data) => {
+  const response = await axios.post("/user/checkPassword", data, {
+    withCredentials: true,
+  });
+  return response.data;
+};

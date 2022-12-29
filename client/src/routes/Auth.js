@@ -8,41 +8,26 @@ const Auth = () => {
 
   const {
     authState: { isLoading, isAuthenticated, user, url },
+    authState,
     openNotification,
     loadUser,
   } = useAppContext();
 
   let body;
-  // useEffect(() => {
-  //   if (url === "/") {
-  //     switch (user?.role) {
-  //       case 1:
-  //         url = "/productline";
-  //         break;
-  //       default:
-  //         url = "/home";
-  //     }
-  //   }
-  // }, [url]);
 
   if (isLoading) {
     body = <></>;
   } else if (!isAuthenticated) {
     body = <Outlet />;
-    openNotification("error", "Bạn cần đăng nhập để truy cập trang này");
-  } else {
-    switch (user.role) {
+  } else if (url === "/" && user?.role) {
+    switch (user?.role) {
       case 1:
-        url = "/productline";
-        break;
-      case 2:
-      case 3:
-      case 4:
-        url = "/home";
+        body = <Navigate to="/productline" />;
         break;
       default:
-        url = "/";
+        body = <Navigate to="/home" />;
     }
+  } else {
     body = <Navigate to={url} />;
   }
 
