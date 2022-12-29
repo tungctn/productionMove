@@ -24,26 +24,28 @@ const Profile = () => {
             <Avatar size={200} src={""} className="block mx-auto mb-4" />
             <ChangePass user={user} />
           </Col>
-          <div className="relative border-2 border-[#003eb3] px-8 rounded-xl">
-            <EditTwoTone className="absolute top-2 right-2" />
-            <Row className="flex items-center justify-center h-full">
-              <Col span={10}>
-                <h1 className="float-right clear-both font-bold">Tên: </h1>
-                <h1 className="float-right clear-both font-bold">Email: </h1>
-                <h1 className="float-right clear-both font-bold">
-                  Nơi làm việc:
-                </h1>
-              </Col>
-              <Col span={2} />
-              <Col span={12} className="">
-                <h1 className="float-left clear-both">{user.name}</h1>
-                <h1 className="float-left clear-both">{user.email}</h1>
-                <h1 className="float-left clear-both">
-                  {convertRoleToName(user.role)}
-                </h1>
-              </Col>
-            </Row>
-          </div>
+          {/* <Col span={10} className="w-[150px]"> */}
+            <div className="border-2 border-[#003eb3] px-8 w-[300px] rounded-xl">
+              {/* <EditTwoTone className="absolute top-2 right-2" /> */}
+              <Row className="flex items-center justify-center h-full">
+                <Col span={10}>
+                  <h1 className="float-right clear-both font-bold">Tên: </h1>
+                  <h1 className="float-right clear-both font-bold">Email: </h1>
+                  <h1 className="float-right clear-both font-bold">
+                    Nơi làm việc:
+                  </h1>
+                </Col>
+                <Col span={2} />
+                <Col span={12}>
+                  <h1 className="float-left clear-both">{user.name}</h1>
+                  <h1 className="float-left clear-both">{user.email}</h1>
+                  <h1 className="float-left clear-both">
+                    {convertRoleToName(user.role)}
+                  </h1>
+                </Col>
+              </Row>
+            </div>
+          {/* </Col> */}
         </Row>
       </Default>
     </div>

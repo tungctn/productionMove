@@ -34,3 +34,10 @@ export const deleteProductLine = async (id) => {
   });
   return response.data;
 };
+
+export const searchProductLine = async (data) => {
+  const response = await axios.post("/productline/search", data, {
+    withCredentials: true,
+  });
+  return response.data;
+};

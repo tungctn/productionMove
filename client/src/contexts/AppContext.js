@@ -216,7 +216,7 @@ const AppContextProvider = (props) => {
           user: response.data,
         },
       });
-      openNotification("success", "Login success");
+      openNotification("success", response.msg);
       if (response.data.role === 1) {
         navigate("/productline");
       } else {

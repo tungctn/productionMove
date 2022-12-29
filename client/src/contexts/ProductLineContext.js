@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useReducer } from "react";
-import { getAllProductLine, updateProductLine } from "../api/productline";
+import { getAllProductLine, searchProductLine, updateProductLine } from "../api/productline";
 import { ProductLineReducer } from "../reducers/ProductLineReducer";
 import {
   SET_PRODUCTLINE_BEGIN,
@@ -35,10 +35,23 @@ const ProductLineContextProvider = (props) => {
     }
   };
 
+  const handleSearchProductLine = async (data) => {
+    dispatch({ type: SET_PRODUCTLINE_BEGIN });
+    const response = await searchProductLine(data);
+    console.log(response);
+    if (response.success) {
+      dispatch({
+        type: SET_PRODUCTLINE_LIST,
+        payload: { listProductLine: response.data },
+      });
+    }
+  };
+
   const data = {
     productlineState,
     dispatch,
     loadListProductLine,
+    handleSearchProductLine,
   };
 
   return (

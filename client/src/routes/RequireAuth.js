@@ -12,7 +12,7 @@ const RequireAuth = () => {
     return <></>;
   }
   if (!isAuthenticated) {
-    // openNotification("error", "you are not authorized");
+    openNotification("error", "Bạn chưa đăng nhập");
     return <Navigate to="/" />;
   } else {
     return <Outlet />;
