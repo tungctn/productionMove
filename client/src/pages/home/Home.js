@@ -1,7 +1,6 @@
 import { Input } from "antd";
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import ProduceSearch from "../../components/Produce/ProduceSearch";
 import SearchProduct from "../../components/SearchFilter/SearchProduct";
 import TableInfo from "../../components/TableInfo/TableInfo";
 import { useAppContext } from "../../contexts/AppContext";

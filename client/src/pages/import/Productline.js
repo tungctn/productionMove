@@ -1,7 +1,7 @@
 import { Button } from "antd";
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import ProduceSearch from "../../components/Produce/ProduceSearch";
+import SearchProduct from "../../components/SearchFilter/SearchProduct";
 import TableInfo from "../../components/TableInfo/TableInfo";
 import { useProductLineContext } from "../../contexts/ProductLineContext";
 import Default from "../../Layouts/Default";
@@ -50,7 +50,7 @@ const Import = () => {
   return (
     <div className="w-full">
       <Default tagName="nh">
-        <ProduceSearch />
+        <SearchProduct />
 
         <div className="mt-5">
           <TableInfo

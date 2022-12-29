@@ -1,7 +1,7 @@
 import { Button, Select } from "antd";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import ProduceSearch from "../../components/Produce/ProduceSearch";
+import SearchProduct from "../../components/SearchFilter/SearchProduct";
 import TableInfo from "../../components/TableInfo/TableInfo";
 import { useAppContext } from "../../contexts/AppContext";
 import { useProductLineContext } from "../../contexts/ProductLineContext";
@@ -60,7 +60,7 @@ const ProductLine = () => {
   return (
     <div className="w-full">
       <Default tagName="dsp">
-        <ProduceSearch data={dataSource}/>
+        <SearchProduct />
         <div className="mt-5">
           <Button
             className="float-right"
