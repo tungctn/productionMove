@@ -19,7 +19,7 @@ const Default = (props) => {
       />
       <div className={`${openSidebar ? "basis-5/6" : "basis-11/12"} h-full`}>
         <Header />
-        <div className="bg-white mt-5 ml-5 rounded-md h-[calc(100%-90px)] overflow-y-scroll">
+        <div className="bg-white mt-2 ml-3 rounded-xl h-[calc(100%-75px)] overflow-y-scroll">
           {props.children}
         </div>
         <BackTop />

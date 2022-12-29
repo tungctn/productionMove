@@ -7,10 +7,8 @@ import { useProductContext } from "../../contexts/ProductContext";
 import { useProductLineContext } from "../../contexts/ProductLineContext";
 
 const SearchProduct = (props) => {
-  const { data } = props;
+
   const [form, setForm] = useState({});
-  const { convertRoleToName } = useAppContext();
-  const { handleSearchUser } = useUserContext();
   const { handleSearchProduct } = useProductContext();
   const {
     productlineState: { listProductLine },
@@ -95,28 +93,31 @@ const SearchProduct = (props) => {
   return (
     <div className="w-1/3 mr-10 mt-5 ml-auto">
       <div className="container rounded-2xl">
-        <Select
-          className="mt-[5px]"
-          placeholder="Dòng sản phẩm"
-          style={{ width: 120 }}
-          onChange={onProductLineChange}
-          options={dataProductLine}
-        />
-        <Select
-          className="mt-[5px]"
-          placeholder="Trạng thái"
-          style={{ width: 120 }}
-          onChange={onStatusChange}
-          options={dataStatus}
-        />
-        <div className="flex items-center space-x-5">
-          <Input
-            placeholder="Tìm kiếm ở đây!"
-            onChange={onValueChange}
-            allowClear
-            style={{ width: 120 }}
-          />
-          
+        <div className="flex flex-col">
+        <div className="flex-row space-x-2">
+            <Select
+              className="mb-[5px]"
+              placeholder="Dòng sản phẩm"
+              style={{ width: 120 }}
+              onChange={onProductLineChange}
+              options={dataProductLine}
+            />
+            <Select
+              className="mb-[5px]"
+              placeholder="Trạng thái"
+              style={{ width: 120 }}
+              onChange={onStatusChange}
+              options={dataStatus}
+            />
+          </div>
+          <div>
+            <Input
+              placeholder="Tìm kiếm ở đây!"
+              onChange={onValueChange}
+              allowClear
+              style={{ width: 244}}
+            />
+          </div>
         </div>
       </div>
     </div>

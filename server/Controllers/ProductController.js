@@ -146,7 +146,7 @@ module.exports.searchProduct = async (req, res, next) => {
       });
       if (req.body.prdl) {
         listProduct = listProduct.filter((item) => {
-          return item.productLine._id === req.body.prdl;
+          return item.productLine._id == req.body.prdl;
         });
         if (req.body.input) {
           listProduct = listProduct.filter((item) => {

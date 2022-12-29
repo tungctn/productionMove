@@ -1,5 +1,5 @@
-import { PlusCircleOutlined } from "@ant-design/icons";
-import { Button } from "antd";
+import { LeftOutlined } from "@ant-design/icons";
+import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { quantityInStock } from "../../api/factory";
@@ -61,11 +61,18 @@ const Factory = () => {
   return (
     <div>
       <Default tagName="nh">
-        <TableInfo
-          dataColumn={dataColumn}
-          dataSource={dataSource}
-          loading={loading}
-        />
+        <div className="w-1/12 mt-5">
+          <Link to={`/import/productline/${id}`}>
+            <LeftOutlined></LeftOutlined>
+          </Link>
+        </div>
+        <div className="w-11/12 mt-5 mx-auto">
+          <TableInfo
+            dataColumn={dataColumn}
+            dataSource={dataSource}
+            loading={loading}
+          />
+        </div>
       </Default>
     </div>
   );

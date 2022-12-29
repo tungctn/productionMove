@@ -1,5 +1,7 @@
 import { Input } from "antd";
 import { SearchOutlined, FilterOutlined } from "@ant-design/icons";
+import { PlusCircleOutlined } from "@ant-design/icons";
+import { Link } from "react-router-dom";
 import React from "react";
 import { useState } from "react";
 import { useProductLineContext } from "../../contexts/ProductLineContext";
@@ -18,6 +20,11 @@ const SearchProductLine = (props) => {
             onChange={onValueChange}
             allowClear
           />
+          <Link to="/productline/create">
+              <PlusCircleOutlined style={{
+                fontSize: '24px',
+              }}></PlusCircleOutlined>
+          </Link>
         </div>
       </div>
     </div>

@@ -1,9 +1,8 @@
 import { Image, Descriptions, Modal, Button } from "antd";
 import React, { useEffect, useState } from "react";
-import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { EditOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { getProductLine } from "../../api/productline";
-import ProductLineEdit from "./EditProductLine";
 import ProductLineDelete from "./DeleteProductLine";
 import SummonProductLine from "./SummonProductLine";
 
@@ -28,8 +27,7 @@ const ProductLineDetail = (props) => {
   }, [id]);
 
   return (
-    <div>
-      <Image src={productLine.img} width={400} preview={false} />
+    <div className="mt-5 w-11/12 mx-auto">
       {page === "productline" && (
         <div>
           <div className="text-right text-2xl text-cyan-500">
@@ -65,7 +63,14 @@ const ProductLineDetail = (props) => {
           </Button>
         </div>
       )}
-
+      <Image src={productLine.img} width={400} preview={false} />
+      <div className="w-1/12 mr-5 ml-auto">
+        <ProductLineDelete
+          id={id}
+          handleCancel={handleCancel}
+          isVisible={visible}
+        />
+      </div>
       <Descriptions title="Thông tin chi tiết" bordered column={1}>
         <Descriptions.Item label="Tên dòng xe">
           {productLine.name}
@@ -98,12 +103,6 @@ const ProductLineDetail = (props) => {
           {productLine.engineType}
         </Descriptions.Item>
       </Descriptions>
-
-      <ProductLineDelete
-        id={id}
-        handleCancel={handleCancel}
-        isVisible={visible}
-      />
     </div>
   );
 };

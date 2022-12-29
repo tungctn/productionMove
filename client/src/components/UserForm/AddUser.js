@@ -2,6 +2,7 @@ import { P } from "@antv/g2plot";
 import { Button, Form, Input, Modal, Select } from "antd";
 import React, { useState } from "react";
 import { createUser } from "../../api/user";
+import { PlusCircleOutlined } from "@ant-design/icons";
 import { useAppContext } from "../../contexts/AppContext";
 import { useUserContext } from "../../contexts/UserContext";
 
@@ -57,9 +58,13 @@ const AddUser = () => {
   };
   return (
     <div className="float-right">
-      <Button type="primary" onClick={showModal}>
-        Add
-      </Button>
+      <div className="w-1/12">
+          <button onClick={showModal}>
+          <PlusCircleOutlined style={{
+                fontSize: '24px',
+              }}></PlusCircleOutlined>
+          </button>
+        </div>
       <Modal
         title="Sửa thông tin"
         // confirmLoading={isLoading}

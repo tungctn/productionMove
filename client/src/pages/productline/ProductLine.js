@@ -1,7 +1,7 @@
 import { Button, Select } from "antd";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import SearchProduct from "../../components/SearchFilter/SearchProduct";
+import {useNavigate } from "react-router-dom";
+import SearchProductLine from "../../components/SearchFilter/SearchProductLine";
 import TableInfo from "../../components/TableInfo/TableInfo";
 import { useAppContext } from "../../contexts/AppContext";
 import { useProductLineContext } from "../../contexts/ProductLineContext";
@@ -53,23 +53,15 @@ const ProductLine = () => {
 
   useEffect(() => {
     // if (user.role !== 1) {
-      loadListProductLine();
+    loadListProductLine();
     // }
   }, []);
 
   return (
     <div className="w-full">
       <Default tagName="dsp">
-        <SearchProduct />
+        <SearchProductLine />
         <div className="mt-5">
-          <Button
-            className="float-right"
-            type="primary"
-            onClick={() => {
-              navigate("/productline/create");
-            }}>
-            Add
-          </Button>
           <TableInfo
             dataColumn={dataColumn}
             dataSource={dataSource}

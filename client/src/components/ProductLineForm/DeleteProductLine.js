@@ -22,7 +22,10 @@ const ProductLineDelete = (props) => {
   };
   return (
     <div>
-      <DeleteOutlined onClick={showModal} />
+      <DeleteOutlined onClick={showModal}
+        style={{
+         fontSize: 30,
+        }} />
       <Modal
         open={visible}
         title="Dòng sản phẩm"

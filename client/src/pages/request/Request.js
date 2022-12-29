@@ -309,20 +309,22 @@ const Request = () => {
     <div className="w-full">
       <Default tagName="yc">
         <SearchRequest />
-        <TableInfo
-          onRow={(record) => ({
-            onClick: () => {
-              if (record.status === 2) {
-                handleClick(record);
-                setRecord(record);
-              }
-              console.log(record);
-            },
-          })}
-          dataColumn={dataColumn}
-          dataSource={dataSource}
-          loading={isLoading}
-        />
+        <div className="w-11/12 mx-auto">
+          <TableInfo
+            onRow={(record) => ({
+              onClick: () => {
+                if (record.status === 2) {
+                  handleClick(record);
+                  setRecord(record);
+                }
+                console.log(record);
+              },
+            })}
+            dataColumn={dataColumn}
+            dataSource={dataSource}
+            loading={isLoading}
+          />
+        </div>
       </Default>
       <Modal
         destroyOnClose={true}
