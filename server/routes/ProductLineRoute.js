@@ -38,4 +38,9 @@ productLineRoute.post(
   TryCatch(ProductLineController.searchProductLine)
   // ProductLineController.searchProductLine
 );
+productLineRoute.post(
+  "/upload",
+  // verifyUser.verifyAdmin,
+  TryCatch(ProductLineController.uploadImage)
+);
 module.exports = productLineRoute;

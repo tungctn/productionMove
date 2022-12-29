@@ -1,6 +1,7 @@
 import { Button, Select } from "antd";
 import React, { useEffect, useState } from "react";
-import {useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import ProduceSearch from "../../components/Produce/ProduceSearch";
 import SearchProductLine from "../../components/SearchFilter/SearchProductLine";
 import TableInfo from "../../components/TableInfo/TableInfo";
 import { useAppContext } from "../../contexts/AppContext";

@@ -137,3 +137,31 @@ module.exports.searchProductLine = async (req, res, next) => {
   //   });
   // }
 };
+
+// app.post("/api/upload", async (req, res) => {
+//   try {
+//     const fileStr = req.body.data;
+//     const uploadResponse = await cloudinary.uploader.upload(fileStr, {
+//       upload_preset: "ermxq7st",
+//       folder: "plm",
+//     });
+//     console.log(uploadResponse);
+//     res.json({ msg: "yaya" });
+//   } catch (err) {
+//     console.error(err);
+//     return res.status(500).json({ err: "Something went wrong" });
+//   }
+// });
+module.exports.uploadImage = async (req, res, next) => {
+  // try {
+    const fileStr = req.body.data;
+    const uploadResponse = await cloudinary.uploader.upload(fileStr, {
+      upload_preset: "ermxq7st",
+      folder: "plm",
+    });
+    return response.sendSuccessResponse(res, uploadResponse, "", 200);
+  // } catch (err) {
+  //   console.error(err);
+  //   return res.status(500).json({ err: "Something went wrong" });
+  // }
+};

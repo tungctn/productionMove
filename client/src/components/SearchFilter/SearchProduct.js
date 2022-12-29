@@ -14,11 +14,16 @@ const SearchProduct = (props) => {
     productlineState: { listProductLine },
     loadListProductLine,
   } = useProductLineContext();
+  const {
+    productState: { listProduct },
+    loadAllProduct,
+  } = useProductContext();
   useEffect(() => {
     handleSearchProduct({ ...form });
     console.log(form);
   }, [form]);
   useEffect(() => {
+    // loadAllProduct();
     loadListProductLine();
   }, []);
   const onValueChange = (e) => {
@@ -93,7 +98,6 @@ const SearchProduct = (props) => {
   return (
     <div className="w-1/3 mr-10 mt-5 ml-auto">
       <div className="container rounded-2xl">
-        <div className="flex flex-col">
         <div className="flex-row space-x-2">
             <Select
               className="mb-[5px]"
@@ -118,6 +122,27 @@ const SearchProduct = (props) => {
               style={{ width: 244}}
             />
           </div>
+        <Select
+          className="mt-[5px]"
+          placeholder="Dòng sản phẩm"
+          style={{ width: 120 }}
+          onChange={onProductLineChange}
+          options={dataProductLine}
+        />
+        <Select
+          className="mt-[5px]"
+          placeholder="Trạng thái"
+          style={{ width: 120 }}
+          onChange={onStatusChange}
+          options={dataStatus}
+        />
+        <div className="flex items-center space-x-5">
+          <Input
+            placeholder="Tìm kiếm ở đây!"
+            onChange={onValueChange}
+            allowClear
+            style={{ width: 120 }}
+          />
         </div>
       </div>
     </div>
