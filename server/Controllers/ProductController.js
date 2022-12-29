@@ -142,11 +142,11 @@ module.exports.searchProduct = async (req, res, next) => {
     }).populate("productLine");
     if (req.body.status || req.body.status === 0) {
       listProduct = listProduct.filter((item) => {
-        return item.status === req.body.status;
+        return item.status == req.body.status;
       });
       if (req.body.prdl) {
         listProduct = listProduct.filter((item) => {
-          return item.productLine._id === req.body.prdl;
+          return item.productLine._id == req.body.prdl;
         });
         if (req.body.input) {
           listProduct = listProduct.filter((item) => {

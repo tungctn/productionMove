@@ -13,10 +13,14 @@ const corsOptions = {
   credentials: true,
   exposedHeaders: ["set-cookie"],
 };
-app.use(express.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+// app.use(express.json());
+// app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(bodyParser.json());
 app.use(cors(corsOptions));
+
+app.use(express.static("public"));
+app.use(express.json({ limit: "50mb", extended: true }));
+app.use(express.urlencoded({ limit: "50mb", extended: true }));
 app.use(cookieParser());
 dotenv.config();
 

@@ -1,20 +1,60 @@
-import { Button, Form, Input } from "antd";
-import React from "react";
+import { UploadOutlined } from "@ant-design/icons";
+import { Button, Form, Input, Select, Upload } from "antd";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { uploadImage } from "../../api/image";
 import { createProductLine } from "../../api/productline";
 import { useAppContext } from "../../contexts/AppContext";
 
 const AddProductLine = () => {
   const navigate = useNavigate();
   const { openNotification } = useAppContext();
+  const { Option } = Select;
+  const [fileInputState, setFileInputState] = useState("");
+  const [selectedFile, setSelectedFile] = useState();
+  const handleFileInputChange = (e) => {
+    const file = e.target.files[0];
+    setSelectedFile(file);
+    setFileInputState(e.target.value);
+  };
 
   const onFinish = async (values) => {
-    const response = await createProductLine(values);
-    if (response.success) {
-      openNotification("success", response.msg);
-      navigate("/productline");
-    }
+    const reader = new FileReader();
+    reader.readAsDataURL(selectedFile);
+    reader.onloadend = async () => {
+      console.log(reader.result);
+      const response = await uploadImage({ data: reader.result });
+      if (response.success) {
+        const response1 = await createProductLine({
+          ...values,
+          img: response.data.url,
+          timePeriod: {
+            period: Number(values.period),
+            unit: Number(values.unit),
+          },
+        });
+        if (response1.success) {
+          openNotification("success", response1.msg);
+          navigate("/productline");
+        }
+      }
+    };
   };
+
+  const selectAfter = (
+    <Form.Item name="unit" noStyle>
+      <Select
+        className="select-after"
+        name="unit"
+        style={{
+          width: 90,
+        }}>
+        <Option value={0}>Ngày</Option>
+        <Option value={1}>Tháng</Option>
+        <Option value={2}>Năm</Option>
+      </Select>
+    </Form.Item>
+  );
   return (
     <div>
       <Form
@@ -43,7 +83,13 @@ const AddProductLine = () => {
               message: "Please input your img!",
             },
           ]}>
-          <Input type="text" name="img" placeholder="input placeholder" />
+          <Input
+            type="file"
+            onChange={handleFileInputChange}
+            value={fileInputState}
+            name="img"
+            placeholder="input placeholder"
+          />
         </Form.Item>
         <Form.Item
           label="Mã dòng sản phẩm"
@@ -194,6 +240,22 @@ const AddProductLine = () => {
             },
           ]}>
           <Input name="engineType" placeholder="input placeholder" />
+        </Form.Item>
+        <Form.Item
+          label="Thời gian bảo hành"
+          name="period"
+          type="text"
+          rules={[
+            {
+              required: true,
+              message: "Please input your engineType!",
+            },
+          ]}>
+          <Input
+            name="period"
+            placeholder="input placeholder"
+            addonAfter={selectAfter}
+          />
         </Form.Item>
         <Button type="primary" htmlType="submit">
           Submit

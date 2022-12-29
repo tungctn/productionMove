@@ -16,11 +16,16 @@ const SearchProduct = (props) => {
     productlineState: { listProductLine },
     loadListProductLine,
   } = useProductLineContext();
+  const {
+    productState: { listProduct },
+    loadAllProduct,
+  } = useProductContext();
   useEffect(() => {
     handleSearchProduct({ ...form });
     console.log(form);
   }, [form]);
   useEffect(() => {
+    // loadAllProduct();
     loadListProductLine();
   }, []);
   const onValueChange = (e) => {
@@ -116,7 +121,6 @@ const SearchProduct = (props) => {
             allowClear
             style={{ width: 120 }}
           />
-          
         </div>
       </div>
     </div>
