@@ -9,8 +9,8 @@ function Statistic() {
     loadAllProduct,
   } = useProductContext();
   var sumProduct = 0;
-  const data = listProduct.map((product) => {
-    return product.productLine.name;
+  const data = listProduct?.map((product) => {
+    return product?.productLine?.name;
   });
   var c = data.reduce((count, value) => {
     return count[value] ? count[value]++ : (count[value] = 1), count;

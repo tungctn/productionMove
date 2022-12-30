@@ -38,8 +38,6 @@ function App() {
     authState: { isLoading },
   } = useAppContext();
 
-  const antIcon = <LoadingOutlined />;
-
   useEffect(() => {
     if (localStorage["token"]) {
       setAuthHeader(localStorage["token"]);

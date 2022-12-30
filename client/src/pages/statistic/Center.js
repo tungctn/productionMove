@@ -58,7 +58,7 @@ function Center() {
     <Default tagName="stt" childrenName="center">
       <div className="w-1/4 mx-auto mt-10 items-start">
         <label
-          for="countries"
+          htmlFor="countries"
           className="block mb-2 text-xl font-medium text-blue-600 dark:text-white">
           Chọn trung tâm bảo hành
         </label>

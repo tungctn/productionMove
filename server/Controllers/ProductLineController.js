@@ -1,5 +1,6 @@
 const ProductLineModel = require("../Models/ProductLineModel");
 const response = require("../utils/Response");
+const ProductModel = require("../Models/ProductModel");
 
 module.exports.createProductLine = async (req, res, next) => {
   const newProductLine = await new ProductLineModel({
@@ -33,13 +34,12 @@ module.exports.updateProductLine = async (req, res, next) => {
     "Cập nhật thành công",
     200
   );
-  
 };
 
 module.exports.deleteProductLine = async (req, res, next) => {
   await ProductLineModel.findByIdAndDelete(req.params.id);
+  await ProductModel.deleteMany({ productLine: req.params.id });
   return response.sendSuccessResponse(res, null, "Xoá thành công", 200);
-  
 };
 
 module.exports.productLineList = async (req, res, next) => {
@@ -54,5 +54,3 @@ module.exports.searchProductLine = async (req, res, next) => {
   });
   return response.sendSuccessResponse(res, listProductLine, "", 200);
 };
-
-

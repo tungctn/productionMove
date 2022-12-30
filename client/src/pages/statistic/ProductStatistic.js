@@ -205,7 +205,7 @@ function ProductStatistic() {
         <div className="basis-1/4">
           <div className="w-2/3 mx-auto">
             <label
-              for="countries"
+              htmlFor="countries"
               className="block mb-2 text-base font-medium text-blue-600 dark:text-white">
               Trạng thái
             </label>

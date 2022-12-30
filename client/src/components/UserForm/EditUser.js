@@ -97,7 +97,7 @@ const EditUser = (props) => {
                       return Promise.reject(
                         new Error("Tên nhân viên không được ít hơn 3 ký tự")
                       );
-                    } else if (/^[a-zA-Z [0-9]]+$/g.test(value) === false) {
+                    } else if (!/^[a-zA-Z 0-9]+$/g.test(value)) {
                       setIsError(true);
                       return Promise.reject(
                         new Error(
