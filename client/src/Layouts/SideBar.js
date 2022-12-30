@@ -31,7 +31,7 @@ const SideBar = (props) => {
           <img
             src="http://localhost:3000/image/logo.png"
             alt="logo"
-            className="w-8 md:w-8 lg:w-16 h-8 md:h-8 lg:h-16 mx-auto"
+            className="h-8 md:h-8 lg:h-16 mx-auto w-[140px] mt-[10px]"
           />
         ) : (
           <div className="w-8 md:w-8 lg:w-16 h-8 md:h-8 lg:h-16 mx-auto text-5xl hover:bg-red-500">
@@ -55,7 +55,11 @@ const SideBar = (props) => {
                   alt="kho"
                   className={`w-4 md:w-4 lg:w-6 ${!open && "mx-auto"}`}
                 />
-                {open && <span className="ml-3 text-xs sm:text-sm md:text-base ">Kho</span>}
+                {open && (
+                  <span className="ml-3 text-xs sm:text-sm md:text-base ">
+                    Kho
+                  </span>
+                )}
               </Link>
             </li>
           )}
@@ -73,7 +77,11 @@ const SideBar = (props) => {
                   alt="kho"
                   className={`w-4 md:w-4 lg:w-6 ${!open && "mx-auto"}`}
                 />
-                {open && <span className="ml-3 text-xs sm:text-sm md:text-base">Sản xuẩt</span>}
+                {open && (
+                  <span className="ml-3 text-xs sm:text-sm md:text-base">
+                    Sản xuẩt
+                  </span>
+                )}
               </Link>
             </li>
           )}
@@ -92,7 +100,11 @@ const SideBar = (props) => {
                   alt="kho"
                   className={`w-4 md:w-4 lg:w-6 ${!open && "mx-auto"}`}
                 />
-                {open && <span className="ml-3 text-xs sm:text-sm md:text-base">Yêu Cầu</span>}
+                {open && (
+                  <span className="ml-3 text-xs sm:text-sm md:text-base">
+                    Yêu Cầu
+                  </span>
+                )}
               </Link>
             </li>
           )}
@@ -111,7 +123,11 @@ const SideBar = (props) => {
                   alt="dsp"
                   className={`w-4 md:w-4 lg:w-6 ${!open && "mx-auto"}`}
                 />
-                {open && <span className="ml-3 text-xs sm:text-sm md:text-base">Dòng sản phẩm</span>}
+                {open && (
+                  <span className="ml-3 text-xs sm:text-sm md:text-base">
+                    Dòng sản phẩm
+                  </span>
+                )}
               </Link>
             </li>
           )}
@@ -130,7 +146,11 @@ const SideBar = (props) => {
                   alt="kho"
                   className={`w-4 md:w-4 lg:w-6 ${!open && "mx-auto"}`}
                 />
-                {open && <span className="ml-3 text-xs sm:text-sm md:text-base">Tài khoản</span>}
+                {open && (
+                  <span className="ml-3 text-xs sm:text-sm md:text-base">
+                    Tài khoản
+                  </span>
+                )}
               </Link>
             </li>
           )}
@@ -149,7 +169,11 @@ const SideBar = (props) => {
                   alt="kho"
                   className={`w-4 md:w-4 lg:w-6 ${!open && "mx-auto"}`}
                 />
-                {open && <span className="ml-3 text-xs sm:text-sm md:text-base">Nhập hàng</span>}
+                {open && (
+                  <span className="ml-3 text-xs sm:text-sm md:text-base">
+                    Nhập hàng
+                  </span>
+                )}
               </Link>
             </li>
           )}
@@ -166,7 +190,11 @@ const SideBar = (props) => {
                   src="http://localhost:3000/image/statistic.png"
                   alt="statistic"
                   className="w-4 md:w-4 lg:w-6"></img>
-                {open && <span className="ml-3 text-xs sm:text-sm md:text-base">Thống kê</span>}
+                {open && (
+                  <span className="ml-3 text-xs sm:text-sm md:text-base">
+                    Thống kê
+                  </span>
+                )}
               </Link>
               {tag === "stt" && (
                 <div className="flex flex-col items-start ml-11 text-xs lg:text-sm space-y-1">
@@ -237,7 +265,9 @@ const SideBar = (props) => {
                   src="http://localhost:3000/image/statistic.png"
                   alt="statistic"
                   className="w-4 md:w-4 lg:w-6"></img>
-                <span className="ml-3 text-xs sm:text-sm md:text-base">Thống kê sản phẩm</span>
+                <span className="ml-3 text-xs sm:text-sm md:text-base">
+                  Thống kê sản phẩm
+                </span>
               </Link>
             </li>
           )}
@@ -254,7 +284,9 @@ const SideBar = (props) => {
                   src="http://localhost:3000/image/statistic.png"
                   alt="statistic"
                   className="w-4 md:w-4 lg:w-6"></img>
-                <span className="ml-3 text-xs sm:text-sm md:text-base">Thống kế sản phẩm bán ra</span>
+                <span className="ml-3 text-xs sm:text-sm md:text-base">
+                  Thống kế sản phẩm bán ra
+                </span>
               </Link>
             </li>
           )}
@@ -271,7 +303,9 @@ const SideBar = (props) => {
                   src="http://localhost:3000/image/statistic.png"
                   alt="statistic"
                   className="w-4 md:w-4 lg:w-6"></img>
-                <span className="ml-3 text-xs sm:text-sm md:text-base">Thống kế sản phẩm bị lỗi</span>
+                <span className="ml-3 text-xs sm:text-sm md:text-base">
+                  Thống kế sản phẩm bị lỗi
+                </span>
               </Link>
               {tag === "fs" && (
                 <div className="flex flex-col items-start ml-11 text-xs lg:text-sm space-y-1">
@@ -289,9 +323,7 @@ const SideBar = (props) => {
 
                   <div
                     className={
-                      childrenTag === "fmf"
-                        ? "p-1 rounded-lg bg-[#e6f4ff]"
-                        : ""
+                      childrenTag === "fmf" ? "p-1 rounded-lg bg-[#e6f4ff]" : ""
                     }>
                     <Link
                       to="/statistic/failed_manufacture_factory"

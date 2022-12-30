@@ -7,40 +7,34 @@ const MiddlewareAuth = require("../Middleware/isLogged");
 productLineRoute.get("/:id", TryCatch(ProductLineController.getProductLine));
 productLineRoute.get(
   "/",
-  // verifyUser.verifyFactory_WarrantyCenter_Store,
   MiddlewareAuth.verifyToken,
   TryCatch(ProductLineController.productLineList)
-  // ProductLineController.productLineList
 );
 
 productLineRoute.post(
   "/",
   verifyUser.verifyAdmin,
   TryCatch(ProductLineController.createProductLine)
-  // ProductLineController.createProductLine
 );
 productLineRoute.put(
   "/:id",
   verifyUser.verifyAdmin,
   TryCatch(ProductLineController.updateProductLine)
-  // ProductLineController.updateProductLine
 );
 productLineRoute.delete(
   "/:id",
   verifyUser.verifyAdmin,
   TryCatch(ProductLineController.deleteProductLine)
-  // ProductLineController.deleteProductLine
 );
 
 productLineRoute.post(
   "/search",
-  // verifyUser.verifyAdmin,
+  MiddlewareAuth.verifyToken,
   TryCatch(ProductLineController.searchProductLine)
-  // ProductLineController.searchProductLine
 );
 productLineRoute.post(
   "/upload",
-  // verifyUser.verifyAdmin,
+  verifyUser.verifyAdmin,
   TryCatch(ProductLineController.uploadImage)
 );
 module.exports = productLineRoute;

@@ -20,7 +20,12 @@ export const initState = {
 };
 
 const ProductContextProvider = (props) => {
-  const { authState, loadUser } = useAppContext(); // get authState from AppContext
+  const {
+    authState,
+    authState: { user },
+    openNotification,
+    gotoMainPage,
+  } = useAppContext(); // get authState from AppContext
   const [productState, dispatch] = useReducer(ProductReducer, authState);
 
   const loadUserProduct = async () => {
@@ -31,13 +36,15 @@ const ProductContextProvider = (props) => {
         type: SET_PRODUCT_LIST,
         payload: { listProduct: response.data },
       });
+    } else {
+      gotoMainPage(user);
+      openNotification("error", response.msg);
     }
   };
 
   const loadAllProduct = async () => {
     dispatch({ type: SET_PRODUCT_BEGIN });
     const response = await getAllProduct();
-   // console.log(response);
     if (response.success) {
       dispatch({
         type: SET_PRODUCT_LIST,
@@ -56,7 +63,6 @@ const ProductContextProvider = (props) => {
       });
     }
   };
-
 
   const data = {
     productState,

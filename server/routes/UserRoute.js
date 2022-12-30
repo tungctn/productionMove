@@ -8,42 +8,36 @@ userRouter.get(
   "/profile",
   MiddlewareAuth.verifyToken,
   TryCatch(UserController.getCurrentUser)
-  // UserController.getCurrentUser
 );
 
 userRouter.get(
   "/",
   MiddlewareAuth.verifyToken,
   TryCatch(UserController.getListUser)
-  //  UserController.getListUser
 );
 
 userRouter.get(
   "/:id",
   verifyUser.verifyAdmin,
   TryCatch(UserController.getUser)
-  //  UserController.getUser
 );
 
 userRouter.post(
   "/",
   verifyUser.verifyAdmin,
   TryCatch(UserController.createUser)
-  //  UserController.createUser
 );
 
 userRouter.put(
   "/:id",
   verifyUser.verifyAdmin,
   TryCatch(UserController.updateUser)
-  // UserController.updateUser
 );
 
 userRouter.delete(
   "/:id",
   verifyUser.verifyAdmin,
   TryCatch(UserController.deleteUser)
-  // UserController.deleteUser
 );
 
 userRouter.post(
@@ -56,14 +50,12 @@ userRouter.post(
   "/changePassword",
   MiddlewareAuth.verifyToken,
   TryCatch(UserController.changePassword)
-  // UserController.changePassword
 );
 
 userRouter.post(
   "/checkPassword",
-  // MiddlewareAuth.verifyToken,
+  MiddlewareAuth.verifyToken,
   TryCatch(UserController.checkPassword)
-  // UserController.checkPassword
 );
 
 module.exports = userRouter;

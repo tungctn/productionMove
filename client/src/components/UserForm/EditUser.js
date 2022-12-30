@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { getUser, updateUser } from "../../api/user";
 import { useAppContext } from "../../contexts/AppContext";
 import { useUserContext } from "../../contexts/UserContext";
+import Loading from "../Loading/Loading";
 
 const EditUser = (props) => {
   const { id } = props;
@@ -12,6 +13,8 @@ const EditUser = (props) => {
   const [form] = Form.useForm();
   const [user, setUser] = useState({});
   const [formData, setFormData] = useState({});
+  const [isError, setIsError] = useState(false);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { convertObjectToArray, openNotification, convertRoleToName } =
     useAppContext();
@@ -38,9 +41,13 @@ const EditUser = (props) => {
   };
 
   const handleOk = async () => {
-    await handleEditUser(formData, id);
-    setVisible(false);
-    loadListUser();
+    if (isError === false) {
+      setLoading(true);
+      await handleEditUser(formData, id);
+      setVisible(false);
+      loadListUser();
+    }
+    setLoading(false);
   };
 
   const onRoleChange = (value) => {
@@ -60,74 +67,127 @@ const EditUser = (props) => {
   return (
     <div>
       <EditOutlined onClick={showModal} />
+      {/* <Loading spinning={loading}> */}
       <Modal
         title="Sửa thông tin"
         open={visible}
         onOk={handleOk}
         destroyOnClose={true}
         onCancel={handelCancel}>
-        <Form layout="vertical" form={form} initialValues={{ remember: true }}>
-          <Form.Item
-            label="Tên nhân viên"
-            type="text"
-            name="name"
-            rules={[
-              {
-                required: true,
-                message: "Please input your name!",
-              },
-            ]}>
-            <Input
+        <Loading spinning={loading}>
+          <Form
+            layout="vertical"
+            form={form}
+            initialValues={{ remember: true }}>
+            <Form.Item
+              label="Tên nhân viên"
+              type="text"
               name="name"
-              placeholder="input placeholder"
-              onChange={onValueChange}
-            />
-          </Form.Item>
-          <Form.Item
-            label="Chức vụ"
-            type="text"
-            name="role"
-            rules={[
-              {
-                required: true,
-                message: "Please input your role!",
-              },
-            ]}>
-            <Select
-              showSearch
-              placeholder="Select a warrantyCenter"
-              optionFilterProp="children"
-              onChange={onRoleChange}
-              // onSearch={onSearch}
-              filterOption={(input, option) =>
-                (option?.label ?? "")
-                  .toLowerCase()
-                  .includes(input.toLowerCase())
-              }
-              options={[
-                { label: "Cơ sở sản xuất", value: 2 },
-                { label: "Đại lý phân phối", value: 3 },
-                { label: "Trung tâm bảo hành", value: 4 },
-              ]}
-            />
-          </Form.Item>
-          <Form.Item
-            label="Email"
-            type="text"
-            name="email"
-            rules={[
-              {
-                required: true,
-                message: "Please input your email!",
-              },
-            ]}>
-            <Input
+              rules={[
+                {
+                  validator: (_, value) => {
+                    if (!value) {
+                      return Promise.reject(new Error("Vui lòng nhập tên"));
+                    } else if (value.length > 50) {
+                      setIsError(true);
+                      return Promise.reject(
+                        new Error("Tên nhân viên không được quá 50 ký tự")
+                      );
+                    } else if (value.length < 3) {
+                      setIsError(true);
+                      return Promise.reject(
+                        new Error("Tên nhân viên không được ít hơn 3 ký tự")
+                      );
+                    } else if (/^[a-zA-Z [0-9]]+$/g.test(value) === false) {
+                      setIsError(true);
+                      return Promise.reject(
+                        new Error(
+                          "Tên nhân viên không được chứa ký tự đặc biệt"
+                        )
+                      );
+                    } else {
+                      setIsError(false);
+                      return Promise.resolve();
+                    }
+                  },
+                },
+              ]}>
+              <Input
+                name="name"
+                placeholder="input placeholder"
+                onChange={onValueChange}
+              />
+            </Form.Item>
+            <Form.Item
+              label="Chức vụ"
+              type="text"
+              name="role"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your role!",
+                },
+              ]}>
+              <Select
+                showSearch
+                placeholder="Select a warrantyCenter"
+                optionFilterProp="children"
+                onChange={onRoleChange}
+                filterOption={(input, option) =>
+                  (option?.label ?? "")
+                    .toLowerCase()
+                    .includes(input.toLowerCase())
+                }
+                options={[
+                  { label: "Cơ sở sản xuất", value: 2 },
+                  { label: "Đại lý phân phối", value: 3 },
+                  { label: "Trung tâm bảo hành", value: 4 },
+                ]}
+              />
+            </Form.Item>
+            <Form.Item
+              label="Email"
+              type="text"
               name="email"
-              placeholder="input placeholder"
-              onChange={onValueChange}
-            />
-          </Form.Item>
-        </Form>
+              rules={[
+                {
+                  validator: (_, value) => {
+                    if (!value) {
+                      return Promise.reject(new Error("Vui lòng nhập email"));
+                    } else if (value.length > 50) {
+                      setIsError(true);
+                      return Promise.reject(
+                        new Error("Email không được quá 50 ký tự")
+                      );
+                    } else if (value.length < 3) {
+                      setIsError(true);
+                      return Promise.reject(
+                        new Error("Email không được ít hơn 3 ký tự")
+                      );
+                    } else if (
+                      /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/g.test(
+                        value
+                      ) === false
+                    ) {
+                      setIsError(true);
+                      return Promise.reject(
+                        new Error("Email không đúng định dạng")
+                      );
+                    } else {
+                      setIsError(false);
+                      return Promise.resolve();
+                    }
+                  },
+                },
+              ]}>
+              <Input
+                name="email"
+                placeholder="input placeholder"
+                onChange={onValueChange}
+              />
+            </Form.Item>
+          </Form>
+        </Loading>
       </Modal>
     </div>
   );

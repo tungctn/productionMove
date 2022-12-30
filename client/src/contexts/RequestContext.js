@@ -22,7 +22,7 @@ export const RequestContextProvider = (props) => {
     authState,
   } = useAppContext();
   const navigate = useNavigate();
-  const { openNotification } = useAppContext();
+  const { openNotification, gotoMainPage } = useAppContext();
   const [requestState, dispatch] = useReducer(RequestReducer, authState);
   const loadListRequest = async () => {
     dispatch({
@@ -34,6 +34,9 @@ export const RequestContextProvider = (props) => {
         type: SET_REQUEST_LIST,
         payload: { listRequest: response.data },
       });
+    } else {
+      gotoMainPage(user);
+      openNotification("error", response.msg);
     }
   };
   const handleCreateRequest = async (data) => {
@@ -65,7 +68,6 @@ export const RequestContextProvider = (props) => {
       });
     }
   };
-  // console.log(requestState);
 
   const data = {
     requestState,

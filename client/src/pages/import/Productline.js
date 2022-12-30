@@ -49,7 +49,7 @@ const Import = () => {
   return (
     <div className="w-full">
       <Default tagName="nh">
-        <SearchProductLine />
+        <SearchProductLine page="import" />
         <div className="w-11/12 mt-5">
           <TableInfo
             dataColumn={dataColumn}

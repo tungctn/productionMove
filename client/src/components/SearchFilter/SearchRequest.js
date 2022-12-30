@@ -63,7 +63,7 @@ const SearchRequest = (props) => {
       <div className="container rounded-2xl">
         <Select
           className="mt-[5px]"
-          placeholder="Loai yeu cau"
+          placeholder="Loại yêu cầu"
           style={{ width: 120 }}
           onChange={onTypeChange}
           options={dataType}
@@ -75,7 +75,7 @@ const SearchRequest = (props) => {
         />
         <Select
           className="mt-[5px]"
-          placeholder="Trang thai"
+          placeholder="Trạng thái"
           style={{ width: 120 }}
           onChange={onStatusChange}
           options={dataStatus}
@@ -87,7 +87,7 @@ const SearchRequest = (props) => {
         />
         <Select
           className="mt-[5px]"
-          placeholder="Nguoi gui"
+          placeholder="Nguời yêu cầu"
           style={{ width: 120 }}
           onChange={onRequesterChange}
           options={dataRequester}
@@ -97,34 +97,6 @@ const SearchRequest = (props) => {
           optionFilterProp="children"
           showSearch
         />
-        {/* <div className="flex items-center space-x-5">
-          <Input
-            placeholder="Tìm kiếm ở đây!"
-            onChange={onValueChange}
-            allowClear
-            style={{ width: 120 }}
-          />
-          <div className="w-[40px] h-[40px] rounded-full border border-solid border-gray-300 hover:border-blue-500">
-            <button className="mt-[5px]">
-              <SearchOutlined
-                style={{
-                  color: "#1677ff",
-                  width: "40px",
-                }}
-              />
-            </button>
-          </div>
-          <div className="w-[40px] h-[40px] rounded-full border border-solid border-gray-300 hover:border-blue-500">
-            <button className="mt-[5px]">
-              <FilterOutlined
-                style={{
-                  color: "#1677ff",
-                  width: "40px",
-                }}
-              />
-            </button>
-          </div>
-        </div> */}
       </div>
     </div>
   );

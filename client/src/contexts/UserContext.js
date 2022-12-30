@@ -5,7 +5,13 @@ import {
   useReducer,
   useState,
 } from "react";
-import { createUser, deleteUser, getListUser, searchUser, updateUser } from "../api/user";
+import {
+  createUser,
+  deleteUser,
+  getListUser,
+  searchUser,
+  updateUser,
+} from "../api/user";
 import {
   SET_USER_ADD,
   SET_USER_BEGIN,
@@ -23,7 +29,11 @@ export const initState = {
 };
 
 const UserContextProvider = (props) => {
-  const { authState } = useAppContext();
+  const {
+    authState: { user },
+    authState,
+    gotoMainPage,
+  } = useAppContext();
   const [userState, dispatch] = useReducer(UserReducer, authState);
   const { convertObjectToArray, openNotification } = useAppContext();
 
@@ -37,6 +47,9 @@ const UserContextProvider = (props) => {
           listUser: response.data,
         },
       });
+    } else {
+      gotoMainPage(user);
+      openNotification("error", response.msg);
     }
   };
 
@@ -50,6 +63,8 @@ const UserContextProvider = (props) => {
           listUser: response.data,
         },
       });
+    } else {
+      openNotification("error", response.msg);
     }
   };
 

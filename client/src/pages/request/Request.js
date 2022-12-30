@@ -24,7 +24,6 @@ const Request = () => {
     convertStatusToName,
     openNotification,
     convertObjectToArray,
-    refreshPage,
     deadDate,
   } = useAppContext();
   const {
@@ -40,8 +39,6 @@ const Request = () => {
   const [desc, setDesc] = useState("");
   const [information, setInformation] = useState("");
   const [data, setData] = useState({});
-  const [id, setId] = useState();
-  const [refId, setRefId] = useState();
   const [feedback, setFeedback] = useState({});
   const [record, setRecord] = useState({});
   const [note, setNote] = useState("");
@@ -116,8 +113,6 @@ const Request = () => {
     } else {
       setInformation("");
       setData({});
-      setId("");
-      setRefId("");
     }
   };
   const handleOk = async () => {
@@ -171,7 +166,6 @@ const Request = () => {
           product.productLine._id === record.product.productLine
         );
       });
-      console.log(listProduct);
       if (dataProduct.length === 0) {
         openNotification("error", "Không có sản phẩm để bàn giao");
         return;
@@ -188,11 +182,8 @@ const Request = () => {
       }
     } else if (record.type === 6) {
       const dataProduct = listProduct?.filter((product) => {
-        console.log(product);
-        console.log(record);
         return product.productLine._id === record.productLine._id;
       });
-      console.log(dataProduct);
       for (let i = 0; i < dataProduct?.length; i++) {
         const product = dataProduct[i];
         console.log(product);
@@ -206,7 +197,7 @@ const Request = () => {
       }
     }
     if (response?.success) {
-      openNotification("success", response.msg);
+      openNotification("success", "Chấp nhận yêu cầu thành công");
       await updateRequest(
         record._id,
         convertObjectToArray({ ...feedback, status: 3 })
@@ -219,7 +210,7 @@ const Request = () => {
       loadListRequest();
       setVisible(false);
     } else {
-      openNotification("error", response?.msg);
+      openNotification("error", "Chấp nhận yêu cầu thất bại");
     }
   };
   const handleReject = async () => {

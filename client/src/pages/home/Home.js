@@ -1,4 +1,3 @@
-import { Input } from "antd";
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import SearchProduct from "../../components/SearchFilter/SearchProduct";
@@ -15,7 +14,6 @@ const Home = () => {
     productState: { listProduct, isLoading },
     loadUserProduct,
   } = useProductContext();
-  const { loadListRequest } = useRequestContext();
   const dataColumn = [
     {
       title: "STT",
@@ -50,7 +48,6 @@ const Home = () => {
       status: convertStatusToNameProduct(product.status),
     };
   });
-  
 
   return (
     <div className="w-full">

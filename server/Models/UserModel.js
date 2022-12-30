@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Request = require("./RequestModel");
 var Schema = mongoose.Schema;
-
+mongoose.set("strictQuery", false);
 const userSchema = new mongoose.Schema(
   {
     name: {

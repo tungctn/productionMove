@@ -22,24 +22,27 @@ const TableInfo = (props) => {
 
   return (
     <div>
-      <Select
-        defaultValue={5}
-        onChange={handleChange}
-        options={[
-          {
-            value: 5,
-            label: "5",
-          },
-          {
-            value: 10,
-            label: "10",
-          },
-          {
-            value: 15,
-            label: "15",
-          },
-        ]}
-      />
+      <div>
+        <span className="text-[20px] font-bold">Số dòng hiển thị: </span>
+        <Select
+          defaultValue={5}
+          onChange={handleChange}
+          options={[
+            {
+              value: 5,
+              label: "5",
+            },
+            {
+              value: 10,
+              label: "10",
+            },
+            {
+              value: 15,
+              label: "15",
+            },
+          ]}
+        />
+      </div>
 
       <Table
         columns={dataColumn}
@@ -50,9 +53,6 @@ const TableInfo = (props) => {
         title={setTitle}
         ref={tableEle}
         id="table"
-      />
-      <BackTop
-        visibilityHeight={50}
       />
     </div>
   );

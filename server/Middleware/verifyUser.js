@@ -11,10 +11,6 @@ module.exports.verifyAdmin = (req, res, next) => {
         "Bạn không thuộc ban điều hành",
         403
       );
-      // return res.status(403).json({
-      //   success: false,
-      //   msg: "You're not admin",
-      // });
     }
   });
 };
@@ -29,10 +25,6 @@ module.exports.verifyFactory = async (req, res, next) => {
         "Bạn không thuộc cơ sở sản xuất",
         403
       );
-      // return res.status(403).json({
-      //   success: false,
-      //   msg: "You're not Factory",
-      // });
     }
   });
 };
@@ -47,10 +39,6 @@ module.exports.verifyStore = async (req, res, next) => {
         "Bạn không thuộc đại lý phân phối",
         403
       );
-      // return res.status(403).json({
-      //   success: false,
-      //   msg: "You're not Store",
-      // });
     }
   });
 };
@@ -65,10 +53,6 @@ module.exports.verifyWarrantyCenter = async (req, res, next) => {
         "Bạn không thuộc trung tâm bảo hành",
         403
       );
-      // return res.status(403).json({
-      //   success: false,
-      //   msg: "You're not Warranty Center",
-      // });
     }
   });
 };
@@ -83,10 +67,6 @@ module.exports.verifyFactory_WarrantyCenter_Store = async (req, res, next) => {
         "Bạn không thuộc cơ sở sản xuất, đại lý phân phối, trung tâm bảo hành",
         403
       );
-      // return res.status(403).json({
-      //   success: false,
-      //   msg: "You're not Warranty Center or Factory or Store",
-      // });
     }
   });
 };

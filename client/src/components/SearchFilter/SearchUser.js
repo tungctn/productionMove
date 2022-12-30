@@ -25,28 +25,30 @@ const SearchUser = (props) => {
     setForm({ ...form, filter: value });
   };
   const selectRole = (
-    <Select
-      className="mt-[5px]"
-      placeholder="Chuc vu"
-      style={{ width: 80 }}
-      onChange={onRoleChange}
-      options={[
-        {
-          value: 2,
-          label: convertRoleToName(2),
-        },
-        {
-          value: 3,
-          label: convertRoleToName(3),
-        },
-        {
-          value: 4,
-          label: convertRoleToName(4),
-        },
-      ]}
-    />
-  )
-  const selectFilter=(
+    <>
+      <Select
+        className="mt-[5px]"
+        placeholder="Chuc vu"
+        style={{ width: 80 }}
+        onChange={onRoleChange}
+        options={[
+          {
+            value: 2,
+            label: convertRoleToName(2),
+          },
+          {
+            value: 3,
+            label: convertRoleToName(3),
+          },
+          {
+            value: 4,
+            label: convertRoleToName(4),
+          },
+        ]}
+      />
+    </>
+  );
+  const selectFilter = (
     <Select
       className="mt-[5px]"
       placeholder="Lọc theo"
@@ -63,7 +65,7 @@ const SearchUser = (props) => {
         },
       ]}
     />
-  )
+  );
   return (
     <div className="w-1/3 mr-10 mt-5 ml-auto">
       <div className="container rounded-2xl">

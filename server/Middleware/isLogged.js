@@ -11,19 +11,11 @@ module.exports.verifyToken = (req, res, next) => {
     jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
       if (err) {
         return response.sendErrorResponse(res, "Phiên đăng nhập đã hết hạn", 403);
-        // return res.status(403).json({
-        //   success: false,
-        //   msg: "token is not valid",
-        // });
       }
       req.user = user;
       next();
     });
   } else {
     return response.sendErrorResponse(res, "Bạn cần đăng nhập", 401);
-    // return res.status(401).json({
-    //   success: false,
-    //   msg: "you are not authenticated",
-    // });
   }
 };

@@ -1,5 +1,9 @@
 import { createContext, useContext, useEffect, useReducer } from "react";
-import { getAllProductLine, searchProductLine, updateProductLine } from "../api/productline";
+import {
+  getAllProductLine,
+  searchProductLine,
+  updateProductLine,
+} from "../api/productline";
 import { ProductLineReducer } from "../reducers/ProductLineReducer";
 import {
   SET_PRODUCTLINE_BEGIN,
@@ -17,7 +21,12 @@ export const initState = {
 };
 
 const ProductLineContextProvider = (props) => {
-  const { authState } = useAppContext(); // get authState from AppContext
+  const {
+    authState,
+    authState: { user },
+    gotoMainPage,
+    openNotification,
+  } = useAppContext(); // get authState from AppContext
   const [productlineState, dispatch] = useReducer(
     ProductLineReducer,
     authState
@@ -32,6 +41,9 @@ const ProductLineContextProvider = (props) => {
         type: SET_PRODUCTLINE_LIST,
         payload: { listProductLine: response.data },
       });
+    } else {
+      gotoMainPage(user);
+      openNotification("error", response.msg);
     }
   };
 

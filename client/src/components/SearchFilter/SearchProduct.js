@@ -7,7 +7,6 @@ import { useProductContext } from "../../contexts/ProductContext";
 import { useProductLineContext } from "../../contexts/ProductLineContext";
 
 const SearchProduct = (props) => {
-
   const [form, setForm] = useState({});
   const { handleSearchProduct } = useProductContext();
   const {
@@ -23,7 +22,6 @@ const SearchProduct = (props) => {
     console.log(form);
   }, [form]);
   useEffect(() => {
-    // loadAllProduct();
     loadListProductLine();
   }, []);
   const onValueChange = (e) => {
@@ -99,49 +97,37 @@ const SearchProduct = (props) => {
     <div className="w-1/3 mr-10 mt-5 ml-auto">
       <div className="container rounded-2xl">
         <div className="flex-row space-x-2">
-            <Select
-              className="mb-[5px]"
-              placeholder="Dòng sản phẩm"
-              style={{ width: 120 }}
-              onChange={onProductLineChange}
-              options={dataProductLine}
-            />
-            <Select
-              className="mb-[5px]"
-              placeholder="Trạng thái"
-              style={{ width: 120 }}
-              onChange={onStatusChange}
-              options={dataStatus}
-            />
-          </div>
-          <div>
-            <Input
-              placeholder="Tìm kiếm ở đây!"
-              onChange={onValueChange}
-              allowClear
-              style={{ width: 244}}
-            />
-          </div>
-        <Select
-          className="mt-[5px]"
-          placeholder="Dòng sản phẩm"
-          style={{ width: 120 }}
-          onChange={onProductLineChange}
-          options={dataProductLine}
-        />
-        <Select
-          className="mt-[5px]"
-          placeholder="Trạng thái"
-          style={{ width: 120 }}
-          onChange={onStatusChange}
-          options={dataStatus}
-        />
-        <div className="flex items-center space-x-5">
+          <Select
+            className="mb-[5px]"
+            placeholder="Dòng sản phẩm"
+            style={{ width: 120 }}
+            onChange={onProductLineChange}
+            options={dataProductLine}
+            showSearch
+            filterOption={(input, option) =>
+              (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
+            }
+            optionFilterProp="children"
+          />
+          <Select
+            className="mb-[5px]"
+            placeholder="Trạng thái"
+            style={{ width: 120 }}
+            onChange={onStatusChange}
+            options={dataStatus}
+            showSearch
+            filterOption={(input, option) =>
+              (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
+            }
+            optionFilterProp="children"
+          />
+        </div>
+        <div>
           <Input
             placeholder="Tìm kiếm ở đây!"
             onChange={onValueChange}
             allowClear
-            style={{ width: 120 }}
+            style={{ width: 244 }}
           />
         </div>
       </div>

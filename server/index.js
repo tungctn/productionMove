@@ -13,9 +13,6 @@ const corsOptions = {
   credentials: true,
   exposedHeaders: ["set-cookie"],
 };
-// app.use(express.json());
-// app.use(bodyParser.urlencoded({ extended: true }));
-// app.use(bodyParser.json());
 app.use(cors(corsOptions));
 
 app.use(express.static("public"));
@@ -29,10 +26,6 @@ mongoose.connect(process.env.URL_CONNECT_MD, () => {
 });
 
 app.use("/api", appRoute);
-
-app.get("/", (req, res) => {
-  res.send("jdsds");
-});
 
 const PORT = process.env.PORT;
 

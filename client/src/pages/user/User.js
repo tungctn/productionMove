@@ -34,10 +34,10 @@ const User = () => {
       title: "Hành động",
       key: "action",
       render: (_, record) => (
-        <div>
+        <>
           <EditUser id={record._id} />
           <DeleteUser id={record._id} />
-        </div>
+        </>
       ),
     },
   ];

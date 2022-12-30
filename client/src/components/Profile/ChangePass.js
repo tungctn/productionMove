@@ -1,6 +1,5 @@
 import { Button, Form, Input, Modal } from "antd";
 import { useState } from "react";
-import bcrypt from "bcryptjs-react";
 import { changePassword, checkPassword } from "../../api/user";
 import { useAppContext } from "../../contexts/AppContext";
 
@@ -9,7 +8,7 @@ const ChangePass = (props) => {
   const [visible, setVisible] = useState(false);
   const [formData, setFormData] = useState({});
   const { openNotification } = useAppContext();
-  let isError = false;
+  const [isError, setIsError] = useState(false);
   const showModal = () => {
     setVisible(true);
   };
@@ -53,16 +52,6 @@ const ChangePass = (props) => {
               {
                 required: true,
                 message: "Please input  your password!",
-                isError: true,
-              },
-              {
-                min: 6,
-                message: "Password must be at least 6 characters!",
-                isError: true,
-              },
-              {
-                max: 20,
-                message: "Password must be at most 20 characters!",
               },
               {
                 validator: async (_, value) => {
@@ -71,10 +60,12 @@ const ChangePass = (props) => {
                     current: user.password,
                   });
                   if (response.success === false) {
-                    isError = true;
+                    setIsError(true);
                     return Promise.reject("Password is incorrect!");
+                  } else {
+                    setIsError(false);
+                    return Promise.resolve();
                   }
-                  return Promise.resolve();
                 },
               },
             ]}>
@@ -89,12 +80,25 @@ const ChangePass = (props) => {
                 message: "Please input your password!",
               },
               {
-                min: 6,
-                message: "Password must be at least 6 characters!",
-              },
-              {
-                max: 20,
-                message: "Password must be at most 20 characters!",
+                validator: (_, value) => {
+                  if (!value) {
+                    setIsError(true);
+                    return Promise.reject("Please input your password!");
+                  } else if (value.length < 6) {
+                    setIsError(true);
+                    return Promise.reject(
+                      "Password must be at least 6 characters!"
+                    );
+                  } else if (value.length > 30) {
+                    setIsError(true);
+                    return Promise.reject(
+                      "Password must be at most 20 characters!"
+                    );
+                  } else {
+                    setIsError(false);
+                    return Promise.resolve();
+                  }
+                },
               },
             ]}>
             <Input.Password name="newPassword" onChange={onValueChange} />

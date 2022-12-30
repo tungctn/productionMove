@@ -3,229 +3,173 @@ const UserModel = require("../Models/UserModel");
 const ProductModel = require("../Models/ProductModel");
 const response = require("../utils/Response");
 module.exports.createRequest = async (req, res) => {
-  // try {
-    const requesterId = req.body.requester;
-    const recipientId = req.body.recipient;
-    const requester = await UserModel.findById(requesterId);
-    const recipient = await UserModel.findById(recipientId);
-    const product = req.body.product;
-    const type = req.body.type;
-    const note = req.body.note;
-    const amount = req.body.amount;
-    const productLine = req.body.productLine;
-    const requestA = await new RequestModel({
-      requester: requesterId,
-      recipient: recipientId,
-      status: 1,
-      type: type,
-      product: product,
-      note: note,
-      amount: amount,
-      proudctLine: productLine,
-    }).save();
-    const requestB = await new RequestModel({
-      requester: requesterId,
-      recipient: recipientId,
-      status: 2,
-      type: type,
-      product: product,
-      note: note,
-      amount: amount,
-      productLine: productLine,
-    }).save();
-    requestA.refRequest = requestB._id;
-    requestB.refRequest = requestA._id;
-    requestA.save();
-    requestB.save();
-    requester.requestList.push(requestA._id);
-    recipient.requestList.push(requestB._id);
-    requester.save();
-    recipient.save();
-    const newRequest = await RequestModel.findById(requestA._id)
-      .populate("recipient")
-      .populate("requester");
-    // return res.status(200).json({
-    //   success: true,
-    //   msg: "successful",
-    //   data: newRequest,
-    // });
-    return response.sendSuccessResponse(res, newRequest, "Tạo yêu cầu thành công", 200);
-  // } catch (error) {
-  //   return res.status(500).json({
-  //     success: false,
-  //     msg: error.message,
-  //   });
-  // }
+  const requesterId = req.body.requester;
+  const recipientId = req.body.recipient;
+  const requester = await UserModel.findById(requesterId);
+  const recipient = await UserModel.findById(recipientId);
+  const product = req.body.product;
+  const type = req.body.type;
+  const note = req.body.note;
+  const amount = req.body.amount;
+  const productLine = req.body.productLine;
+  const requestA = await new RequestModel({
+    requester: requesterId,
+    recipient: recipientId,
+    status: 1,
+    type: type,
+    product: product,
+    note: note,
+    amount: amount,
+    proudctLine: productLine,
+  }).save();
+  const requestB = await new RequestModel({
+    requester: requesterId,
+    recipient: recipientId,
+    status: 2,
+    type: type,
+    product: product,
+    note: note,
+    amount: amount,
+    productLine: productLine,
+  }).save();
+  requestA.refRequest = requestB._id;
+  requestB.refRequest = requestA._id;
+  requestA.save();
+  requestB.save();
+  requester.requestList.push(requestA._id);
+  recipient.requestList.push(requestB._id);
+  requester.save();
+  recipient.save();
+  const newRequest = await RequestModel.findById(requestA._id)
+    .populate("recipient")
+    .populate("requester");
+  return response.sendSuccessResponse(
+    res,
+    newRequest,
+    "Tạo yêu cầu thành công",
+    200
+  );
 };
 
 module.exports.getRequest = async (req, res) => {
-  // try {
-    const request = await RequestModel.findById(req.params.id)
-      .populate("product")
-      .populate("productLine");
-    // return res.status(200).json({
-    //   success: true,
-    //   msg: "successful",
-    //   data: request,
-    // });
-    return response.sendSuccessResponse(res, request, "", 200);
-  // } catch (error) {
-  //   return res.status(500).json({
-  //     success: false,
-  //     msg: error.message,
-  //   });
-  // }
+  const request = await RequestModel.findById(req.params.id)
+    .populate("product")
+    .populate("productLine");
+  return response.sendSuccessResponse(res, request, "", 200);
 };
 
 module.exports.getAllRequest = async (req, res) => {
-  // try {
-    const listRequest = [];
-    const user = await UserModel.findById(req.user.id);
-    for (const requestID of user.requestList) {
-      let request = await RequestModel.findById(requestID)
-        .populate("recipient")
-        .populate("requester")
-        .populate("productLine")
-        .populate("product");
-      listRequest.push(request);
-    }
-
-    // return res.status(200).json({
-    //   success: true,
-    //   msg: "successful",
-    //   data: listRequest,
-    // });
-    return response.sendSuccessResponse(res, listRequest, "", 200);
-  // } catch (error) {
-  //   return res.status(500).json({
-  //     success: false,
-  //     msg: error.message,
-  //   });
-  // }
+  const listRequest = [];
+  const user = await UserModel.findById(req.user.id);
+  for (const requestID of user.requestList) {
+    let request = await RequestModel.findById(requestID)
+      .populate("recipient")
+      .populate("requester")
+      .populate("productLine")
+      .populate("product");
+    listRequest.push(request);
+  }
+  return response.sendSuccessResponse(res, listRequest, "", 200);
 };
 
 module.exports.handleImportRequest = async (req, res) => {
-  // try {
-    const listProduct = await ProductModel.find({
-      location: req.user.id,
-      productLine: req.body.productLine,
-      status: 0,
+  const listProduct = await ProductModel.find({
+    location: req.user.id,
+    productLine: req.body.productLine,
+    status: 0,
+  });
+  if (req.body.amount > listProduct.length) {
+    return res.status(200).json({
+      success: false,
+      msg: `${req.user.name} không còn đủ sản phẩm`,
     });
-    if (req.body.amount > listProduct.length) {
-      return res.status(200).json({
-        success: false,
-        msg: `${req.user.name} không còn đủ sản phẩm`,
-      });
-    } else {
-      for (let i = 0; i < req.body.amount; i++) {
-        listProduct[i].store = req.body.store;
-        listProduct[i].location = req.body.store;
-        listProduct[i].status = 1;
-        listProduct[i].save();
-      }
+  } else {
+    for (let i = 0; i < req.body.amount; i++) {
+      listProduct[i].store = req.body.store;
+      listProduct[i].location = req.body.store;
+      listProduct[i].status = 1;
+      listProduct[i].save();
     }
-    // return res.status(200).json({
-    //   success: true,
-    //   msg: "successful",
-    // });
-    return response.sendSuccessResponse(res, null, "Gửi sản phẩm thành công", 200);
-  // } catch (error) {
-  //   return res.status(500).json({
-  //     success: false,
-  //     msg: error.message,
-  //   });
-  // }
+  }
+  return response.sendSuccessResponse(
+    res,
+    null,
+    "Chấp nhận yêu cầu thành công",
+    200
+  );
 };
 module.exports.updateRequest = async (req, res, next) => {
-  // try {
-    const updateOps = {};
-    for (const ops of req.body) {
-      updateOps[ops.propName] = ops.value;
-    }
-    await RequestModel.findByIdAndUpdate(req.params.id, {
-      $set: { ...updateOps },
-    });
-    const newRequest = await RequestModel.findById(req.params.id);
-    // return res.status(200).json({
-    //   success: true,
-    //   msg: "successfully",
-    //   data: newRequest,
-    // });
-    return response.sendSuccessResponse(res, newRequest, "Cập nhật yêu cầu thành công", 200);
-  // } catch (error) {
-  //   return res.status(500).json({
-  //     success: false,
-  //     msg: error.message,
-  //   });
-  // }
+  const updateOps = {};
+  for (const ops of req.body) {
+    updateOps[ops.propName] = ops.value;
+  }
+  await RequestModel.findByIdAndUpdate(req.params.id, {
+    $set: { ...updateOps },
+  });
+  const newRequest = await RequestModel.findById(req.params.id);
+  return response.sendSuccessResponse(
+    res,
+    newRequest,
+    "Cập nhật yêu cầu thành công",
+    200
+  );
 };
 module.exports.searchRequest = async (req, res) => {
-  // req.body.type
-  // req.body.status
-  // req.body.requester
-  // try {
-    let listRequest = [];
-    const user = await UserModel.findById(req.user.id);
-    for (const requestID of user.requestList) {
-      let request = await RequestModel.findById(requestID)
-        .populate("recipient")
-        .populate("requester")
-        .populate("productLine")
-        .populate("product");
-      listRequest.push(request);
-    }
-    console.log(req.body.type);
-    if (req.body.type || req.body.type === 0) { 
+  let listRequest = [];
+  const user = await UserModel.findById(req.user.id);
+  for (const requestID of user.requestList) {
+    let request = await RequestModel.findById(requestID)
+      .populate("recipient")
+      .populate("requester")
+      .populate("productLine")
+      .populate("product");
+    listRequest.push(request);
+  }
+  if (req.body.type || req.body.type === 0) {
+    listRequest = listRequest.filter((request) => {
+      return request.type === req.body.type;
+    });
+    if (req.body.status) {
       listRequest = listRequest.filter((request) => {
-        return request.type === req.body.type;
+        return request.status == req.body.status;
       });
-      if (req.body.status) {
+      if (req.body.requester) {
         listRequest = listRequest.filter((request) => {
-          return request.status == req.body.status;
+          return request.requester._id == req.body.requester;
         });
-        if (req.body.requester) {
-          listRequest = listRequest.filter((request) => {
-            return request.requester._id == req.body.requester;
-          });
-        } else {
-          listRequest = listRequest;
-        }
       } else {
-        if (req.body.requester) {
-          listRequest = listRequest.filter((request) => {
-            return request.requester._id == req.body.requester;
-          });
-        } else {
-          listRequest = listRequest;
-        }
+        listRequest = listRequest;
       }
     } else {
-      if (req.body.status) {
+      if (req.body.requester) {
         listRequest = listRequest.filter((request) => {
-          return request.status == req.body.status;
+          return request.requester._id == req.body.requester;
         });
-        if (req.body.requester) {
-          listRequest = listRequest.filter((request) => {
-            return request.requester._id == req.body.requester;
-          });
-        } else {
-          listRequest = listRequest;
-        }
       } else {
-        if (req.body.requester) {
-          listRequest = listRequest.filter((request) => {
-            return request.requester._id == req.body.requester;
-          });
-        } else {
-          listRequest = listRequest;
-        }
+        listRequest = listRequest;
       }
     }
-    return response.sendSuccessResponse(res, listRequest, "", 200);
-  // } catch (error) {
-  //   return res.status(500).json({
-  //     success: false,
-  //     msg: error.message,
-  //   });
-  // }
+  } else {
+    if (req.body.status) {
+      listRequest = listRequest.filter((request) => {
+        return request.status == req.body.status;
+      });
+      if (req.body.requester) {
+        listRequest = listRequest.filter((request) => {
+          return request.requester._id == req.body.requester;
+        });
+      } else {
+        listRequest = listRequest;
+      }
+    } else {
+      if (req.body.requester) {
+        listRequest = listRequest.filter((request) => {
+          return request.requester._id == req.body.requester;
+        });
+      } else {
+        listRequest = listRequest;
+      }
+    }
+  }
+  return response.sendSuccessResponse(res, listRequest, "", 200);
 };

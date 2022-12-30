@@ -206,7 +206,6 @@ const AppContextProvider = (props) => {
       type: SET_AUTH_BEGIN,
     });
     const response = await loginAPI(data);
-    // refreshPage();
     if (response.success) {
       localStorage.setItem("token", response.accessToken);
       setAuthHeader(localStorage["token"]);
@@ -222,13 +221,19 @@ const AppContextProvider = (props) => {
       } else {
         navigate("/home");
       }
-      //console.log(localStorage);
     } else {
-      //console.log(response.msg);
       dispatch({
         type: SET_AUTH_FAILED,
       });
-      openNotification("error", "Login failed");
+      openNotification("error", response.msg);
+    }
+  };
+
+  const gotoMainPage = (user) => {
+    if (user.role === 1) {
+      navigate("/productline");
+    } else {
+      navigate("/home");
     }
   };
 
@@ -240,7 +245,7 @@ const AppContextProvider = (props) => {
     openNotification("success", response.msg);
   };
 
- // console.log(authState);
+  // console.log(authState);
 
   const data = {
     loadUser,
@@ -259,6 +264,7 @@ const AppContextProvider = (props) => {
     convertStatusToNameProduct,
     convertUnitToName,
     deadDate,
+    gotoMainPage,
   };
 
   return (

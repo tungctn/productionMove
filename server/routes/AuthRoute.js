@@ -9,7 +9,6 @@ authRouter.post(
   "/logout",
   MiddlewareAuth.verifyToken,
   TryCatch(AuthController.userLogout)
-  // AuthController.userLogout
 );
 
 module.exports = authRouter;

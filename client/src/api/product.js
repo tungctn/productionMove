@@ -32,3 +32,8 @@ export const searchProduct = async (data) => {
   const response = await axios.post("/product/search", data);
   return response.data;
 };
+
+export const deleteProduct = async (id) => {
+  const response = await axios.delete(`/product/${id}`);
+  return response.data;
+};
