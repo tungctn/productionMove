@@ -88,8 +88,8 @@ const SearchProduct = (props) => {
   ];
   const dataProductLine = listProductLine?.map((item) => {
     return {
-      value: item._id,
-      label: item.name,
+      value: item?._id,
+      label: item?.name,
     };
   });
   console.log(dataProductLine);

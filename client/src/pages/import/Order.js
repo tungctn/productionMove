@@ -12,12 +12,12 @@ const Order = (props) => {
   const [visible, setVisible] = useState(false);
   const [input, setInput] = useState();
   const { handleCreateRequest } = useRequestContext();
+  const [isError, setIsError] = useState(false);
   const [formText, setFormText] = useState({ note: "", type: 0 });
   const {
     authState: { user },
+    openNotification,
   } = useAppContext();
-  const { loadListRequest } = useRequestContext();
-  const navigate = useNavigate();
   const showModal = () => {
     setVisible(true);
   };
@@ -30,21 +30,20 @@ const Order = (props) => {
   const onChange = (e) => {
     setFormText({ ...formText, [e.target.name]: e.target.value });
   };
-
-  useEffect(() => {
-    console.log(record);
-    console.log(user);
-  }, []);
   const handleOk = async () => {
-    await handleCreateRequest({
-      requester: user._id,
-      recipient: record.factory._id,
-      amount: Number(input),
-      productLine: id,
-      ...formText,
-    });
-    loadListRequest();
-    setVisible(false);
+    if (isError === false) {
+      const response = await createRequest({
+        requester: user._id,
+        recipient: record.factory._id,
+        amount: Number(input),
+        productLine: id,
+        ...formText,
+      });
+      if (response.success) {
+        openNotification("success", "Gửi yêu cầu thành công!");
+      }
+      setVisible(false);
+    }
   };
   return (
     <div>
@@ -64,8 +63,32 @@ const Order = (props) => {
             name="amount"
             rules={[
               {
-                required: true,
-                message: "Hãy nhập số lượng của bạn!",
+                validator: (_, value) => {
+                  if (!value) {
+                    setIsError(true);
+                    return Promise.reject(new Error(`Hãy nhập số lượng!`));
+                  } else if (value <= 0) {
+                    setIsError(true);
+                    return Promise.reject(
+                      new Error(`Số lượng đặt hàng phải lớn hơn 0!`)
+                    );
+                  } else if (value > record.listProduct.length) {
+                    setIsError(true);
+                    return Promise.reject(
+                      new Error(
+                        `Số lượng đặt hàng không được lớn hơn số lượng sản phẩm có sẵn!`
+                      )
+                    );
+                  } else if (isNaN(value)) {
+                    setIsError(true);
+                    return Promise.reject(
+                      new Error(`Số lượng đặt hàng phải là số!`)
+                    );
+                  } else {
+                    setIsError(false);
+                    return Promise.resolve();
+                  }
+                },
               },
             ]}>
             <Input

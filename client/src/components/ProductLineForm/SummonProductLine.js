@@ -24,11 +24,10 @@ const SummonProductLine = (props) => {
   };
 
   const handleOk = async () => {
-    let response;
     setIsLoading(true);
     listUser?.forEach(async (users) => {
       if (users.role === 3) {
-        response = await createRequest({
+        await createRequest({
           requester: user._id,
           productLine: productLine._id,
           recipient: users._id,
@@ -37,12 +36,8 @@ const SummonProductLine = (props) => {
         });
       }
     });
-    if (response.success) {
-      openNotification("success", "Triệu hồi sản phẩm thành công");
-      setIsLoading(false);
-    } else {
-      openNotification("error", "Triệu hồi sản phẩm thất bại");
-    }
+    openNotification("success", "Triệu hồi sản phẩm thành công");
+    setIsLoading(false);
     setVisible(false);
   };
 
@@ -55,21 +50,21 @@ const SummonProductLine = (props) => {
   }, []);
 
   return (
-    <Loading spinning={isLoading}>
-      <div>
-        <Button type="primary" onClick={showModal}>
-          Triệu hồi sản phẩm
-        </Button>
-        <Modal
-          title="Triệu hồi sản phẩm"
-          visible={visible}
-          destroyOnClose={true}
-          onOk={handleOk}
-          onCancel={handleCancel}>
+    <div>
+      <Button type="primary" onClick={showModal}>
+        Triệu hồi sản phẩm
+      </Button>
+      <Modal
+        title="Triệu hồi sản phẩm"
+        visible={visible}
+        destroyOnClose={true}
+        onOk={handleOk}
+        onCancel={handleCancel}>
+        <Loading spinning={isLoading}>
           <div>Triệu hồi sản phẩm {productLine?.name}?</div>
-        </Modal>
-      </div>
-    </Loading>
+        </Loading>
+      </Modal>
+    </div>
   );
 };
 

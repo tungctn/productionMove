@@ -23,8 +23,6 @@ const ProductContextProvider = (props) => {
   const {
     authState,
     authState: { user },
-    openNotification,
-    gotoMainPage,
   } = useAppContext(); // get authState from AppContext
   const [productState, dispatch] = useReducer(ProductReducer, authState);
 
@@ -36,9 +34,6 @@ const ProductContextProvider = (props) => {
         type: SET_PRODUCT_LIST,
         payload: { listProduct: response.data },
       });
-    } else {
-      gotoMainPage(user);
-      openNotification("error", response.msg);
     }
   };
 

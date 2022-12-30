@@ -192,7 +192,6 @@ const ProductDetail = (props) => {
       if (response.success) {
         openNotification("success", response.msg);
         loadProduct(id);
-        // navigate("/");
         setVisible(false);
       } else {
         openNotification("error", "Failed");
@@ -265,9 +264,7 @@ const ProductDetail = (props) => {
         openNotification("success", response.msg);
         navigate("/request");
         setVisible(false);
-      } else {
-        // openNotification("error", "Failed");
-      }
+      } 
     } else if (product?.status === 8) {
       response = await deleteProduct(id);
       if (response.success) {
@@ -298,10 +295,6 @@ const ProductDetail = (props) => {
   };
 
   const onWarrantyChange = (location) => {
-    setLocation(location);
-  };
-
-  const onFactoryChange = (location) => {
     setLocation(location);
   };
 

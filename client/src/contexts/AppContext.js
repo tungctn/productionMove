@@ -10,9 +10,6 @@ import { loginAPI, logoutAPI, setAuthHeader } from "../api/auth";
 import { AuthReducer } from "../reducers/AuthReducer";
 import { getProfile } from "../api/user";
 import { SET_AUTH_BEGIN, SET_AUTH_FAILED, SET_AUTH_SUCCESS } from "../action";
-import { useRequestContext } from "./RequestContext";
-import { useProductContext } from "./ProductContext";
-import { useProductLineContext } from "./ProductLineContext";
 import { useNavigate } from "react-router-dom";
 
 export const AppContext = createContext();

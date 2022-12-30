@@ -49,8 +49,8 @@ const SearchRequest = (props) => {
   let dataRequester = listRequest
     ?.map((item) => {
       return {
-        value: item.requester._id,
-        label: item.requester.name,
+        value: item?.requester?._id,
+        label: item?.requester?.name,
       };
     })
     .filter(

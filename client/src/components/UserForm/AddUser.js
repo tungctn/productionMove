@@ -71,7 +71,6 @@ const AddUser = () => {
       <Loading spinning={isLoading}>
         <Modal
           title="Sửa thông tin"
-          // confirmLoading={isLoading}
           open={visible}
           onOk={handleOk}
           destroyOnClose={true}
@@ -128,18 +127,6 @@ const AddUser = () => {
                   required: true,
                   message: "Please input your email!",
                 },
-                // {
-                //   type: "email",
-                //   message: "Email không hợp lệ",
-                // },
-                // {
-                //   min: 6,
-                //   message: "Email phải có ít nhất 6 ký tự",
-                // },
-                // {
-                //   max: 20,
-                //   message: "Email không được quá 20 ký tự",
-                // },
                 {
                   validator: (_, value) => {
                     if (!value) {

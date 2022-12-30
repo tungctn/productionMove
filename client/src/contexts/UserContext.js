@@ -30,9 +30,7 @@ export const initState = {
 
 const UserContextProvider = (props) => {
   const {
-    authState: { user },
     authState,
-    gotoMainPage,
   } = useAppContext();
   const [userState, dispatch] = useReducer(UserReducer, authState);
   const { convertObjectToArray, openNotification } = useAppContext();
@@ -47,9 +45,6 @@ const UserContextProvider = (props) => {
           listUser: response.data,
         },
       });
-    } else {
-      gotoMainPage(user);
-      openNotification("error", response.msg);
     }
   };
 
@@ -63,8 +58,6 @@ const UserContextProvider = (props) => {
           listUser: response.data,
         },
       });
-    } else {
-      openNotification("error", response.msg);
     }
   };
 
@@ -72,7 +65,6 @@ const UserContextProvider = (props) => {
     const response = await createUser(createForm);
     if (response.success) {
       openNotification("success", response.msg);
-      // const newList = userState.listUser.push(createForm);
       dispatch({
         type: SET_USER_ADD,
         payload: {
@@ -80,8 +72,6 @@ const UserContextProvider = (props) => {
         },
       });
       console.log(userState);
-    } else {
-      openNotification("error", "Failed");
     }
   };
 
@@ -96,8 +86,6 @@ const UserContextProvider = (props) => {
           id: id,
         },
       });
-    } else {
-      openNotification("error", "Failed");
     }
   };
 
@@ -111,8 +99,6 @@ const UserContextProvider = (props) => {
           id: id,
         },
       });
-    } else {
-      openNotification("error", "Failed");
     }
   };
 

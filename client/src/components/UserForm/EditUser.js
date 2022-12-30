@@ -67,7 +67,6 @@ const EditUser = (props) => {
   return (
     <div>
       <EditOutlined onClick={showModal} />
-      {/* <Loading spinning={loading}> */}
       <Modal
         title="Sửa thông tin"
         open={visible}

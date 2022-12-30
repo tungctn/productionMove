@@ -15,6 +15,7 @@ import { useProductContext } from "../../contexts/ProductContext";
 import { useNavigate } from "react-router-dom";
 import { getProductLine } from "../../api/productline";
 import SearchRequest from "../../components/SearchFilter/SearchRequest";
+import Loading from "../../components/Loading/Loading";
 
 const Request = () => {
   const { TextArea } = Input;
@@ -33,6 +34,7 @@ const Request = () => {
   const {
     productState: { listProduct },
     loadUserProduct,
+    
   } = useProductContext();
   const navigate = useNavigate();
   const [visible, setVisible] = useState(false);
@@ -42,6 +44,7 @@ const Request = () => {
   const [feedback, setFeedback] = useState({});
   const [record, setRecord] = useState({});
   const [note, setNote] = useState("");
+  const [loading, setLoading] = useState(false);
   const color = (status) => {
     switch (status) {
       case 1:
@@ -184,6 +187,7 @@ const Request = () => {
       const dataProduct = listProduct?.filter((product) => {
         return product.productLine._id === record.productLine._id;
       });
+      setLoading(true);
       for (let i = 0; i < dataProduct?.length; i++) {
         const product = dataProduct[i];
         console.log(product);
@@ -206,6 +210,7 @@ const Request = () => {
         record.refRequest,
         convertObjectToArray({ ...feedback, status: 3 })
       );
+      setLoading(false);
       // navigate("/request");
       loadListRequest();
       setVisible(false);
@@ -284,8 +289,8 @@ const Request = () => {
       return {
         ...request,
         key: index + 1,
-        requester1: request?.requester.name,
-        recipient1: request?.recipient.name,
+        requester1: request?.requester?.name,
+        recipient1: request?.recipient?.name,
       };
     });
   const onChange = (e) => {
@@ -330,11 +335,13 @@ const Request = () => {
           </Button>,
         ]}
         onCancel={handleCancel}>
-        <div>{desc}</div>
-        <div>{information}</div>
-        <div>Ghi chú: {note}</div>
-        Phản hồi:
-        <TextArea onChange={onChange} />
+        <Loading spinning={loading}>
+          <div>{desc}</div>
+          <div>{information}</div>
+          <div>Ghi chú: {note}</div>
+          Phản hồi:
+          <TextArea onChange={onChange} />
+        </Loading>
       </Modal>
     </div>
   );
