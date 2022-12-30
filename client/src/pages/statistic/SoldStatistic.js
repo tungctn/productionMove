@@ -30,7 +30,6 @@ function SoldStatistic() {
     setMonth(e.target.value);
   };
   useEffect(() => {
-    // loadUserProduct();
     loadAllProduct();
   }, []);
 

@@ -25,7 +25,7 @@ function FailedProductLine() {
     setProductLine(e.target.value);
   };
 
-  var dataFiltered = listProduct.filter((data) => data.factory === user._id);
+  var dataFiltered = listProduct?.filter((data) => data.factory === user._id);
   dataFiltered = dataFiltered?.filter(
     (data) => data.status >= 3 && data.status <= 9
   );

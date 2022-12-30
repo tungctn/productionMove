@@ -29,9 +29,7 @@ export const initState = {
 };
 
 const UserContextProvider = (props) => {
-  const {
-    authState,
-  } = useAppContext();
+  const { authState } = useAppContext();
   const [userState, dispatch] = useReducer(UserReducer, authState);
   const { convertObjectToArray, openNotification } = useAppContext();
 
@@ -72,6 +70,8 @@ const UserContextProvider = (props) => {
         },
       });
       console.log(userState);
+    } else {
+      openNotification("error", response.msg);
     }
   };
 

@@ -19,7 +19,11 @@ const Order = (props) => {
     openNotification,
   } = useAppContext();
   const showModal = () => {
-    setVisible(true);
+    if (record.amount !== 0) {
+      setVisible(true);
+    } else {
+      openNotification("error", "Hết hàng!");
+    }
   };
   const onValueChange = (e) => {
     setInput(e.target.value);

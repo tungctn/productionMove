@@ -6,10 +6,12 @@ import { quantityInStock } from "../../api/factory";
 import TableInfo from "../../components/TableInfo/TableInfo";
 import Default from "../../Layouts/Default";
 import Order from "./Order";
+import { useAppContext } from "../../contexts/AppContext";
 
 const Factory = () => {
   const [listQuantity, setListQuantity] = useState([]);
   const [loading, setLoading] = useState(false);
+  const { openNotification } = useAppContext();
   const { id } = useParams();
   const dataColumn = [
     {
@@ -32,7 +34,9 @@ const Factory = () => {
       //   title: "Hành động",
       dataIndex: "action",
       key: "action",
-      render: (_, record) => <Order record={record} />,
+      render: (_, record) => {
+        return <Order record={record} />;
+      },
     },
   ];
 

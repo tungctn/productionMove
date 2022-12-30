@@ -100,7 +100,7 @@ const AddUser = () => {
                       return Promise.reject(
                         "Tên nhân viên không được quá 50 ký tự"
                       );
-                    } else if (!/^[a-zA-Z [0-9]]+$/.test(value)) {
+                    } else if (!/^[a-zA-Z 0-9]+$/.test(value)) {
                       setIsError(true);
                       return Promise.reject(
                         "Tên nhân viên không được chứa ký tự đặc biệt"
@@ -172,7 +172,7 @@ const AddUser = () => {
                     } else if (value.length > 50) {
                       setIsError(true);
                       return Promise.reject("Mật khẩu không được quá 50 ký tự");
-                    } else if (!/^[a-zA-Z0-9]+$/.test(value)) {
+                    } else if (!/^[a-zA-Z 0-9]+$/.test(value)) {
                       setIsError(true);
                       return Promise.reject(
                         "Mật khẩu không được chứa ký tự đặc biệt"
