@@ -9,7 +9,11 @@ import Default from "../../Layouts/Default";
 
 const Home = () => {
   const navigate = useNavigate();
-  const { convertStatusToNameProduct } = useAppContext();
+  const {
+    convertStatusToNameProduct,
+    openNotification,
+    authState: { user },
+  } = useAppContext();
   const {
     productState: { listProduct, isLoading },
     loadUserProduct,
@@ -37,7 +41,12 @@ const Home = () => {
     },
   ];
   useEffect(() => {
-    loadUserProduct();
+    if (user?.role !== 1) {
+      loadUserProduct();
+    } else {
+      navigate("/productline");
+      openNotification("error", "Bạn không có quyền truy cập");
+    }
   }, []);
 
   const dataSource = listProduct.map((product, index) => {

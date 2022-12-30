@@ -26,6 +26,7 @@ const Request = () => {
     openNotification,
     convertObjectToArray,
     deadDate,
+    gotoMainPage,
   } = useAppContext();
   const {
     requestState: { listRequest, isLoading },
@@ -34,7 +35,6 @@ const Request = () => {
   const {
     productState: { listProduct },
     loadUserProduct,
-    
   } = useProductContext();
   const navigate = useNavigate();
   const [visible, setVisible] = useState(false);
@@ -277,8 +277,13 @@ const Request = () => {
   ];
 
   useEffect(() => {
-    loadListRequest();
-    loadUserProduct();
+    if (user?.role !== 1) {
+      loadListRequest();
+      loadUserProduct();
+    } else {
+      openNotification("error", "Bạn không có quyền truy cập");
+      gotoMainPage(user);
+    }
   }, []);
 
   const dataSource = listRequest

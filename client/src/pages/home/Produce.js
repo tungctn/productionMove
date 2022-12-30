@@ -16,7 +16,11 @@ const Produce = () => {
     loadListProductLine,
   } = useProductLineContext();
 
-  const { openNotification, refreshPage } = useAppContext();
+  const {
+    openNotification,
+    authState: { user },
+    gotoMainPage,
+  } = useAppContext();
   const [isError, setIsError] = useState(false);
   const onValueChange = (e) => {
     const propName = e.target.name;
@@ -46,8 +50,14 @@ const Produce = () => {
   };
 
   useEffect(() => {
-    loadListProductLine();
+    if (user.role === 2) {
+      loadListProductLine();
+    } else {
+      gotoMainPage(user);
+      openNotification("error", "Bạn không có quyền truy cập");
+    }
   }, []);
+
   const antIcon = <LoadingOutlined />;
 
   return (

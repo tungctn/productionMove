@@ -40,7 +40,9 @@ const ProductLine = () => {
   } = useProductLineContext();
 
   const {
+    openNotification,
     authState: { user },
+    gotoMainPage,
   } = useAppContext();
 
   const dataSource = listProductLine.map((productline, index) => {
@@ -52,9 +54,12 @@ const ProductLine = () => {
   });
 
   useEffect(() => {
-    // if (user.role !== 1) {
-    loadListProductLine();
-    // }
+    if (user.role === 1) {
+      loadListProductLine();
+    } else {
+      gotoMainPage(user);
+      openNotification("error", "Bạn không có quyền truy cập");
+    }
   }, []);
 
   return (

@@ -1,5 +1,5 @@
 import { LeftOutlined } from "@ant-design/icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { quantityInStock } from "../../api/factory";
@@ -11,8 +11,13 @@ import { useAppContext } from "../../contexts/AppContext";
 const Factory = () => {
   const [listQuantity, setListQuantity] = useState([]);
   const [loading, setLoading] = useState(false);
-  const { openNotification } = useAppContext();
+  const {
+    openNotification,
+    authState: { user, url },
+    gotoMainPage,
+  } = useAppContext();
   const { id } = useParams();
+  const navigate = useNavigate();
   const dataColumn = [
     {
       title: "STT",
@@ -50,7 +55,12 @@ const Factory = () => {
   };
 
   useEffect(() => {
-    loadListQuantity();
+    if (user.role !== 1) {
+      loadListQuantity();
+    } else {
+      openNotification("error", "Bạn không có quyền truy cập");
+      gotoMainPage(user);
+    }
   }, [id]);
 
   const dataSource = listQuantity?.map((quantity, index) => {

@@ -36,7 +36,12 @@ function Center() {
     loadListUser,
   } = useUserContext();
 
-  const { convertRoleToName } = useAppContext();
+  const {
+    convertRoleToName,
+    openNotification,
+    authState: { user },
+    gotoMainPage,
+  } = useAppContext();
 
   const dataSource1 = listUser?.map((user, index) => {
     return {
@@ -51,8 +56,13 @@ function Center() {
     (user) => user.role == "Trung tâm bảo hành"
   );
   useEffect(() => {
-    loadListUser();
-    loadAllProduct();
+    if (user.role !== 1) {
+      openNotification("error", "Bạn không có quyền truy cập");
+      gotoMainPage(user);
+    } else {
+      loadListUser();
+      loadAllProduct();
+    }
   }, []);
   return (
     <Default tagName="stt" childrenName="center">
@@ -78,7 +88,7 @@ function Center() {
         </select>
       </div>
       <div className="w-5/6 mx-auto mt-10">
-      {center === '0' && (
+        {center === "0" && (
           <div className="container justify-items-center">
             <div className="text-3xl text-blue-200 mt-32">
               Mời chọn trung tâm bảo hành !
@@ -93,7 +103,7 @@ function Center() {
             </div>
           </div>
         )}
-        {center !== '0' && dataSource.length == 0 && (
+        {center !== "0" && dataSource.length == 0 && (
           <div className="container justify-items-center">
             <div className="text-3xl text-blue-200 mt-32">
               Không có sản phẩm nào !

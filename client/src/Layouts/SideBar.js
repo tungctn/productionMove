@@ -1,22 +1,13 @@
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import {
-  HomeOutlined,
-  PartitionOutlined,
-  CrownFilled,
-  InsuranceFilled,
   MenuOutlined,
-  LeftCircleOutlined,
 } from "@ant-design/icons";
-import { Menu } from "antd";
 import { useAppContext } from "../contexts/AppContext";
-import { useEffect } from "react";
 
 const SideBar = (props) => {
-  const navigate = useNavigate();
   const {
     authState: { user },
-    openSideBar,
   } = useAppContext();
   const { tag, open, onClick, childrenTag } = props;
 
@@ -189,7 +180,8 @@ const SideBar = (props) => {
                 <img
                   src="http://localhost:3000/image/statistic.png"
                   alt="statistic"
-                  className="w-4 md:w-4 lg:w-6"></img>
+                  className={`w-4 md:w-4 lg:w-6 ${!open && "mx-auto"}`}
+                />
                 {open && (
                   <span className="ml-3 text-xs sm:text-sm md:text-base">
                     Thống kê
@@ -264,10 +256,13 @@ const SideBar = (props) => {
                 <img
                   src="http://localhost:3000/image/statistic.png"
                   alt="statistic"
-                  className="w-4 md:w-4 lg:w-6"></img>
-                <span className="ml-3 text-xs sm:text-sm md:text-base">
-                  Thống kê sản phẩm
-                </span>
+                  className={`w-4 md:w-4 lg:w-6 ${!open && "mx-auto"}`}
+                />
+                {open && (
+                  <span className="ml-3 text-xs sm:text-sm md:text-base">
+                    Thống kê sản phẩm
+                  </span>
+                )}
               </Link>
             </li>
           )}
@@ -283,10 +278,14 @@ const SideBar = (props) => {
                 <img
                   src="http://localhost:3000/image/statistic.png"
                   alt="statistic"
-                  className="w-4 md:w-4 lg:w-6"></img>
-                <span className="ml-3 text-xs sm:text-sm md:text-base">
-                  Thống kế sản phẩm bán ra
-                </span>
+                  className={`w-4 md:w-4 lg:w-6 ${!open && "mx-auto"}`}
+                />
+                {open && (
+                  <span className="ml-3 text-xs sm:text-sm md:text-base">
+                    {" "}
+                    Thống kê sản phẩm bán ra{" "}
+                  </span>
+                )}
               </Link>
             </li>
           )}
@@ -302,10 +301,14 @@ const SideBar = (props) => {
                 <img
                   src="http://localhost:3000/image/statistic.png"
                   alt="statistic"
-                  className="w-4 md:w-4 lg:w-6"></img>
-                <span className="ml-3 text-xs sm:text-sm md:text-base">
-                  Thống kế sản phẩm bị lỗi
-                </span>
+                  className={`w-4 md:w-4 lg:w-6 ${!open && "mx-auto"}`}
+                />
+                {open && (
+                  <span className="ml-3 text-xs sm:text-sm md:text-base">
+                    {" "}
+                    Thống kê sản phẩm bị lỗi{" "}
+                  </span>
+                )}
               </Link>
               {tag === "fs" && (
                 <div className="flex flex-col items-start ml-11 text-xs lg:text-sm space-y-1">

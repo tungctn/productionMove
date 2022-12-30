@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import SearchProductLine from "../../components/SearchFilter/SearchProductLine";
 import TableInfo from "../../components/TableInfo/TableInfo";
+import { useAppContext } from "../../contexts/AppContext";
 import { useProductLineContext } from "../../contexts/ProductLineContext";
 import Default from "../../Layouts/Default";
 
@@ -34,9 +35,19 @@ const Import = () => {
     productlineState: { listProductLine, isLoading },
     loadListProductLine,
   } = useProductLineContext();
+  const {
+    openNotification,
+    authState: { user, url },
+    gotoMainPage,
+  } = useAppContext();
 
   useEffect(() => {
-    loadListProductLine();
+    if (user?.role === 3) {
+      loadListProductLine();
+    } else {
+      gotoMainPage(user);
+      openNotification("error", "Bạn không có quyền truy cập");
+    }
   }, []);
 
   const dataSource = listProductLine?.map((productline, index) => {

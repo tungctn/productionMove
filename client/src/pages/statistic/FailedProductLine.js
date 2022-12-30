@@ -14,7 +14,9 @@ function FailedProductLine() {
     loadAllProduct,
   } = useProductContext();
   const {
+    openNotification,
     authState: { user },
+    gotoMainPage,
   } = useAppContext();
   const {
     productlineState: { listProductLine },
@@ -36,8 +38,13 @@ function FailedProductLine() {
   let failedProduct = dataFiltered ? dataFiltered.length : 0;
 
   useEffect(() => {
-    loadAllProduct();
-    loadListProductLine();
+    if (user?.role === 2) {
+      loadAllProduct();
+      loadListProductLine();
+    } else {
+      openNotification("error", "Bạn không có quyền truy cập");
+      gotoMainPage(user);
+    }
   }, []);
 
   return (

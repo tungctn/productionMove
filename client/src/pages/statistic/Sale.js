@@ -36,7 +36,12 @@ function Sale() {
     loadListUser,
   } = useUserContext();
 
-  const { convertRoleToName } = useAppContext();
+  const {
+    convertRoleToName,
+    openNotification,
+    authState: { user },
+    gotoMainPage,
+  } = useAppContext();
 
   const dataSource1 = listUser.map((user, index) => {
     return {
@@ -50,9 +55,13 @@ function Sale() {
     (user) => user.role == "Đại lý phân phối"
   );
   useEffect(() => {
-    loadListUser();
-    loadAllProduct();
-    console.log(dataSource);
+    if (user.role !== 1) {
+      openNotification("error", "Bạn không có quyền truy cập");
+      gotoMainPage(user);
+    } else {
+      loadListUser();
+      loadAllProduct();
+    }
   }, []);
   return (
     <Default tagName="stt" childrenName="sales">
@@ -78,10 +87,10 @@ function Sale() {
         </select>
       </div>
       <div className="w-5/6 mx-auto mt-10">
-        {sales === '0' && (
+        {sales === "0" && (
           <div className="container justify-items-center">
             <div className="text-3xl text-blue-200 mt-32">
-              Mời chọn đại lý phân phối 
+              Mời chọn đại lý phân phối
             </div>
           </div>
         )}
@@ -93,7 +102,7 @@ function Sale() {
             </div>
           </div>
         )}
-        {sales !== '0' && dataSource.length == 0 && (
+        {sales !== "0" && dataSource.length == 0 && (
           <div className="container justify-items-center">
             <div className="text-3xl text-blue-200 mt-32">
               Không có sản phẩm nào !

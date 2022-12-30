@@ -36,11 +36,21 @@ function ManufactureFactory() {
     loadListUser,
   } = useUserContext();
 
-  const { convertRoleToName } = useAppContext();
+  const {
+    convertRoleToName,
+    openNotification,
+    authState: { user },
+    gotoMainPage,
+  } = useAppContext();
 
   useEffect(() => {
-    loadListUser();
-    loadAllProduct();
+    if (user.role !== 1) {
+      openNotification("error", "Bạn không có quyền truy cập");
+      gotoMainPage();
+    } else {
+      loadListUser();
+      loadAllProduct();
+    }
   }, []);
 
   const dataSource1 = listUser?.map((user, index) => {
@@ -79,7 +89,7 @@ function ManufactureFactory() {
         </select>
       </div>
       <div className="w-5/6 mx-auto mt-10">
-        {factory === '0' &&  (
+        {factory === "0" && (
           <div className="container justify-items-center">
             <div className="text-3xl text-blue-200 mt-32">
               Mời chọn cơ sở sản xuất !
@@ -94,7 +104,7 @@ function ManufactureFactory() {
             </div>
           </div>
         )}
-        {factory !== '0' && dataSource.length === 0 && (
+        {factory !== "0" && dataSource.length === 0 && (
           <div className="container justify-items-center">
             <div className="text-3xl text-blue-200 mt-32">
               Không có sản phẩm nào !

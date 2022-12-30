@@ -2,12 +2,18 @@ import Default from "../../Layouts/Default";
 import DemoPie from "../../components/Statistic/DemoPie";
 import { useProductContext } from "../../contexts/ProductContext";
 import { useEffect } from "react";
+import { useAppContext } from "../../contexts/AppContext";
 
 function Statistic() {
   const {
     productState: { listProduct },
     loadAllProduct,
   } = useProductContext();
+  const {
+    openNotification,
+    authState: { user },
+    gotoMainPage,
+  } = useAppContext();
   var sumProduct = 0;
   const data = listProduct?.map((product) => {
     return product?.productLine?.name;
@@ -20,7 +26,12 @@ function Statistic() {
     return { type: key, sales: c[key] };
   });
   useEffect(() => {
-    loadAllProduct();
+    if (user?.role === 1) {
+      loadAllProduct();
+    } else {
+      gotoMainPage(user);
+      openNotification("error", "Bạn không có quyền truy cập");
+    }
   }, []);
 
   return (

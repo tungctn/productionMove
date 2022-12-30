@@ -5,9 +5,8 @@ import Login from "./pages/login/Login";
 import Home from "./pages/home/Home";
 import Produce from "./pages/home/Produce";
 import "./index.scss";
-import Page403 from "./pages/error/403";
+import Page404 from "./pages/error/404";
 import { useAppContext } from "./contexts/AppContext";
-import { LoadingOutlined } from "@ant-design/icons";
 import Auth from "./routes/Auth";
 import RequireAuth from "./routes/RequireAuth";
 import Statistic from "./pages/statistic/Statistic";
@@ -97,7 +96,7 @@ function App() {
           <Route path="/import/productline/:id" element={<ImportDetail />} />
           <Route path="/import/productline/:id/factory" element={<Factory />} />
         </Route>
-        <Route path="/403" element={<Page403 />} />
+        <Route path="/*" element={<Page404 />} />
       </Routes>
     </div>
   );

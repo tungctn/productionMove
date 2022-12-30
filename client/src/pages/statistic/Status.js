@@ -2,6 +2,7 @@ import Default from "../../Layouts/Default";
 import DemoPie from "../../components/Statistic/DemoPie";
 import { useProductContext } from "../../contexts/ProductContext";
 import { useEffect, useState } from "react";
+import { useAppContext } from "../../contexts/AppContext";
 
 function Status() {
   const [productState, setProductState] = useState("0");
@@ -28,9 +29,19 @@ function Status() {
     sumProduct += c[key];
     return { type: key, sales: c[key] };
   });
+  const {
+    openNotification,
+    authState: { user },
+    gotoMainPage,
+  } = useAppContext();
 
   useEffect(() => {
-    loadAllProduct();
+    if (user.role === 1) {
+      loadAllProduct();
+    } else {
+      gotoMainPage(user);
+      openNotification("error", "Bạn không có quyền truy cập");
+    }
   }, []);
 
   return (

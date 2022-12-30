@@ -11,7 +11,9 @@ function FailedStatistic() {
     loadAllProduct,
   } = useProductContext();
   const {
+    openNotification,
     authState: { user },
+    gotoMainPage,
   } = useAppContext();
 
   var dataFiltered = listProduct?.filter((data) => data.factory === user._id);
@@ -23,8 +25,12 @@ function FailedStatistic() {
   let sumProduct = dataFiltered.length ? dataFiltered.length : 0;
 
   useEffect(() => {
-    loadAllProduct();
-    //loadUserProduct();
+    if (user?.role === 2) {
+      loadAllProduct();
+    } else {
+      openNotification("error", "Bạn không có quyền truy cập");
+      gotoMainPage(user);
+    }
   }, []);
 
   return (

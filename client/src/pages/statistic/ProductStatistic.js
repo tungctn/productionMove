@@ -65,7 +65,9 @@ function ProductStatistic() {
     loadAllProduct,
   } = useProductContext();
   const {
+    openNotification,
     authState: { user },
+    gotoMainPage,
   } = useAppContext();
 
   const handleChange = (e) => {
@@ -195,8 +197,12 @@ function ProductStatistic() {
   }
 
   useEffect(() => {
-    loadAllProduct();
-    //loadUserProduct();
+    if (user?.role === 2 || user?.role === 3 || user?.role === 4) {
+      loadAllProduct();
+    } else {
+      gotoMainPage(user);
+      openNotification("error", "Bạn không có quyền truy cập trang này");
+    }
   }, []);
 
   return (

@@ -47,10 +47,20 @@ const User = () => {
     loadListUser,
   } = useUserContext();
 
-  const { convertRoleToName } = useAppContext();
+  const {
+    convertRoleToName,
+    openNotification,
+    authState: { user },
+    gotoMainPage,
+  } = useAppContext();
 
   useEffect(() => {
-    loadListUser();
+    if (user.role === 1) {
+      loadListUser();
+    } else {
+      openNotification("error", "Bạn không có quyền truy cập");
+      gotoMainPage(user);
+    }
   }, []);
 
   const dataSource = listUser?.map((user, index) => {

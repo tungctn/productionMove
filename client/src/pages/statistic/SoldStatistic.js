@@ -15,7 +15,9 @@ function SoldStatistic() {
     loadUserProduct,
   } = useProductContext();
   const {
+    openNotification,
     authState: { user },
+    gotoMainPage,
   } = useAppContext();
   const yearChange = (e) => {
     setYear(e.target.value);
@@ -30,7 +32,12 @@ function SoldStatistic() {
     setMonth(e.target.value);
   };
   useEffect(() => {
-    loadAllProduct();
+    if (user?.role === 2 || user?.role === 3) {
+      loadAllProduct();
+    } else {
+      openNotification("error", "Bạn không có quyền truy cập");
+      gotoMainPage(user);
+    }
   }, []);
 
   var dataFiltered = listProduct;

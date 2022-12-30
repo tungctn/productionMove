@@ -65,34 +65,34 @@ const ProductLineDetail = (props) => {
             {productLine?.name}
           </Descriptions.Item>
           <Descriptions.Item label="Khối lượng bản thân">
-            {productLine?.weight}
+            {productLine?.weight} kg
           </Descriptions.Item>
           <Descriptions.Item label="Dài">
-            {productLine?.length}
+            {productLine?.length} mm
           </Descriptions.Item>
           <Descriptions.Item label="Rộng">
-            {productLine?.width}
+            {productLine?.width} mm
           </Descriptions.Item>
           <Descriptions.Item label="Cao">
-            {productLine?.height}
+            {productLine?.height} mm
           </Descriptions.Item>
           <Descriptions.Item label="Khoảng cách trục bánh xe">
-            {productLine?.wheelAxleDistance}
+            {productLine?.wheelAxleDistance} mm
           </Descriptions.Item>
           <Descriptions.Item label="Chiều cao yên xe">
-            {productLine?.saddleHeight}
+            {productLine?.saddleHeight} mm
           </Descriptions.Item>
           <Descriptions.Item label="Khoảng cách gầm xe">
-            {productLine?.groundClearance}
+            {productLine?.groundClearance} mm
           </Descriptions.Item>
           <Descriptions.Item label="Dung tích bình xăng">
-            {productLine?.petrolTankCapacity}
+            {productLine?.petrolTankCapacity} L
           </Descriptions.Item>
           <Descriptions.Item label="Mức tiêu thụ nhiên liệu">
-            {productLine?.fuelConsumption}
+            {productLine?.fuelConsumption} L/100km
           </Descriptions.Item>
           <Descriptions.Item label="Dung tích xy-lanh">
-            {productLine?.displacementVolume}
+            {productLine?.displacementVolume} cm3
           </Descriptions.Item>
           <Descriptions.Item label="Loại động cơ">
             {productLine?.engineType}

@@ -14,7 +14,9 @@ function FailedManufacturefactory() {
     loadAllProduct,
   } = useProductContext();
   const {
+    openNotification,
     authState: { user },
+    gotoMainPage,
   } = useAppContext();
   const {
     userState: { listUser },
@@ -44,8 +46,13 @@ function FailedManufacturefactory() {
   let failedProduct = dataFiltered ? dataFiltered.length : 0;
 
   useEffect(() => {
-    loadAllProduct();
-    loadListUser();
+    if (user.role !== 2) {
+      openNotification("error", "Bạn không có quyền truy cập");
+      gotoMainPage();
+    } else {
+      loadAllProduct();
+      loadListUser();
+    }
   }, []);
 
   return (
