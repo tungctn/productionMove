@@ -1,0 +1,17 @@
+{
+    "name": "amazona",
+    "version": "1.0.0",
+    "description": "# Lessons",
+    "main": "index.js",
+    "scripts": {
+      "build": "cd server && npm install && cd ../client && npm install && npm run build",
+      "start": "nodemon server/index.js",
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/tungctn/project_web.git"
+    },
+    "author": "",
+    "license": "ISC"
+  }
