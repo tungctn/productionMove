@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export default axios.create({
-  baseURL: "http://localhost:8001/api",
+  baseURL: "https://plm-api.onrender.com/api",
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
