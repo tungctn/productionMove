@@ -37,7 +37,7 @@ module.exports.loginUser = async (req, res, next) => {
 
     res.cookie("accessToken", accessToken, {
       httpOnly: true,
-      secure: false,
+      secure: true,
       path: "/",
       samSite: "strict",
     });
