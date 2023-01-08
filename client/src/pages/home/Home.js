@@ -13,6 +13,7 @@ const Home = () => {
     convertStatusToNameProduct,
     openNotification,
     authState: { user },
+    checkMiddleware,
   } = useAppContext();
   const {
     productState: { listProduct, isLoading },
@@ -41,12 +42,9 @@ const Home = () => {
     },
   ];
   useEffect(() => {
-    if (user?.role !== 1) {
+    checkMiddleware(user, () => {
       loadUserProduct();
-    } else {
-      navigate("/productline");
-      openNotification("error", "Bạn không có quyền truy cập");
-    }
+    });
   }, []);
 
   const dataSource = listProduct.map((product, index) => {
@@ -67,7 +65,6 @@ const Home = () => {
             onRow={(r) => ({
               onClick: () => {
                 navigate(`/product/${r._id}`);
-                console.log(r);
               },
             })}
             dataColumn={dataColumn}

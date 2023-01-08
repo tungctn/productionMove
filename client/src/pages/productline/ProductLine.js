@@ -1,34 +1,33 @@
-import { Button, Select } from "antd";
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import SearchProductLine from "../../components/SearchFilter/SearchProductLine";
-import TableInfo from "../../components/TableInfo/TableInfo";
-import { useAppContext } from "../../contexts/AppContext";
-import { useProductLineContext } from "../../contexts/ProductLineContext";
-import Default from "../../Layouts/Default";
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import SearchProductLine from '../../components/SearchFilter/SearchProductLine';
+import TableInfo from '../../components/TableInfo/TableInfo';
+import { useAppContext } from '../../contexts/AppContext';
+import { useProductLineContext } from '../../contexts/ProductLineContext';
+import Default from '../../Layouts/Default';
 
 const ProductLine = () => {
   const dataColumn = [
     {
-      title: "STT",
-      dataIndex: "key",
-      key: "key",
+      title: 'STT',
+      dataIndex: 'key',
+      key: 'key',
     },
     {
-      title: "Tên dòng sản phẩm",
-      dataIndex: "name",
-      key: "name",
+      title: 'Tên dòng sản phẩm',
+      dataIndex: 'name',
+      key: 'name',
       render: (text) => <a>{text}</a>,
     },
     {
-      title: "Mã dòng sản phẩm",
-      dataIndex: "code",
-      key: "code",
+      title: 'Mã dòng sản phẩm',
+      dataIndex: 'code',
+      key: 'code',
     },
     {
-      title: "Ngày sản xuất",
-      dataIndex: "createdAt",
-      key: "createdAt",
+      title: 'Ngày sản xuất',
+      dataIndex: 'createdAt',
+      key: 'createdAt',
     },
   ];
 
@@ -40,26 +39,22 @@ const ProductLine = () => {
   } = useProductLineContext();
 
   const {
-    openNotification,
     authState: { user },
-    gotoMainPage,
+    checkMiddleware,
   } = useAppContext();
 
   const dataSource = listProductLine.map((productline, index) => {
     return {
       ...productline,
       key: index + 1,
-      createdAt: productline.createdAt.split("T")[0],
+      createdAt: productline.createdAt.split('T')[0],
     };
   });
 
   useEffect(() => {
-    if (user.role === 1) {
+    checkMiddleware(user, () => {
       loadListProductLine();
-    } else {
-      gotoMainPage(user);
-      openNotification("error", "Bạn không có quyền truy cập");
-    }
+    });
   }, []);
 
   return (

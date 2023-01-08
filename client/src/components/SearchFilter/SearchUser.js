@@ -4,8 +4,7 @@ import AddUser from "../../components/UserForm/AddUser";
 import { useUserContext } from "../../contexts/UserContext";
 import { useAppContext } from "../../contexts/AppContext";
 
-const SearchUser = (props) => {
-  const { data } = props;
+const SearchUser = () => {
   const [form, setForm] = useState({});
   const { convertRoleToName } = useAppContext();
   const { handleSearchUser } = useUserContext();
@@ -14,14 +13,11 @@ const SearchUser = (props) => {
   }, [form]);
   const onValueChange = (e) => {
     setForm({ ...form, input: e.target.value });
-    console.log(form);
   };
   const onRoleChange = (value) => {
     setForm({ ...form, role: value });
-    console.log(form);
   };
   const onFilterChange = (value) => {
-    console.log(value);
     setForm({ ...form, filter: value });
   };
   const selectRole = (

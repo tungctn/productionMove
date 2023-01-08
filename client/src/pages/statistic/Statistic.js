@@ -10,9 +10,8 @@ function Statistic() {
     loadAllProduct,
   } = useProductContext();
   const {
-    openNotification,
     authState: { user },
-    gotoMainPage,
+    checkMiddleware,
   } = useAppContext();
   var sumProduct = 0;
   const data = listProduct?.map((product) => {
@@ -26,12 +25,9 @@ function Statistic() {
     return { type: key, sales: c[key] };
   });
   useEffect(() => {
-    if (user?.role === 1) {
+    checkMiddleware(user, () => {
       loadAllProduct();
-    } else {
-      gotoMainPage(user);
-      openNotification("error", "Bạn không có quyền truy cập");
-    }
+    });
   }, []);
 
   return (

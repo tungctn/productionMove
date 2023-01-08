@@ -14,9 +14,8 @@ function FailedProductLine() {
     loadAllProduct,
   } = useProductContext();
   const {
-    openNotification,
     authState: { user },
-    gotoMainPage,
+    checkMiddleware,
   } = useAppContext();
   const {
     productlineState: { listProductLine },
@@ -38,20 +37,17 @@ function FailedProductLine() {
   let failedProduct = dataFiltered ? dataFiltered.length : 0;
 
   useEffect(() => {
-    if (user?.role === 2) {
+    checkMiddleware(user, () => {
       loadAllProduct();
       loadListProductLine();
-    } else {
-      openNotification("error", "Bạn không có quyền truy cập");
-      gotoMainPage(user);
-    }
+    });
   }, []);
 
   return (
     <Default tagName="fs" childrenName="fpl">
       <div className="w-1/4 mx-auto mt-10 items-start">
         <label
-          for="countries"
+          htmlFor="countries"
           className="block mb-2 text-xl font-medium text-blue-600 dark:text-white">
           Chọn dòng sản phẩm
         </label>

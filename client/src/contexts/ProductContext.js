@@ -1,17 +1,11 @@
-import { createContext, useContext, useEffect, useReducer } from "react";
-import { getAllProductLine, updateProductLine } from "../api/productline";
-import { ProductLineReducer } from "../reducers/ProductLineReducer";
+import { createContext, useContext, useReducer } from "react";
 import {
-  SET_PRODUCTLINE_INFO,
-  SET_PRODUCTLINE_LIST,
   SET_PRODUCT_BEGIN,
   SET_PRODUCT_LIST,
 } from "../action";
-import { useParams } from "react-router-dom";
 import { ProductReducer } from "../reducers/ProductReducer";
 import { getAllProduct, getProductByUser, searchProduct } from "../api/product";
 import { useAppContext } from "./AppContext";
-import { setAuthHeader } from "../api/auth";
 
 export const ProductContext = createContext();
 
@@ -61,7 +55,6 @@ const ProductContextProvider = (props) => {
 
   const data = {
     productState,
-    dispatch,
     loadUserProduct,
     loadAllProduct,
     handleSearchProduct,

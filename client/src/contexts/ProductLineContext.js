@@ -2,16 +2,12 @@ import { createContext, useContext, useEffect, useReducer } from "react";
 import {
   getAllProductLine,
   searchProductLine,
-  updateProductLine,
 } from "../api/productline";
 import { ProductLineReducer } from "../reducers/ProductLineReducer";
 import {
   SET_PRODUCTLINE_BEGIN,
-  SET_PRODUCTLINE_INFO,
   SET_PRODUCTLINE_LIST,
 } from "../action";
-import { useParams } from "react-router-dom";
-import { setAuthHeader } from "../api/auth";
 import { useAppContext } from "./AppContext";
 
 export const ProductLineContext = createContext();
@@ -33,7 +29,6 @@ const ProductLineContextProvider = (props) => {
   const loadListProductLine = async () => {
     dispatch({ type: SET_PRODUCTLINE_BEGIN });
     const response = await getAllProductLine();
-    console.log(response);
     if (response.success) {
       dispatch({
         type: SET_PRODUCTLINE_LIST,
@@ -45,7 +40,6 @@ const ProductLineContextProvider = (props) => {
   const handleSearchProductLine = async (data) => {
     dispatch({ type: SET_PRODUCTLINE_BEGIN });
     const response = await searchProductLine(data);
-    console.log(response);
     if (response.success) {
       dispatch({
         type: SET_PRODUCTLINE_LIST,
@@ -56,7 +50,6 @@ const ProductLineContextProvider = (props) => {
 
   const data = {
     productlineState,
-    dispatch,
     loadListProductLine,
     handleSearchProductLine,
   };

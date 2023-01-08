@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Input, Select } from "antd";
-import { SearchOutlined, FilterOutlined } from "@ant-design/icons";
-import { useUserContext } from "../../contexts/UserContext";
+import { Select } from "antd";
 import { useAppContext } from "../../contexts/AppContext";
 import { useRequestContext } from "../../contexts/RequestContext";
 
-const SearchRequest = (props) => {
-  const { data } = props;
+const SearchRequest = () => {
   const [form, setForm] = useState({});
   const { convertTypeToName, convertStatusToName } = useAppContext();
   const {
@@ -22,14 +19,11 @@ const SearchRequest = (props) => {
   }, []);
   const onStatusChange = (value) => {
     setForm({ ...form, status: value });
-    console.log(value);
   };
   const onRequesterChange = (value) => {
     setForm({ ...form, requester: value });
-    console.log(value);
   };
   const onTypeChange = (value) => {
-    console.log(value);
     setForm({ ...form, type: value });
   };
   let dataType = [0, 1, 2, 3, 4, 5, 6].map((item) => {

@@ -1,16 +1,15 @@
-import { Button, Form, Input, Select, Spin } from "antd";
-import Default from "../../Layouts/Default";
-import { DownOutlined, LoadingOutlined } from "@ant-design/icons";
-import { useProductLineContext } from "../../contexts/ProductLineContext";
-import { useEffect, useState } from "react";
-import { createProduct } from "../../api/product";
-import { useAppContext } from "../../contexts/AppContext";
-import { useNavigate } from "react-router-dom";
+import { Button, Form, Input, Select, Spin } from 'antd';
+import Default from '../../Layouts/Default';
+import { DownOutlined, LoadingOutlined } from '@ant-design/icons';
+import { useProductLineContext } from '../../contexts/ProductLineContext';
+import { useEffect, useState } from 'react';
+import { createProduct } from '../../api/product';
+import { useAppContext } from '../../contexts/AppContext';
+import { useNavigate } from 'react-router-dom';
 const Produce = () => {
   const { Option } = Select;
   const [formData, setFormData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
   const {
     productlineState: { listProductLine },
     loadListProductLine,
@@ -19,14 +18,13 @@ const Produce = () => {
   const {
     openNotification,
     authState: { user },
-    gotoMainPage,
+    checkMiddleware,
   } = useAppContext();
   const [isError, setIsError] = useState(false);
   const onValueChange = (e) => {
     const propName = e.target.name;
     const value = e.target.value;
     setFormData({ ...formData, [propName]: Number(value) });
-    console.log(formData);
   };
 
   const onSelectChange = (value) => {
@@ -34,28 +32,24 @@ const Produce = () => {
   };
 
   const handleSubmit = async () => {
-    if (formData.id && formData.amount) {
+    if (formData.id && formData.amount && isError === false) {
       setIsLoading(true);
       const response = await createProduct(formData);
-      console.log(response.data);
       if (response.success) {
-        openNotification("success", response.msg);
+        openNotification('success', response.msg);
       } else {
-        openNotification("error", response.msg);
+        openNotification('error', response.msg);
       }
       setIsLoading(false);
     } else {
-      openNotification("error", "Vui lòng nhập đầy đủ thông tin");
+      openNotification('error', 'Vui lòng nhập đầy đủ thông tin');
     }
   };
 
   useEffect(() => {
-    if (user.role === 2) {
+    checkMiddleware(user, () => {
       loadListProductLine();
-    } else {
-      gotoMainPage(user);
-      openNotification("error", "Bạn không có quyền truy cập");
-    }
+    });
   }, []);
 
   const antIcon = <LoadingOutlined />;
@@ -65,10 +59,7 @@ const Produce = () => {
       <div className="w-full">
         <Default tagName="sx">
           <div className="w-full h-full">
-            <div className="mx-auto mt-5 text-3xl text-blue-700 font-bold">
-              {" "}
-              Đơn sản xuất
-            </div>
+            <div className="mx-auto mt-5 text-3xl text-blue-700 font-bold"> Đơn sản xuất</div>
             <div className="w-1/2 mt-20 mx-auto flex flex-col space-y-10">
               <div className="flex flex-row space-x-10">
                 <div className="w-1/3 text-xl text-right">Dòng sản phẩm: </div>
@@ -78,7 +69,7 @@ const Produce = () => {
                       rules={[
                         {
                           required: true,
-                          message: "Vui lòng chọn dòng sản phẩm",
+                          message: 'Vui lòng chọn dòng sản phẩm',
                         },
                         {
                           validator: (_, value) => {
@@ -87,13 +78,12 @@ const Produce = () => {
                               return Promise.resolve();
                             } else {
                               setIsError(true);
-                              return Promise.reject(
-                                new Error("Vui lòng chọn dòng sản phẩm")
-                              );
+                              return Promise.reject(new Error('Vui lòng chọn dòng sản phẩm'));
                             }
                           },
                         },
-                      ]}>
+                      ]}
+                    >
                       <Select
                         defaultValue="Chọn dòng sản phẩm"
                         style={{
@@ -102,16 +92,13 @@ const Produce = () => {
                         onChange={onSelectChange}
                         showSearch
                         filterOption={(input, option) =>
-                          (option?.label ?? "")
-                            .toLowerCase()
-                            .includes(input.toLowerCase())
+                          (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
                         }
-                        status="warning">
+                        status="warning"
+                      >
                         {listProductLine.map((productline) => {
                           return (
-                            <Option
-                              value={productline._id}
-                              key={productline._id}>
+                            <Option value={productline._id} key={productline._id}>
                               {productline.name}
                             </Option>
                           );
@@ -130,7 +117,7 @@ const Produce = () => {
                       rules={[
                         {
                           required: true,
-                          message: "Vui lòng nhập số lượng sản phẩm",
+                          message: 'Vui lòng nhập số lượng sản phẩm',
                         },
                         {
                           validator: (_, value) => {
@@ -139,13 +126,12 @@ const Produce = () => {
                               return Promise.resolve();
                             } else {
                               setIsError(true);
-                              return Promise.reject(
-                                new Error("Số lượng sản phẩm phải lớn hơn 0")
-                              );
+                              return Promise.reject(new Error('Số lượng sản phẩm phải lớn hơn 0'));
                             }
                           },
                         },
-                      ]}>
+                      ]}
+                    >
                       <Input
                         name="amount"
                         type="number"
@@ -159,11 +145,7 @@ const Produce = () => {
                 </div>
               </div>
               <div className="mt-20">
-                <Button
-                  className="block mr-0 ml-auto"
-                  type="primary"
-                  htmlType="submit"
-                  onClick={handleSubmit}>
+                <Button className="block mr-0 ml-auto" type="primary" htmlType="submit" onClick={handleSubmit}>
                   Sản xuất
                 </Button>
               </div>

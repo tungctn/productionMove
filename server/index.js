@@ -3,7 +3,7 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
-const appRoute = require("./routes/Router");
+const appRoute = require("./routes/router");
 
 const app = express();
 const corsOptions = {
@@ -29,5 +29,6 @@ app.use("/api", appRoute);
 const PORT = process.env.PORT;
 
 app.listen(PORT, () => {
+  console.log(PORT);
   console.log(`Example app listening on port http://localhost:${PORT}`);
 });

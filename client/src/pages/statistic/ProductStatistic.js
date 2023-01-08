@@ -65,9 +65,8 @@ function ProductStatistic() {
     loadAllProduct,
   } = useProductContext();
   const {
-    openNotification,
     authState: { user },
-    gotoMainPage,
+    checkMiddleware,
   } = useAppContext();
 
   const handleChange = (e) => {
@@ -197,12 +196,9 @@ function ProductStatistic() {
   }
 
   useEffect(() => {
-    if (user?.role === 2 || user?.role === 3 || user?.role === 4) {
+    checkMiddleware(user, () => {
       loadAllProduct();
-    } else {
-      gotoMainPage(user);
-      openNotification("error", "Bạn không có quyền truy cập trang này");
-    }
+    });
   }, []);
 
   return (
@@ -234,7 +230,7 @@ function ProductStatistic() {
         <div className="basis-1/4">
           <div className="w-2/3 mx-auto">
             <label
-              for="countries"
+              htmlFor="countries"
               className="block mb-2 text-base font-medium text-blue-600 dark:text-white">
               Năm
             </label>
@@ -259,7 +255,7 @@ function ProductStatistic() {
         <div className="basis-1/4">
           <div className="w-2/3 mx-auto">
             <label
-              for="countries"
+              htmlFor="countries"
               className="block mb-2 text-base font-medium text-blue-600 dark:text-white">
               Quý
             </label>
@@ -283,7 +279,7 @@ function ProductStatistic() {
         <div className="basis-1/4">
           <div className="w-2/3 mx-auto">
             <label
-              for="countries"
+              htmlFor="countries"
               className="block mb-2 text-base font-medium text-blue-600 dark:text-white">
               Tháng
             </label>

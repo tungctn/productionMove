@@ -1,4 +1,4 @@
-import { Image, Descriptions, Modal, Button } from "antd";
+import { Image, Descriptions, Button } from "antd";
 import React, { useEffect, useState } from "react";
 import { EditOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";

@@ -1,11 +1,9 @@
-import { P } from "@antv/g2plot";
-import { Button, Form, Input, Modal, Select } from "antd";
-import React, { useState } from "react";
-import { createUser } from "../../api/user";
-import { PlusCircleOutlined } from "@ant-design/icons";
-import { useAppContext } from "../../contexts/AppContext";
-import { useUserContext } from "../../contexts/UserContext";
-import Loading from "../Loading/Loading";
+import { Form, Input, Modal, Select } from 'antd';
+import React, { useState } from 'react';
+import { PlusCircleOutlined } from '@ant-design/icons';
+import { useAppContext } from '../../contexts/AppContext';
+import { useUserContext } from '../../contexts/UserContext';
+import Loading from '../Loading/Loading';
 
 const AddUser = () => {
   const [visible, setVisible] = useState(false);
@@ -41,12 +39,10 @@ const AddUser = () => {
     const propName = e.target.name;
     const value = e.target.value;
     setFormData({ ...formData, [propName]: value });
-    console.log(formData);
   };
 
   const onRoleChange = (value) => {
     setFormData({ ...formData, role: value });
-    console.log(formData);
   };
 
   const handleOk = async () => {
@@ -61,20 +57,11 @@ const AddUser = () => {
     <div className="float-right">
       <div className="w-1/12">
         <button onClick={showModal}>
-          <PlusCircleOutlined
-            style={{
-              fontSize: "24px",
-            }}
-          />
+          <PlusCircleOutlined className="text-2xl text-blue-500 hover:text-blue-700" />
         </button>
       </div>
       <Loading spinning={isLoading}>
-        <Modal
-          title="Sửa thông tin"
-          open={visible}
-          onOk={handleOk}
-          destroyOnClose={true}
-          onCancel={handelCancel}>
+        <Modal title="Sửa thông tin" open={visible} onOk={handleOk} destroyOnClose={true} onCancel={handelCancel}>
           <Form layout="vertical" initialValues={{ remember: true }}>
             <Form.Item
               label="Tên nhân viên"
@@ -83,40 +70,31 @@ const AddUser = () => {
               rules={[
                 {
                   required: true,
-                  message: "Please input your name!",
+                  message: 'Please input your name!',
                 },
                 {
                   validator: (_, value) => {
                     if (!value) {
                       setIsError(true);
-                      return Promise.reject("Vui lòng nhập tên nhân viên");
+                      return Promise.reject('Vui lòng nhập tên nhân viên');
                     } else if (value.length < 6) {
                       setIsError(true);
-                      return Promise.reject(
-                        "Tên nhân viên phải có ít nhất 6 ký tự"
-                      );
+                      return Promise.reject('Tên nhân viên phải có ít nhất 6 ký tự');
                     } else if (value.length > 50) {
                       setIsError(true);
-                      return Promise.reject(
-                        "Tên nhân viên không được quá 50 ký tự"
-                      );
+                      return Promise.reject('Tên nhân viên không được quá 50 ký tự');
                     } else if (!/^[a-zA-Z 0-9]+$/.test(value)) {
                       setIsError(true);
-                      return Promise.reject(
-                        "Tên nhân viên không được chứa ký tự đặc biệt"
-                      );
+                      return Promise.reject('Tên nhân viên không được chứa ký tự đặc biệt');
                     } else {
                       setIsError(false);
                       return Promise.resolve();
                     }
                   },
                 },
-              ]}>
-              <Input
-                name="name"
-                placeholder="input placeholder"
-                onChange={onValueChange}
-              />
+              ]}
+            >
+              <Input name="name" placeholder="input placeholder" onChange={onValueChange} />
             </Form.Item>
             <Form.Item
               label="Email"
@@ -125,36 +103,31 @@ const AddUser = () => {
               rules={[
                 {
                   required: true,
-                  message: "Please input your email!",
+                  message: 'Please input your email!',
                 },
                 {
                   validator: (_, value) => {
                     if (!value) {
                       setIsError(true);
-                      return Promise.reject("Vui lòng nhập email");
+                      return Promise.reject('Vui lòng nhập email');
                     } else if (value.length < 6) {
                       setIsError(true);
-                      return Promise.reject("Email phải có ít nhất 6 ký tự");
+                      return Promise.reject('Email phải có ít nhất 6 ký tự');
                     } else if (value.length > 50) {
                       setIsError(true);
-                      return Promise.reject("Email không được quá 50 ký tự");
-                    } else if (
-                      !/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(value)
-                    ) {
+                      return Promise.reject('Email không được quá 50 ký tự');
+                    } else if (!/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(value)) {
                       setIsError(true);
-                      return Promise.reject("Email không hợp lệ");
+                      return Promise.reject('Email không hợp lệ');
                     } else {
                       setIsError(false);
                       return Promise.resolve();
                     }
                   },
                 },
-              ]}>
-              <Input
-                name="email"
-                placeholder="input placeholder"
-                onChange={onValueChange}
-              />
+              ]}
+            >
+              <Input name="email" placeholder="input placeholder" onChange={onValueChange} />
             </Form.Item>
             <Form.Item
               label="Mật khẩu"
@@ -165,30 +138,25 @@ const AddUser = () => {
                   validator: (_, value) => {
                     if (!value) {
                       setIsError(true);
-                      return Promise.reject("Vui lòng nhập mật khẩu");
+                      return Promise.reject('Vui lòng nhập mật khẩu');
                     } else if (value.length < 6) {
                       setIsError(true);
-                      return Promise.reject("Mật khẩu phải có ít nhất 6 ký tự");
+                      return Promise.reject('Mật khẩu phải có ít nhất 6 ký tự');
                     } else if (value.length > 50) {
                       setIsError(true);
-                      return Promise.reject("Mật khẩu không được quá 50 ký tự");
+                      return Promise.reject('Mật khẩu không được quá 50 ký tự');
                     } else if (!/^[a-zA-Z 0-9]+$/.test(value)) {
                       setIsError(true);
-                      return Promise.reject(
-                        "Mật khẩu không được chứa ký tự đặc biệt"
-                      );
+                      return Promise.reject('Mật khẩu không được chứa ký tự đặc biệt');
                     } else {
                       setIsError(false);
                       return Promise.resolve();
                     }
                   },
                 },
-              ]}>
-              <Input
-                name="password"
-                placeholder="input placeholder"
-                onChange={onValueChange}
-              />
+              ]}
+            >
+              <Input name="password" placeholder="input placeholder" onChange={onValueChange} />
             </Form.Item>
             <Form.Item
               label="Chức vụ"
@@ -197,19 +165,16 @@ const AddUser = () => {
               rules={[
                 {
                   required: true,
-                  message: "Please input your role!",
+                  message: 'Please input your role!',
                 },
-              ]}>
+              ]}
+            >
               <Select
                 showSearch
                 placeholder="Select a warrantyCenter"
                 optionFilterProp="children"
                 onChange={onRoleChange}
-                filterOption={(input, option) =>
-                  (option?.label ?? "")
-                    .toLowerCase()
-                    .includes(input.toLowerCase())
-                }
+                filterOption={(input, option) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
                 options={dataOption}
               />
             </Form.Item>

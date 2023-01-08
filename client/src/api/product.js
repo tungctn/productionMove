@@ -1,5 +1,4 @@
-import { setAuthHeader } from "./auth";
-import axios from "./axios";
+import axios from './axios';
 
 export const updateProduct = async (id, data) => {
   const response = await axios.put(`/product/${id}`, data);
@@ -7,19 +6,17 @@ export const updateProduct = async (id, data) => {
 };
 
 export const createProduct = async (data) => {
-  const response = await axios.post(`/product/`, data, {
-    withCredentials: true,
-  });
+  const response = await axios.post(`/product/`, data);
   return response.data;
 };
 
 export const getAllProduct = async () => {
-  const response = await axios.get("/product");
+  const response = await axios.get('/product');
   return response.data;
 };
 
 export const getProductByUser = async () => {
-  const response = await axios.get("/product/user");
+  const response = await axios.get('/product/user');
   return response.data;
 };
 
@@ -29,7 +26,7 @@ export const getProduct = async (id) => {
 };
 
 export const searchProduct = async (data) => {
-  const response = await axios.post("/product/search", data);
+  const response = await axios.post('/product/search', data);
   return response.data;
 };
 

@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useReducer } from "react";
+import { createContext, useContext, useReducer } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   SET_REQUEST_ADD,
@@ -32,7 +32,6 @@ export const RequestContextProvider = (props) => {
     setAuthHeader(localStorage["token"]);
     const response = await getAllRequest();
     if (response?.success) {
-      console.log(response.data);
       dispatch({
         type: SET_REQUEST_LIST,
         payload: { listRequest: response?.data },
@@ -70,7 +69,6 @@ export const RequestContextProvider = (props) => {
 
   const data = {
     requestState,
-    dispatch,
     loadListRequest,
     handleCreateRequest,
     handleSearchRequest,

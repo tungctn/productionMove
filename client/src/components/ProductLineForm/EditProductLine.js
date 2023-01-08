@@ -1,10 +1,10 @@
-import { EditOutlined, LeftOutlined } from "@ant-design/icons";
-import { Button, Form, Input, Modal, Select } from "antd";
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { getProductLine, updateProductLine } from "../../api/productline";
-import { useAppContext } from "../../contexts/AppContext";
-import Loading from "../Loading/Loading";
+import { LeftOutlined } from '@ant-design/icons';
+import { Button, Form, Input, Select } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { getProductLine, updateProductLine } from '../../api/productline';
+import { useAppContext } from '../../contexts/AppContext';
+import Loading from '../Loading/Loading';
 
 const ProductLineEdit = (props) => {
   const { id } = props;
@@ -18,7 +18,6 @@ const ProductLineEdit = (props) => {
   const loadProductLine = async (id) => {
     setIsLoading(true);
     const response = await getProductLine(id);
-    console.log(response.data);
     if (response.success) {
       setProductLine(response.data);
       setIsLoading(false);
@@ -28,7 +27,6 @@ const ProductLineEdit = (props) => {
     const propName = e.target.name;
     const value = e.target.value;
     setFormData({ ...formData, [propName]: value });
-    console.log(formData);
   };
   const onFinish = async (values) => {
     setIsLoading(true);
@@ -40,10 +38,10 @@ const ProductLineEdit = (props) => {
           period: Number(values.period),
           unit: values.unit,
         },
-      })
+      }),
     );
     if (response.success) {
-      openNotification("success", response.msg);
+      openNotification('success', response.msg);
       navigate(`/productline/${id}`);
       setIsLoading(false);
     }
@@ -68,7 +66,8 @@ const ProductLineEdit = (props) => {
         onChange={onValueChange}
         style={{
           width: 90,
-        }}>
+        }}
+      >
         <Option value={0}>Ngày</Option>
         <Option value={1}>Tháng</Option>
         <Option value={2}>Năm</Option>
@@ -84,11 +83,7 @@ const ProductLineEdit = (props) => {
           </Link>
         </div>
         <div className="w-5/6 mt-5 mx-auto">
-          <Form
-            layout="vertical"
-            form={form}
-            onFinish={onFinish}
-            initialValues={{ remember: true }}>
+          <Form layout="vertical" form={form} onFinish={onFinish} initialValues={{ remember: true }}>
             {/* Tên dòng xe */}
             <Form.Item
               label="Tên dòng xe"
@@ -97,14 +92,11 @@ const ProductLineEdit = (props) => {
               rules={[
                 {
                   required: true,
-                  message: "Please input your name!",
+                  message: 'Please input your name!',
                 },
-              ]}>
-              <Input
-                name="name"
-                placeholder="input placeholder"
-                onChange={onValueChange}
-              />
+              ]}
+            >
+              <Input name="name" placeholder="input placeholder" onChange={onValueChange} />
             </Form.Item>
             {/* Khối lượng bản thân */}
             <Form.Item
@@ -114,28 +106,20 @@ const ProductLineEdit = (props) => {
               rules={[
                 {
                   required: true,
-                  message: "Please input your weight!",
+                  message: 'Please input your weight!',
                 },
-              ]}>
-              <Input
-                name="weight"
-                placeholder="input placeholder"
-                onChange={onValueChange}
-              />
+              ]}
+            >
+              <Input name="weight" placeholder="input placeholder" onChange={onValueChange} />
             </Form.Item>
             {/* Dài */}
             <Form.Item
               label="Dài"
               name="length"
               type="text"
-              rules={[
-                { required: true, message: "Please input your length!" },
-              ]}>
-              <Input
-                name="length"
-                placeholder="input placeholder"
-                onChange={onValueChange}
-              />
+              rules={[{ required: true, message: 'Please input your length!' }]}
+            >
+              <Input name="length" placeholder="input placeholder" onChange={onValueChange} />
             </Form.Item>
             {/* Rộng */}
             <Form.Item
@@ -145,14 +129,11 @@ const ProductLineEdit = (props) => {
               rules={[
                 {
                   required: true,
-                  message: "Please input your width!",
+                  message: 'Please input your width!',
                 },
-              ]}>
-              <Input
-                name="width"
-                placeholder="input placeholder"
-                onChange={onValueChange}
-              />
+              ]}
+            >
+              <Input name="width" placeholder="input placeholder" onChange={onValueChange} />
             </Form.Item>
             {/* Cao */}
             <Form.Item
@@ -162,14 +143,11 @@ const ProductLineEdit = (props) => {
               rules={[
                 {
                   required: true,
-                  message: "Please input your height!",
+                  message: 'Please input your height!',
                 },
-              ]}>
-              <Input
-                name="height"
-                placeholder="input placeholder"
-                onChange={onValueChange}
-              />
+              ]}
+            >
+              <Input name="height" placeholder="input placeholder" onChange={onValueChange} />
             </Form.Item>
             {/* Khoảng cách trục bánh xe  */}
             <Form.Item
@@ -179,14 +157,11 @@ const ProductLineEdit = (props) => {
               rules={[
                 {
                   required: true,
-                  message: "Please input your wheelAxleDistance!",
+                  message: 'Please input your wheelAxleDistance!',
                 },
-              ]}>
-              <Input
-                name="wheelAxleDistance"
-                placeholder="input placeholder"
-                onChange={onValueChange}
-              />
+              ]}
+            >
+              <Input name="wheelAxleDistance" placeholder="input placeholder" onChange={onValueChange} />
             </Form.Item>
             {/* Chiều cao yên xe */}
             <Form.Item
@@ -196,14 +171,11 @@ const ProductLineEdit = (props) => {
               rules={[
                 {
                   required: true,
-                  message: "Please input your saddleHeight!",
+                  message: 'Please input your saddleHeight!',
                 },
-              ]}>
-              <Input
-                name="saddleHeight"
-                placeholder="input placeholder"
-                onChange={onValueChange}
-              />
+              ]}
+            >
+              <Input name="saddleHeight" placeholder="input placeholder" onChange={onValueChange} />
             </Form.Item>
             {/* Khoảng cách gầm xe */}
             <Form.Item
@@ -213,14 +185,11 @@ const ProductLineEdit = (props) => {
               rules={[
                 {
                   required: true,
-                  message: "Please input your groundClearance!",
+                  message: 'Please input your groundClearance!',
                 },
-              ]}>
-              <Input
-                name="groundClearance"
-                placeholder="input placeholder"
-                onChange={onValueChange}
-              />
+              ]}
+            >
+              <Input name="groundClearance" placeholder="input placeholder" onChange={onValueChange} />
             </Form.Item>
             {/* Dung tích bình xăng */}
             <Form.Item
@@ -230,14 +199,11 @@ const ProductLineEdit = (props) => {
               rules={[
                 {
                   required: true,
-                  message: "Please input your petrolTankCapacity!",
+                  message: 'Please input your petrolTankCapacity!',
                 },
-              ]}>
-              <Input
-                name="petrolTankCapacity"
-                placeholder="input placeholder"
-                onChange={onValueChange}
-              />
+              ]}
+            >
+              <Input name="petrolTankCapacity" placeholder="input placeholder" onChange={onValueChange} />
             </Form.Item>
             {/* Mức tiêu thụ nhiên liệu */}
             <Form.Item
@@ -247,14 +213,11 @@ const ProductLineEdit = (props) => {
               rules={[
                 {
                   required: true,
-                  message: "Please input your fuelConsumption!",
+                  message: 'Please input your fuelConsumption!',
                 },
-              ]}>
-              <Input
-                name="fuelConsumption"
-                placeholder="input placeholder"
-                onChange={onValueChange}
-              />
+              ]}
+            >
+              <Input name="fuelConsumption" placeholder="input placeholder" onChange={onValueChange} />
             </Form.Item>
             {/* Dung tích xy-lanh */}
             <Form.Item
@@ -264,14 +227,11 @@ const ProductLineEdit = (props) => {
               rules={[
                 {
                   required: true,
-                  message: "Please input your displacementVolume!",
+                  message: 'Please input your displacementVolume!',
                 },
-              ]}>
-              <Input
-                name="displacementVolume"
-                placeholder="input placeholder"
-                onChange={onValueChange}
-              />
+              ]}
+            >
+              <Input name="displacementVolume" placeholder="input placeholder" onChange={onValueChange} />
             </Form.Item>
             {/* Loại động cơ */}
             <Form.Item
@@ -281,14 +241,11 @@ const ProductLineEdit = (props) => {
               rules={[
                 {
                   required: true,
-                  message: "Please input your engineType!",
+                  message: 'Please input your engineType!',
                 },
-              ]}>
-              <Input
-                name="engineType"
-                placeholder="input placeholder"
-                onChange={onValueChange}
-              />
+              ]}
+            >
+              <Input name="engineType" placeholder="input placeholder" onChange={onValueChange} />
             </Form.Item>
             <Form.Item
               label="Thời gian bảo hành"
@@ -297,9 +254,10 @@ const ProductLineEdit = (props) => {
               rules={[
                 {
                   required: true,
-                  message: "Please input your engineType!",
+                  message: 'Please input your engineType!',
                 },
-              ]}>
+              ]}
+            >
               <Input
                 name="period"
                 placeholder="input placeholder"

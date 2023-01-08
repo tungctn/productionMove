@@ -15,9 +15,8 @@ function SoldStatistic() {
     loadUserProduct,
   } = useProductContext();
   const {
-    openNotification,
     authState: { user },
-    gotoMainPage,
+    checkMiddleware,
   } = useAppContext();
   const yearChange = (e) => {
     setYear(e.target.value);
@@ -32,12 +31,9 @@ function SoldStatistic() {
     setMonth(e.target.value);
   };
   useEffect(() => {
-    if (user?.role === 2 || user?.role === 3) {
+    checkMiddleware(user, () => {
       loadAllProduct();
-    } else {
-      openNotification("error", "Bạn không có quyền truy cập");
-      gotoMainPage(user);
-    }
+    });
   }, []);
 
   var dataFiltered = listProduct;
@@ -77,29 +73,15 @@ function SoldStatistic() {
         return string;
       }
     });
-    console.log(listProduct);
     YearData = listProduct?.filter((data) => data.isSold === true);
-    console.log(YearData);
     if (YearData) {
       YearData = YearData.map((data) =>
         data.customer.soldDate.slice(0, 4)
       ).filter((data, index, self) => {
-        console.log(self);
         return self.indexOf(data) === index;
       });
-      // .filter((data) => {
-      //   var string = data.customer.soldDate.slice(0, 4) * 1;
-      //   let valid = false;
-      //   if (nho[string] !== "1") {
-      //     nho[string] = "1";
-      //     valid = true;
-      //   }
-      //   return valid === true;
-      // });
     }
-    console.log(YearData);
   }
-  console.log(listProduct);
   var c, sumProduct, dataSource;
   if (dataFiltered) {
     dataFiltered = dataFiltered.map((data) => {
@@ -129,7 +111,7 @@ function SoldStatistic() {
         <div className="basis-1/3">
           <div className="w-1/2 mx-auto">
             <label
-              for="countries"
+              htmlFor="countries"
               className="block mb-2 text-base font-medium text-blue-600 dark:text-white">
               Năm
             </label>
@@ -153,7 +135,7 @@ function SoldStatistic() {
         <div className="basis-1/3">
           <div className="w-1/2 mx-auto">
             <label
-              for="countries"
+              htmlFor="countries"
               className="block mb-2 text-base font-medium text-blue-600 dark:text-white">
               Quý
             </label>
@@ -178,7 +160,7 @@ function SoldStatistic() {
         <div className="basis-1/3">
           <div className="w-1/2 mx-auto">
             <label
-              for="countries"
+              htmlFor="countries"
               className="block mb-2 text-base font-medium text-blue-600 dark:text-white">
               Tháng
             </label>

@@ -1,21 +1,14 @@
-import { SyncOutlined } from "@ant-design/icons";
-import { Button, Input, Modal, Tag } from "antd";
-import React, { useEffect, useState } from "react";
-import {
-  getAllRequest,
-  handleImportRequest,
-  updateRequest,
-} from "../../api/request";
-import TableInfo from "../../components/TableInfo/TableInfo";
-import { useAppContext } from "../../contexts/AppContext";
-import { useRequestContext } from "../../contexts/RequestContext";
-import Default from "../../Layouts/Default";
-import { getProduct, updateProduct } from "../../api/product";
-import { useProductContext } from "../../contexts/ProductContext";
-import { useNavigate } from "react-router-dom";
-import { getProductLine } from "../../api/productline";
-import SearchRequest from "../../components/SearchFilter/SearchRequest";
-import Loading from "../../components/Loading/Loading";
+import { Button, Input, Modal, Tag } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { handleImportRequest, updateRequest } from '../../api/request';
+import TableInfo from '../../components/TableInfo/TableInfo';
+import { useAppContext } from '../../contexts/AppContext';
+import { useRequestContext } from '../../contexts/RequestContext';
+import Default from '../../Layouts/Default';
+import { updateProduct } from '../../api/product';
+import { useProductContext } from '../../contexts/ProductContext';
+import SearchRequest from '../../components/SearchFilter/SearchRequest';
+import Loading from '../../components/Loading/Loading';
 
 const Request = () => {
   const { TextArea } = Input;
@@ -26,7 +19,7 @@ const Request = () => {
     openNotification,
     convertObjectToArray,
     deadDate,
-    gotoMainPage,
+    checkMiddleware,
   } = useAppContext();
   const {
     requestState: { listRequest, isLoading },
@@ -36,27 +29,26 @@ const Request = () => {
     productState: { listProduct },
     loadUserProduct,
   } = useProductContext();
-  const navigate = useNavigate();
   const [visible, setVisible] = useState(false);
-  const [desc, setDesc] = useState("");
-  const [information, setInformation] = useState("");
+  const [desc, setDesc] = useState('');
+  const [information, setInformation] = useState('');
   const [data, setData] = useState({});
   const [feedback, setFeedback] = useState({});
   const [record, setRecord] = useState({});
-  const [note, setNote] = useState("");
+  const [note, setNote] = useState('');
   const [loading, setLoading] = useState(false);
   const color = (status) => {
     switch (status) {
       case 1:
-        return "magenta";
+        return 'magenta';
       case 2:
-        return "processing";
+        return 'processing';
       case 3:
-        return "success";
+        return 'success';
       case 4:
-        return "error";
+        return 'error';
       default:
-        throw new Error("status is not match");
+        throw new Error('status is not match');
     }
   };
   const handleClick = (record) => {
@@ -65,7 +57,7 @@ const Request = () => {
     setNote(record.note);
     if (record.type === 0) {
       setInformation(
-        `${record.requester.name} muốn nhập ${record.amount} sản phẩm loại ${record.productLine.name} từ ${record.recipient.name}`
+        `${record.requester.name} muốn nhập ${record.amount} sản phẩm loại ${record.productLine.name} từ ${record.recipient.name}`,
       );
       setData({
         ...data,
@@ -74,9 +66,7 @@ const Request = () => {
         productLine: record.productLine._id,
       });
     } else if (record.type === 4) {
-      setInformation(
-        `${record.requester.name} yêu cầu trả sản phẩm từ ${record.recipient.name}`
-      );
+      setInformation(`${record.requester.name} yêu cầu trả sản phẩm từ ${record.recipient.name}`);
       setData({
         ...data,
         amount: record.amount,
@@ -84,9 +74,7 @@ const Request = () => {
         productLine: record.productLine._id,
       });
     } else if (record.type === 1) {
-      setInformation(
-        `${record.requester.name} yêu cầu bảo hành sản phẩm từ ${record.recipient.name}`
-      );
+      setInformation(`${record.requester.name} yêu cầu bảo hành sản phẩm từ ${record.recipient.name}`);
       setData({
         ...data,
         amount: record.amount,
@@ -94,9 +82,7 @@ const Request = () => {
         productLine: record.product.productLine._id,
       });
     } else if (record.type === 2) {
-      setInformation(
-        `${record.requester.name} yêu cầu nhân sản phẩm bảo hành từ ${record.recipient.name}`
-      );
+      setInformation(`${record.requester.name} yêu cầu nhân sản phẩm bảo hành từ ${record.recipient.name}`);
       setData({
         ...data,
         amount: record.amount,
@@ -105,7 +91,7 @@ const Request = () => {
       });
     } else if (record.type === 5) {
       setInformation(
-        `${record.requester.name} yêu cầu ${record.recipient.name} bàn giao sản phẩm mới cho khách hàng do ${record.product.identifier} bị hỏng không thể sửa chữa và đã được gửi về nhà máy.`
+        `${record.requester.name} yêu cầu ${record.recipient.name} bàn giao sản phẩm mới cho khách hàng do ${record.product.identifier} bị hỏng không thể sửa chữa và đã được gửi về nhà máy.`,
       );
       setData({
         ...data,
@@ -114,16 +100,14 @@ const Request = () => {
         productLine: record.product.productLine._id,
       });
     } else {
-      setInformation("");
+      setInformation('');
       setData({});
     }
   };
   const handleOk = async () => {
     let response;
-    console.log(record);
     if (record.type === 0) {
       response = await handleImportRequest(data);
-      console.log(data);
     } else if (record.type === 4) {
       response = await updateProduct(
         record.product._id,
@@ -131,7 +115,7 @@ const Request = () => {
           ...feedback,
           status: 11,
           location: record.product.factory,
-        })
+        }),
       );
     } else if (record.type === 1) {
       response = await updateProduct(
@@ -140,7 +124,7 @@ const Request = () => {
           ...feedback,
           status: 4,
           location: user._id,
-        })
+        }),
       );
     } else if (record.type === 2) {
       response = await updateProduct(
@@ -149,7 +133,7 @@ const Request = () => {
           ...feedback,
           status: 5,
           location: user._id,
-        })
+        }),
       );
     } else if (record.type === 3) {
       response = await updateProduct(
@@ -160,17 +144,14 @@ const Request = () => {
           location: user._id,
           isSold: false,
           customer: {},
-        })
+        }),
       );
     } else if (record.type === 5) {
       const dataProduct = listProduct?.filter((product) => {
-        return (
-          product.status === 1 &&
-          product.productLine._id === record.product.productLine
-        );
+        return product.status === 1 && product.productLine._id === record.product.productLine;
       });
       if (dataProduct.length === 0) {
-        openNotification("error", "Không có sản phẩm để bàn giao");
+        openNotification('error', 'Không có sản phẩm để bàn giao');
         return;
       } else {
         response = await updateProduct(
@@ -180,7 +161,7 @@ const Request = () => {
             customer: { ...record.product.customer, soldDate: new Date() },
             isSold: true,
             deadDate: deadDate(dataProduct[0], new Date()),
-          })
+          }),
         );
       }
     } else if (record.type === 6) {
@@ -190,78 +171,65 @@ const Request = () => {
       setLoading(true);
       for (let i = 0; i < dataProduct?.length; i++) {
         const product = dataProduct[i];
-        console.log(product);
         response = await updateProduct(
           product._id,
           convertObjectToArray({
             ...feedback,
             status: 9,
-          })
+          }),
         );
       }
     }
     if (response?.success) {
-      openNotification("success", "Chấp nhận yêu cầu thành công");
-      await updateRequest(
-        record._id,
-        convertObjectToArray({ ...feedback, status: 3 })
-      );
-      await updateRequest(
-        record.refRequest,
-        convertObjectToArray({ ...feedback, status: 3 })
-      );
+      openNotification('success', 'Chấp nhận yêu cầu thành công');
+      await updateRequest(record._id, convertObjectToArray({ ...feedback, status: 3 }));
+      await updateRequest(record.refRequest, convertObjectToArray({ ...feedback, status: 3 }));
       setLoading(false);
       // navigate("/request");
       loadListRequest();
       setVisible(false);
     } else {
-      openNotification("error", "Chấp nhận yêu cầu thất bại");
+      openNotification('error', 'Chấp nhận yêu cầu thất bại');
     }
   };
   const handleReject = async () => {
-    const response1 = await updateRequest(
-      record._id,
-      convertObjectToArray({ ...feedback, status: 4 })
-    );
-    const response2 = await updateRequest(
-      record.refRequest,
-      convertObjectToArray({ ...feedback, status: 4 })
-    );
+    const response1 = await updateRequest(record._id, convertObjectToArray({ ...feedback, status: 4 }));
+    const response2 = await updateRequest(record.refRequest, convertObjectToArray({ ...feedback, status: 4 }));
     if (response1.success && response2.success) {
-      openNotification("success", response1.msg);
+      openNotification('success', response1.msg);
       loadListRequest();
       setVisible(false);
     } else {
-      openNotification("error", response1.msg);
+      openNotification('error', response1.msg);
       setVisible(false);
     }
   };
   const dataColumn = [
     {
-      title: "STT",
-      dataIndex: "key",
-      key: "key",
+      title: 'STT',
+      dataIndex: 'key',
+      key: 'key',
     },
     {
-      title: "Người gửi",
-      dataIndex: "requester1",
-      key: "requester1",
+      title: 'Người gửi',
+      dataIndex: 'requester1',
+      key: 'requester1',
     },
     {
-      title: "Người nhận",
-      dataIndex: "recipient1",
-      key: "recipient1",
+      title: 'Người nhận',
+      dataIndex: 'recipient1',
+      key: 'recipient1',
     },
     {
-      title: "Loai yêu cầu",
-      dataIndex: "type",
-      key: "type",
+      title: 'Loai yêu cầu',
+      dataIndex: 'type',
+      key: 'type',
       render: (text) => convertTypeToName(text),
     },
     {
-      title: "Trạng thái",
-      dataIndex: "status",
-      key: "status",
+      title: 'Trạng thái',
+      dataIndex: 'status',
+      key: 'status',
       render: (text, record) => (
         <Tag
           onClick={() => {
@@ -269,7 +237,8 @@ const Request = () => {
               handleClick(record);
             }
           }}
-          color={color(record.status)}>
+          color={color(record.status)}
+        >
           {convertStatusToName(text)}
         </Tag>
       ),
@@ -277,13 +246,10 @@ const Request = () => {
   ];
 
   useEffect(() => {
-    if (user?.role !== 1) {
+    checkMiddleware(user, () => {
       loadListRequest();
       loadUserProduct();
-    } else {
-      openNotification("error", "Bạn không có quyền truy cập");
-      gotoMainPage(user);
-    }
+    });
   }, []);
 
   const dataSource = listRequest
@@ -318,7 +284,6 @@ const Request = () => {
                   handleClick(record);
                   setRecord(record);
                 }
-                console.log(record);
               },
             })}
             dataColumn={dataColumn}
@@ -339,7 +304,8 @@ const Request = () => {
             Chấp nhận
           </Button>,
         ]}
-        onCancel={handleCancel}>
+        onCancel={handleCancel}
+      >
         <Loading spinning={loading}>
           <div>{desc}</div>
           <div>{information}</div>

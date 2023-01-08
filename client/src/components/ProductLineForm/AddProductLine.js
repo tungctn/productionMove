@@ -1,6 +1,5 @@
 import { Button, Form, Input } from "antd";
 import { Link } from "react-router-dom";
-import { UploadOutlined } from "@ant-design/icons";
 import { Select } from "antd";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -28,7 +27,6 @@ const AddProductLine = () => {
     const reader = new FileReader();
     reader.readAsDataURL(selectedFile);
     reader.onloadend = async () => {
-      console.log(reader.result);
       const response = await uploadImage({ data: reader.result });
       if (response.success) {
         const response1 = await createProductLine({

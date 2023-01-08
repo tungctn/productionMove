@@ -1,10 +1,10 @@
-import { Button, Modal } from "antd";
-import React, { useEffect, useState } from "react";
-import { createRequest } from "../../api/request";
-import { useAppContext } from "../../contexts/AppContext";
-import { useRequestContext } from "../../contexts/RequestContext";
-import { useUserContext } from "../../contexts/UserContext";
-import Loading from "../Loading/Loading";
+import { Button, Modal } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { createRequest } from '../../api/request';
+import { useAppContext } from '../../contexts/AppContext';
+import { useRequestContext } from '../../contexts/RequestContext';
+import { useUserContext } from '../../contexts/UserContext';
+import Loading from '../Loading/Loading';
 
 const SummonProductLine = (props) => {
   const { productLine } = props;
@@ -36,7 +36,7 @@ const SummonProductLine = (props) => {
         });
       }
     });
-    openNotification("success", "Triệu hồi sản phẩm thành công");
+    openNotification('success', 'Triệu hồi sản phẩm thành công');
     setIsLoading(false);
     setVisible(false);
   };
@@ -54,12 +54,7 @@ const SummonProductLine = (props) => {
       <Button type="primary" onClick={showModal}>
         Triệu hồi sản phẩm
       </Button>
-      <Modal
-        title="Triệu hồi sản phẩm"
-        visible={visible}
-        destroyOnClose={true}
-        onOk={handleOk}
-        onCancel={handleCancel}>
+      <Modal title="Triệu hồi sản phẩm" visible={visible} destroyOnClose={true} onOk={handleOk} onCancel={handleCancel}>
         <Loading spinning={isLoading}>
           <div>Triệu hồi sản phẩm {productLine?.name}?</div>
         </Loading>

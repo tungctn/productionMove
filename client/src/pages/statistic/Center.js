@@ -38,9 +38,8 @@ function Center() {
 
   const {
     convertRoleToName,
-    openNotification,
     authState: { user },
-    gotoMainPage,
+    checkMiddleware,
   } = useAppContext();
 
   const dataSource1 = listUser?.map((user, index) => {
@@ -50,19 +49,15 @@ function Center() {
       role: convertRoleToName(user.role),
     };
   });
-  console.log(dataSource1);
 
   const dataFactory = dataSource1.filter(
     (user) => user.role == "Trung tâm bảo hành"
   );
   useEffect(() => {
-    if (user.role !== 1) {
-      openNotification("error", "Bạn không có quyền truy cập");
-      gotoMainPage(user);
-    } else {
+    checkMiddleware(user, () => {
       loadListUser();
       loadAllProduct();
-    }
+    });
   }, []);
   return (
     <Default tagName="stt" childrenName="center">

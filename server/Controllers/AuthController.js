@@ -21,36 +21,33 @@ module.exports.genarateAccessToken = (user) => {
 };
 
 module.exports.loginUser = async (req, res, next) => {
-    const user = await User.findOne({ email: req.body.email });
-    if (!user) {
-      return response.sendErrorResponse(res, "Email không tồn tại", 404);
-    }
+  const user = await User.findOne({ email: req.body.email });
+  if (!user) {
+    return response.sendErrorResponse(res, "Email không tồn tại", 404);
+  }
 
-    const validPassword = await bcrypt.compare(
-      req.body.password,
-      user.password
-    );
+  const validPassword = await bcrypt.compare(req.body.password, user.password);
 
-    if (!validPassword) {
-      return response.sendErrorResponse(res, "Sai mật khẩu", 404);
-    }
+  if (!validPassword) {
+    return response.sendErrorResponse(res, "Sai mật khẩu", 404);
+  }
 
-    if (user && validPassword) {
-      const accessToken = this.genarateAccessToken(user);
+  if (user && validPassword) {
+    const accessToken = this.genarateAccessToken(user);
 
-      res.cookie("accessToken", accessToken, {
-        httpOnly: true,
-        secure: false,
-        path: "/",
-        samSite: "strict",
-      });
-      return res.status(200).json({
-        success: true,
-        data: user,
-        accessToken: accessToken,
-        msg: "Đăng nhập thành công",
-      });
-    }
+    res.cookie("accessToken", accessToken, {
+      httpOnly: true,
+      secure: false,
+      path: "/",
+      samSite: "strict",
+    });
+    return res.status(200).json({
+      success: true,
+      data: user,
+      accessToken: accessToken,
+      msg: "Đăng nhập thành công",
+    });
+  }
 };
 
 module.exports.userLogout = async (req, res, next) => {

@@ -1,11 +1,11 @@
-import Default from "../../Layouts/Default";
-import DemoPie from "../../components/Statistic/DemoPie";
-import { useProductContext } from "../../contexts/ProductContext";
-import { useEffect, useState } from "react";
-import { useAppContext } from "../../contexts/AppContext";
+import Default from '../../Layouts/Default';
+import DemoPie from '../../components/Statistic/DemoPie';
+import { useProductContext } from '../../contexts/ProductContext';
+import { useEffect, useState } from 'react';
+import { useAppContext } from '../../contexts/AppContext';
 
 function Status() {
-  const [productState, setProductState] = useState("0");
+  const [productState, setProductState] = useState('0');
   const {
     productState: { listProduct },
     loadAllProduct,
@@ -30,33 +30,28 @@ function Status() {
     return { type: key, sales: c[key] };
   });
   const {
-    openNotification,
     authState: { user },
-    gotoMainPage,
+    checkMiddleware,
   } = useAppContext();
 
   useEffect(() => {
-    if (user.role === 1) {
+    checkMiddleware(user, () => {
       loadAllProduct();
-    } else {
-      gotoMainPage(user);
-      openNotification("error", "Bạn không có quyền truy cập");
-    }
+    });
   }, []);
 
   return (
     <Default tagName="stt" childrenName="stt">
       <div className="w-1/4 mx-auto mt-10 items-start">
-        <label
-          htmlFor="countries"
-          className="block mb-2 text-xl font-medium text-blue-600 dark:text-white">
+        <label htmlFor="countries" className="block mb-2 text-xl font-medium text-blue-600 dark:text-white">
           Chọn trạng thái
         </label>
         <select
           id="countries"
           className="bg-gray-50 border border-gray-300 text-blue-800 font-medium text-sm rounded-lg ring-1 focus:ring-blue-500
                                             focus:border-blue-500 focus:outline-none block w-full py-3 px-1"
-          onChange={handleChange}>
+          onChange={handleChange}
+        >
           <option value="0">Mới sản xuất</option>
           <option value="1">Được đưa về đại lý</option>
           <option value="2">Đã bán</option>
@@ -68,25 +63,19 @@ function Status() {
           <option value="8">Lỗi cần đưa về cơ sở sản xuất</option>
           <option value="9">Lỗi cần thu hồi</option>
           <option value="10">Đã hết thời gian bảo hành</option>
-          <option value="11">
-            Trả lại cơ sở sản xuất do lâu không được bán
-          </option>
+          <option value="11">Trả lại cơ sở sản xuất do lâu không được bán</option>
         </select>
       </div>
       <div className="w-5/6 mx-auto mt-10">
         {dataSource.length !== 0 && (
           <div>
             <DemoPie data={dataSource}></DemoPie>
-            <div className="mt-5 text-xl text-blue-900 font-bold">
-              Tổng số sản phẩm: {sumProduct}
-            </div>
+            <div className="mt-5 text-xl text-blue-900 font-bold">Tổng số sản phẩm: {sumProduct}</div>
           </div>
         )}
         {dataSource.length === 0 && (
           <div className="container justify-items-center">
-            <div className="text-3xl text-blue-200 mt-32">
-              Không có sản phẩm nào !
-            </div>
+            <div className="text-3xl text-blue-200 mt-32">Không có sản phẩm nào !</div>
           </div>
         )}
       </div>

@@ -5,16 +5,12 @@ import Default from "../../Layouts/Default";
 
 const ProductLineAdd = () => {
   const {
-    openNotification,
     authState: { user },
-    gotoMainPage,
+    checkMiddleware,
   } = useAppContext();
 
   useEffect(() => {
-    if (user?.role !== 1) {
-      gotoMainPage(user);
-      openNotification("error", "Bạn không có quyền truy cập");
-    }
+    checkMiddleware(user, () => {});
   }, []);
 
   return (

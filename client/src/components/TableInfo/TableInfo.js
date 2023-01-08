@@ -1,12 +1,12 @@
-import { LoadingOutlined } from "@ant-design/icons";
-import { BackTop, Button, Select, Table } from "antd";
-import React, { useEffect, useState } from "react";
-import "./index.scss";
+import { LoadingOutlined } from '@ant-design/icons';
+import { Select, Table } from 'antd';
+import React, { useState } from 'react';
+import './index.scss';
 
 const TableInfo = (props) => {
-  const { dataColumn, dataSource, onRow, loading, setTitle, role } = props;
+  const { dataColumn, dataSource, onRow, loading, setTitle } = props;
   const [pagination, setPagination] = useState({
-    position: ["bottomCenter"],
+    position: ['bottomCenter'],
     pageSize: 5,
     showSizeChanger: false,
   });
@@ -18,7 +18,6 @@ const TableInfo = (props) => {
   const handleChange = (value) => {
     setPagination((preState) => ({ ...preState, pageSize: value }));
   };
-  const tableEle = React.createRef();
 
   return (
     <div>
@@ -30,15 +29,15 @@ const TableInfo = (props) => {
           options={[
             {
               value: 5,
-              label: "5",
+              label: '5',
             },
             {
               value: 10,
-              label: "10",
+              label: '10',
             },
             {
               value: 15,
-              label: "15",
+              label: '15',
             },
           ]}
         />
@@ -51,7 +50,6 @@ const TableInfo = (props) => {
         onRow={onRow}
         loading={tableLoading}
         title={setTitle}
-        ref={tableEle}
         id="table"
       />
     </div>

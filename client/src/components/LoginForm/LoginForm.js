@@ -11,7 +11,6 @@ const LoginForm = () => {
   const onFinish = async (values) => {
     setLoading(true);
     await handleLogin(values);
-    console.log(values);
     setLoading(false);
   };
 

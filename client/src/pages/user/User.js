@@ -49,18 +49,14 @@ const User = () => {
 
   const {
     convertRoleToName,
-    openNotification,
     authState: { user },
-    gotoMainPage,
+    checkMiddleware,
   } = useAppContext();
 
   useEffect(() => {
-    if (user.role === 1) {
+    checkMiddleware(user, () => {
       loadListUser();
-    } else {
-      openNotification("error", "Bạn không có quyền truy cập");
-      gotoMainPage(user);
-    }
+    });
   }, []);
 
   const dataSource = listUser?.map((user, index) => {

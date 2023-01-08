@@ -38,9 +38,8 @@ function Sale() {
 
   const {
     convertRoleToName,
-    openNotification,
     authState: { user },
-    gotoMainPage,
+    checkMiddleware,
   } = useAppContext();
 
   const dataSource1 = listUser.map((user, index) => {
@@ -55,13 +54,10 @@ function Sale() {
     (user) => user.role == "Đại lý phân phối"
   );
   useEffect(() => {
-    if (user.role !== 1) {
-      openNotification("error", "Bạn không có quyền truy cập");
-      gotoMainPage(user);
-    } else {
+    checkMiddleware(user, () => {
       loadListUser();
       loadAllProduct();
-    }
+    });
   }, []);
   return (
     <Default tagName="stt" childrenName="sales">

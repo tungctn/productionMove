@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react';
 import { Liquid } from '@ant-design/plots';
 
 const DemoLiquid = (props) => {

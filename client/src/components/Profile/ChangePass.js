@@ -1,7 +1,7 @@
-import { Button, Form, Input, Modal } from "antd";
-import { useState } from "react";
-import { changePassword, checkPassword } from "../../api/user";
-import { useAppContext } from "../../contexts/AppContext";
+import { Button, Form, Input, Modal } from 'antd';
+import { useState } from 'react';
+import { changePassword, checkPassword } from '../../api/user';
+import { useAppContext } from '../../contexts/AppContext';
 
 const ChangePass = (props) => {
   const { user } = props;
@@ -18,11 +18,10 @@ const ChangePass = (props) => {
   };
 
   const handleOk = async () => {
-    console.log(formData);
     if (isError === false) {
       const response = await changePassword(formData);
       if (response.success) {
-        openNotification("success", response.msg);
+        openNotification('success', response.msg);
         setVisible(false);
       }
     }
@@ -38,12 +37,7 @@ const ChangePass = (props) => {
       <Button type="primary" onClick={showModal}>
         Thay đổi mật khẩu
       </Button>
-      <Modal
-        title="Thay đổi mật khẩu"
-        destroyOnClose={true}
-        open={visible}
-        onOk={handleOk}
-        onCancel={handleCancel}>
+      <Modal title="Thay đổi mật khẩu" destroyOnClose={true} open={visible} onOk={handleOk} onCancel={handleCancel}>
         <Form>
           <Form.Item
             label="Mật khẩu cũ"
@@ -51,7 +45,7 @@ const ChangePass = (props) => {
             rules={[
               {
                 required: true,
-                message: "Please input  your password!",
+                message: 'Please input  your password!',
               },
               {
                 validator: async (_, value) => {
@@ -61,14 +55,15 @@ const ChangePass = (props) => {
                   });
                   if (response.success === false) {
                     setIsError(true);
-                    return Promise.reject("Password is incorrect!");
+                    return Promise.reject('Password is incorrect!');
                   } else {
                     setIsError(false);
                     return Promise.resolve();
                   }
                 },
               },
-            ]}>
+            ]}
+          >
             <Input.Password name="password" onChange={onValueChange} />
           </Form.Item>
           <Form.Item
@@ -77,30 +72,27 @@ const ChangePass = (props) => {
             rules={[
               {
                 required: true,
-                message: "Please input your password!",
+                message: 'Please input your password!',
               },
               {
                 validator: (_, value) => {
                   if (!value) {
                     setIsError(true);
-                    return Promise.reject("Please input your password!");
+                    return Promise.reject('Please input your password!');
                   } else if (value.length < 6) {
                     setIsError(true);
-                    return Promise.reject(
-                      "Password must be at least 6 characters!"
-                    );
+                    return Promise.reject('Password must be at least 6 characters!');
                   } else if (value.length > 30) {
                     setIsError(true);
-                    return Promise.reject(
-                      "Password must be at most 20 characters!"
-                    );
+                    return Promise.reject('Password must be at most 20 characters!');
                   } else {
                     setIsError(false);
                     return Promise.resolve();
                   }
                 },
               },
-            ]}>
+            ]}
+          >
             <Input.Password name="newPassword" onChange={onValueChange} />
           </Form.Item>
         </Form>

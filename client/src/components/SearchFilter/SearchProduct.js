@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Input, Select } from "antd";
-import { SearchOutlined, FilterOutlined } from "@ant-design/icons";
-import { useUserContext } from "../../contexts/UserContext";
-import { useAppContext } from "../../contexts/AppContext";
 import { useProductContext } from "../../contexts/ProductContext";
 import { useProductLineContext } from "../../contexts/ProductLineContext";
 
-const SearchProduct = (props) => {
+const SearchProduct = () => {
   const [form, setForm] = useState({});
   const { handleSearchProduct } = useProductContext();
   const {
@@ -19,21 +16,17 @@ const SearchProduct = (props) => {
   } = useProductContext();
   useEffect(() => {
     handleSearchProduct({ ...form });
-    console.log(form);
   }, [form]);
   useEffect(() => {
     loadListProductLine();
   }, []);
   const onValueChange = (e) => {
     setForm({ ...form, input: e.target.value });
-    console.log(form);
   };
   const onProductLineChange = (value) => {
     setForm({ ...form, prdl: value });
-    console.log(form);
   };
   const onStatusChange = (value) => {
-    console.log(value);
     setForm({ ...form, status: value });
   };
   const dataStatus = [
@@ -92,7 +85,6 @@ const SearchProduct = (props) => {
       label: item?.name,
     };
   });
-  console.log(dataProductLine);
   return (
     <div className="w-1/3 mr-10 mt-5 ml-auto">
       <div className="container rounded-2xl">
