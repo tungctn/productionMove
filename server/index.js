@@ -8,7 +8,11 @@ const appRoute = require("./routes/router");
 const app = express();
 const corsOptions = {
   //To allow requests from client
-  origin: ["http://localhost:3000", "http://127.0.0.1","https://plm-750g.onrender.com:3000"],
+  origin: [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    "https://plm-api.onrender.com",
+  ],
   credentials: true,
   exposedHeaders: ["set-cookie"],
 };

@@ -8,12 +8,8 @@ import AppContextProvider from "./contexts/AppContext";
 import { BrowserRouter } from "react-router-dom";
 import ProductLineContextProvider from "./contexts/ProductLineContext";
 import UserContextProvider from "./contexts/UserContext";
-import ProductContextProvider, {
-  ProductContext,
-} from "./contexts/ProductContext";
-import RequestContextProvider, {
-  RequestContext,
-} from "./contexts/RequestContext";
+import ProductContextProvider from "./contexts/ProductContext";
+import RequestContextProvider from "./contexts/RequestContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
