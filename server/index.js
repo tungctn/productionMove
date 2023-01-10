@@ -12,7 +12,6 @@ const corsOptions = {
     "http://localhost:3000",
     "http://127.0.0.1:3000",
     "https://plm-api.onrender.com",
-    "https://productionmove-b4ce5.web.app",
   ],
   credentials: true,
   exposedHeaders: ["set-cookie"],
