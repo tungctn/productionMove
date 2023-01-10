@@ -1,8 +1,6 @@
-import { Link } from "react-router-dom";
-import {
-  MenuOutlined,
-} from "@ant-design/icons";
-import { useAppContext } from "../contexts/AppContext";
+import { Link } from 'react-router-dom';
+import { MenuOutlined } from '@ant-design/icons';
+import { useAppContext } from '../contexts/AppContext';
 
 const SideBar = (props) => {
   const {
@@ -13,13 +11,14 @@ const SideBar = (props) => {
   return (
     <aside
       className={`${
-        open ? "basis-1/6" : "basis-1/12"
+        open ? 'basis-1/6' : 'basis-1/12'
       } duration-300 bg-white drop-shadow-md justify-between items-center relative`}
-      aria-label="Sidebar">
+      aria-label="Sidebar"
+    >
       <div onClick={onClick}>
         {open ? (
           <img
-            src="http://localhost:3000/image/logo.png"
+            src="https://productionmove-b4ce5.web.app/image/logo.png"
             alt="logo"
             className="h-8 md:h-8 lg:h-16 mx-auto w-[140px] mt-[10px]"
           />
@@ -36,20 +35,17 @@ const SideBar = (props) => {
               <Link
                 to="/home"
                 className={
-                  tag !== "kho"
-                    ? "flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-                    : "flex items-center p-2 text-base font-normal text-gray-900 rounded-lg bg-[#e6f4ff]"
-                }>
+                  tag !== 'kho'
+                    ? 'flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700'
+                    : 'flex items-center p-2 text-base font-normal text-gray-900 rounded-lg bg-[#e6f4ff]'
+                }
+              >
                 <img
-                  src="http://localhost:3000/image/kho.png"
+                  src="https://productionmove-b4ce5.web.app/image/kho.png"
                   alt="kho"
-                  className={`w-4 md:w-4 lg:w-6 ${!open && "mx-auto"}`}
+                  className={`w-4 md:w-4 lg:w-6 ${!open && 'mx-auto'}`}
                 />
-                {open && (
-                  <span className="ml-3 text-xs sm:text-sm md:text-base ">
-                    Kho
-                  </span>
-                )}
+                {open && <span className="ml-3 text-xs sm:text-sm md:text-base ">Kho</span>}
               </Link>
             </li>
           )}
@@ -58,20 +54,17 @@ const SideBar = (props) => {
               <Link
                 to="/produce"
                 className={
-                  tag !== "sx"
-                    ? "flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-                    : "flex items-center p-2 text-base font-normal text-gray-900 rounded-lg bg-[#e6f4ff]"
-                }>
+                  tag !== 'sx'
+                    ? 'flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700'
+                    : 'flex items-center p-2 text-base font-normal text-gray-900 rounded-lg bg-[#e6f4ff]'
+                }
+              >
                 <img
-                  src="http://localhost:3000/image/daily.png"
+                  src="https://productionmove-b4ce5.web.app/image/daily.png"
                   alt="kho"
-                  className={`w-4 md:w-4 lg:w-6 ${!open && "mx-auto"}`}
+                  className={`w-4 md:w-4 lg:w-6 ${!open && 'mx-auto'}`}
                 />
-                {open && (
-                  <span className="ml-3 text-xs sm:text-sm md:text-base">
-                    Sản xuẩt
-                  </span>
-                )}
+                {open && <span className="ml-3 text-xs sm:text-sm md:text-base">Sản xuẩt</span>}
               </Link>
             </li>
           )}
@@ -81,20 +74,17 @@ const SideBar = (props) => {
               <Link
                 to="/request"
                 className={
-                  tag !== "yc"
-                    ? "flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-                    : "flex items-center p-2 text-base font-normal text-gray-900 rounded-lg bg-[#e6f4ff]"
-                }>
+                  tag !== 'yc'
+                    ? 'flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700'
+                    : 'flex items-center p-2 text-base font-normal text-gray-900 rounded-lg bg-[#e6f4ff]'
+                }
+              >
                 <img
-                  src="http://localhost:3000/image/request.png"
+                  src="https://productionmove-b4ce5.web.app/image/request.png"
                   alt="kho"
-                  className={`w-4 md:w-4 lg:w-6 ${!open && "mx-auto"}`}
+                  className={`w-4 md:w-4 lg:w-6 ${!open && 'mx-auto'}`}
                 />
-                {open && (
-                  <span className="ml-3 text-xs sm:text-sm md:text-base">
-                    Yêu Cầu
-                  </span>
-                )}
+                {open && <span className="ml-3 text-xs sm:text-sm md:text-base">Yêu Cầu</span>}
               </Link>
             </li>
           )}
@@ -104,20 +94,17 @@ const SideBar = (props) => {
               <Link
                 to="/productline"
                 className={
-                  tag !== "dsp"
-                    ? "flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-                    : "flex items-center p-2 text-base font-normal text-gray-900 rounded-lg bg-[#e6f4ff]"
-                }>
+                  tag !== 'dsp'
+                    ? 'flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700'
+                    : 'flex items-center p-2 text-base font-normal text-gray-900 rounded-lg bg-[#e6f4ff]'
+                }
+              >
                 <img
-                  src="http://localhost:3000/image/kho.png"
+                  src="https://productionmove-b4ce5.web.app/image/kho.png"
                   alt="dsp"
-                  className={`w-4 md:w-4 lg:w-6 ${!open && "mx-auto"}`}
+                  className={`w-4 md:w-4 lg:w-6 ${!open && 'mx-auto'}`}
                 />
-                {open && (
-                  <span className="ml-3 text-xs sm:text-sm md:text-base">
-                    Dòng sản phẩm
-                  </span>
-                )}
+                {open && <span className="ml-3 text-xs sm:text-sm md:text-base">Dòng sản phẩm</span>}
               </Link>
             </li>
           )}
@@ -127,20 +114,17 @@ const SideBar = (props) => {
               <Link
                 to="/user"
                 className={
-                  tag !== "tk"
-                    ? "flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-                    : "flex items-center p-2 text-base font-normal text-gray-900 rounded-lg bg-[#e6f4ff]"
-                }>
+                  tag !== 'tk'
+                    ? 'flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700'
+                    : 'flex items-center p-2 text-base font-normal text-gray-900 rounded-lg bg-[#e6f4ff]'
+                }
+              >
                 <img
-                  src="http://localhost:3000/image/kho.png"
+                  src="https://productionmove-b4ce5.web.app/image/kho.png"
                   alt="kho"
-                  className={`w-4 md:w-4 lg:w-6 ${!open && "mx-auto"}`}
+                  className={`w-4 md:w-4 lg:w-6 ${!open && 'mx-auto'}`}
                 />
-                {open && (
-                  <span className="ml-3 text-xs sm:text-sm md:text-base">
-                    Tài khoản
-                  </span>
-                )}
+                {open && <span className="ml-3 text-xs sm:text-sm md:text-base">Tài khoản</span>}
               </Link>
             </li>
           )}
@@ -150,20 +134,17 @@ const SideBar = (props) => {
               <Link
                 to="/import/productline"
                 className={
-                  tag !== "nh"
-                    ? "flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-                    : "flex items-center p-2 text-base font-normal text-gray-900 rounded-lg bg-[#e6f4ff]"
-                }>
+                  tag !== 'nh'
+                    ? 'flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700'
+                    : 'flex items-center p-2 text-base font-normal text-gray-900 rounded-lg bg-[#e6f4ff]'
+                }
+              >
                 <img
-                  src="http://localhost:3000/image/kho.png"
+                  src="https://productionmove-b4ce5.web.app/image/kho.png"
                   alt="kho"
-                  className={`w-4 md:w-4 lg:w-6 ${!open && "mx-auto"}`}
+                  className={`w-4 md:w-4 lg:w-6 ${!open && 'mx-auto'}`}
                 />
-                {open && (
-                  <span className="ml-3 text-xs sm:text-sm md:text-base">
-                    Nhập hàng
-                  </span>
-                )}
+                {open && <span className="ml-3 text-xs sm:text-sm md:text-base">Nhập hàng</span>}
               </Link>
             </li>
           )}
@@ -172,70 +153,41 @@ const SideBar = (props) => {
               <Link
                 to="/statistic"
                 className={
-                  tag === "stt" && !childrenTag
-                    ? "flex items-center p-2 text-base font-normal text-gray-900 rounded-lg bg-[#e6f4ff]"
-                    : "flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-                }>
+                  tag === 'stt' && !childrenTag
+                    ? 'flex items-center p-2 text-base font-normal text-gray-900 rounded-lg bg-[#e6f4ff]'
+                    : 'flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700'
+                }
+              >
                 <img
-                  src="http://localhost:3000/image/statistic.png"
+                  src="https://productionmove-b4ce5.web.app/image/statistic.png"
                   alt="statistic"
-                  className={`w-4 md:w-4 lg:w-6 ${!open && "mx-auto"}`}
+                  className={`w-4 md:w-4 lg:w-6 ${!open && 'mx-auto'}`}
                 />
-                {open && (
-                  <span className="ml-3 text-xs sm:text-sm md:text-base">
-                    Thống kê
-                  </span>
-                )}
+                {open && <span className="ml-3 text-xs sm:text-sm md:text-base">Thống kê</span>}
               </Link>
-              {tag === "stt" && (
+              {tag === 'stt' && (
                 <div className="flex flex-col items-start ml-11 text-xs lg:text-sm space-y-1">
-                  <div
-                    className={
-                      childrenTag === "stt" ? "p-1 rounded-lg bg-[#e6f4ff]" : ""
-                    }>
-                    <Link
-                      to="/statistic/status"
-                      className="text-xs lg:text-sm font-normal text-gray-900">
-                      {" "}
-                      Theo trạng thái{" "}
+                  <div className={childrenTag === 'stt' ? 'p-1 rounded-lg bg-[#e6f4ff]' : ''}>
+                    <Link to="/statistic/status" className="text-xs lg:text-sm font-normal text-gray-900">
+                      {' '}
+                      Theo trạng thái{' '}
                     </Link>
                   </div>
 
-                  <div
-                    className={
-                      childrenTag === "produce"
-                        ? "p-1 rounded-lg bg-[#e6f4ff]"
-                        : ""
-                    }>
-                    <Link
-                      to="/statistic/manufacture_factory"
-                      className="text-xs lg:text-sm font-normal text-gray-900">
+                  <div className={childrenTag === 'produce' ? 'p-1 rounded-lg bg-[#e6f4ff]' : ''}>
+                    <Link to="/statistic/manufacture_factory" className="text-xs lg:text-sm font-normal text-gray-900">
                       Theo cơ sở sản xuất
                     </Link>
                   </div>
 
-                  <div
-                    className={
-                      childrenTag === "sales"
-                        ? "p-1 rounded-lg bg-[#e6f4ff]"
-                        : ""
-                    }>
-                    <Link
-                      to="/statistic/sale"
-                      className="text-xs lg:text-sm font-normal text-gray-900">
+                  <div className={childrenTag === 'sales' ? 'p-1 rounded-lg bg-[#e6f4ff]' : ''}>
+                    <Link to="/statistic/sale" className="text-xs lg:text-sm font-normal text-gray-900">
                       Theo đại lý phân phối
                     </Link>
                   </div>
 
-                  <div
-                    className={
-                      childrenTag === "center"
-                        ? "p-1 rounded-lg bg-[#e6f4ff]"
-                        : ""
-                    }>
-                    <Link
-                      to="/statistic/center"
-                      className="text-xs lg:text-sm font-normal text-gray-900">
+                  <div className={childrenTag === 'center' ? 'p-1 rounded-lg bg-[#e6f4ff]' : ''}>
+                    <Link to="/statistic/center" className="text-xs lg:text-sm font-normal text-gray-900">
                       Theo trung tâm bảo hành
                     </Link>
                   </div>
@@ -248,20 +200,17 @@ const SideBar = (props) => {
               <Link
                 to="/statistic/product_statistic"
                 className={
-                  tag === "ps"
-                    ? "flex items-center p-2 text-base font-normal text-gray-900 rounded-lg bg-[#e6f4ff]"
-                    : "flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-                }>
+                  tag === 'ps'
+                    ? 'flex items-center p-2 text-base font-normal text-gray-900 rounded-lg bg-[#e6f4ff]'
+                    : 'flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700'
+                }
+              >
                 <img
-                  src="http://localhost:3000/image/statistic.png"
+                  src="https://productionmove-b4ce5.web.app/image/statistic.png"
                   alt="statistic"
-                  className={`w-4 md:w-4 lg:w-6 ${!open && "mx-auto"}`}
+                  className={`w-4 md:w-4 lg:w-6 ${!open && 'mx-auto'}`}
                 />
-                {open && (
-                  <span className="ml-3 text-xs sm:text-sm md:text-base">
-                    Thống kê sản phẩm
-                  </span>
-                )}
+                {open && <span className="ml-3 text-xs sm:text-sm md:text-base">Thống kê sản phẩm</span>}
               </Link>
             </li>
           )}
@@ -270,21 +219,17 @@ const SideBar = (props) => {
               <Link
                 to="/statistic/sold_statistic"
                 className={
-                  tag === "ss"
-                    ? "flex items-center p-2 text-base font-normal text-gray-900 rounded-lg bg-[#e6f4ff]"
-                    : "flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-                }>
+                  tag === 'ss'
+                    ? 'flex items-center p-2 text-base font-normal text-gray-900 rounded-lg bg-[#e6f4ff]'
+                    : 'flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700'
+                }
+              >
                 <img
-                  src="http://localhost:3000/image/statistic.png"
+                  src="https://productionmove-b4ce5.web.app/image/statistic.png"
                   alt="statistic"
-                  className={`w-4 md:w-4 lg:w-6 ${!open && "mx-auto"}`}
+                  className={`w-4 md:w-4 lg:w-6 ${!open && 'mx-auto'}`}
                 />
-                {open && (
-                  <span className="ml-3 text-xs sm:text-sm md:text-base">
-                    {" "}
-                    Thống kê sản phẩm bán ra{" "}
-                  </span>
-                )}
+                {open && <span className="ml-3 text-xs sm:text-sm md:text-base"> Thống kê sản phẩm bán ra </span>}
               </Link>
             </li>
           )}
@@ -293,43 +238,32 @@ const SideBar = (props) => {
               <Link
                 to="/statistic/failed_statistic"
                 className={
-                  tag === "fs" && !childrenTag
-                    ? "flex items-center p-2 text-base font-normal text-gray-900 rounded-lg bg-[#e6f4ff]"
-                    : "flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-                }>
+                  tag === 'fs' && !childrenTag
+                    ? 'flex items-center p-2 text-base font-normal text-gray-900 rounded-lg bg-[#e6f4ff]'
+                    : 'flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700'
+                }
+              >
                 <img
-                  src="http://localhost:3000/image/statistic.png"
+                  src="https://productionmove-b4ce5.web.app/image/statistic.png"
                   alt="statistic"
-                  className={`w-4 md:w-4 lg:w-6 ${!open && "mx-auto"}`}
+                  className={`w-4 md:w-4 lg:w-6 ${!open && 'mx-auto'}`}
                 />
-                {open && (
-                  <span className="ml-3 text-xs sm:text-sm md:text-base">
-                    {" "}
-                    Thống kê sản phẩm bị lỗi{" "}
-                  </span>
-                )}
+                {open && <span className="ml-3 text-xs sm:text-sm md:text-base"> Thống kê sản phẩm bị lỗi </span>}
               </Link>
-              {tag === "fs" && (
+              {tag === 'fs' && (
                 <div className="flex flex-col items-start ml-11 text-xs lg:text-sm space-y-1">
-                  <div
-                    className={
-                      childrenTag === "fpl" ? "p-1 rounded-lg bg-[#e6f4ff]" : ""
-                    }>
-                    <Link
-                      to="/statistic/failed_productline"
-                      className="text-xs lg:text-sm font-normal text-gray-900">
-                      {" "}
-                      Theo dòng sản phẩm{" "}
+                  <div className={childrenTag === 'fpl' ? 'p-1 rounded-lg bg-[#e6f4ff]' : ''}>
+                    <Link to="/statistic/failed_productline" className="text-xs lg:text-sm font-normal text-gray-900">
+                      {' '}
+                      Theo dòng sản phẩm{' '}
                     </Link>
                   </div>
 
-                  <div
-                    className={
-                      childrenTag === "fmf" ? "p-1 rounded-lg bg-[#e6f4ff]" : ""
-                    }>
+                  <div className={childrenTag === 'fmf' ? 'p-1 rounded-lg bg-[#e6f4ff]' : ''}>
                     <Link
                       to="/statistic/failed_manufacture_factory"
-                      className="text-xs lg:text-sm font-normal text-gray-900">
+                      className="text-xs lg:text-sm font-normal text-gray-900"
+                    >
                       Theo đại lý phân phối
                     </Link>
                   </div>
