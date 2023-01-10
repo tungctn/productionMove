@@ -12,6 +12,7 @@ const corsOptions = {
     "http://localhost:3000",
     "http://127.0.0.1:3000",
     "https://plm-api.onrender.com",
+    "http://192.168.1.108:58058"
   ],
   credentials: true,
   exposedHeaders: ["set-cookie"],
