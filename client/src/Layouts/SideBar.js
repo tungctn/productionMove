@@ -18,7 +18,7 @@ const SideBar = (props) => {
       <div onClick={onClick}>
         {open ? (
           <img
-            src="https://productionmove-b4ce5.web.app/image/logo.png"
+            src="/image/logo.png"
             alt="logo"
             className="h-8 md:h-8 lg:h-16 mx-auto w-[140px] mt-[10px]"
           />
@@ -41,7 +41,7 @@ const SideBar = (props) => {
                 }
               >
                 <img
-                  src="https://productionmove-b4ce5.web.app/image/kho.png"
+                  src="/image/kho.png"
                   alt="kho"
                   className={`w-4 md:w-4 lg:w-6 ${!open && 'mx-auto'}`}
                 />
@@ -60,7 +60,7 @@ const SideBar = (props) => {
                 }
               >
                 <img
-                  src="https://productionmove-b4ce5.web.app/image/daily.png"
+                  src="/image/daily.png"
                   alt="kho"
                   className={`w-4 md:w-4 lg:w-6 ${!open && 'mx-auto'}`}
                 />
@@ -80,7 +80,7 @@ const SideBar = (props) => {
                 }
               >
                 <img
-                  src="https://productionmove-b4ce5.web.app/image/request.png"
+                  src="/image/request.png"
                   alt="kho"
                   className={`w-4 md:w-4 lg:w-6 ${!open && 'mx-auto'}`}
                 />
@@ -100,7 +100,7 @@ const SideBar = (props) => {
                 }
               >
                 <img
-                  src="https://productionmove-b4ce5.web.app/image/kho.png"
+                  src="/image/kho.png"
                   alt="dsp"
                   className={`w-4 md:w-4 lg:w-6 ${!open && 'mx-auto'}`}
                 />
@@ -120,7 +120,7 @@ const SideBar = (props) => {
                 }
               >
                 <img
-                  src="https://productionmove-b4ce5.web.app/image/kho.png"
+                  src="/image/kho.png"
                   alt="kho"
                   className={`w-4 md:w-4 lg:w-6 ${!open && 'mx-auto'}`}
                 />
@@ -140,7 +140,7 @@ const SideBar = (props) => {
                 }
               >
                 <img
-                  src="https://productionmove-b4ce5.web.app/image/kho.png"
+                  src="/image/kho.png"
                   alt="kho"
                   className={`w-4 md:w-4 lg:w-6 ${!open && 'mx-auto'}`}
                 />
@@ -159,7 +159,7 @@ const SideBar = (props) => {
                 }
               >
                 <img
-                  src="https://productionmove-b4ce5.web.app/image/statistic.png"
+                  src="/image/statistic.png"
                   alt="statistic"
                   className={`w-4 md:w-4 lg:w-6 ${!open && 'mx-auto'}`}
                 />
@@ -206,7 +206,7 @@ const SideBar = (props) => {
                 }
               >
                 <img
-                  src="https://productionmove-b4ce5.web.app/image/statistic.png"
+                  src="/image/statistic.png"
                   alt="statistic"
                   className={`w-4 md:w-4 lg:w-6 ${!open && 'mx-auto'}`}
                 />
@@ -225,7 +225,7 @@ const SideBar = (props) => {
                 }
               >
                 <img
-                  src="https://productionmove-b4ce5.web.app/image/statistic.png"
+                  src="/image/statistic.png"
                   alt="statistic"
                   className={`w-4 md:w-4 lg:w-6 ${!open && 'mx-auto'}`}
                 />
@@ -244,7 +244,7 @@ const SideBar = (props) => {
                 }
               >
                 <img
-                  src="https://productionmove-b4ce5.web.app/image/statistic.png"
+                  src="/image/statistic.png"
                   alt="statistic"
                   className={`w-4 md:w-4 lg:w-6 ${!open && 'mx-auto'}`}
                 />
