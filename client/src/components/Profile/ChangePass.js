@@ -33,7 +33,7 @@ const ChangePass = (props) => {
     setFormData({ ...formData, [propName]: value });
   };
   return (
-    <div>
+    <div className='mt-5'>
       <Button type="primary" onClick={showModal}>
         Thay đổi mật khẩu
       </Button>

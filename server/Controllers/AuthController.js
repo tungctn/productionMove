@@ -14,6 +14,7 @@ module.exports.genarateAccessToken = (user) => {
       admin: user.admin,
       role: user.role,
       requestList: user.requestList,
+      img: user.img,
     },
     process.env.ACCESS_TOKEN_SECRET,
     { expiresIn: "10h" }
@@ -37,7 +38,7 @@ module.exports.loginUser = async (req, res, next) => {
 
     res.cookie("accessToken", accessToken, {
       httpOnly: true,
-      secure: true,
+      secure: false,
       path: "/",
       samSite: "strict",
     });

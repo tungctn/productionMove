@@ -6,7 +6,8 @@ import { useAppContext } from '../../contexts/AppContext';
 import { useProductLineContext } from '../../contexts/ProductLineContext';
 import Default from '../../Layouts/Default';
 
-const ProductLine = () => {
+const ProductLine = (props) => {
+  const { role } = props;
   const dataColumn = [
     {
       title: 'STT',
@@ -38,12 +39,9 @@ const ProductLine = () => {
     loadListProductLine,
   } = useProductLineContext();
 
-  const {
-    authState: { user },
-    checkMiddleware,
-  } = useAppContext();
+  const { checkMiddleware } = useAppContext();
 
-  const dataSource = listProductLine.map((productline, index) => {
+  const dataSource = listProductLine?.map((productline, index) => {
     return {
       ...productline,
       key: index + 1,
@@ -52,7 +50,7 @@ const ProductLine = () => {
   });
 
   useEffect(() => {
-    checkMiddleware(user, () => {
+    checkMiddleware(role, () => {
       loadListProductLine();
     });
   }, []);

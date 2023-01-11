@@ -1,12 +1,12 @@
 import { Button, Form, Input, Select, Spin } from 'antd';
 import Default from '../../Layouts/Default';
-import { DownOutlined, LoadingOutlined } from '@ant-design/icons';
+import { LoadingOutlined } from '@ant-design/icons';
 import { useProductLineContext } from '../../contexts/ProductLineContext';
 import { useEffect, useState } from 'react';
 import { createProduct } from '../../api/product';
 import { useAppContext } from '../../contexts/AppContext';
-import { useNavigate } from 'react-router-dom';
-const Produce = () => {
+const Produce = (props) => {
+  const { role } = props;
   const { Option } = Select;
   const [formData, setFormData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
@@ -15,11 +15,7 @@ const Produce = () => {
     loadListProductLine,
   } = useProductLineContext();
 
-  const {
-    openNotification,
-    authState: { user },
-    checkMiddleware,
-  } = useAppContext();
+  const { openNotification, checkMiddleware } = useAppContext();
   const [isError, setIsError] = useState(false);
   const onValueChange = (e) => {
     const propName = e.target.name;
@@ -47,7 +43,7 @@ const Produce = () => {
   };
 
   useEffect(() => {
-    checkMiddleware(user, () => {
+    checkMiddleware(role, () => {
       loadListProductLine();
     });
   }, []);
@@ -59,7 +55,10 @@ const Produce = () => {
       <div className="w-full">
         <Default tagName="sx">
           <div className="w-full h-full">
-            <div className="mx-auto mt-5 text-3xl text-blue-700 font-bold"> Đơn sản xuất</div>
+            <div className="mx-auto mt-5 text-3xl text-blue-700 font-bold">
+              {' '}
+              Đơn sản xuất
+            </div>
             <div className="w-1/2 mt-20 mx-auto flex flex-col space-y-10">
               <div className="flex flex-row space-x-10">
                 <div className="w-1/3 text-xl text-right">Dòng sản phẩm: </div>
@@ -78,7 +77,9 @@ const Produce = () => {
                               return Promise.resolve();
                             } else {
                               setIsError(true);
-                              return Promise.reject(new Error('Vui lòng chọn dòng sản phẩm'));
+                              return Promise.reject(
+                                new Error('Vui lòng chọn dòng sản phẩm'),
+                              );
                             }
                           },
                         },
@@ -92,13 +93,18 @@ const Produce = () => {
                         onChange={onSelectChange}
                         showSearch
                         filterOption={(input, option) =>
-                          (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
+                          (option?.label ?? '')
+                            .toLowerCase()
+                            .includes(input.toLowerCase())
                         }
-                        status="warning"
+                        optionFilterProp="children"
                       >
                         {listProductLine.map((productline) => {
                           return (
-                            <Option value={productline._id} key={productline._id}>
+                            <Option
+                              value={productline._id}
+                              key={productline._id}
+                            >
                               {productline.name}
                             </Option>
                           );
@@ -126,7 +132,9 @@ const Produce = () => {
                               return Promise.resolve();
                             } else {
                               setIsError(true);
-                              return Promise.reject(new Error('Số lượng sản phẩm phải lớn hơn 0'));
+                              return Promise.reject(
+                                new Error('Số lượng sản phẩm phải lớn hơn 0'),
+                              );
                             }
                           },
                         },
@@ -145,7 +153,12 @@ const Produce = () => {
                 </div>
               </div>
               <div className="mt-20">
-                <Button className="block mr-0 ml-auto" type="primary" htmlType="submit" onClick={handleSubmit}>
+                <Button
+                  className="block mr-0 ml-auto"
+                  type="primary"
+                  htmlType="submit"
+                  onClick={handleSubmit}
+                >
                   Sản xuất
                 </Button>
               </div>

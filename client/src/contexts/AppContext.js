@@ -1,10 +1,16 @@
-import { createContext, useContext, useEffect, useReducer, useState } from 'react';
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useReducer,
+  useState,
+} from 'react';
 import { notification } from 'antd';
 import { loginAPI, logoutAPI, setAuthHeader } from '../api/auth';
 import { AuthReducer } from '../reducers/AuthReducer';
 import { getProfile } from '../api/user';
 import { SET_AUTH_BEGIN, SET_AUTH_FAILED, SET_AUTH_SUCCESS } from '../action';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { middleware } from '../middleware';
 
 export const AppContext = createContext();
@@ -23,6 +29,7 @@ export const initState = {
 const AppContextProvider = (props) => {
   const [authState, dispatch] = useReducer(AuthReducer, initState);
   const navigate = useNavigate();
+  const { id } = useParams();
   const openNotification = (type, message, description) => {
     notification[type]({
       message,
@@ -46,13 +53,19 @@ const AppContextProvider = (props) => {
     const newDate = new Date(date);
     switch (product.productLine.timePeriod.unit) {
       case 0:
-        newDate.setDate(newDate.getDate() + product.productLine.timePeriod.period);
+        newDate.setDate(
+          newDate.getDate() + product.productLine.timePeriod.period,
+        );
         break;
       case 1:
-        newDate.setMonth(newDate.getMonth() + product.productLine.timePeriod.period);
+        newDate.setMonth(
+          newDate.getMonth() + product.productLine.timePeriod.period,
+        );
         break;
       case 2:
-        newDate.setFullYear(newDate.getFullYear() + product.productLine.timePeriod.period);
+        newDate.setFullYear(
+          newDate.getFullYear() + product.productLine.timePeriod.period,
+        );
         break;
       default:
         break;
@@ -214,15 +227,21 @@ const AppContextProvider = (props) => {
     }
   };
 
-  const checkMiddleware = (user, next) => {
-    if (!middleware[user.role - 1].path.includes(window.location.pathname)) {
-      let path = window.location.pathname;
-      let pathArr = middleware[user.role - 1].path;
-      gotoMainPage(user);
-      openNotification('error', 'Bạn không có quyền truy cập trang này');
-      console.log(path, pathArr);
-    } else {
+  const checkMiddleware = (role, next) => {
+    // if (!middleware[user.role - 1].path.includes(window.location.pathname)) {
+    //   let path = window.location.pathname;
+    //   let pathArr = middleware[user.role - 1].path;
+    //   gotoMainPage(user);
+    //   openNotification('error', 'Bạn không có quyền truy cập trang này');
+    //   console.log(path, pathArr);
+    // } else {
+    //   next();
+    // }
+    if (role.includes(authState.user?.role)) {
       next();
+    } else {
+      gotoMainPage(authState.user);
+      openNotification('error', 'Bạn không có quyền truy cập trang này');
     }
   };
 
@@ -253,7 +272,9 @@ const AppContextProvider = (props) => {
     checkMiddleware,
   };
 
-  return <AppContext.Provider value={data}>{props.children}</AppContext.Provider>;
+  return (
+    <AppContext.Provider value={data}>{props.children}</AppContext.Provider>
+  );
 };
 
 const useAppContext = () => {

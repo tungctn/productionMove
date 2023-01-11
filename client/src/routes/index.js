@@ -23,32 +23,59 @@ import Status from '../pages/statistic/Status';
 import User from '../pages/user/User';
 
 const publicRoutes = [
-  { path: '/profile', component: <Profile /> },
-  { path: '/home', component: <Home /> },
-  { path: '/product/:id', component: <Product /> },
-  { path: '/produce', component: <Produce /> },
-  { path: '/request', component: <Request /> },
-  { path: '/productline', component: <ProductLine /> },
-  { path: '/productline/:id', component: <ProductLineInfo /> },
-  { path: '/productline/:id/edit', component: <ProductLineUpdate /> },
-  { path: '/productline/create', component: <ProductLineAdd /> },
-  { path: '/statistic', component: <Statistic /> },
-  { path: '/statistic/status', component: <Status /> },
-  { path: '/statistic/manufacture_factory', component: <ManufactureFactory /> },
-  { path: '/statistic/sale', component: <Sale /> },
-  { path: '/statistic/center', component: <Center /> },
-  { path: '/statistic/product_statistic', component: <ProductStatistic /> },
-  { path: '/statistic/sold_statistic', component: <SoldStatistic /> },
-  { path: '/statistic/failed_statistic', component: <FailedStatistic /> },
+  { path: '/profile', component: <Profile role={[1, 2, 3, 4]} /> },
+  { path: '/home', component: <Home role={[2, 3, 4]} /> },
+  {
+    path: '/product/:id',
+    component: <Product role={[2, 3, 4]} />,
+  },
+  { path: '/produce', component: <Produce role={[2]} /> },
+  {
+    path: '/request',
+    component: <Request role={[2, 3, 4]} />,
+  },
+  { path: '/productline', component: <ProductLine role={[1]} /> },
+  { path: '/productline/:id', component: <ProductLineInfo role={[1]} /> },
+  {
+    path: '/productline/:id/edit',
+    component: <ProductLineUpdate role={[1]} />,
+  },
+  { path: '/productline/create', component: <ProductLineAdd role={[1]} /> },
+  { path: '/statistic', component: <Statistic role={[1]} /> },
+  { path: '/statistic/status', component: <Status role={[1]} /> },
+  {
+    path: '/statistic/manufacture_factory',
+    component: <ManufactureFactory role={[1]} />,
+  },
+  { path: '/statistic/sale', component: <Sale role={[1]} /> },
+  { path: '/statistic/center', component: <Center role={[1]} /> },
+  {
+    path: '/statistic/product_statistic',
+    component: <ProductStatistic role={[2, 3, 4]} />,
+  },
+  {
+    path: '/statistic/sold_statistic',
+    component: <SoldStatistic role={[2, 3]} />,
+  },
+  {
+    path: '/statistic/failed_statistic',
+    component: <FailedStatistic role={[2]} />,
+  },
   {
     path: '/statistic/failed_manufacture_factory',
-    component: <FailedManufacturefactory />,
+    component: <FailedManufacturefactory role={[2]} />,
   },
-  { path: '/statistic/failed_productline', component: <FailedProductLine /> },
-  { path: '/user', component: <User /> },
-  { path: '/import/productline', component: <Import /> },
-  { path: '/import/productline/:id', component: <ImportDetail /> },
-  { path: '/import/productline/:id/factory', component: <Factory /> },
+  {
+    path: '/statistic/failed_productline',
+    component: <FailedProductLine role={[2]} />,
+  },
+  { path: '/user', component: <User role={[1]} /> },
+  { path: '/import/productline', component: <Import role={[3]} /> },
+  { path: '/import/productline/:id', component: <ImportDetail role={[3]} /> },
+  {
+    path: '/import/productline/:id/factory',
+    component: <Factory role={[3]} />,
+  },
 ];
 
 export { publicRoutes };

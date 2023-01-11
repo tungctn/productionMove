@@ -83,7 +83,12 @@ const ProductLineEdit = (props) => {
           </Link>
         </div>
         <div className="w-5/6 mt-5 mx-auto">
-          <Form layout="vertical" form={form} onFinish={onFinish} initialValues={{ remember: true }}>
+          <Form
+            layout="vertical"
+            form={form}
+            onFinish={onFinish}
+            initialValues={{ remember: true }}
+          >
             {/* Tên dòng xe */}
             <Form.Item
               label="Tên dòng xe"
@@ -96,7 +101,11 @@ const ProductLineEdit = (props) => {
                 },
               ]}
             >
-              <Input name="name" placeholder="input placeholder" onChange={onValueChange} />
+              <Input
+                name="name"
+                placeholder="input placeholder"
+                onChange={onValueChange}
+              />
             </Form.Item>
             {/* Khối lượng bản thân */}
             <Form.Item
@@ -110,7 +119,11 @@ const ProductLineEdit = (props) => {
                 },
               ]}
             >
-              <Input name="weight" placeholder="input placeholder" onChange={onValueChange} />
+              <Input
+                name="weight"
+                placeholder="input placeholder"
+                onChange={onValueChange}
+              />
             </Form.Item>
             {/* Dài */}
             <Form.Item
@@ -119,7 +132,11 @@ const ProductLineEdit = (props) => {
               type="text"
               rules={[{ required: true, message: 'Please input your length!' }]}
             >
-              <Input name="length" placeholder="input placeholder" onChange={onValueChange} />
+              <Input
+                name="length"
+                placeholder="input placeholder"
+                onChange={onValueChange}
+              />
             </Form.Item>
             {/* Rộng */}
             <Form.Item
@@ -133,7 +150,11 @@ const ProductLineEdit = (props) => {
                 },
               ]}
             >
-              <Input name="width" placeholder="input placeholder" onChange={onValueChange} />
+              <Input
+                name="width"
+                placeholder="input placeholder"
+                onChange={onValueChange}
+              />
             </Form.Item>
             {/* Cao */}
             <Form.Item
@@ -147,7 +168,11 @@ const ProductLineEdit = (props) => {
                 },
               ]}
             >
-              <Input name="height" placeholder="input placeholder" onChange={onValueChange} />
+              <Input
+                name="height"
+                placeholder="input placeholder"
+                onChange={onValueChange}
+              />
             </Form.Item>
             {/* Khoảng cách trục bánh xe  */}
             <Form.Item
@@ -161,7 +186,11 @@ const ProductLineEdit = (props) => {
                 },
               ]}
             >
-              <Input name="wheelAxleDistance" placeholder="input placeholder" onChange={onValueChange} />
+              <Input
+                name="wheelAxleDistance"
+                placeholder="input placeholder"
+                onChange={onValueChange}
+              />
             </Form.Item>
             {/* Chiều cao yên xe */}
             <Form.Item
@@ -175,7 +204,11 @@ const ProductLineEdit = (props) => {
                 },
               ]}
             >
-              <Input name="saddleHeight" placeholder="input placeholder" onChange={onValueChange} />
+              <Input
+                name="saddleHeight"
+                placeholder="input placeholder"
+                onChange={onValueChange}
+              />
             </Form.Item>
             {/* Khoảng cách gầm xe */}
             <Form.Item
@@ -189,7 +222,11 @@ const ProductLineEdit = (props) => {
                 },
               ]}
             >
-              <Input name="groundClearance" placeholder="input placeholder" onChange={onValueChange} />
+              <Input
+                name="groundClearance"
+                placeholder="input placeholder"
+                onChange={onValueChange}
+              />
             </Form.Item>
             {/* Dung tích bình xăng */}
             <Form.Item
@@ -203,7 +240,11 @@ const ProductLineEdit = (props) => {
                 },
               ]}
             >
-              <Input name="petrolTankCapacity" placeholder="input placeholder" onChange={onValueChange} />
+              <Input
+                name="petrolTankCapacity"
+                placeholder="input placeholder"
+                onChange={onValueChange}
+              />
             </Form.Item>
             {/* Mức tiêu thụ nhiên liệu */}
             <Form.Item
@@ -217,7 +258,11 @@ const ProductLineEdit = (props) => {
                 },
               ]}
             >
-              <Input name="fuelConsumption" placeholder="input placeholder" onChange={onValueChange} />
+              <Input
+                name="fuelConsumption"
+                placeholder="input placeholder"
+                onChange={onValueChange}
+              />
             </Form.Item>
             {/* Dung tích xy-lanh */}
             <Form.Item
@@ -231,7 +276,11 @@ const ProductLineEdit = (props) => {
                 },
               ]}
             >
-              <Input name="displacementVolume" placeholder="input placeholder" onChange={onValueChange} />
+              <Input
+                name="displacementVolume"
+                placeholder="input placeholder"
+                onChange={onValueChange}
+              />
             </Form.Item>
             {/* Loại động cơ */}
             <Form.Item
@@ -245,7 +294,11 @@ const ProductLineEdit = (props) => {
                 },
               ]}
             >
-              <Input name="engineType" placeholder="input placeholder" onChange={onValueChange} />
+              <Input
+                name="engineType"
+                placeholder="input placeholder"
+                onChange={onValueChange}
+              />
             </Form.Item>
             <Form.Item
               label="Thời gian bảo hành"
@@ -255,6 +308,18 @@ const ProductLineEdit = (props) => {
                 {
                   required: true,
                   message: 'Please input your engineType!',
+                },
+                {
+                  validator: (rule, value) => {
+                    if (value < 0) {
+                      return Promise.reject('Thời gian bảo hành không hợp lệ');
+                    } else if (value > 100) {
+                      return Promise.reject('Thời gian bảo hành không hợp lệ');
+                    } else if (isNaN(value)) {
+                      return Promise.reject('Thời gian bảo hành không hợp lệ');
+                    }
+                    return Promise.resolve();
+                  },
                 },
               ]}
             >

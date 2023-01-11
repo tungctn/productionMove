@@ -6,9 +6,9 @@ import { useProductLineContext } from "../../contexts/ProductLineContext";
 import { useEffect, useState } from "react";
 import DemoLiquid from "../../components/Statistic/DemoLiquid";
 
-function FailedProductLine() {
+const FailedProductLine = (props) => {
   const [productline, setProductLine] = useState("0");
-
+  const { role } = props;
   const {
     productState: { listProduct },
     loadAllProduct,
@@ -37,7 +37,7 @@ function FailedProductLine() {
   let failedProduct = dataFiltered ? dataFiltered.length : 0;
 
   useEffect(() => {
-    checkMiddleware(user, () => {
+    checkMiddleware(role, () => {
       loadAllProduct();
       loadListProductLine();
     });

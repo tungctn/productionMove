@@ -8,13 +8,11 @@ import Default from '../../Layouts/Default';
 import Order from './Order';
 import { useAppContext } from '../../contexts/AppContext';
 
-const Factory = () => {
+const Factory = (props) => {
+  const { role } = props;
   const [listQuantity, setListQuantity] = useState([]);
   const [loading, setLoading] = useState(false);
-  const {
-    authState: { user },
-    checkMiddleware,
-  } = useAppContext();
+  const { checkMiddleware } = useAppContext();
   const { id } = useParams();
   const dataColumn = [
     {
@@ -52,7 +50,7 @@ const Factory = () => {
   };
 
   useEffect(() => {
-    checkMiddleware(user, () => {
+    checkMiddleware(role, () => {
       loadListQuantity();
     });
   }, [id]);
@@ -75,7 +73,11 @@ const Factory = () => {
           </Navigate>
         </div>
         <div className="w-11/12 mt-5 mx-auto">
-          <TableInfo dataColumn={dataColumn} dataSource={dataSource} loading={loading} />
+          <TableInfo
+            dataColumn={dataColumn}
+            dataSource={dataSource}
+            loading={loading}
+          />
         </div>
       </Default>
     </div>

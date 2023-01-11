@@ -10,7 +10,11 @@ module.exports.verifyToken = (req, res, next) => {
     const accessToken = token.replace("Bearer ", "");
     jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
       if (err) {
-        return response.sendErrorResponse(res, "Phiên đăng nhập đã hết hạn", 403);
+        return response.sendErrorResponse(
+          res,
+          "Phiên đăng nhập đã hết hạn",
+          403
+        );
       }
       req.user = user;
       next();

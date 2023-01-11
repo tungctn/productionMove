@@ -21,9 +21,7 @@ export const createUser = async (data) => {
 };
 
 export const updateUser = async (data, id) => {
-  const response = await axios.put(`/user/${id}`, data, {
-    withCredentials: true,
-  });
+  const response = await axios.put(`/user/${id}`, data);
   return response.data;
 };
 

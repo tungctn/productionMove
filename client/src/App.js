@@ -1,13 +1,14 @@
-import "./App.css";
-import { Route, Routes } from "react-router-dom";
-import Login from "./pages/login/Login";
-import "./index.scss";
-import Page404 from "./pages/error/404";
-import Auth from "./routes/Auth";
-import RequireAuth from "./routes/RequireAuth";
-import { publicRoutes } from "./routes";
+import './App.css';
+import { Route, Routes } from 'react-router-dom';
+import Login from './pages/login/Login';
+import './index.scss';
+import Page404 from './pages/error/404';
+import Auth from './routes/Auth';
+import RequireAuth from './routes/RequireAuth';
+import { publicRoutes } from './routes';
 
 const App = () => {
+
   return (
     <div className="App">
       <Routes>

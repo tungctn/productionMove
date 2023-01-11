@@ -4,10 +4,11 @@ import { useProductContext } from '../../contexts/ProductContext';
 import { useEffect, useState } from 'react';
 import { useAppContext } from '../../contexts/AppContext';
 
-function Status() {
+const Status = (props) => {
+  const { role } = props;
   const [productState, setProductState] = useState('0');
   const {
-    productState: { listProduct },
+    productState: { listProduct, isLoading },
     loadAllProduct,
   } = useProductContext();
 
@@ -35,7 +36,7 @@ function Status() {
   } = useAppContext();
 
   useEffect(() => {
-    checkMiddleware(user, () => {
+    checkMiddleware(role, () => {
       loadAllProduct();
     });
   }, []);
@@ -43,7 +44,10 @@ function Status() {
   return (
     <Default tagName="stt" childrenName="stt">
       <div className="w-1/4 mx-auto mt-10 items-start">
-        <label htmlFor="countries" className="block mb-2 text-xl font-medium text-blue-600 dark:text-white">
+        <label
+          htmlFor="countries"
+          className="block mb-2 text-xl font-medium text-blue-600 dark:text-white"
+        >
           Chọn trạng thái
         </label>
         <select
@@ -63,24 +67,30 @@ function Status() {
           <option value="8">Lỗi cần đưa về cơ sở sản xuất</option>
           <option value="9">Lỗi cần thu hồi</option>
           <option value="10">Đã hết thời gian bảo hành</option>
-          <option value="11">Trả lại cơ sở sản xuất do lâu không được bán</option>
+          <option value="11">
+            Trả lại cơ sở sản xuất do lâu không được bán
+          </option>
         </select>
       </div>
       <div className="w-5/6 mx-auto mt-10">
         {dataSource.length !== 0 && (
           <div>
-            <DemoPie data={dataSource}></DemoPie>
-            <div className="mt-5 text-xl text-blue-900 font-bold">Tổng số sản phẩm: {sumProduct}</div>
+            <DemoPie data={dataSource} loading={isLoading} />
+            <div className="mt-5 text-xl text-blue-900 font-bold">
+              Tổng số sản phẩm: {sumProduct}
+            </div>
           </div>
         )}
         {dataSource.length === 0 && (
           <div className="container justify-items-center">
-            <div className="text-3xl text-blue-200 mt-32">Không có sản phẩm nào !</div>
+            <div className="text-3xl text-blue-200 mt-32">
+              Không có sản phẩm nào !
+            </div>
           </div>
         )}
       </div>
     </Default>
   );
-}
+};
 
 export default Status;

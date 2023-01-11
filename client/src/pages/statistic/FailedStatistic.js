@@ -5,9 +5,10 @@ import { useAppContext } from "../../contexts/AppContext";
 import { useEffect, useState } from "react";
 import DemoLiquid from "../../components/Statistic/DemoLiquid";
 
-function FailedStatistic() {
+const FailedStatistic = (props) => {
+  const { role } = props;
   const {
-    productState: { listProduct },
+    productState: { listProduct, isLoading },
     loadAllProduct,
   } = useProductContext();
   const {
@@ -24,7 +25,7 @@ function FailedStatistic() {
   let sumProduct = dataFiltered.length ? dataFiltered.length : 0;
 
   useEffect(() => {
-    checkMiddleware(user, () => {
+    checkMiddleware(role, () => {
       loadAllProduct();
     });
   }, []);

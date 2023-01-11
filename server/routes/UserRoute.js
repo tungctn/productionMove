@@ -30,7 +30,8 @@ userRouter.post(
 
 userRouter.put(
   "/:id",
-  verifyUser.verifyAdmin,
+  // verifyUser.verifyAdmin,
+  MiddlewareAuth.verifyToken,
   TryCatch(UserController.updateUser)
 );
 

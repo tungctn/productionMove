@@ -1,38 +1,39 @@
-import React, { useEffect } from "react";
-import SearchUser from "../../components/SearchFilter/SearchUser";
-import TableInfo from "../../components/TableInfo/TableInfo";
-import DeleteUser from "../../components/UserForm/DeleteUser";
-import EditUser from "../../components/UserForm/EditUser";
-import { useAppContext } from "../../contexts/AppContext";
-import { useUserContext } from "../../contexts/UserContext";
-import Default from "../../Layouts/Default";
+import React, { useEffect } from 'react';
+import SearchUser from '../../components/SearchFilter/SearchUser';
+import TableInfo from '../../components/TableInfo/TableInfo';
+import DeleteUser from '../../components/UserForm/DeleteUser';
+import EditUser from '../../components/UserForm/EditUser';
+import { useAppContext } from '../../contexts/AppContext';
+import { useUserContext } from '../../contexts/UserContext';
+import Default from '../../Layouts/Default';
 
-const User = () => {
+const User = (props) => {
+  const { role } = props;
   const dataColumn = [
     {
-      title: "STT",
-      dataIndex: "key",
-      key: "key",
+      title: 'STT',
+      dataIndex: 'key',
+      key: 'key',
     },
     {
-      title: "Tên nhân viên",
-      dataIndex: "name",
-      key: "name",
+      title: 'Tên nhân viên',
+      dataIndex: 'name',
+      key: 'name',
       render: (text) => <a>{text}</a>,
     },
     {
-      title: "Email",
-      dataIndex: "email",
-      key: "email",
+      title: 'Email',
+      dataIndex: 'email',
+      key: 'email',
     },
     {
-      title: "Chức vụ",
-      dataIndex: "role",
-      key: "role",
+      title: 'Chức vụ',
+      dataIndex: 'role',
+      key: 'role',
     },
     {
-      title: "Hành động",
-      key: "action",
+      title: 'Hành động',
+      key: 'action',
       render: (_, record) => (
         <>
           <EditUser id={record._id} />
@@ -54,7 +55,7 @@ const User = () => {
   } = useAppContext();
 
   useEffect(() => {
-    checkMiddleware(user, () => {
+    checkMiddleware(role, () => {
       loadListUser();
     });
   }, []);

@@ -10,7 +10,8 @@ import { useProductContext } from '../../contexts/ProductContext';
 import SearchRequest from '../../components/SearchFilter/SearchRequest';
 import Loading from '../../components/Loading/Loading';
 
-const Request = () => {
+const Request = (props) => {
+  const { role } = props;
   const { TextArea } = Input;
   const {
     authState: { user },
@@ -66,7 +67,9 @@ const Request = () => {
         productLine: record.productLine._id,
       });
     } else if (record.type === 4) {
-      setInformation(`${record.requester.name} yêu cầu trả sản phẩm từ ${record.recipient.name}`);
+      setInformation(
+        `${record.requester.name} yêu cầu trả sản phẩm từ ${record.recipient.name}`,
+      );
       setData({
         ...data,
         amount: record.amount,
@@ -74,7 +77,9 @@ const Request = () => {
         productLine: record.productLine._id,
       });
     } else if (record.type === 1) {
-      setInformation(`${record.requester.name} yêu cầu bảo hành sản phẩm từ ${record.recipient.name}`);
+      setInformation(
+        `${record.requester.name} yêu cầu bảo hành sản phẩm từ ${record.recipient.name}`,
+      );
       setData({
         ...data,
         amount: record.amount,
@@ -82,7 +87,9 @@ const Request = () => {
         productLine: record.product.productLine._id,
       });
     } else if (record.type === 2) {
-      setInformation(`${record.requester.name} yêu cầu nhân sản phẩm bảo hành từ ${record.recipient.name}`);
+      setInformation(
+        `${record.requester.name} yêu cầu nhân sản phẩm bảo hành từ ${record.recipient.name}`,
+      );
       setData({
         ...data,
         amount: record.amount,
@@ -148,7 +155,10 @@ const Request = () => {
       );
     } else if (record.type === 5) {
       const dataProduct = listProduct?.filter((product) => {
-        return product.status === 1 && product.productLine._id === record.product.productLine;
+        return (
+          product.status === 1 &&
+          product.productLine._id === record.product.productLine
+        );
       });
       if (dataProduct.length === 0) {
         openNotification('error', 'Không có sản phẩm để bàn giao');
@@ -182,8 +192,14 @@ const Request = () => {
     }
     if (response?.success) {
       openNotification('success', 'Chấp nhận yêu cầu thành công');
-      await updateRequest(record._id, convertObjectToArray({ ...feedback, status: 3 }));
-      await updateRequest(record.refRequest, convertObjectToArray({ ...feedback, status: 3 }));
+      await updateRequest(
+        record._id,
+        convertObjectToArray({ ...feedback, status: 3 }),
+      );
+      await updateRequest(
+        record.refRequest,
+        convertObjectToArray({ ...feedback, status: 3 }),
+      );
       setLoading(false);
       // navigate("/request");
       loadListRequest();
@@ -193,8 +209,14 @@ const Request = () => {
     }
   };
   const handleReject = async () => {
-    const response1 = await updateRequest(record._id, convertObjectToArray({ ...feedback, status: 4 }));
-    const response2 = await updateRequest(record.refRequest, convertObjectToArray({ ...feedback, status: 4 }));
+    const response1 = await updateRequest(
+      record._id,
+      convertObjectToArray({ ...feedback, status: 4 }),
+    );
+    const response2 = await updateRequest(
+      record.refRequest,
+      convertObjectToArray({ ...feedback, status: 4 }),
+    );
     if (response1.success && response2.success) {
       openNotification('success', response1.msg);
       loadListRequest();
@@ -246,7 +268,7 @@ const Request = () => {
   ];
 
   useEffect(() => {
-    checkMiddleware(user, () => {
+    checkMiddleware(role, () => {
       loadListRequest();
       loadUserProduct();
     });

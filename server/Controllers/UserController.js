@@ -43,19 +43,28 @@ module.exports.createUser = async (req, res) => {
 
 module.exports.updateUser = async (req, res) => {
   const updateOps = {};
-  for (const ops of req.body) {
-    updateOps[ops.propName] = ops.value;
+  if (req.user.id !== req.params.id && req.user.role !== 1) {
+    return response.sendErrorResponse(
+      res,
+      "Không thể cập nhật nguời khác",
+      500
+    );
+  } else {
+    for (const ops of req.body) {
+      updateOps[ops.propName] = ops.value;
+    }
+
+    await User.findByIdAndUpdate(req.params.id, {
+      $set: { ...updateOps },
+    });
+    const newUser = await User.findById(req.params.id);
+    return response.sendSuccessResponse(
+      res,
+      newUser,
+      "Cập nhật thành công người dùng",
+      200
+    );
   }
-  await User.findByIdAndUpdate(req.params.id, {
-    $set: { ...updateOps },
-  });
-  const newUser = await User.findById(req.params.id);
-  return response.sendSuccessResponse(
-    res,
-    newUser,
-    "Cập nhật thành công người dùng",
-    200
-  );
 };
 
 module.exports.deleteUser = async (req, res) => {

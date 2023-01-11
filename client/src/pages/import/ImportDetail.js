@@ -5,16 +5,14 @@ import Default from '../../Layouts/Default';
 import { LeftOutlined } from '@ant-design/icons';
 import { useAppContext } from '../../contexts/AppContext';
 
-const ImportDetail = () => {
+const ImportDetail = (props) => {
+  const { role } = props;
   const { id } = useParams();
 
-  const {
-    authState: { user },
-    checkMiddleware,
-  } = useAppContext();
+  const { checkMiddleware } = useAppContext();
 
   useEffect(() => {
-    checkMiddleware(user, () => {});
+    checkMiddleware(role, () => {});
   }, []);
 
   return (

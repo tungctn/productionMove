@@ -1,12 +1,13 @@
-import Default from "../../Layouts/Default";
-import DemoPie from "../../components/Statistic/DemoPie";
-import { useProductContext } from "../../contexts/ProductContext";
-import { useEffect } from "react";
-import { useAppContext } from "../../contexts/AppContext";
+import Default from '../../Layouts/Default';
+import DemoPie from '../../components/Statistic/DemoPie';
+import { useProductContext } from '../../contexts/ProductContext';
+import { useEffect, useState } from 'react';
+import { useAppContext } from '../../contexts/AppContext';
 
-function Statistic() {
+const Statistic = (props) => {
+  const { role } = props;
   const {
-    productState: { listProduct },
+    productState: { listProduct, isLoading },
     loadAllProduct,
   } = useProductContext();
   const {
@@ -25,7 +26,7 @@ function Statistic() {
     return { type: key, sales: c[key] };
   });
   useEffect(() => {
-    checkMiddleware(user, () => {
+    checkMiddleware(role, () => {
       loadAllProduct();
     });
   }, []);
@@ -36,13 +37,13 @@ function Statistic() {
         Thống kê toàn quốc
       </div>
       <div className="w-5/6 mx-auto mt-20">
-        <DemoPie data={dataSource}></DemoPie>
+        <DemoPie data={dataSource} loading={isLoading} />
         <div className="mt-5 text-xl text-blue-900 font-bold">
           Tổng số sản phẩm: {sumProduct}
         </div>
       </div>
     </Default>
   );
-}
+};
 
 export default Statistic;

@@ -6,9 +6,9 @@ import { useUserContext } from '../../contexts/UserContext';
 import { useEffect, useState } from 'react';
 import DemoLiquid from '../../components/Statistic/DemoLiquid';
 
-function FailedManufacturefactory() {
+const FailedManufacturefactory = (props) => {
   const [sale, setSale] = useState('0');
-
+  const { role } = props;
   const {
     productState: { listProduct },
     loadAllProduct,
@@ -42,7 +42,7 @@ function FailedManufacturefactory() {
   let failedProduct = dataFiltered ? dataFiltered.length : 0;
 
   useEffect(() => {
-    checkMiddleware(user, () => {
+    checkMiddleware(role, () => {
       loadAllProduct();
       loadListUser();
     });

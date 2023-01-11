@@ -1,18 +1,15 @@
-import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import SearchProduct from "../../components/SearchFilter/SearchProduct";
-import TableInfo from "../../components/TableInfo/TableInfo";
-import { useAppContext } from "../../contexts/AppContext";
-import { useProductContext } from "../../contexts/ProductContext";
-import { useRequestContext } from "../../contexts/RequestContext";
-import Default from "../../Layouts/Default";
-
-const Home = () => {
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import SearchProduct from '../../components/SearchFilter/SearchProduct';
+import TableInfo from '../../components/TableInfo/TableInfo';
+import { useAppContext } from '../../contexts/AppContext';
+import { useProductContext } from '../../contexts/ProductContext';
+import Default from '../../Layouts/Default';
+const Home = (props) => {
+  const { role } = props;
   const navigate = useNavigate();
   const {
     convertStatusToNameProduct,
-    openNotification,
-    authState: { user },
     checkMiddleware,
   } = useAppContext();
   const {
@@ -21,28 +18,28 @@ const Home = () => {
   } = useProductContext();
   const dataColumn = [
     {
-      title: "STT",
-      dataIndex: "key",
-      key: "key",
+      title: 'STT',
+      dataIndex: 'key',
+      key: 'key',
     },
     {
-      title: "Mã định danh",
-      dataIndex: "identifier",
-      key: "identifier",
+      title: 'Mã định danh',
+      dataIndex: 'identifier',
+      key: 'identifier',
     },
     {
-      title: "Dòng sản phẩm",
-      dataIndex: "productline",
-      key: "productline",
+      title: 'Dòng sản phẩm',
+      dataIndex: 'productline',
+      key: 'productline',
     },
     {
-      title: "Trạng thái",
-      dataIndex: "status",
-      key: "status",
+      title: 'Trạng thái',
+      dataIndex: 'status',
+      key: 'status',
     },
   ];
   useEffect(() => {
-    checkMiddleware(user, () => {
+    checkMiddleware(role, () => {
       loadUserProduct();
     });
   }, []);
@@ -76,5 +73,4 @@ const Home = () => {
     </div>
   );
 };
-
 export default Home;

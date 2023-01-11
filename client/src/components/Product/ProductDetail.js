@@ -112,7 +112,11 @@ const ProductDetail = (props) => {
         { propName: 'status', value: 2 },
         {
           propName: 'deadTime',
-          value: deadDate(new Date(), productLine?.timePeriod.period, productLine?.timePeriod.unit),
+          value: deadDate(
+            new Date(),
+            productLine?.timePeriod.period,
+            productLine?.timePeriod.unit,
+          ),
         },
       ]);
       if (response.success) {
@@ -158,7 +162,10 @@ const ProductDetail = (props) => {
           openNotification('error', 'Failed');
         }
       } else {
-        response = await updateProduct(id, convertObjectToArray({ status: 10 }));
+        response = await updateProduct(
+          id,
+          convertObjectToArray({ status: 10 }),
+        );
         if (response.success) {
           openNotification('success', 'Đã hết hạn bảo hành');
           loadProduct(id);
@@ -285,7 +292,9 @@ const ProductDetail = (props) => {
     <Loading spinning={isLoading}>
       <div>
         <Image src={productLine.img} width={400} preview={false} />
-        <h2 className="font-bold text-base">Trạng thái: {product?.statusName}</h2>
+        <h2 className="font-bold text-base">
+          Trạng thái: {product?.statusName}
+        </h2>
         <div className="text-right text-2xl text-cyan-500">
           {user.role === 3 && (
             <div>
@@ -367,17 +376,28 @@ const ProductDetail = (props) => {
               setShowClient(!showClient);
             }}
           >
-            Thông tin khách hàng {showClient ? <UpOutlined /> : <DownOutlined />}
+            Thông tin khách hàng{' '}
+            {showClient ? <UpOutlined /> : <DownOutlined />}
           </h1>
         )}
 
         {showClient && (
           <Descriptions bordered column={1}>
-            <Descriptions.Item label="Tên khách hàng">{product?.customer?.name}</Descriptions.Item>
-            <Descriptions.Item label="Email">{product?.customer?.email}</Descriptions.Item>
-            <Descriptions.Item label="Địa chỉ">{product?.customer?.address}</Descriptions.Item>
-            <Descriptions.Item label="Số điện thoại">{product?.customer?.phone}</Descriptions.Item>
-            <Descriptions.Item label="Ngày bán">{product?.customer?.soldDate.split('T')[0]}</Descriptions.Item>
+            <Descriptions.Item label="Tên khách hàng">
+              {product?.customer?.name}
+            </Descriptions.Item>
+            <Descriptions.Item label="Email">
+              {product?.customer?.email}
+            </Descriptions.Item>
+            <Descriptions.Item label="Địa chỉ">
+              {product?.customer?.address}
+            </Descriptions.Item>
+            <Descriptions.Item label="Số điện thoại">
+              {product?.customer?.phone}
+            </Descriptions.Item>
+            <Descriptions.Item label="Ngày bán">
+              {product?.customer?.soldDate.split('T')[0]}
+            </Descriptions.Item>
           </Descriptions>
         )}
 
@@ -391,20 +411,45 @@ const ProductDetail = (props) => {
         </h1>
         {showProduct && (
           <Descriptions bordered column={1}>
-            <Descriptions.Item label="Tên dòng xe">{productLine.name}</Descriptions.Item>
-            <Descriptions.Item label="Khối lượng bản thân">{productLine.weight}</Descriptions.Item>
-            <Descriptions.Item label="Dài">{productLine.length}</Descriptions.Item>
-            <Descriptions.Item label="Rộng">{productLine.width}</Descriptions.Item>
-            <Descriptions.Item label="Cao">{productLine.height}</Descriptions.Item>
-            <Descriptions.Item label="Khoảng cách trục bánh xe">{productLine.wheelAxleDistance}</Descriptions.Item>
-            <Descriptions.Item label="Chiều cao yên xe">{productLine.saddleHeight}</Descriptions.Item>
-            <Descriptions.Item label="Khoảng cách gầm xe">{productLine.groundClearance}</Descriptions.Item>
-            <Descriptions.Item label="Dung tích bình xăng">{productLine.petrolTankCapacity}</Descriptions.Item>
-            <Descriptions.Item label="Mức tiêu thụ nhiên liệu">{productLine.fuelConsumption}</Descriptions.Item>
-            <Descriptions.Item label="Dung tích xy-lanh">{productLine.displacementVolume}</Descriptions.Item>
-            <Descriptions.Item label="Loại động cơ">{productLine.engineType}</Descriptions.Item>
+            <Descriptions.Item label="Tên dòng xe">
+              {productLine.name}
+            </Descriptions.Item>
+            <Descriptions.Item label="Khối lượng bản thân">
+              {productLine.weight}
+            </Descriptions.Item>
+            <Descriptions.Item label="Dài">
+              {productLine.length}
+            </Descriptions.Item>
+            <Descriptions.Item label="Rộng">
+              {productLine.width}
+            </Descriptions.Item>
+            <Descriptions.Item label="Cao">
+              {productLine.height}
+            </Descriptions.Item>
+            <Descriptions.Item label="Khoảng cách trục bánh xe">
+              {productLine.wheelAxleDistance}
+            </Descriptions.Item>
+            <Descriptions.Item label="Chiều cao yên xe">
+              {productLine.saddleHeight}
+            </Descriptions.Item>
+            <Descriptions.Item label="Khoảng cách gầm xe">
+              {productLine.groundClearance}
+            </Descriptions.Item>
+            <Descriptions.Item label="Dung tích bình xăng">
+              {productLine.petrolTankCapacity}
+            </Descriptions.Item>
+            <Descriptions.Item label="Mức tiêu thụ nhiên liệu">
+              {productLine.fuelConsumption}
+            </Descriptions.Item>
+            <Descriptions.Item label="Dung tích xy-lanh">
+              {productLine.displacementVolume}
+            </Descriptions.Item>
+            <Descriptions.Item label="Loại động cơ">
+              {productLine.engineType}
+            </Descriptions.Item>
             <Descriptions.Item label="Thời hạn bảo hành">
-              {productLine.timePeriod.period} {convertUnitToName(productLine.timePeriod.unit)}
+              {productLine.timePeriod.period}{' '}
+              {convertUnitToName(productLine.timePeriod.unit)}
             </Descriptions.Item>
           </Descriptions>
         )}
@@ -430,14 +475,20 @@ const ProductDetail = (props) => {
                       if (value) {
                         if (value.length > 50) {
                           setIsError(true);
-                          return Promise.reject('Tên khách hàng không được quá 50 ký tự');
+                          return Promise.reject(
+                            'Tên khách hàng không được quá 50 ký tự',
+                          );
                         } else if (value.length < 3) {
                           setIsError(true);
-                          return Promise.reject('Tên khách hàng không được ít hơn 3 ký tự');
+                          return Promise.reject(
+                            'Tên khách hàng không được ít hơn 3 ký tự',
+                          );
                           // pattern: /^[a-zA-Z0-9]+$/,
                         } else if (!/^[a-zA-Z ]+$/.test(value)) {
                           setIsError(true);
-                          return Promise.reject('Tên khách hàng không được chứa ký tự đặc biệt');
+                          return Promise.reject(
+                            'Tên khách hàng không được chứa ký tự đặc biệt',
+                          );
                         } else {
                           setIsError(false);
                           return Promise.resolve();
@@ -450,7 +501,11 @@ const ProductDetail = (props) => {
                   },
                 ]}
               >
-                <Input name="name" placeholder="input placeholder" onChange={onValueChange} />
+                <Input
+                  name="name"
+                  placeholder="input placeholder"
+                  onChange={onValueChange}
+                />
               </Form.Item>
               <Form.Item
                 label="Email"
@@ -462,11 +517,17 @@ const ProductDetail = (props) => {
                       if (value) {
                         if (value.length > 50) {
                           setIsError(true);
-                          return Promise.reject('Email không được quá 50 ký tự');
+                          return Promise.reject(
+                            'Email không được quá 50 ký tự',
+                          );
                         } else if (value.length < 3) {
                           setIsError(true);
-                          return Promise.reject('Email không được ít hơn 3 ký tự');
-                        } else if (!/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(value)) {
+                          return Promise.reject(
+                            'Email không được ít hơn 3 ký tự',
+                          );
+                        } else if (
+                          !/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(value)
+                        ) {
                           setIsError(true);
                           return Promise.reject('Email không hợp lệ');
                         } else {
@@ -481,7 +542,11 @@ const ProductDetail = (props) => {
                   },
                 ]}
               >
-                <Input name="email" placeholder="input placeholder" onChange={onValueChange} />
+                <Input
+                  name="email"
+                  placeholder="input placeholder"
+                  onChange={onValueChange}
+                />
               </Form.Item>
               <Form.Item
                 label="Địa chỉ"
@@ -494,7 +559,11 @@ const ProductDetail = (props) => {
                   },
                 ]}
               >
-                <Input name="address" placeholder="input placeholder" onChange={onValueChange} />
+                <Input
+                  name="address"
+                  placeholder="input placeholder"
+                  onChange={onValueChange}
+                />
               </Form.Item>
               <Form.Item
                 label="Số điện thoại"
@@ -507,7 +576,11 @@ const ProductDetail = (props) => {
                   },
                 ]}
               >
-                <Input name="phone" placeholder="input placeholder" onChange={onValueChange} />
+                <Input
+                  name="phone"
+                  placeholder="input placeholder"
+                  onChange={onValueChange}
+                />
               </Form.Item>
             </Form>
           </Modal>
@@ -522,7 +595,9 @@ const ProductDetail = (props) => {
             okText="Ok"
             cancelText="Cancel"
           >
-            <div>Bạn có chắc chắn muốn trả sản phẩm này về nhà máy {factory} không?</div>
+            <div>
+              Bạn có chắc chắn muốn trả sản phẩm này về nhà máy {factory} không?
+            </div>
             <div>Ghi chú:</div>
             <TextArea onChange={onNoteChange}></TextArea>
           </Modal>
@@ -557,7 +632,11 @@ const ProductDetail = (props) => {
               optionFilterProp="children"
               onChange={onWarrantyChange}
               // onSearch={onSearch}
-              filterOption={(input, option) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
+              filterOption={(input, option) =>
+                (option?.label ?? '')
+                  .toLowerCase()
+                  .includes(input.toLowerCase())
+              }
               options={dataOption4}
             />
             <div>Ghi chú:</div>
@@ -574,7 +653,11 @@ const ProductDetail = (props) => {
             okText="Ok"
             cancelText="Cancel"
           >
-            {type === 1 ? <p>Bạn có chắc sản phẩm không thể bảo hành không?</p> : <p>Bạn đã bảo hành xong?</p>}
+            {type === 1 ? (
+              <p>Bạn có chắc sản phẩm không thể bảo hành không?</p>
+            ) : (
+              <p>Bạn đã bảo hành xong?</p>
+            )}
           </Modal>
         )}
         {product?.status === 5 && (
@@ -611,7 +694,9 @@ const ProductDetail = (props) => {
             okText="Ok"
             cancelText="Cancel"
           >
-            <p>Bạn có chắc chắn muốn trả sản phẩm về nhà máy {factory} không?</p>
+            <p>
+              Bạn có chắc chắn muốn trả sản phẩm về nhà máy {factory} không?
+            </p>
             <div>Ghi chú:</div>
             <TextArea onChange={onNoteChange} />
           </Modal>
@@ -626,13 +711,20 @@ const ProductDetail = (props) => {
             okText="Ok"
             cancelText="Cancel"
           >
-            <p>Bạn có chắc chắn muốn đưa sản phẩm về trung tâm bảo hành để sửa chữa không?</p>
+            <p>
+              Bạn có chắc chắn muốn đưa sản phẩm về trung tâm bảo hành để sửa
+              chữa không?
+            </p>
             <Select
               showSearch
               placeholder="Select a warrantyCenter"
               optionFilterProp="children"
               onChange={onWarrantyChange}
-              filterOption={(input, option) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
+              filterOption={(input, option) =>
+                (option?.label ?? '')
+                  .toLowerCase()
+                  .includes(input.toLowerCase())
+              }
               options={dataOption4}
             />
             <div>Ghi chú:</div>

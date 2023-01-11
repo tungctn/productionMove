@@ -17,6 +17,10 @@ const userSchema = new mongoose.Schema(
       maxlength: 100,
       unique: true,
     },
+    img: {
+      type: String,
+      default: "https://i.imgur.com/8Km9tLL.png",
+    },
     password: {
       type: String,
       required: true,

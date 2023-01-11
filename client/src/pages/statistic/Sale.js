@@ -1,14 +1,15 @@
-import Default from "../../Layouts/Default";
-import DemoPie from "../../components/Statistic/DemoPie";
-import { useProductContext } from "../../contexts/ProductContext";
-import { useUserContext } from "../../contexts/UserContext";
-import { useAppContext } from "../../contexts/AppContext";
-import { useEffect, useState } from "react";
+import Default from '../../Layouts/Default';
+import DemoPie from '../../components/Statistic/DemoPie';
+import { useProductContext } from '../../contexts/ProductContext';
+import { useUserContext } from '../../contexts/UserContext';
+import { useAppContext } from '../../contexts/AppContext';
+import { useEffect, useState } from 'react';
 
-function Sale() {
-  const [sales, setSales] = useState("0");
+const Sale = (props) => {
+  const { role } = props;
+  const [sales, setSales] = useState('0');
   const {
-    productState: { listProduct },
+    productState: { listProduct, isLoading },
     loadAllProduct,
   } = useProductContext();
 
@@ -50,11 +51,9 @@ function Sale() {
     };
   });
 
-  const dataFactory = dataSource1.filter(
-    (user) => user.role == "Đại lý phân phối"
-  );
+  const dataFactory = dataSource1.filter((user) => user.role == 'Đại lý phân phối');
   useEffect(() => {
-    checkMiddleware(user, () => {
+    checkMiddleware(role, () => {
       loadListUser();
       loadAllProduct();
     });
@@ -62,16 +61,15 @@ function Sale() {
   return (
     <Default tagName="stt" childrenName="sales">
       <div className="w-1/4 mx-auto mt-10 items-start">
-        <label
-          htmlFor="countries"
-          className="block mb-2 text-xl font-medium text-blue-600 dark:text-white">
+        <label htmlFor="countries" className="block mb-2 text-xl font-medium text-blue-600 dark:text-white">
           Chọn đại lý phân phối
         </label>
         <select
           id="countries"
           className="bg-gray-50 border border-gray-300 text-blue-800 font-medium text-sm rounded-lg ring-1 focus:ring-blue-500
                                             focus:border-blue-500 focus:outline-none block w-full py-3 px-1"
-          onChange={handleChange}>
+          onChange={handleChange}
+        >
           <option>Đại lý phân phối</option>
           {dataFactory?.map((factory) => {
             return (
@@ -83,26 +81,20 @@ function Sale() {
         </select>
       </div>
       <div className="w-5/6 mx-auto mt-10">
-        {sales === "0" && (
+        {sales === '0' && (
           <div className="container justify-items-center">
-            <div className="text-3xl text-blue-200 mt-32">
-              Mời chọn đại lý phân phối
-            </div>
+            <div className="text-3xl text-blue-200 mt-32">Mời chọn đại lý phân phối</div>
           </div>
         )}
         {dataSource.length !== 0 && (
           <div>
-            <DemoPie data={dataSource}></DemoPie>
-            <div className="mt-5 text-xl text-blue-900 font-bold">
-              Tổng số sản phẩm: {sumProduct}
-            </div>
+            <DemoPie data={dataSource} loading={isLoading} />
+            <div className="mt-5 text-xl text-blue-900 font-bold">Tổng số sản phẩm: {sumProduct}</div>
           </div>
         )}
-        {sales !== "0" && dataSource.length == 0 && (
+        {sales !== '0' && dataSource.length == 0 && (
           <div className="container justify-items-center">
-            <div className="text-3xl text-blue-200 mt-32">
-              Không có sản phẩm nào !
-            </div>
+            <div className="text-3xl text-blue-200 mt-32">Không có sản phẩm nào !</div>
           </div>
         )}
       </div>

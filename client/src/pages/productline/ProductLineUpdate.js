@@ -4,15 +4,13 @@ import ProductLineEdit from '../../components/ProductLineForm/EditProductLine';
 import { useAppContext } from '../../contexts/AppContext';
 import Default from '../../Layouts/Default';
 
-const ProductLineUpdate = () => {
+const ProductLineUpdate = (props) => {
+  const { role } = props;
   const { id } = useParams();
-  const {
-    authState: { user },
-    checkMiddleware,
-  } = useAppContext();
+  const { checkMiddleware } = useAppContext();
 
   useEffect(() => {
-    checkMiddleware(user, () => {});
+    checkMiddleware(role, () => {});
   }, []);
 
   return (

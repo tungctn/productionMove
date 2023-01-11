@@ -4,15 +4,13 @@ import Default from '../../Layouts/Default';
 import ProductLineDetail from '../../components/ProductLineForm/DetailProductLine';
 import { useAppContext } from '../../contexts/AppContext';
 
-const ProductLineInfo = () => {
+const ProductLineInfo = (props) => {
+  const { role } = props;
   const { id } = useParams();
-  const {
-    authState: { user },
-    checkMiddleware,
-  } = useAppContext();
+  const { checkMiddleware } = useAppContext();
 
   useEffect(() => {
-    checkMiddleware(user, () => {});
+    checkMiddleware(role, () => {});
   }, []);
 
   return (

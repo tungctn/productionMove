@@ -6,7 +6,8 @@ import { useAppContext } from '../../contexts/AppContext';
 import { useProductLineContext } from '../../contexts/ProductLineContext';
 import Default from '../../Layouts/Default';
 
-const Import = () => {
+const Import = (props) => {
+  const { role } = props;
   const dataColumn = [
     {
       title: 'STT',
@@ -35,13 +36,10 @@ const Import = () => {
     productlineState: { listProductLine, isLoading },
     loadListProductLine,
   } = useProductLineContext();
-  const {
-    authState: { user },
-    checkMiddleware,
-  } = useAppContext();
+  const { checkMiddleware } = useAppContext();
 
   useEffect(() => {
-    checkMiddleware(user, () => {
+    checkMiddleware(role, () => {
       loadListProductLine();
     });
   }, []);

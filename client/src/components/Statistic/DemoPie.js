@@ -1,18 +1,19 @@
-import React from "react";
-import { Column } from "@ant-design/plots";
+import React from 'react';
+import { Column } from '@ant-design/plots';
+import Loading from '../Loading/Loading';
 
 const DemoPie = (props) => {
-  const data = props.data;
+  const { data, loading } = props;
   const config = {
     data,
-    xField: "type",
-    yField: "sales",
+    xField: 'type',
+    yField: 'sales',
     maxColumnWidth: 100,
     minColumnWidth: 10,
     label: {
-      position: "middle",
+      position: 'middle',
       style: {
-        fill: "#FFFFFF",
+        fill: '#FFFFFF',
         opacity: 0.6,
       },
     },
@@ -24,15 +25,18 @@ const DemoPie = (props) => {
     },
     meta: {
       type: {
-        alias: "Tên sản phẩm",
+        alias: 'Tên sản phẩm',
       },
       sales: {
-        alias: "Số lượng",
+        alias: 'Số lượng',
       },
     },
-    
   };
-  return <Column {...config} />;
+  return (
+    <Loading spinning={loading}>
+      <Column {...config} />
+    </Loading>
+  );
 };
 
 export default DemoPie;

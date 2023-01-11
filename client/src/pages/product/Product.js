@@ -4,16 +4,15 @@ import { useParams } from "react-router-dom";
 import Default from "../../Layouts/Default";
 import { useAppContext } from "../../contexts/AppContext";
 
-const Product = () => {
+const Product = (props) => {
   const { id } = useParams();
-
+  const { role } = props;
   const {
-    authState: { user },
     checkMiddleware,
   } = useAppContext();
 
   useEffect(() => {
-    checkMiddleware(user, () => {});
+    checkMiddleware(role, () => {});
   }, []);
 
   return (
