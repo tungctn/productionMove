@@ -12,7 +12,7 @@ const Auth = () => {
     body = <></>;
   } else if (!isAuthenticated) {
     body = <Outlet />;
-  } else if (url === '/' && user?.role) {
+  } else {
     switch (user?.role) {
       case 1:
         body = <Navigate to="/productline" />;
@@ -20,9 +20,10 @@ const Auth = () => {
       default:
         body = <Navigate to="/home" />;
     }
-  } else {
-    body = <Navigate to={url} />;
-  }
+  } 
+//   else {
+//     body = <Navigate to={url} />;
+//   }
 
   return <>{body}</>;
 };
