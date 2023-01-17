@@ -2,7 +2,6 @@ import { Button, Modal } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { createRequest } from '../../api/request';
 import { useAppContext } from '../../contexts/AppContext';
-import { useRequestContext } from '../../contexts/RequestContext';
 import { useUserContext } from '../../contexts/UserContext';
 import Loading from '../Loading/Loading';
 
@@ -11,7 +10,6 @@ const SummonProductLine = (props) => {
   const [visible, setVisible] = useState(false);
   const { openNotification } = useAppContext();
   const [isLoading, setIsLoading] = useState(false);
-  const { handleCreateRequest } = useRequestContext();
   const {
     authState: { user },
   } = useAppContext();

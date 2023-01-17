@@ -1,14 +1,14 @@
-import { createContext, useContext, useReducer } from "react";
-import { useNavigate } from "react-router-dom";
+import { createContext, useContext, useReducer } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   SET_REQUEST_ADD,
   SET_REQUEST_BEGIN,
   SET_REQUEST_LIST,
-} from "../action";
-import { setAuthHeader } from "../api/auth";
-import { createRequest, getAllRequest, searchRequest } from "../api/request";
-import { RequestReducer } from "../reducers/RequestReducer";
-import { useAppContext } from "./AppContext";
+} from '../action';
+import { setAuthHeader } from '../api/auth';
+import { createRequest, getAllRequest, searchRequest } from '../api/request';
+import { RequestReducer } from '../reducers/RequestReducer';
+import { useAppContext } from './AppContext';
 
 export const RequestContext = createContext();
 
@@ -29,7 +29,7 @@ export const RequestContextProvider = (props) => {
     dispatch({
       type: SET_REQUEST_BEGIN,
     });
-    setAuthHeader(localStorage["token"]);
+    setAuthHeader(localStorage['token']);
     const response = await getAllRequest();
     if (response?.success) {
       dispatch({
@@ -47,9 +47,9 @@ export const RequestContextProvider = (props) => {
           ...response.data,
         },
       });
-      openNotification("success", response.msg);
+      openNotification('success', response.msg);
       if (user.role !== 1) {
-        navigate("/request");
+        navigate('/request');
       } else {
         gotoMainPage();
       }
@@ -57,13 +57,15 @@ export const RequestContextProvider = (props) => {
   };
 
   const handleSearchRequest = async (searchForm) => {
-    dispatch({ type: SET_REQUEST_BEGIN });
-    const response = await searchRequest(searchForm);
-    if (response.success) {
-      dispatch({
-        type: SET_REQUEST_LIST,
-        payload: { listRequest: response.data },
-      });
+    if (Object.keys(searchForm).length !== 0) {
+      dispatch({ type: SET_REQUEST_BEGIN });
+      const response = await searchRequest(searchForm);
+      if (response.success) {
+        dispatch({
+          type: SET_REQUEST_LIST,
+          payload: { listRequest: response.data },
+        });
+      }
     }
   };
 

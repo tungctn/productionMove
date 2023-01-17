@@ -44,3 +44,8 @@ export const checkPassword = async (data) => {
   const response = await axios.post('/user/checkPassword', data);
   return response.data;
 };
+
+export const checkEmail = async (data) => {
+  const response = await axios.post('/user/checkEmail', data);
+  return response.data;
+};

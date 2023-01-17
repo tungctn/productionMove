@@ -12,37 +12,37 @@ productRoute.get(
 
 productRoute.get(
   "/user",
-  verifyUser.verifyFactory_WarrantyCenter_Store,
+  verifyUser.verifyUser([2, 3, 4]),
   TryCatch(productController.getProductByUser)
 );
 
 productRoute.get(
   "/:id",
-  verifyUser.verifyFactory_WarrantyCenter_Store,
+  verifyUser.verifyUser([2, 3, 4]),
   TryCatch(productController.getProduct)
 );
 
 productRoute.post(
   "/",
-  verifyUser.verifyFactory,
+  verifyUser.verifyUser([2]),
   TryCatch(productController.createProduct)
 );
 
 productRoute.put(
   "/:id",
-  verifyUser.verifyFactory_WarrantyCenter_Store,
+  verifyUser.verifyUser([2, 3, 4]),
   TryCatch(productController.updateProduct)
 );
 
 productRoute.delete(
   "/:id",
-  verifyUser.verifyFactory_WarrantyCenter_Store,
+  verifyUser.verifyUser([2, 3, 4]),
   TryCatch(productController.deleteProduct)
 );
 
 productRoute.post(
   "/search",
-  verifyUser.verifyFactory_WarrantyCenter_Store,
+  verifyUser.verifyUser([2, 3, 4]),
   TryCatch(productController.searchProduct)
 )
 

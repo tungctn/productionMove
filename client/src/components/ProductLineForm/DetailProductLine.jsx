@@ -1,19 +1,17 @@
-import { Image, Descriptions, Button } from "antd";
-import React, { useEffect, useState } from "react";
-import { EditOutlined } from "@ant-design/icons";
-import { useNavigate } from "react-router-dom";
-import { getProductLine } from "../../api/productline";
-import ProductLineDelete from "./DeleteProductLine";
-import SummonProductLine from "./SummonProductLine";
-import { useAppContext } from "../../contexts/AppContext";
-import Loading from "../Loading/Loading";
+import { Image, Descriptions, Button } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { EditOutlined } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
+import { getProductLine } from '../../api/productline';
+import ProductLineDelete from './DeleteProductLine';
+import SummonProductLine from './SummonProductLine';
+import Loading from '../Loading/Loading';
+import Slider from '../Slider/Slider';
 
 const ProductLineDetail = (props) => {
-  const { id, page, status } = props;
+  const { id, page } = props;
   const navigate = useNavigate();
   const [productLine, setProductLine] = useState({});
-  const [visible, setVisible] = useState(false);
-  const { convertUnitToName } = useAppContext();
   const [isLoading, setIsLoading] = useState(false);
   const loadProductLine = async (id) => {
     setIsLoading(true);
@@ -24,21 +22,32 @@ const ProductLineDetail = (props) => {
     }
   };
 
-  const handleCancel = () => {
-    setVisible(false);
-  };
-
   useEffect(() => {
     loadProductLine(id);
-  }, [id]);
+  }, []);
+
+  const data = productLine?.img?.map((img, index) => {
+    return (
+      <Image
+        width={400}
+        src={img}
+        alt="Ảnh dòng xe"
+        style={{ objectFit: 'cover' }}
+        key={index}
+        className="mb-5 duration-200"
+        preview={false}
+        height={400}
+      />
+    );
+  });
 
   return (
     <Loading spinning={isLoading}>
+      <Slider data={data} />
       <div className="mt-5 w-11/12 mx-auto">
-        <Image src={productLine?.img} width={400} preview={false} />
-        {page === "productline" && (
+        {page === 'productline' && (
           <div>
-            <div className="text-right text-2xl text-cyan-500">
+            <div className="text-right text-3xl text-cyan-500">
               <EditOutlined
                 onClick={() => {
                   navigate(`/productline/${id}/edit`);
@@ -49,13 +58,14 @@ const ProductLineDetail = (props) => {
             <SummonProductLine productLine={productLine} />
           </div>
         )}
-        {page === "import" && (
+        {page === 'import' && (
           <div className="text-right text-2xl text-cyan-500">
             <Button
               onClick={() => {
                 navigate(`/import/productline/${id}/factory`);
               }}
-              type="primary">
+              type="primary"
+            >
               Đặt hàng
             </Button>
           </div>
@@ -98,10 +108,10 @@ const ProductLineDetail = (props) => {
             {productLine?.engineType}
           </Descriptions.Item>
           <Descriptions.Item label="Thời hạn bảo hành">
-            {productLine?.timePeriod?.period}{" "}
-            {productLine?.timePeriod?.unit === 0 && "ngày"}
-            {productLine?.timePeriod?.unit === 1 && "tháng"}
-            {productLine?.timePeriod?.unit === 2 && "năm"}
+            {productLine?.timePeriod?.period}{' '}
+            {productLine?.timePeriod?.unit === 0 && 'ngày'}
+            {productLine?.timePeriod?.unit === 1 && 'tháng'}
+            {productLine?.timePeriod?.unit === 2 && 'năm'}
           </Descriptions.Item>
         </Descriptions>
       </div>

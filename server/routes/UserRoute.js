@@ -18,32 +18,31 @@ userRouter.get(
 
 userRouter.get(
   "/:id",
-  verifyUser.verifyAdmin,
+  verifyUser.verifyUser([1]),
   TryCatch(UserController.getUser)
 );
 
 userRouter.post(
   "/",
-  verifyUser.verifyAdmin,
+  verifyUser.verifyUser([1]),
   TryCatch(UserController.createUser)
 );
 
 userRouter.put(
   "/:id",
-  // verifyUser.verifyAdmin,
   MiddlewareAuth.verifyToken,
   TryCatch(UserController.updateUser)
 );
 
 userRouter.delete(
   "/:id",
-  verifyUser.verifyAdmin,
+  verifyUser.verifyUser([1]),
   TryCatch(UserController.deleteUser)
 );
 
 userRouter.post(
   "/search",
-  verifyUser.verifyAdmin,
+  verifyUser.verifyUser([1]),
   TryCatch(UserController.searchUser)
 );
 
@@ -57,6 +56,12 @@ userRouter.post(
   "/checkPassword",
   MiddlewareAuth.verifyToken,
   TryCatch(UserController.checkPassword)
+);
+
+userRouter.post(
+  "/checkEmail",
+  MiddlewareAuth.verifyToken,
+  TryCatch(UserController.checkEmail)
 );
 
 module.exports = userRouter;

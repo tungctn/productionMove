@@ -1,7 +1,8 @@
-const mongoose = require("mongoose");
-const Request = require("./RequestModel");
-var Schema = mongoose.Schema;
-mongoose.set("strictQuery", false);
+// const mongoose = require("mongoose");
+// mongoose.set("strictQuery", false);
+const Mongoose = require("./Mongoose");
+const mongoose = new Mongoose();
+
 const userSchema = new mongoose.Schema(
   {
     name: {
@@ -36,7 +37,13 @@ const userSchema = new mongoose.Schema(
         4, // warrantyCenter,
       ],
     },
-    requestList: [{ type: Schema.Types.ObjectId, ref: "Request", default: [] }],
+    requestList: [
+      { type: mongoose.Schema.Types.ObjectId, ref: "Request", default: [] },
+    ],
+    deleted: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true }
 );

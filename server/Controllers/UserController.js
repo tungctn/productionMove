@@ -131,3 +131,11 @@ module.exports.checkPassword = async (req, res) => {
   }
   return response.sendSuccessResponse(res, null, "", 200);
 };
+
+module.exports.checkEmail = async (req, res) => {
+  const user = await User.find({ email: req.body.email });
+  if (user) {
+    return response.sendErrorResponse(res, "Email đã tồn tại", 500);
+  }
+  return response.sendSuccessResponse(res, null, "", 200);
+};

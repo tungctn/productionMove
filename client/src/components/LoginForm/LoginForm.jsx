@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Form, Input, Button } from "antd";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { useAppContext } from "../../contexts/AppContext";
-import "./index.css";
+import "./index.scss";
 import Loading from "../Loading/Loading";
 
 const LoginForm = () => {

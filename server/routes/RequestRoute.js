@@ -6,12 +6,12 @@ const TryCatch = require("../utils/TryCatch");
 
 requestRoute.get(
   "/:id",
-  verifyUser.verifyFactory_WarrantyCenter_Store,
+  verifyUser.verifyUser([2, 3, 4]),
   TryCatch(requestController.getRequest)
 );
 requestRoute.get(
   "/",
-  verifyUser.verifyFactory_WarrantyCenter_Store,
+  verifyUser.verifyUser([2, 3, 4]),
   TryCatch(requestController.getAllRequest)
 );
 requestRoute.post(
@@ -21,19 +21,19 @@ requestRoute.post(
 );
 requestRoute.put(
   "/handleImportRequest",
-  verifyUser.verifyFactory,
+  verifyUser.verifyUser([2]),
   TryCatch(requestController.handleImportRequest)
 );
 
 requestRoute.put(
   "/:id",
-  verifyUser.verifyFactory_WarrantyCenter_Store,
+  verifyUser.verifyUser([2, 3, 4]),
   TryCatch(requestController.updateRequest)
 );
 
 requestRoute.post(
   "/search",
-  verifyUser.verifyFactory_WarrantyCenter_Store,
+  verifyUser.verifyUser([2, 3, 4]),
   TryCatch(requestController.searchRequest)
 );
 

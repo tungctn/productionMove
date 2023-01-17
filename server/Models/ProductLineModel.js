@@ -1,6 +1,8 @@
-const mongoose = require("mongoose");
+// const mongoose = require("mongoose");
+// mongoose.set("strictQuery", false);
 
-mongoose.set('strictQuery', false)
+const Mongoose = require("./Mongoose");
+const mongoose = new Mongoose();
 const productLineSchema = new mongoose.Schema(
   {
     amount: {
@@ -12,10 +14,12 @@ const productLineSchema = new mongoose.Schema(
       type: String,
       require: true,
     },
-    img: {
-      type: String,
-      require: true,
-    },
+    img: [
+      {
+        type: String,
+        require: true,
+      },
+    ],
     name: {
       type: String,
       require: true,

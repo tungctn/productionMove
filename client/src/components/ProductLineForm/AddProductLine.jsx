@@ -1,49 +1,56 @@
-import { Button, Form, Input } from "antd";
-import { Link } from "react-router-dom";
-import { Select } from "antd";
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { uploadImage } from "../../api/image";
-import { createProductLine } from "../../api/productline";
-import { useAppContext } from "../../contexts/AppContext";
-import { LeftOutlined } from "@ant-design/icons";
-import Loading from "../Loading/Loading";
+import { Button, Form, Input, Upload } from 'antd';
+import { Link } from 'react-router-dom';
+import { Select } from 'antd';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { uploadImage } from '../../api/image';
+import { createProductLine } from '../../api/productline';
+import { useAppContext } from '../../contexts/AppContext';
+import { LeftOutlined, PlusOutlined } from '@ant-design/icons';
+import Loading from '../Loading/Loading';
 
 const AddProductLine = () => {
   const navigate = useNavigate();
   const { openNotification } = useAppContext();
   const { Option } = Select;
-  const [fileInputState, setFileInputState] = useState("");
+  const [fileInputState, setFileInputState] = useState('');
   const [selectedFile, setSelectedFile] = useState();
   const [isLoading, setIsLoading] = useState(false);
+  const [fileList, setFileList] = useState([]);
   const handleFileInputChange = (e) => {
+    console.log(e.target.files);
     const file = e.target.files[0];
     setSelectedFile(file);
     setFileInputState(e.target.value);
   };
-
+  const uploadButton = (
+    <div>
+      <PlusOutlined />
+      <div style={{ marginTop: 8 }}>Upload</div>
+    </div>
+  );
   const onFinish = async (values) => {
     setIsLoading(true);
-    const reader = new FileReader();
-    reader.readAsDataURL(selectedFile);
-    reader.onloadend = async () => {
-      const response = await uploadImage({ data: reader.result });
-      if (response.success) {
-        const response1 = await createProductLine({
-          ...values,
-          img: response.data.url,
-          timePeriod: {
-            period: Number(values.period),
-            unit: Number(values.unit),
-          },
-        });
-        if (response1.success) {
-          openNotification("success", response1.msg);
-          navigate("/productline");
-          setIsLoading(false);
-        }
+    const data = fileList.map((file) => {
+      return file.thumbUrl;
+    });
+    const response = await uploadImage({ data: data });
+    if (response.success) {
+      const response1 = await createProductLine({
+        ...values,
+        img: response.data,
+        timePeriod: {
+          period: Number(values.period),
+          unit: Number(values.unit),
+        },
+      });
+      if (response1.success) {
+        openNotification('success', response1.msg);
+        navigate('/productline');
       }
-    };
+      setIsLoading(false);
+      // }
+    }
   };
 
   const selectAfter = (
@@ -53,7 +60,8 @@ const AddProductLine = () => {
         name="unit"
         style={{
           width: 90,
-        }}>
+        }}
+      >
         <Option value={0}>Ngày</Option>
         <Option value={1}>Tháng</Option>
         <Option value={2}>Năm</Option>
@@ -72,7 +80,8 @@ const AddProductLine = () => {
           <Form
             layout="vertical"
             onFinish={onFinish}
-            initialValues={{ remember: true }}>
+            initialValues={{ remember: true }}
+          >
             <Form.Item
               label="Tên dòng xe"
               type="text"
@@ -80,21 +89,23 @@ const AddProductLine = () => {
               rules={[
                 {
                   required: true,
-                  message: "Please input your name!",
+                  message: 'Please input your name!',
                 },
-              ]}>
+              ]}
+            >
               <Input name="name" placeholder="input placeholder" />
             </Form.Item>
-            <Form.Item
+            {/* <Form.Item
               label="Hình ảnh"
               type="file"
               name="img"
               rules={[
                 {
                   required: true,
-                  message: "Please input your img!",
+                  message: 'Please input your img!',
                 },
-              ]}>
+              ]}
+            >
               <Input
                 type="file"
                 onChange={handleFileInputChange}
@@ -102,7 +113,7 @@ const AddProductLine = () => {
                 name="img"
                 placeholder="input placeholder"
               />
-            </Form.Item>
+            </Form.Item> */}
             <Form.Item
               label="Mã dòng sản phẩm"
               type="text"
@@ -110,9 +121,10 @@ const AddProductLine = () => {
               rules={[
                 {
                   required: true,
-                  message: "Please input your code!",
+                  message: 'Please input your code!',
                 },
-              ]}>
+              ]}
+            >
               <Input name="code" placeholder="input placeholder" />
             </Form.Item>
             {/* Khối lượng bản thân */}
@@ -123,9 +135,10 @@ const AddProductLine = () => {
               rules={[
                 {
                   required: true,
-                  message: "Please input your weight!",
+                  message: 'Please input your weight!',
                 },
-              ]}>
+              ]}
+            >
               <Input name="weight" placeholder="input placeholder" />
             </Form.Item>
             {/* Dài */}
@@ -133,9 +146,8 @@ const AddProductLine = () => {
               label="Dài"
               name="length"
               type="text"
-              rules={[
-                { required: true, message: "Please input your length!" },
-              ]}>
+              rules={[{ required: true, message: 'Please input your length!' }]}
+            >
               <Input name="length" placeholder="input placeholder" />
             </Form.Item>
             {/* Rộng */}
@@ -146,9 +158,10 @@ const AddProductLine = () => {
               rules={[
                 {
                   required: true,
-                  message: "Please input your width!",
+                  message: 'Please input your width!',
                 },
-              ]}>
+              ]}
+            >
               <Input name="width" placeholder="input placeholder" />
             </Form.Item>
             {/* Cao */}
@@ -159,9 +172,10 @@ const AddProductLine = () => {
               rules={[
                 {
                   required: true,
-                  message: "Please input your height!",
+                  message: 'Please input your height!',
                 },
-              ]}>
+              ]}
+            >
               <Input name="height" placeholder="input placeholder" />
             </Form.Item>
             {/* Khoảng cách trục bánh xe  */}
@@ -172,9 +186,10 @@ const AddProductLine = () => {
               rules={[
                 {
                   required: true,
-                  message: "Please input your wheelAxleDistance!",
+                  message: 'Please input your wheelAxleDistance!',
                 },
-              ]}>
+              ]}
+            >
               <Input name="wheelAxleDistance" placeholder="input placeholder" />
             </Form.Item>
             {/* Chiều cao yên xe */}
@@ -185,9 +200,10 @@ const AddProductLine = () => {
               rules={[
                 {
                   required: true,
-                  message: "Please input your saddleHeight!",
+                  message: 'Please input your saddleHeight!',
                 },
-              ]}>
+              ]}
+            >
               <Input name="saddleHeight" placeholder="input placeholder" />
             </Form.Item>
             {/* Khoảng cách gầm xe */}
@@ -198,9 +214,10 @@ const AddProductLine = () => {
               rules={[
                 {
                   required: true,
-                  message: "Please input your groundClearance!",
+                  message: 'Please input your groundClearance!',
                 },
-              ]}>
+              ]}
+            >
               <Input name="groundClearance" placeholder="input placeholder" />
             </Form.Item>
             {/* Dung tích bình xăng */}
@@ -211,9 +228,10 @@ const AddProductLine = () => {
               rules={[
                 {
                   required: true,
-                  message: "Please input your petrolTankCapacity!",
+                  message: 'Please input your petrolTankCapacity!',
                 },
-              ]}>
+              ]}
+            >
               <Input
                 name="petrolTankCapacity"
                 placeholder="input placeholder"
@@ -227,9 +245,10 @@ const AddProductLine = () => {
               rules={[
                 {
                   required: true,
-                  message: "Please input your fuelConsumption!",
+                  message: 'Please input your fuelConsumption!',
                 },
-              ]}>
+              ]}
+            >
               <Input name="fuelConsumption" placeholder="input placeholder" />
             </Form.Item>
             {/* Dung tích xy-lanh */}
@@ -240,9 +259,10 @@ const AddProductLine = () => {
               rules={[
                 {
                   required: true,
-                  message: "Please input your displacementVolume!",
+                  message: 'Please input your displacementVolume!',
                 },
-              ]}>
+              ]}
+            >
               <Input
                 name="displacementVolume"
                 placeholder="input placeholder"
@@ -256,9 +276,10 @@ const AddProductLine = () => {
               rules={[
                 {
                   required: true,
-                  message: "Please input your engineType!",
+                  message: 'Please input your engineType!',
                 },
-              ]}>
+              ]}
+            >
               <Input name="engineType" placeholder="input placeholder" />
             </Form.Item>
             <Form.Item
@@ -268,9 +289,10 @@ const AddProductLine = () => {
               rules={[
                 {
                   required: true,
-                  message: "Please input your engineType!",
+                  message: 'Please input your engineType!',
                 },
-              ]}>
+              ]}
+            >
               <Input
                 name="period"
                 placeholder="input placeholder"
@@ -281,6 +303,18 @@ const AddProductLine = () => {
               Submit
             </Button>
           </Form>
+          <Upload
+            // action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+            listType="picture-card"
+            // fileList={fileList}
+            // onPreview={handlePreview}
+            onChange={(e) => {
+              console.log(e.fileList);
+              setFileList(e.fileList);
+            }}
+          >
+            {uploadButton}
+          </Upload>
         </div>
       </Loading>
     </div>

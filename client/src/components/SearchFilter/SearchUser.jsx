@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Input, Select } from "antd";
-import AddUser from "../../components/UserForm/AddUser";
+import AddUser from "../user/AddUser";
 import { useUserContext } from "../../contexts/UserContext";
 import { useAppContext } from "../../contexts/AppContext";
 

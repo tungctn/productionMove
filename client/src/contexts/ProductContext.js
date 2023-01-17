@@ -1,11 +1,8 @@
-import { createContext, useContext, useReducer } from "react";
-import {
-  SET_PRODUCT_BEGIN,
-  SET_PRODUCT_LIST,
-} from "../action";
-import { ProductReducer } from "../reducers/ProductReducer";
-import { getAllProduct, getProductByUser, searchProduct } from "../api/product";
-import { useAppContext } from "./AppContext";
+import { createContext, useContext, useReducer } from 'react';
+import { SET_PRODUCT_BEGIN, SET_PRODUCT_LIST } from '../action';
+import { ProductReducer } from '../reducers/ProductReducer';
+import { getAllProduct, getProductByUser, searchProduct } from '../api/product';
+import { useAppContext } from './AppContext';
 
 export const ProductContext = createContext();
 
@@ -43,13 +40,15 @@ const ProductContextProvider = (props) => {
   };
 
   const handleSearchProduct = async (searchForm) => {
-    dispatch({ type: SET_PRODUCT_BEGIN });
-    const response = await searchProduct(searchForm);
-    if (response.success) {
-      dispatch({
-        type: SET_PRODUCT_LIST,
-        payload: { listProduct: response.data },
-      });
+    if (Object.keys(searchForm).length !== 0) {
+      dispatch({ type: SET_PRODUCT_BEGIN });
+      const response = await searchProduct(searchForm);
+      if (response.success) {
+        dispatch({
+          type: SET_PRODUCT_LIST,
+          payload: { listProduct: response.data },
+        });
+      }
     }
   };
 

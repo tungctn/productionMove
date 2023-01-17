@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import './index.scss';
 
 const TableInfo = (props) => {
-  const { dataColumn, dataSource, onRow, loading, setTitle } = props;
+  const { dataColumn, dataSource, onRow, loading, setTitle, ...other } = props;
   const [pagination, setPagination] = useState({
     position: ['bottomCenter'],
     pageSize: 5,
@@ -51,6 +51,7 @@ const TableInfo = (props) => {
         loading={tableLoading}
         title={setTitle}
         id="table"
+        {...other}
       />
     </div>
   );

@@ -8,7 +8,7 @@ module.exports.quantityInStock = async (req, res, next) => {
     for (let factory of listFactory) {
       const listProduct = await ProductModel.find({
         productLine: req.body.productLine,
-        location: factory.id,
+        location: factory._id,
         status: 0,
       });
       quantityInStock.push({ factory: factory, listProduct: listProduct });

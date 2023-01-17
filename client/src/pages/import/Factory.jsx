@@ -68,9 +68,6 @@ const Factory = (props) => {
     <div>
       <Default tagName="nh">
         <div className="w-1/12 mt-5">
-          <Navigate to={-1}>
-            <LeftOutlined />
-          </Navigate>
         </div>
         <div className="w-11/12 mt-5 mx-auto">
           <TableInfo

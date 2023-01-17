@@ -1,16 +1,18 @@
-const mongoose = require("mongoose");
-var User = require("./UserModel");
-var Schema = mongoose.Schema;
-mongoose.set('strictQuery', false)
+// const mongoose = require("mongoose");
+// var Schema = mongoose.Schema;
+// mongoose.set("strictQuery", false);
+const Mongoose = require("./Mongoose");
+const mongoose = new Mongoose();
+
 const requestSchema = new mongoose.Schema(
   {
     requester: {
-      type: Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       required: true,
       ref: "User",
     },
     recipient: {
-      type: Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       required: true,
       ref: "User",
     },
@@ -38,7 +40,7 @@ const requestSchema = new mongoose.Schema(
       required: true,
     },
     product: {
-      type: Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: "Product",
       default: null,
     },
@@ -59,6 +61,14 @@ const requestSchema = new mongoose.Schema(
     refRequest: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Request",
+    },
+    isRead: {
+      type: Boolean,
+      default: false,
+    },
+    description: {
+      type: String,
+      default: "",
     },
   },
   { timestamps: true }

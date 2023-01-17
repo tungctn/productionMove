@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Notification from '../../components/Request/Notification';
 import SearchProduct from '../../components/SearchFilter/SearchProduct';
 import TableInfo from '../../components/TableInfo/TableInfo';
 import { useAppContext } from '../../contexts/AppContext';
@@ -8,10 +9,7 @@ import Default from '../../Layouts/Default';
 const Home = (props) => {
   const { role } = props;
   const navigate = useNavigate();
-  const {
-    convertStatusToNameProduct,
-    checkMiddleware,
-  } = useAppContext();
+  const { convertStatusToNameProduct, checkMiddleware } = useAppContext();
   const {
     productState: { listProduct, isLoading },
     loadUserProduct,
@@ -67,6 +65,18 @@ const Home = (props) => {
             dataColumn={dataColumn}
             dataSource={dataSource}
             loading={isLoading}
+            locale={{
+              emptyText: (
+                <span>
+                  <img
+                    src="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+                    className="w-[200px] h-[200px] mx-auto"
+                    alt=""
+                  />
+                  Không có sản phẩm nào
+                </span>
+              ),
+            }}
           />
         </div>
       </Default>

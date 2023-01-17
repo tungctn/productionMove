@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import SearchUser from '../../components/SearchFilter/SearchUser';
 import TableInfo from '../../components/TableInfo/TableInfo';
-import DeleteUser from '../../components/UserForm/DeleteUser';
-import EditUser from '../../components/UserForm/EditUser';
+import DeleteUser from '../../components/user/DeleteUser';
+import EditUser from '../../components/user/EditUser';
 import { useAppContext } from '../../contexts/AppContext';
 import { useUserContext } from '../../contexts/UserContext';
 import Default from '../../Layouts/Default';
@@ -48,11 +48,7 @@ const User = (props) => {
     loadListUser,
   } = useUserContext();
 
-  const {
-    convertRoleToName,
-    authState: { user },
-    checkMiddleware,
-  } = useAppContext();
+  const { convertRoleToName, checkMiddleware } = useAppContext();
 
   useEffect(() => {
     checkMiddleware(role, () => {

@@ -1,12 +1,18 @@
 const response = require("../utils/Response");
-// const cloudinary = require("cloudinary").v2;
 const { cloudinary } = require("../utils/Cloudinary");
 
 module.exports.uploadImage = async (req, res, next) => {
-  const fileStr = req.body.data;
-  const uploadResponse = await cloudinary.uploader.upload(fileStr, {
-    upload_preset: "ermxq7st",
-    folder: "plm",
-  });
+  const data = req.body.data;
+  let uploadResponse = [];
+  for (let index = 0; index < data.length; index++) {
+    const response = await cloudinary.uploader.upload(data[index], {
+      upload_preset: "ermxq7st",
+      folder: "plm",
+      resource_type: "image",
+    });
+    const { url } = response;
+    uploadResponse.push(url);
+  }
+
   return response.sendSuccessResponse(res, uploadResponse, "", 200);
 };

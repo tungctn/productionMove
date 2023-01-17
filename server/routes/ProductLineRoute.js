@@ -4,7 +4,11 @@ const verifyUser = require("../Middleware/verifyUser");
 const TryCatch = require("../utils/TryCatch");
 const MiddlewareAuth = require("../Middleware/isLogged");
 
-productLineRoute.get("/:id", TryCatch(ProductLineController.getProductLine));
+productLineRoute.get(
+  "/:id",
+  MiddlewareAuth.verifyToken,
+  TryCatch(ProductLineController.getProductLine)
+);
 productLineRoute.get(
   "/",
   MiddlewareAuth.verifyToken,
@@ -13,17 +17,17 @@ productLineRoute.get(
 
 productLineRoute.post(
   "/",
-  verifyUser.verifyAdmin,
+  verifyUser.verifyUser([1]),
   TryCatch(ProductLineController.createProductLine)
 );
 productLineRoute.put(
   "/:id",
-  verifyUser.verifyAdmin,
+  verifyUser.verifyUser([1]),
   TryCatch(ProductLineController.updateProductLine)
 );
 productLineRoute.delete(
   "/:id",
-  verifyUser.verifyAdmin,
+  verifyUser.verifyUser([1]),
   TryCatch(ProductLineController.deleteProductLine)
 );
 
@@ -34,7 +38,7 @@ productLineRoute.post(
 );
 productLineRoute.post(
   "/upload",
-  verifyUser.verifyAdmin,
+  verifyUser.verifyUser([1]),
   TryCatch(ProductLineController.uploadImage)
 );
 module.exports = productLineRoute;

@@ -295,7 +295,7 @@ const ProductDetail = (props) => {
         <h2 className="font-bold text-base">
           Trạng thái: {product?.statusName}
         </h2>
-        <div className="text-right text-2xl text-cyan-500">
+        <div className=" text-2xl text-cyan-500">
           {user.role === 3 && (
             <div>
               {product?.status === 1 && (

@@ -1,5 +1,8 @@
-const mongoose = require("mongoose");
-mongoose.set('strictQuery', false)
+// const mongoose = require("mongoose");
+// mongoose.set('strictQuery', false)
+
+const Mongoose = require("./Mongoose");
+const mongoose = new Mongoose();
 const productSchema = new mongoose.Schema(
   {
     productLine: {

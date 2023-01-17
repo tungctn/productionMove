@@ -13,24 +13,28 @@ module.exports.createRequest = async (req, res) => {
   const amount = req.body.amount;
   const productLine = req.body.productLine;
   const requestA = await new RequestModel({
-    requester: requesterId,
-    recipient: recipientId,
+    // requester: requesterId,
+    // recipient: recipientId,
+    // status: 1,
+    // type: type,
+    // product: product,
+    // note: note,
+    // amount: amount,
+    // proudctLine: productLine,
+    ...req.body,
     status: 1,
-    type: type,
-    product: product,
-    note: note,
-    amount: amount,
-    proudctLine: productLine,
   }).save();
   const requestB = await new RequestModel({
-    requester: requesterId,
-    recipient: recipientId,
+    // requester: requesterId,
+    // recipient: recipientId,
+    // status: 2,
+    // type: type,
+    // product: product,
+    // note: note,
+    // amount: amount,
+    // productLine: productLine,
+    ...req.body,
     status: 2,
-    type: type,
-    product: product,
-    note: note,
-    amount: amount,
-    productLine: productLine,
   }).save();
   requestA.refRequest = requestB._id;
   requestB.refRequest = requestA._id;
