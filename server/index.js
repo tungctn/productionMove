@@ -13,6 +13,7 @@ const corsOptions = {
     "http://localhost:3000",
     "http://127.0.0.1:3000",
     "https://plm-deploy.onrender.com",
+    "https://production-move-one.vercel.app",
   ],
   credentials: true,
   exposedHeaders: ["set-cookie"],
