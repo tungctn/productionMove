@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import ProductLineEdit from '../../components/productLine/EditProductLine';
 import { useAppContext } from '../../contexts/AppContext';
-import Default from '../../Layouts/Default';
+import Default from '../../layouts/Default';
 
 const ProductLineUpdate = (props) => {
   const { role } = props;

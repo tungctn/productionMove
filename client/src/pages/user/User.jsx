@@ -5,7 +5,7 @@ import DeleteUser from '../../components/user/DeleteUser';
 import EditUser from '../../components/user/EditUser';
 import { useAppContext } from '../../contexts/AppContext';
 import { useUserContext } from '../../contexts/UserContext';
-import Default from '../../Layouts/Default';
+import Default from '../../layouts/Default';
 
 const User = (props) => {
   const { role } = props;

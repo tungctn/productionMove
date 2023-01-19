@@ -4,7 +4,7 @@ import { handleImportRequest, updateRequest } from '../../api/request';
 import TableInfo from '../../components/table/TableInfo';
 import { useAppContext } from '../../contexts/AppContext';
 import { useRequestContext } from '../../contexts/RequestContext';
-import Default from '../../Layouts/Default';
+import Default from '../../layouts/Default';
 import { updateProduct } from '../../api/product';
 import { useProductContext } from '../../contexts/ProductContext';
 import SearchRequest from '../../components/search-filter/SearchRequest';

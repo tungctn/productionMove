@@ -1,5 +1,5 @@
 import { Button, Form, Input, Select, Spin } from 'antd';
-import Default from '../../Layouts/Default';
+import Default from '../../layouts/Default';
 import { LoadingOutlined } from '@ant-design/icons';
 import { useProductLineContext } from '../../contexts/ProductLineContext';
 import { useEffect, useState } from 'react';

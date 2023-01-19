@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import Default from '../../Layouts/Default';
+import Default from '../../layouts/Default';
 import ProductLineDetail from '../../components/productLine/DetailProductLine';
 import { useAppContext } from '../../contexts/AppContext';
 

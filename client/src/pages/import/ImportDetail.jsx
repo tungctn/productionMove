@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useParams, Navigate } from 'react-router-dom';
 import ProductLineDetail from '../../components/productLine/DetailProductLine';
-import Default from '../../Layouts/Default';
+import Default from '../../layouts/Default';
 import { useAppContext } from '../../contexts/AppContext';
 
 const ImportDetail = (props) => {

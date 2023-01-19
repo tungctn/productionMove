@@ -6,7 +6,7 @@ import { checkEmail, updateUser } from '../../api/user';
 import Loading from '../../components/loading/Loading';
 import ChangePass from '../../components/profile/ChangePass';
 import { useAppContext } from '../../contexts/AppContext';
-import Default from '../../Layouts/Default';
+import Default from '../../layouts/Default';
 import './index.scss';
 
 const Profile = (props) => {

@@ -1,4 +1,4 @@
-import Default from '../../Layouts/Default';
+import Default from '../../layouts/Default';
 import DemoPie from '../../components/statistic/DemoPie';
 import { useProductContext } from '../../contexts/ProductContext';
 import { useUserContext } from '../../contexts/UserContext';

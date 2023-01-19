@@ -4,7 +4,7 @@ import SearchProductLine from '../../components/search-filter/SearchProductLine'
 import TableInfo from '../../components/table/TableInfo';
 import { useAppContext } from '../../contexts/AppContext';
 import { useProductLineContext } from '../../contexts/ProductLineContext';
-import Default from '../../Layouts/Default';
+import Default from '../../layouts/Default';
 
 const Import = (props) => {
   const { role } = props;

@@ -5,7 +5,7 @@ import SearchProduct from '../../components/search-filter/SearchProduct';
 import TableInfo from '../../components/table/TableInfo';
 import { useAppContext } from '../../contexts/AppContext';
 import { useProductContext } from '../../contexts/ProductContext';
-import Default from '../../Layouts/Default';
+import Default from '../../layouts/Default';
 const Home = (props) => {
   const { role } = props;
   const navigate = useNavigate();
