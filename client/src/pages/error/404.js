@@ -8,7 +8,6 @@ const Page404 = () => {
     gotoMainPage,
     authState: { user },
   } = useAppContext();
-  const navigate = useNavigate();
   return (
     <div>
       <Result
