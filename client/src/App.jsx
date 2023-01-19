@@ -9,7 +9,6 @@ import { publicRoutes } from './routes';
 import Loading from './components/Loading/Loading';
 
 const App = () => {
-  console.log(process.env.REACT_APP_API_URL);
   return (
     <div className="App">
       <Routes>
