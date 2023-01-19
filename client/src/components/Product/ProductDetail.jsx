@@ -1,4 +1,4 @@
-import { Image, Descriptions, Modal, Button, Form, Input, Select } from 'antd';
+import { Image, Modal, Button, Form, Input, Select } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { UpOutlined, DownOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
@@ -7,6 +7,9 @@ import { useAppContext } from '../../contexts/AppContext';
 import { useUserContext } from '../../contexts/UserContext';
 import { createRequest } from '../../api/request';
 import Loading from '../Loading/Loading';
+import SpecProductLine from '../ProductLineForm/SpecProductLine';
+import Slider from '../Slider/Slider';
+import Customer from './Customer';
 
 const ProductDetail = (props) => {
   const { id } = props;
@@ -288,10 +291,26 @@ const ProductDetail = (props) => {
     setRequestData({ ...requestData, note: e.target.value });
   };
 
+  const data = productLine?.img?.map((img, index) => {
+    return (
+      <Image
+        width={400}
+        src={img}
+        alt="Ảnh dòng xe"
+        style={{ objectFit: 'cover' }}
+        key={index}
+        className="mb-5 duration-200"
+        preview={false}
+        height={400}
+      />
+    );
+  });
+
   return (
     <Loading spinning={isLoading}>
       <div>
-        <Image src={productLine.img} width={400} preview={false} />
+        {/* <Image src={productLine.img} width={400} preview={false} /> */}
+        <Slider data={data} />
         <h2 className="font-bold text-base">
           Trạng thái: {product?.statusName}
         </h2>
@@ -369,37 +388,7 @@ const ProductDetail = (props) => {
             </Button>
           )}
         </div>
-        {product?.isSold && (
-          <h1
-            className="font-bold text-base  mb-3 cursor-pointer"
-            onClick={() => {
-              setShowClient(!showClient);
-            }}
-          >
-            Thông tin khách hàng{' '}
-            {showClient ? <UpOutlined /> : <DownOutlined />}
-          </h1>
-        )}
-
-        {showClient && (
-          <Descriptions bordered column={1}>
-            <Descriptions.Item label="Tên khách hàng">
-              {product?.customer?.name}
-            </Descriptions.Item>
-            <Descriptions.Item label="Email">
-              {product?.customer?.email}
-            </Descriptions.Item>
-            <Descriptions.Item label="Địa chỉ">
-              {product?.customer?.address}
-            </Descriptions.Item>
-            <Descriptions.Item label="Số điện thoại">
-              {product?.customer?.phone}
-            </Descriptions.Item>
-            <Descriptions.Item label="Ngày bán">
-              {product?.customer?.soldDate.split('T')[0]}
-            </Descriptions.Item>
-          </Descriptions>
-        )}
+        <Customer product={product} />
 
         <h1
           className="font-bold text-base my-3 cursor-pointer"
@@ -409,50 +398,7 @@ const ProductDetail = (props) => {
         >
           Thông tin sản phẩm {showProduct ? <UpOutlined /> : <DownOutlined />}
         </h1>
-        {showProduct && (
-          <Descriptions bordered column={1}>
-            <Descriptions.Item label="Tên dòng xe">
-              {productLine.name}
-            </Descriptions.Item>
-            <Descriptions.Item label="Khối lượng bản thân">
-              {productLine.weight}
-            </Descriptions.Item>
-            <Descriptions.Item label="Dài">
-              {productLine.length}
-            </Descriptions.Item>
-            <Descriptions.Item label="Rộng">
-              {productLine.width}
-            </Descriptions.Item>
-            <Descriptions.Item label="Cao">
-              {productLine.height}
-            </Descriptions.Item>
-            <Descriptions.Item label="Khoảng cách trục bánh xe">
-              {productLine.wheelAxleDistance}
-            </Descriptions.Item>
-            <Descriptions.Item label="Chiều cao yên xe">
-              {productLine.saddleHeight}
-            </Descriptions.Item>
-            <Descriptions.Item label="Khoảng cách gầm xe">
-              {productLine.groundClearance}
-            </Descriptions.Item>
-            <Descriptions.Item label="Dung tích bình xăng">
-              {productLine.petrolTankCapacity}
-            </Descriptions.Item>
-            <Descriptions.Item label="Mức tiêu thụ nhiên liệu">
-              {productLine.fuelConsumption}
-            </Descriptions.Item>
-            <Descriptions.Item label="Dung tích xy-lanh">
-              {productLine.displacementVolume}
-            </Descriptions.Item>
-            <Descriptions.Item label="Loại động cơ">
-              {productLine.engineType}
-            </Descriptions.Item>
-            <Descriptions.Item label="Thời hạn bảo hành">
-              {productLine.timePeriod.period}{' '}
-              {convertUnitToName(productLine.timePeriod.unit)}
-            </Descriptions.Item>
-          </Descriptions>
-        )}
+        {showProduct && <SpecProductLine productLine={productLine} />}
 
         {product?.status === 1 && !type && (
           <Modal
@@ -674,7 +620,7 @@ const ProductDetail = (props) => {
               <div>
                 <p>Bạn có chắc chắn muốn gửi sản phẩm về đại lý không?</p>
                 <p>Ghi chú:</p>
-                <TextArea onChange={onNoteChange}></TextArea>
+                <TextArea onChange={onNoteChange} />
               </div>
             )}
             {user?.role === 3 && (

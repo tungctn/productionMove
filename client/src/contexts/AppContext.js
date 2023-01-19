@@ -29,7 +29,6 @@ export const initState = {
 const AppContextProvider = (props) => {
   const [authState, dispatch] = useReducer(AuthReducer, initState);
   const navigate = useNavigate();
-  const { id } = useParams();
   const openNotification = (type, message, description) => {
     notification[type]({
       message,

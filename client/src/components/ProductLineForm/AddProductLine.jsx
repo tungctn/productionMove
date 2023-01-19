@@ -13,16 +13,8 @@ const AddProductLine = () => {
   const navigate = useNavigate();
   const { openNotification } = useAppContext();
   const { Option } = Select;
-  const [fileInputState, setFileInputState] = useState('');
-  const [selectedFile, setSelectedFile] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [fileList, setFileList] = useState([]);
-  const handleFileInputChange = (e) => {
-    console.log(e.target.files);
-    const file = e.target.files[0];
-    setSelectedFile(file);
-    setFileInputState(e.target.value);
-  };
   const uploadButton = (
     <div>
       <PlusOutlined />

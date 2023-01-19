@@ -6,9 +6,10 @@ import Page404 from './pages/error/404';
 import Auth from './routes/Auth';
 import RequireAuth from './routes/RequireAuth';
 import { publicRoutes } from './routes';
+import Loading from './components/Loading/Loading';
 
 const App = () => {
-
+  console.log(process.env.REACT_APP_API_URL);
   return (
     <div className="App">
       <Routes>
@@ -25,6 +26,7 @@ const App = () => {
         <Route path="/*" element={<Page404 />} />
       </Routes>
     </div>
+    
   );
 };
 export default App;

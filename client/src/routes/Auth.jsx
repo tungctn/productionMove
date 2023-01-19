@@ -1,4 +1,5 @@
 import { Outlet, Navigate } from 'react-router-dom';
+import Loading from '../components/Loading/Loading';
 import { useAppContext } from '../contexts/AppContext';
 
 const Auth = () => {
@@ -9,7 +10,11 @@ const Auth = () => {
   let body;
 
   if (isLoading) {
-    body = <></>;
+    body = (
+      <Loading spinning={true}>
+        <p className="h-[800px]"></p>
+      </Loading>
+    );
   } else if (!isAuthenticated) {
     body = <Outlet />;
   } else if (url === '/') {
