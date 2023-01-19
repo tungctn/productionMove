@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { PlusCircleOutlined } from '@ant-design/icons';
 import { useAppContext } from '../../contexts/AppContext';
 import { useUserContext } from '../../contexts/UserContext';
-import Loading from '../Loading/Loading';
+import Loading from '../loading/Loading';
 
 const AddUser = () => {
   const [visible, setVisible] = useState(false);

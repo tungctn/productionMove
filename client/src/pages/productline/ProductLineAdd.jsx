@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import AddProductLine from '../../components/ProductLineForm/AddProductLine';
+import AddProductLine from '../../components/productLine/AddProductLine';
 import { useAppContext } from '../../contexts/AppContext';
 import Default from '../../Layouts/Default';
 

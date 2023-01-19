@@ -1,10 +1,10 @@
 import Default from "../../Layouts/Default";
-import DemoPie from "../../components/Statistic/DemoPie";
+import DemoPie from "../../components/statistic/DemoPie";
 import { useProductContext } from "../../contexts/ProductContext";
 import { useAppContext } from "../../contexts/AppContext";
 import { useProductLineContext } from "../../contexts/ProductLineContext";
 import { useEffect, useState } from "react";
-import DemoLiquid from "../../components/Statistic/DemoLiquid";
+import DemoLiquid from "../../components/statistic/DemoLiquid";
 
 const FailedProductLine = (props) => {
   const [productline, setProductLine] = useState("0");

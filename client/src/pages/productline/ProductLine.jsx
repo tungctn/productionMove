@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import SearchProductLine from '../../components/SearchFilter/SearchProductLine';
-import TableInfo from '../../components/TableInfo/TableInfo';
+import SearchProductLine from '../../components/search-filter/SearchProductLine';
+import TableInfo from '../../components/table/TableInfo';
 import { useAppContext } from '../../contexts/AppContext';
 import { useProductLineContext } from '../../contexts/ProductLineContext';
 import Default from '../../Layouts/Default';

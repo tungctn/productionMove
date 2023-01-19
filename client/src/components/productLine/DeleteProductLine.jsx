@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { deleteProductLine } from '../../api/productline';
 import { useAppContext } from '../../contexts/AppContext';
-import Loading from '../Loading/Loading';
+import Loading from '../loading/Loading';
 
 const ProductLineDelete = (props) => {
   const { openNotification } = useAppContext();

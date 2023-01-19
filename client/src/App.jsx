@@ -6,7 +6,6 @@ import Page404 from './pages/error/404';
 import Auth from './routes/Auth';
 import RequireAuth from './routes/RequireAuth';
 import { publicRoutes } from './routes';
-import Loading from './components/Loading/Loading';
 
 const App = () => {
   return (

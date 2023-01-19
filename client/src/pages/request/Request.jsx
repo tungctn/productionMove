@@ -1,14 +1,14 @@
 import { Button, Input, Modal, Tag } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { handleImportRequest, updateRequest } from '../../api/request';
-import TableInfo from '../../components/TableInfo/TableInfo';
+import TableInfo from '../../components/table/TableInfo';
 import { useAppContext } from '../../contexts/AppContext';
 import { useRequestContext } from '../../contexts/RequestContext';
 import Default from '../../Layouts/Default';
 import { updateProduct } from '../../api/product';
 import { useProductContext } from '../../contexts/ProductContext';
-import SearchRequest from '../../components/SearchFilter/SearchRequest';
-import Loading from '../../components/Loading/Loading';
+import SearchRequest from '../../components/search-filter/SearchRequest';
+import Loading from '../../components/loading/Loading';
 
 const Request = (props) => {
   const { role } = props;

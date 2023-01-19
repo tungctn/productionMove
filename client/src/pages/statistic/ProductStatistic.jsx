@@ -1,5 +1,5 @@
 import Default from '../../Layouts/Default';
-import DemoPie from '../../components/Statistic/DemoPie';
+import DemoPie from '../../components/statistic/DemoPie';
 import { useProductContext } from '../../contexts/ProductContext';
 import { useAppContext } from '../../contexts/AppContext';
 import { useEffect, useState } from 'react';

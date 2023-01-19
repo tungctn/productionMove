@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import SearchUser from '../../components/SearchFilter/SearchUser';
-import TableInfo from '../../components/TableInfo/TableInfo';
+import SearchUser from '../../components/search-filter/SearchUser';
+import TableInfo from '../../components/table/TableInfo';
 import DeleteUser from '../../components/user/DeleteUser';
 import EditUser from '../../components/user/EditUser';
 import { useAppContext } from '../../contexts/AppContext';

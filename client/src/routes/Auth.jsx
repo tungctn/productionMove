@@ -1,5 +1,5 @@
 import { Outlet, Navigate } from 'react-router-dom';
-import Loading from '../components/Loading/Loading';
+import Loading from '../components/loading/Loading';
 import { useAppContext } from '../contexts/AppContext';
 
 const Auth = () => {

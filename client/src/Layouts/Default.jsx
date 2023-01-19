@@ -1,6 +1,6 @@
 import { BackTop } from 'antd';
 import React, { useEffect, useState } from 'react';
-import Notification from '../components/Request/Notification';
+import Notification from '../components/request/Notification';
 import { useAppContext } from '../contexts/AppContext';
 import { useRequestContext } from '../contexts/RequestContext';
 import Header from './Header';

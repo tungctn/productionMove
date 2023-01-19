@@ -6,9 +6,9 @@ import { deleteProduct, getProduct, updateProduct } from '../../api/product';
 import { useAppContext } from '../../contexts/AppContext';
 import { useUserContext } from '../../contexts/UserContext';
 import { createRequest } from '../../api/request';
-import Loading from '../Loading/Loading';
-import SpecProductLine from '../ProductLineForm/SpecProductLine';
-import Slider from '../Slider/Slider';
+import Loading from '../loading/Loading';
+import SpecProductLine from '../productLine/SpecProductLine';
+import Slider from '../slider/Image';
 import Customer from './Customer';
 
 const ProductDetail = (props) => {
@@ -577,7 +577,6 @@ const ProductDetail = (props) => {
               placeholder="Select a warrantyCenter"
               optionFilterProp="children"
               onChange={onWarrantyChange}
-              // onSearch={onSearch}
               filterOption={(input, option) =>
                 (option?.label ?? '')
                   .toLowerCase()

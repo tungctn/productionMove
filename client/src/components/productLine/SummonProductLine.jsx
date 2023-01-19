@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { createRequest } from '../../api/request';
 import { useAppContext } from '../../contexts/AppContext';
 import { useUserContext } from '../../contexts/UserContext';
-import Loading from '../Loading/Loading';
+import Loading from '../loading/Loading';
 
 const SummonProductLine = (props) => {
   const { productLine } = props;

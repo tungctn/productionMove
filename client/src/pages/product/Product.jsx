@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import ProductDetail from "../../components/Product/ProductDetail";
+import ProductDetail from "../../components/product/ProductDetail";
 import { useParams } from "react-router-dom";
 import Default from "../../Layouts/Default";
 import { useAppContext } from "../../contexts/AppContext";

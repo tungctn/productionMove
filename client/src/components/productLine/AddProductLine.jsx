@@ -1,69 +1,55 @@
-import { LeftOutlined } from '@ant-design/icons';
-import { Button, Form, Input, Select } from 'antd';
-import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { getProductLine, updateProductLine } from '../../api/productline';
+import { Button, Form, Input, Upload } from 'antd';
+import { Link } from 'react-router-dom';
+import { Select } from 'antd';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { uploadImage } from '../../api/image';
+import { createProductLine } from '../../api/productline';
 import { useAppContext } from '../../contexts/AppContext';
-import Loading from '../Loading/Loading';
+import { LeftOutlined, PlusOutlined } from '@ant-design/icons';
+import Loading from '../loading/Loading';
 
-const ProductLineEdit = (props) => {
-  const { id } = props;
-  const [form] = Form.useForm();
-  const { Option } = Select;
+const AddProductLine = () => {
   const navigate = useNavigate();
-  const { convertObjectToArray, openNotification } = useAppContext();
-  const [productLine, setProductLine] = useState({});
-  const [formData, setFormData] = useState({});
+  const { openNotification } = useAppContext();
+  const { Option } = Select;
   const [isLoading, setIsLoading] = useState(false);
-  const loadProductLine = async (id) => {
-    setIsLoading(true);
-    const response = await getProductLine(id);
-    if (response.success) {
-      setProductLine(response.data);
-      setIsLoading(false);
-    }
-  };
-  const onValueChange = (e) => {
-    const propName = e.target.name;
-    const value = e.target.value;
-    setFormData({ ...formData, [propName]: value });
-  };
+  const [fileList, setFileList] = useState([]);
+  const uploadButton = (
+    <div>
+      <PlusOutlined />
+      <div style={{ marginTop: 8 }}>Upload</div>
+    </div>
+  );
   const onFinish = async (values) => {
     setIsLoading(true);
-    const response = await updateProductLine(
-      id,
-      convertObjectToArray({
+    const data = fileList.map((file) => {
+      return file.thumbUrl;
+    });
+    const response = await uploadImage({ data: data });
+    if (response.success) {
+      const response1 = await createProductLine({
         ...values,
+        img: response.data,
         timePeriod: {
           period: Number(values.period),
-          unit: values.unit,
+          unit: Number(values.unit),
         },
-      }),
-    );
-    if (response.success) {
-      openNotification('success', response.msg);
-      navigate(`/productline/${id}`);
+      });
+      if (response1.success) {
+        openNotification('success', response1.msg);
+        navigate('/productline');
+      }
       setIsLoading(false);
+      // }
     }
   };
-
-  useEffect(() => {
-    loadProductLine(id);
-    if (Object.keys(productLine).length > 0) {
-      form.setFieldsValue({
-        ...productLine,
-        period: productLine.timePeriod.period,
-        unit: productLine.timePeriod.unit,
-      });
-    }
-  }, [id, Object.keys(productLine).length]);
 
   const selectAfter = (
     <Form.Item name="unit" noStyle>
       <Select
         className="select-after"
         name="unit"
-        onChange={onValueChange}
         style={{
           width: 90,
         }}
@@ -75,21 +61,19 @@ const ProductLineEdit = (props) => {
     </Form.Item>
   );
   return (
-    <Loading spinning={isLoading}>
-      <div>
-        <div className="w-1/12 mt-5">
-          <Link to="/productline">
-            <LeftOutlined />
-          </Link>
-        </div>
+    <div>
+      <div className="w-1/12 mt-5">
+        <Link to="/productline">
+          <LeftOutlined />
+        </Link>
+      </div>
+      <Loading spinning={isLoading}>
         <div className="w-5/6 mt-5 mx-auto">
           <Form
             layout="vertical"
-            form={form}
             onFinish={onFinish}
             initialValues={{ remember: true }}
           >
-            {/* Tên dòng xe */}
             <Form.Item
               label="Tên dòng xe"
               type="text"
@@ -101,11 +85,39 @@ const ProductLineEdit = (props) => {
                 },
               ]}
             >
+              <Input name="name" placeholder="input placeholder" />
+            </Form.Item>
+            {/* <Form.Item
+              label="Hình ảnh"
+              type="file"
+              name="img"
+              rules={[
+                {
+                  required: true,
+                  message: 'Please input your img!',
+                },
+              ]}
+            >
               <Input
-                name="name"
+                type="file"
+                onChange={handleFileInputChange}
+                value={fileInputState}
+                name="img"
                 placeholder="input placeholder"
-                onChange={onValueChange}
               />
+            </Form.Item> */}
+            <Form.Item
+              label="Mã dòng sản phẩm"
+              type="text"
+              name="code"
+              rules={[
+                {
+                  required: true,
+                  message: 'Please input your code!',
+                },
+              ]}
+            >
+              <Input name="code" placeholder="input placeholder" />
             </Form.Item>
             {/* Khối lượng bản thân */}
             <Form.Item
@@ -119,11 +131,7 @@ const ProductLineEdit = (props) => {
                 },
               ]}
             >
-              <Input
-                name="weight"
-                placeholder="input placeholder"
-                onChange={onValueChange}
-              />
+              <Input name="weight" placeholder="input placeholder" />
             </Form.Item>
             {/* Dài */}
             <Form.Item
@@ -132,11 +140,7 @@ const ProductLineEdit = (props) => {
               type="text"
               rules={[{ required: true, message: 'Please input your length!' }]}
             >
-              <Input
-                name="length"
-                placeholder="input placeholder"
-                onChange={onValueChange}
-              />
+              <Input name="length" placeholder="input placeholder" />
             </Form.Item>
             {/* Rộng */}
             <Form.Item
@@ -150,11 +154,7 @@ const ProductLineEdit = (props) => {
                 },
               ]}
             >
-              <Input
-                name="width"
-                placeholder="input placeholder"
-                onChange={onValueChange}
-              />
+              <Input name="width" placeholder="input placeholder" />
             </Form.Item>
             {/* Cao */}
             <Form.Item
@@ -168,11 +168,7 @@ const ProductLineEdit = (props) => {
                 },
               ]}
             >
-              <Input
-                name="height"
-                placeholder="input placeholder"
-                onChange={onValueChange}
-              />
+              <Input name="height" placeholder="input placeholder" />
             </Form.Item>
             {/* Khoảng cách trục bánh xe  */}
             <Form.Item
@@ -186,11 +182,7 @@ const ProductLineEdit = (props) => {
                 },
               ]}
             >
-              <Input
-                name="wheelAxleDistance"
-                placeholder="input placeholder"
-                onChange={onValueChange}
-              />
+              <Input name="wheelAxleDistance" placeholder="input placeholder" />
             </Form.Item>
             {/* Chiều cao yên xe */}
             <Form.Item
@@ -204,11 +196,7 @@ const ProductLineEdit = (props) => {
                 },
               ]}
             >
-              <Input
-                name="saddleHeight"
-                placeholder="input placeholder"
-                onChange={onValueChange}
-              />
+              <Input name="saddleHeight" placeholder="input placeholder" />
             </Form.Item>
             {/* Khoảng cách gầm xe */}
             <Form.Item
@@ -222,11 +210,7 @@ const ProductLineEdit = (props) => {
                 },
               ]}
             >
-              <Input
-                name="groundClearance"
-                placeholder="input placeholder"
-                onChange={onValueChange}
-              />
+              <Input name="groundClearance" placeholder="input placeholder" />
             </Form.Item>
             {/* Dung tích bình xăng */}
             <Form.Item
@@ -243,7 +227,6 @@ const ProductLineEdit = (props) => {
               <Input
                 name="petrolTankCapacity"
                 placeholder="input placeholder"
-                onChange={onValueChange}
               />
             </Form.Item>
             {/* Mức tiêu thụ nhiên liệu */}
@@ -258,11 +241,7 @@ const ProductLineEdit = (props) => {
                 },
               ]}
             >
-              <Input
-                name="fuelConsumption"
-                placeholder="input placeholder"
-                onChange={onValueChange}
-              />
+              <Input name="fuelConsumption" placeholder="input placeholder" />
             </Form.Item>
             {/* Dung tích xy-lanh */}
             <Form.Item
@@ -279,7 +258,6 @@ const ProductLineEdit = (props) => {
               <Input
                 name="displacementVolume"
                 placeholder="input placeholder"
-                onChange={onValueChange}
               />
             </Form.Item>
             {/* Loại động cơ */}
@@ -294,11 +272,7 @@ const ProductLineEdit = (props) => {
                 },
               ]}
             >
-              <Input
-                name="engineType"
-                placeholder="input placeholder"
-                onChange={onValueChange}
-              />
+              <Input name="engineType" placeholder="input placeholder" />
             </Form.Item>
             <Form.Item
               label="Thời gian bảo hành"
@@ -309,35 +283,34 @@ const ProductLineEdit = (props) => {
                   required: true,
                   message: 'Please input your engineType!',
                 },
-                {
-                  validator: (rule, value) => {
-                    if (value < 0) {
-                      return Promise.reject('Thời gian bảo hành không hợp lệ');
-                    } else if (value > 100) {
-                      return Promise.reject('Thời gian bảo hành không hợp lệ');
-                    } else if (isNaN(value)) {
-                      return Promise.reject('Thời gian bảo hành không hợp lệ');
-                    }
-                    return Promise.resolve();
-                  },
-                },
               ]}
             >
               <Input
                 name="period"
                 placeholder="input placeholder"
                 addonAfter={selectAfter}
-                onValueChange={onValueChange}
               />
             </Form.Item>
             <Button type="primary" htmlType="submit">
               Submit
             </Button>
           </Form>
+          <Upload
+            // action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+            listType="picture-card"
+            // fileList={fileList}
+            // onPreview={handlePreview}
+            onChange={(e) => {
+              console.log(e.fileList);
+              setFileList(e.fileList);
+            }}
+          >
+            {uploadButton}
+          </Upload>
         </div>
-      </div>
-    </Loading>
+      </Loading>
+    </div>
   );
 };
 
-export default ProductLineEdit;
+export default AddProductLine;

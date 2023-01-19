@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { getUser } from '../../api/user';
 import { useAppContext } from '../../contexts/AppContext';
 import { useUserContext } from '../../contexts/UserContext';
-import Loading from '../Loading/Loading';
+import Loading from '../loading/Loading';
 
 const EditUser = (props) => {
   const { id } = props;

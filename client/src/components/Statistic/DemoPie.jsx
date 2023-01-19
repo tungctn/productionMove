@@ -1,6 +1,6 @@
 import React from 'react';
 import { Column } from '@ant-design/plots';
-import Loading from '../Loading/Loading';
+import Loading from '../loading/Loading';
 
 const DemoPie = (props) => {
   const { data, loading } = props;

@@ -5,8 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import { getProductLine } from '../../api/productline';
 import ProductLineDelete from './DeleteProductLine';
 import SummonProductLine from './SummonProductLine';
-import Loading from '../Loading/Loading';
-import Slider from '../Slider/Slider';
+import Loading from '../loading/Loading';
+import Slider from '../slider/Image';
 import SpecProductLine from './SpecProductLine';
 
 const ProductLineDetail = (props) => {

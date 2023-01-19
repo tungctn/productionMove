@@ -227,15 +227,6 @@ const AppContextProvider = (props) => {
   };
 
   const checkMiddleware = (role, next) => {
-    // if (!middleware[user.role - 1].path.includes(window.location.pathname)) {
-    //   let path = window.location.pathname;
-    //   let pathArr = middleware[user.role - 1].path;
-    //   gotoMainPage(user);
-    //   openNotification('error', 'Bạn không có quyền truy cập trang này');
-    //   console.log(path, pathArr);
-    // } else {
-    //   next();
-    // }
     if (role.includes(authState.user?.role)) {
       next();
     } else {

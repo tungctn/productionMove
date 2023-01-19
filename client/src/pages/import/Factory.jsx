@@ -3,7 +3,7 @@ import { Navigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { quantityInStock } from '../../api/factory';
-import TableInfo from '../../components/TableInfo/TableInfo';
+import TableInfo from '../../components/table/TableInfo';
 import Default from '../../Layouts/Default';
 import Order from './Order';
 import { useAppContext } from '../../contexts/AppContext';

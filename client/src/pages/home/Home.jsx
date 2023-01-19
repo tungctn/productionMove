@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Notification from '../../components/Request/Notification';
-import SearchProduct from '../../components/SearchFilter/SearchProduct';
-import TableInfo from '../../components/TableInfo/TableInfo';
+import Notification from '../../components/request/Notification';
+import SearchProduct from '../../components/search-filter/SearchProduct';
+import TableInfo from '../../components/table/TableInfo';
 import { useAppContext } from '../../contexts/AppContext';
 import { useProductContext } from '../../contexts/ProductContext';
 import Default from '../../Layouts/Default';
