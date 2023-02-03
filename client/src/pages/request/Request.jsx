@@ -205,7 +205,7 @@ const Request = (props) => {
       loadListRequest();
       setVisible(false);
     } else {
-      openNotification('error', 'Chấp nhận yêu cầu thất bại');
+      openNotification('error', 'Khong the chấp nhận yêu cầu');
     }
   };
   const handleReject = async () => {

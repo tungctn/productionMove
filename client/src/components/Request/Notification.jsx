@@ -3,14 +3,13 @@ import PropTypes from 'prop-types';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { List, Avatar, Skeleton, Divider } from 'antd';
 import { useRequestContext } from '../../contexts/RequestContext';
+import { BellOutlined } from '@ant-design/icons';
 const Notification = (props) => {
-
   const { dataSource } = props;
   const { loadListRequest } = useRequestContext();
 
   return (
     <div
-      id="scrollableDiv"
       style={{
         height: 400,
         overflow: 'hidden',
@@ -41,7 +40,7 @@ const Notification = (props) => {
                 className="cursor-pointer"
                 avatar={<Avatar src={item?.requester?.img} />}
                 title={<p>{item?.requester?.name}</p>}
-                description={item?.description}
+                description={<p className="text-left">{item?.description}</p>}
               />
             </List.Item>
           )}

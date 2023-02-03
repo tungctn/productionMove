@@ -38,7 +38,11 @@ const userSchema = new mongoose.Schema(
       ],
     },
     requestList: [
-      { type: mongoose.Schema.Types.ObjectId, ref: "Request", default: [] },
+      { 
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: "Request", 
+        default: [] 
+      },
     ],
     deleted: {
       type: Boolean,

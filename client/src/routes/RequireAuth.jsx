@@ -3,6 +3,7 @@ import Loading from '../components/loading/Loading';
 import { useAppContext } from '../contexts/AppContext';
 
 const RequireAuth = () => {
+  console.log('RequireAuth');
   const {
     authState: { isLoading, isAuthenticated },
   } = useAppContext();

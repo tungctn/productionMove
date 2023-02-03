@@ -1,5 +1,4 @@
 import axios from "./axios";
-import { updateProduct } from "./product";
 
 export const createRequest = async (data) => {
   const response = await axios.post("/request", data);
