@@ -12,10 +12,6 @@ import { useAppContext } from './AppContext';
 
 export const RequestContext = createContext();
 
-export const initState = {
-  listRequest: [],
-};
-
 export const RequestContextProvider = (props) => {
   const {
     authState: { user },

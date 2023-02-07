@@ -12,10 +12,6 @@ import { useAppContext } from "./AppContext";
 
 export const ProductLineContext = createContext();
 
-export const initState = {
-  listProductLine: [],
-};
-
 const ProductLineContextProvider = (props) => {
   const {
     authState,

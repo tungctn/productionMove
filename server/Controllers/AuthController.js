@@ -17,7 +17,7 @@ module.exports.genarateAccessToken = (user) => {
       img: user.img,
     },
     process.env.ACCESS_TOKEN_SECRET,
-    { expiresIn: "10h" }
+    { expiresIn: "1d" }
   );
 };
 

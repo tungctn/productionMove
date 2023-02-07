@@ -6,9 +6,6 @@ import { useAppContext } from './AppContext';
 
 export const UserContext = createContext();
 
-export const initState = {
-  listUser: [],
-};
 
 const UserContextProvider = (props) => {
   const { authState } = useAppContext();

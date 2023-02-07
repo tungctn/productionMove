@@ -8,6 +8,7 @@ import { createProductLine } from '../../api/productline';
 import { useAppContext } from '../../contexts/AppContext';
 import { LeftOutlined, PlusOutlined } from '@ant-design/icons';
 import Loading from '../loading/Loading';
+import './index.scss';
 
 const AddProductLine = () => {
   const navigate = useNavigate();
@@ -291,22 +292,22 @@ const AddProductLine = () => {
                 addonAfter={selectAfter}
               />
             </Form.Item>
+            <Upload
+              // action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+              listType="picture-card"
+              // fileList={fileList}
+              // onPreview={handlePreview}
+              onChange={(e) => {
+                console.log(e.fileList);
+                setFileList(e.fileList);
+              }}
+            >
+              {uploadButton}
+            </Upload>
             <Button type="primary" htmlType="submit">
               Submit
             </Button>
           </Form>
-          <Upload
-            // action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-            listType="picture-card"
-            // fileList={fileList}
-            // onPreview={handlePreview}
-            onChange={(e) => {
-              console.log(e.fileList);
-              setFileList(e.fileList);
-            }}
-          >
-            {uploadButton}
-          </Upload>
         </div>
       </Loading>
     </div>
