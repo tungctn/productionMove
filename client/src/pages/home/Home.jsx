@@ -42,7 +42,7 @@ const Home = (props) => {
     });
   }, []);
 
-  const dataSource = listProduct.map((product, index) => {
+  const dataSource = listProduct?.map((product, index) => {
     return {
       ...product,
       key: index + 1,

@@ -11,7 +11,6 @@ import { AuthReducer } from '../reducers/AuthReducer';
 import { getProfile } from '../api/user';
 import { SET_AUTH_BEGIN, SET_AUTH_FAILED, SET_AUTH_SUCCESS } from '../action';
 import { useNavigate, useParams } from 'react-router-dom';
-import { middleware } from '../middleware';
 
 export const AppContext = createContext();
 

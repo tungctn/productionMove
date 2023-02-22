@@ -10,16 +10,15 @@ const SearchProduct = () => {
     productlineState: { listProductLine },
     loadListProductLine,
   } = useProductLineContext();
-  const {
-    productState: { listProduct },
-    loadAllProduct,
-  } = useProductContext();
+
   useEffect(() => {
     handleSearchProduct({ ...form });
   }, [form]);
+
   useEffect(() => {
     loadListProductLine();
   }, []);
+
   const onValueChange = (e) => {
     setForm({ ...form, input: e.target.value });
   };
@@ -79,6 +78,7 @@ const SearchProduct = () => {
       label: "Trả lại cơ sở sản xuất do lâu không được bán",
     },
   ];
+  
   const dataProductLine = listProductLine?.map((item) => {
     return {
       value: item?._id,
