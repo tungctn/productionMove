@@ -9,6 +9,7 @@ import Order from './Order';
 import { useAppContext } from '../../contexts/AppContext';
 
 const Factory = (props) => {
+  'use strict';
   const { role } = props;
   const [listQuantity, setListQuantity] = useState([]);
   const [loading, setLoading] = useState(false);

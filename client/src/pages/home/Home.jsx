@@ -7,6 +7,7 @@ import { useAppContext } from '../../contexts/AppContext';
 import { useProductContext } from '../../contexts/ProductContext';
 import Default from '../../layouts/Default';
 const Home = (props) => {
+  ('use strict');
   const { role } = props;
   const navigate = useNavigate();
   const { convertStatusToNameProduct, checkMiddleware } = useAppContext();

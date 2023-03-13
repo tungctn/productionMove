@@ -6,6 +6,7 @@ import Loading from '../../components/loading/Loading';
 import './index.scss'
 
 const Login = () => {
+  "use strict"
   const { handleLogin } = useAppContext();
   const [loading, setLoading] = useState(false);
   const onFinish = async (values) => {

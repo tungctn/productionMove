@@ -8,6 +8,7 @@ import { useUserContext } from '../../contexts/UserContext';
 import Default from '../../layouts/Default';
 
 const User = (props) => {
+  'use strict';
   const { role } = props;
   const dataColumn = [
     {

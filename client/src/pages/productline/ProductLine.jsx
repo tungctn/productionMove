@@ -7,6 +7,7 @@ import { useProductLineContext } from '../../contexts/ProductLineContext';
 import Default from '../../layouts/Default';
 
 const ProductLine = (props) => {
+  'use strict';
   const { role } = props;
   const dataColumn = [
     {

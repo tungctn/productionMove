@@ -10,6 +10,11 @@ const productLineSchema = new mongoose.Schema(
       require: true,
       default: 0,
     },
+    price: {
+      type: Number,
+      require: true,
+      
+    },
     code: {
       type: String,
       require: true,

@@ -78,11 +78,6 @@ const ProductDetail = (props) => {
       };
     });
 
-  useEffect(() => {
-    loadProduct(id);
-    loadListUser();
-  }, [id]);
-
   const onValueChange = (e) => {
     const propName = e.target.name;
     const value = e.target.value;
@@ -124,16 +119,17 @@ const ProductDetail = (props) => {
       ]);
       if (response.success) {
         openNotification('success', response.msg);
-        loadProduct(id);
         setVisible(false);
       } else {
         openNotification('error', 'Failed');
       }
     } else if (product?.status === 1 && type === 2) {
-      response = await createRequest(requestData);
+      response = await createRequest({
+        ...requestData,
+        description: `Trả sản phẩm ${product?.name}`,
+      });
       if (response.success) {
         openNotification('success', response.msg);
-        loadProduct(id);
         setVisible(false);
       } else {
         openNotification('error', 'Failed');
@@ -142,7 +138,6 @@ const ProductDetail = (props) => {
       response = await updateProduct(id, convertObjectToArray({ status: 3 }));
       if (response.success) {
         openNotification('success', response.msg);
-        loadProduct(id);
         setVisible(false);
       } else {
         openNotification('error', 'Failed');
@@ -171,7 +166,6 @@ const ProductDetail = (props) => {
         );
         if (response.success) {
           openNotification('success', 'Đã hết hạn bảo hành');
-          loadProduct(id);
           setVisible(false);
         }
       }
@@ -179,7 +173,6 @@ const ProductDetail = (props) => {
       response = await updateProduct(id, convertObjectToArray({ status: 5 }));
       if (response.success) {
         openNotification('success', response.msg);
-        loadProduct(id);
         setVisible(false);
       } else {
         openNotification('error', 'Failed');
@@ -188,7 +181,6 @@ const ProductDetail = (props) => {
       response = await updateProduct(id, convertObjectToArray({ status: 7 }));
       if (response.success) {
         openNotification('success', response.msg);
-        loadProduct(id);
         setVisible(false);
       } else {
         openNotification('error', 'Failed');
@@ -212,7 +204,6 @@ const ProductDetail = (props) => {
       response = await updateProduct(id, convertObjectToArray({ status: 6 }));
       if (response.success) {
         openNotification('success', response.msg);
-        loadProduct(id);
         navigate('/');
         setVisible(false);
       } else {
@@ -290,6 +281,15 @@ const ProductDetail = (props) => {
     setNote(e.target.value);
     setRequestData({ ...requestData, note: e.target.value });
   };
+
+  useEffect(() => {
+    loadProduct(id);
+    loadListUser();
+  }, [id, openNotification]);
+
+  // useEffect(() => {
+  //   loadProduct(id);
+  // }, [id]);
 
   const data = productLine?.img?.map((img, index) => {
     return (

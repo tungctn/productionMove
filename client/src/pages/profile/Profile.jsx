@@ -10,6 +10,7 @@ import Default from '../../layouts/Default';
 import './index.scss';
 
 const Profile = (props) => {
+  'use strict';
   const { role } = props;
   const {
     authState: { user },

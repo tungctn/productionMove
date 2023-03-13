@@ -7,6 +7,7 @@ import { createRequest } from '../../api/request';
 import { useAppContext } from '../../contexts/AppContext';
 
 const Order = (props) => {
+  'use strict';
   const { record } = props;
   const { id } = useParams();
   const [visible, setVisible] = useState(false);

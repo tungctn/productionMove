@@ -5,6 +5,7 @@ import ProductLineDetail from '../../components/productLine/DetailProductLine';
 import { useAppContext } from '../../contexts/AppContext';
 
 const ProductLineInfo = (props) => {
+  'use strict';
   const { role } = props;
   const { id } = useParams();
   const { checkMiddleware } = useAppContext();

@@ -4,6 +4,7 @@ import { useAppContext } from '../../contexts/AppContext';
 import Default from '../../layouts/Default';
 
 const ProductLineAdd = (props) => {
+  'use strict';
   const { role } = props;
   const { checkMiddleware } = useAppContext();
 

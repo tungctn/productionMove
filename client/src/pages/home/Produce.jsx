@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { createProduct } from '../../api/product';
 import { useAppContext } from '../../contexts/AppContext';
 const Produce = (props) => {
+  "use strict"
   const { role } = props;
   const { Option } = Select;
   const [formData, setFormData] = useState({});

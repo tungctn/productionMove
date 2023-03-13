@@ -5,6 +5,7 @@ import Default from '../../layouts/Default';
 import { useAppContext } from '../../contexts/AppContext';
 
 const ImportDetail = (props) => {
+  'use strict';
   const { role } = props;
   const { id } = useParams();
 
