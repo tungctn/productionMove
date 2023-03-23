@@ -1,13 +1,23 @@
-// In your webpack.config.js
-const Dotenv = require('dotenv-webpack');
+const path = require('path');
+const webpack = require('webpack');
+const dotenv = require('dotenv');
 
-module.exports = {
-  // ...
-  plugins: [
-    new Dotenv({
-      path: './.env', // Path to .env file (this is the default) 
-      safe: true // load .env.example (defaults to "false" which does not use dotenv-safe) 
-    })
-  ],
-  // ...
+module.exports = (env) => {
+  // Load environment variables from .env file
+  const envVariables = dotenv.config().parsed;
+
+  return {
+    // Other Webpack configurations you need
+    devServer: {
+      allowedHosts: [envVariables.HOST],
+    },
+    plugins: [
+      new webpack.DefinePlugin(
+        Object.keys(envVariables).reduce((prev, next) => {
+          prev[`process.env.${next}`] = JSON.stringify(envVariables[next]);
+          return prev;
+        }, {}),
+      ),
+    ],
+  };
 };

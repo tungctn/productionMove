@@ -10,10 +10,7 @@ const app = express();
 const corsOptions = {
   //To allow requests from client
   origin: [
-    "http://localhost:3000",
-    "http://127.0.0.1:3000",
-    "https://plm-deploy.onrender.com",
-    "https://production-move-one.vercel.app",
+    process.env.CLIENT_URL,
   ],
   credentials: true,
   exposedHeaders: ["set-cookie"],
