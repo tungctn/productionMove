@@ -1,8 +1,7 @@
-
 describe('Protractor Demo App', function () {
   it('should have a title', function () {
     browser.waitForAngularEnabled(false);
-    browser.get('http://productMove.v1:3000/');
+    browser.get(process.env.APP_URL);
     const email = element(by.id('basic_email'));
     email.sendKeys('store1@gmail.com');
     const password = element(by.id('basic_password'));
