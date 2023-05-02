@@ -4,14 +4,13 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
 const appRoute = require("./routes/router");
+const User = require("./Models/UserModel");
 dotenv.config();
 
 const app = express();
 const corsOptions = {
   //To allow requests from client
-  origin: [
-    process.env.CLIENT_URL,
-  ],
+  origin: [process.env.CLIENT_URL],
   credentials: true,
   exposedHeaders: ["set-cookie"],
 };
@@ -31,8 +30,18 @@ app.use(function (req, res, next) {
   next();
 });
 
-mongoose.connect(process.env.URL_CONNECT_MD, () => {
-  console.log("connect to mongoose db");
+mongoose
+  .connect(process.env.URL_CONNECT_MD)
+  .then(() => {
+    console.log("connect to mongoose db");
+  })
+  .catch((err) => {
+    console.error(err);
+  });
+
+User.collection.indexes(function (err, indexes) {
+  if (err) return console.log(err);
+  console.log(indexes);
 });
 
 app.use("/api", appRoute);

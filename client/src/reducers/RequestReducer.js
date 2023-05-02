@@ -2,7 +2,7 @@ import {
   SET_REQUEST_ADD,
   SET_REQUEST_BEGIN,
   SET_REQUEST_LIST,
-} from "../action";
+} from '../utils/action';
 
 export const RequestReducer = (state, action) => {
   switch (action.type) {
@@ -23,6 +23,6 @@ export const RequestReducer = (state, action) => {
         listRequest: [...state.listRequest, { ...action.payload }],
       };
     default:
-      throw new Error("Action not match");
+      throw new Error('Action not match');
   }
 };

@@ -4,7 +4,7 @@ import {
   SET_USER_DELETE,
   SET_USER_LIST,
   SET_USER_UPDATE,
-} from "../action";
+} from '../utils/action';
 
 export const UserReducer = (state, action) => {
   switch (action.type) {
@@ -41,10 +41,10 @@ export const UserReducer = (state, action) => {
       return {
         ...state,
         listUser: state.listUser.filter(
-          (item) => item._id !== action.payload.id
+          (item) => item._id !== action.payload.id,
         ),
       };
     default:
-      throw new Error("Action not match");
+      throw new Error('Action not match');
   }
 };

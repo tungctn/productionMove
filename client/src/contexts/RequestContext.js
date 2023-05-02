@@ -4,7 +4,7 @@ import {
   SET_REQUEST_ADD,
   SET_REQUEST_BEGIN,
   SET_REQUEST_LIST,
-} from '../action';
+} from '../utils/action';
 import { setAuthHeader } from '../api/auth';
 import { createRequest, getAllRequest, searchRequest } from '../api/request';
 import { RequestReducer } from '../reducers/RequestReducer';

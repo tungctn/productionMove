@@ -13,7 +13,6 @@ const productLineSchema = new mongoose.Schema(
     price: {
       type: Number,
       require: true,
-      
     },
     code: {
       type: String,
@@ -90,4 +89,13 @@ const productLineSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+productLineSchema.post("findOneAndDelete", async function (doc, next) {
+  if (doc) {
+    await mongoose.model("Request").deleteMany({ productLine: doc._id });
+    await mongoose.model("Product").deleteMany({ productLine: doc._id });
+  }
+  next();
+});
+
 module.exports = mongoose.model("ProductLine", productLineSchema);

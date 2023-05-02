@@ -1,6 +1,4 @@
-// const mongoose = require("mongoose");
-// var Schema = mongoose.Schema;
-// mongoose.set("strictQuery", false);
+
 const Mongoose = require("./Mongoose");
 const mongoose = new Mongoose();
 
@@ -18,7 +16,7 @@ const requestSchema = new mongoose.Schema(
     },
     status: {
       type: Number,
-      enums: [
+      enum: [
         1, //'requested',
         2, //'pending',
         3, //'accept',
@@ -28,7 +26,7 @@ const requestSchema = new mongoose.Schema(
     },
     type: {
       type: Number,
-      enums: [
+      enum: [
         0, // yêu cầu nhập sản phẩm
         1, // yêu cầu bảo hành
         2, // yêu cầu nhận sản phẩm đã bảo hành xong
@@ -56,7 +54,7 @@ const requestSchema = new mongoose.Schema(
     productLine: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "ProductLine",
-      require: true,
+      required: true,
     },
     refRequest: {
       type: mongoose.Schema.Types.ObjectId,
@@ -73,4 +71,6 @@ const requestSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+
 module.exports = mongoose.model("Request", requestSchema);

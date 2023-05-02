@@ -1,4 +1,4 @@
-import { SET_PRODUCT_BEGIN, SET_PRODUCT_LIST } from "../action";
+import { SET_PRODUCT_BEGIN, SET_PRODUCT_LIST } from '../utils/action';
 
 export const ProductReducer = (state, action) => {
   switch (action.type) {
@@ -14,6 +14,6 @@ export const ProductReducer = (state, action) => {
         listProduct: action.payload.listProduct,
       };
     default:
-      throw new Error("Action not match");
+      throw new Error('Action not match');
   }
 };

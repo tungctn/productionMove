@@ -68,7 +68,8 @@ module.exports.updateUser = async (req, res) => {
 };
 
 module.exports.deleteUser = async (req, res) => {
-  await User.findByIdAndDelete(req.params.id);
+  // await User.findOneAnd(req.params.id);
+  await User.findOneAndDelete({ _id: req.params.id });
   return response.sendSuccessResponse(
     res,
     null,
@@ -84,7 +85,7 @@ module.exports.searchUser = async (req, res) => {
     if (req.body.input && filter) {
       listUser = await User.find({
         role: req.body.role,
-        $or: [{ [filter]: { $regex: req.body.input, $options: "?i" } }],
+        $or: [{ [filter]: { $regex: req.body.input, $options: "i" } }],
       });
     } else {
       listUser = await User.find({

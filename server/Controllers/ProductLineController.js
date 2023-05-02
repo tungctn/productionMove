@@ -50,7 +50,7 @@ module.exports.productLineList = async (req, res, next) => {
 
 module.exports.searchProductLine = async (req, res, next) => {
   const listProductLine = await ProductLineModel.find({
-    name: { $regex: req.body.input, $options: "?i" },
+    name: { $regex: req.body.input, $options: "i" },
   });
   return response.sendSuccessResponse(res, listProductLine, "", 200);
 };

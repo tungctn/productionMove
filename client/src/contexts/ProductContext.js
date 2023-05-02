@@ -1,5 +1,5 @@
 import { createContext, useContext, useReducer } from 'react';
-import { SET_PRODUCT_BEGIN, SET_PRODUCT_LIST } from '../action';
+import { SET_PRODUCT_BEGIN, SET_PRODUCT_LIST } from '../utils/action';
 import { ProductReducer } from '../reducers/ProductReducer';
 import { getAllProduct, getProductByUser, searchProduct } from '../api/product';
 import { useAppContext } from './AppContext';
@@ -9,7 +9,6 @@ export const ProductContext = createContext();
 const ProductContextProvider = (props) => {
   const {
     authState,
-    authState: { user },
   } = useAppContext(); // get authState from AppContext
   const [productState, dispatch] = useReducer(ProductReducer, authState);
 

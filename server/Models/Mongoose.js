@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
-mongoose.set("strictQuery", false);
 
 class Mongoose {
   constructor() {
     this.mongoose = mongoose;
+    mongoose.set("strictQuery", false);
     Object.assign(this, mongoose);
   }
 }

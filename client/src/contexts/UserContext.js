@@ -1,11 +1,22 @@
 import { createContext, useContext, useReducer } from 'react';
-import { createUser, deleteUser, getListUser, searchUser, updateUser } from '../api/user';
-import { SET_USER_ADD, SET_USER_BEGIN, SET_USER_DELETE, SET_USER_LIST, SET_USER_UPDATE } from '../action';
+import {
+  createUser,
+  deleteUser,
+  getListUser,
+  searchUser,
+  updateUser,
+} from '../api/user';
+import {
+  SET_USER_ADD,
+  SET_USER_BEGIN,
+  SET_USER_DELETE,
+  SET_USER_LIST,
+  SET_USER_UPDATE,
+} from '../utils/action';
 import { UserReducer } from '../reducers/UserReducer';
 import { useAppContext } from './AppContext';
 
 export const UserContext = createContext();
-
 
 const UserContextProvider = (props) => {
   const { authState } = useAppContext();
@@ -89,7 +100,9 @@ const UserContextProvider = (props) => {
     handleSearchUser,
   };
 
-  return <UserContext.Provider value={data}>{props.children}</UserContext.Provider>;
+  return (
+    <UserContext.Provider value={data}>{props.children}</UserContext.Provider>
+  );
 };
 
 const useUserContext = () => {

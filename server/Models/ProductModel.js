@@ -16,12 +16,10 @@ const productSchema = new mongoose.Schema(
     },
     location: {
       type: mongoose.Schema.Types.ObjectId,
-      required: true,
       ref: "User",
     },
     factory: {
       type: mongoose.Schema.Types.ObjectId,
-      required: true,
       ref: "User",
     },
     store: {
@@ -57,7 +55,7 @@ const productSchema = new mongoose.Schema(
       phone: String,
       soldDate: Date,
     },
-    deadTime: Date
+    deadTime: Date,
   },
   { timestamps: true }
 );

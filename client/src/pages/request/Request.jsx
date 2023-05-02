@@ -11,7 +11,6 @@ import SearchRequest from '../../components/search-filter/SearchRequest';
 import Loading from '../../components/loading/Loading';
 
 const Request = (props) => {
-  'use strict';
   const { role } = props;
   const { TextArea } = Input;
   const {

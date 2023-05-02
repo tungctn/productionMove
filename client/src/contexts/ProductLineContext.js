@@ -1,25 +1,16 @@
-import { createContext, useContext, useEffect, useReducer } from "react";
-import {
-  getAllProductLine,
-  searchProductLine,
-} from "../api/productline";
-import { ProductLineReducer } from "../reducers/ProductLineReducer";
-import {
-  SET_PRODUCTLINE_BEGIN,
-  SET_PRODUCTLINE_LIST,
-} from "../action";
-import { useAppContext } from "./AppContext";
+import { createContext, useContext, useReducer } from 'react';
+import { getAllProductLine, searchProductLine } from '../api/productline';
+import { ProductLineReducer } from '../reducers/ProductLineReducer';
+import { SET_PRODUCTLINE_BEGIN, SET_PRODUCTLINE_LIST } from '../utils/action';
+import { useAppContext } from './AppContext';
 
 export const ProductLineContext = createContext();
 
 const ProductLineContextProvider = (props) => {
-  const {
-    authState,
-    authState: { user },
-  } = useAppContext(); // get authState from AppContext
+  const { authState } = useAppContext(); // get authState from AppContext
   const [productlineState, dispatch] = useReducer(
     ProductLineReducer,
-    authState
+    authState,
   );
 
   const loadListProductLine = async () => {

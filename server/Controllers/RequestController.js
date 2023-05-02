@@ -2,6 +2,8 @@ const RequestModel = require("../Models/RequestModel");
 const UserModel = require("../Models/UserModel");
 const ProductModel = require("../Models/ProductModel");
 const response = require("../utils/Response");
+const Mongoose = require("../Models/Mongoose");
+const mongoose = new Mongoose();
 module.exports.createRequest = async (req, res) => {
   const requesterId = req.body.requester;
   const recipientId = req.body.recipient;
@@ -13,26 +15,10 @@ module.exports.createRequest = async (req, res) => {
   const amount = req.body.amount;
   const productLine = req.body.productLine;
   const requestA = await new RequestModel({
-    // requester: requesterId,
-    // recipient: recipientId,
-    // status: 1,
-    // type: type,
-    // product: product,
-    // note: note,
-    // amount: amount,
-    // proudctLine: productLine,
     ...req.body,
     status: 1,
   }).save();
   const requestB = await new RequestModel({
-    // requester: requesterId,
-    // recipient: recipientId,
-    // status: 2,
-    // type: type,
-    // product: product,
-    // note: note,
-    // amount: amount,
-    // productLine: productLine,
     ...req.body,
     status: 2,
   }).save();
@@ -62,19 +48,71 @@ module.exports.getRequest = async (req, res) => {
   return response.sendSuccessResponse(res, request, "", 200);
 };
 
+// optimize query later, time request is 235ms
 module.exports.getAllRequest = async (req, res) => {
-  const listRequest = [];
   const user = await UserModel.findById(req.user.id);
-  for (const requestID of user.requestList) {
-    let request = await RequestModel.findById(requestID)
-      .populate("recipient")
-      .populate("requester")
-      .populate("productLine")
-      .populate("product");
-    listRequest.push(request);
-  }
+  const listRequest = await RequestModel.aggregate([
+    {
+      $match: { _id: { $in: user.requestList } },
+    },
+    {
+      $lookup: {
+        from: "products",
+        localField: "product",
+        foreignField: "_id",
+        as: "product",
+      },
+    },
+    {
+      $lookup: {
+        from: "productlines",
+        localField: "productLine",
+        foreignField: "_id",
+        as: "productLine",
+      },
+    },
+    {
+      $lookup: {
+        from: "users",
+        localField: "recipient",
+        foreignField: "_id",
+        as: "recipient",
+      },
+    },
+    {
+      $lookup: {
+        from: "users",
+        localField: "requester",
+        foreignField: "_id",
+        as: "requester",
+      },
+    },
+    {
+      $set: {
+        product: { $arrayElemAt: ["$product", 0] },
+        productLine: { $arrayElemAt: ["$productLine", 0] },
+        recipient: { $arrayElemAt: ["$recipient", 0] },
+        requester: { $arrayElemAt: ["$requester", 0] },
+      },
+    },
+  ]);
   return response.sendSuccessResponse(res, listRequest, "", 200);
 };
+
+// before optimize query, time request is 1.57s
+// module.exports.getAllRequest = async (req, res) => {
+//   const listRequest = [];
+//   const user = await UserModel.findById(req.user.id);
+//   for (const requestID of user.requestList) {
+//     let request = await RequestModel.findById(requestID)
+//       .populate("recipient")
+//       .populate("requester")
+//       .populate("productLine")
+//       .populate("product");
+//     listRequest.push(request);
+//   }
+//   return response.sendSuccessResponse(res, listRequest, "", 200);
+// };
 
 module.exports.handleImportRequest = async (req, res) => {
   const listProduct = await ProductModel.find({
