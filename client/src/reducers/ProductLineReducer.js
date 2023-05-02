@@ -1,4 +1,4 @@
-import { SET_PRODUCTLINE_BEGIN, SET_PRODUCTLINE_LIST } from "../action";
+import { SET_PRODUCTLINE_BEGIN, SET_PRODUCTLINE_LIST } from '../utils/action';
 
 export const ProductLineReducer = (state, action) => {
   switch (action.type) {
@@ -10,10 +10,10 @@ export const ProductLineReducer = (state, action) => {
     case SET_PRODUCTLINE_LIST:
       return {
         ...state,
-        isLoading: false, 
+        isLoading: false,
         listProductLine: action.payload.listProductLine,
       };
     default:
-      throw new Error("Action not match");
+      throw new Error('Action not match');
   }
 };

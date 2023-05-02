@@ -9,11 +9,6 @@ module.exports.createRequest = async (req, res) => {
   const recipientId = req.body.recipient;
   const requester = await UserModel.findById(requesterId);
   const recipient = await UserModel.findById(recipientId);
-  const product = req.body.product;
-  const type = req.body.type;
-  const note = req.body.note;
-  const amount = req.body.amount;
-  const productLine = req.body.productLine;
   const requestA = await new RequestModel({
     ...req.body,
     status: 1,
@@ -47,6 +42,21 @@ module.exports.getRequest = async (req, res) => {
     .populate("productLine");
   return response.sendSuccessResponse(res, request, "", 200);
 };
+
+// before optimize query, time request is 1.57s
+// module.exports.getAllRequest = async (req, res) => {
+//   const listRequest = [];
+//   const user = await UserModel.findById(req.user.id);
+//   for (const requestID of user.requestList) {
+//     let request = await RequestModel.findById(requestID)
+//       .populate("recipient")
+//       .populate("requester")
+//       .populate("productLine")
+//       .populate("product");
+//     listRequest.push(request);
+//   }
+//   return response.sendSuccessResponse(res, listRequest, "", 200);
+// };
 
 // optimize query later, time request is 235ms
 module.exports.getAllRequest = async (req, res) => {
@@ -98,21 +108,6 @@ module.exports.getAllRequest = async (req, res) => {
   ]);
   return response.sendSuccessResponse(res, listRequest, "", 200);
 };
-
-// before optimize query, time request is 1.57s
-// module.exports.getAllRequest = async (req, res) => {
-//   const listRequest = [];
-//   const user = await UserModel.findById(req.user.id);
-//   for (const requestID of user.requestList) {
-//     let request = await RequestModel.findById(requestID)
-//       .populate("recipient")
-//       .populate("requester")
-//       .populate("productLine")
-//       .populate("product");
-//     listRequest.push(request);
-//   }
-//   return response.sendSuccessResponse(res, listRequest, "", 200);
-// };
 
 module.exports.handleImportRequest = async (req, res) => {
   const listProduct = await ProductModel.find({

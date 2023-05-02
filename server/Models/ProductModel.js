@@ -8,7 +8,7 @@ const productSchema = new mongoose.Schema(
     productLine: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "ProductLine",
-      require: true,
+      required: true,
     },
     identifier: {
       type: String,

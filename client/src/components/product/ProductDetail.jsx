@@ -150,6 +150,7 @@ const ProductDetail = (props) => {
           product: product?._id,
           recipient: location,
           requester: user._id,
+          productLine: product?.productLine._id,
           type: 1,
         });
         if (response.success) {
@@ -238,6 +239,7 @@ const ProductDetail = (props) => {
         requester: user._id,
         type: 1,
         note: note,
+        productLine: product?.productLine._id,
       });
       if (response.success) {
         openNotification('success', response.msg);
@@ -284,12 +286,11 @@ const ProductDetail = (props) => {
 
   useEffect(() => {
     loadProduct(id);
-    loadListUser();
-  }, [id, openNotification]);
+  }, [id, visible]);
 
-  // useEffect(() => {
-  //   loadProduct(id);
-  // }, [id]);
+  useEffect(() => {
+    loadListUser();
+  }, []);
 
   const data = productLine?.img?.map((img, index) => {
     return (
