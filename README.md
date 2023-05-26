@@ -32,19 +32,19 @@ To use this web app, you need to install Node.js and MongoDB on your computer.
 
 Then, you can use the following steps to install and run your web app:
 
-Clone the repo to your computer: git clone https://github.com/<username>/<repo>.git
+1. Clone the repo to your computer: git clone https://github.com/<username>/<repo>.git
 
-Move to the client directory containing the repo source code: cd client
+2. Move to the client directory containing the repo source code: cd client
 
-Install the dependencies using the command:
+3. Install the dependencies using the command:
 
 ```
 npm install
   ```
-Run the client using the command:
+4. Run the client using the command:
 ```
 npm start
   ```
-Repeat the same steps for the server directory.
+5. Repeat the same steps for the server directory.
 
 Access your web app at the address: http://localhost:3000
