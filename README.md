@@ -33,7 +33,7 @@ Hướng dẫn sử dụng
 
 Clone repo về máy tính của bạn: git clone https://github.com/<username>/<repo>.git
 
-Di chuyển vào thư mục chứa mã nguồn của repo: cd <repo>
+Di chuyển vào thư mục client chứa mã nguồn của repo: cd <repo>/ client
 
 Cài đặt các gói phụ thuộc bằng lệnh:
   
@@ -44,4 +44,5 @@ Chạy server bằng lệnh:
 ```
 npm start
   ```
+ Làm tương tự với thư mục server
 Truy cập trang web của bạn tại địa chỉ: http://localhost:3000
