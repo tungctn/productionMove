@@ -1,49 +1,44 @@
-# Mô tả tổng quan
+# Overview
 
-Đây là một trang web quản lý vòng đời sản phẩm, giúp bạn quản lý các sản phẩm của mình từ giai đoạn lập kế hoạch đến giai đoạn triển khai và theo dõi hiệu quả sau khi sản phẩm được phát hành. Trang web được xây dựng trên nền tảng Node.js và sử dụng các công nghệ như ExpressJS, MongoDB và ReactJS.
+This is a product lifecycle management web app that helps you manage your products from the planning stage to deployment and tracking effectiveness after release. The web app is built on the Node.js platform and uses technologies such as ExpressJS, MongoDB, and ReactJS.
 
-# Các chức năng chính
+# Key Features
 
-Trang web của bạn cung cấp các chức năng sau:
+Your web app provides the following features:
 
-Đăng nhập và đăng ký tài khoản
+- Login and account registration
+- View product lists, product details, and related information
+- Create, update, and delete products
+- View product effectiveness statistics
 
-Xem danh sách sản phẩm, chi tiết sản phẩm và thông tin liên quan
+# Technologies Used
 
-Tạo mới, cập nhật và xóa sản phẩm
+The technologies used in your repo include:
 
-Xem thống kê hiệu quả sản phẩm
+- Node.js: A programming platform that allows running JavaScript code on the server-side.
+- ExpressJS: A popular backend framework for Node.js, enabling easy building of RESTful APIs.
+- MongoDB: A popular NoSQL database, allowing for flexible and scalable data storage.
+- ReactJS: A popular JavaScript library for developing user interfaces, allowing you to build dynamic and interactive web pages.
 
-# Các công nghệ được sử dụng
+# Usage Instructions
 
-Các công nghệ được sử dụng trong repo của bạn bao gồm:
+To use this web app, you need to install Node.js and MongoDB on your computer.
 
-Node.js: Nền tảng lập trình cho phép chạy mã JavaScript ở phía máy chủ.
+Then, you can use the following steps to install and run your web app:
 
-ExpressJS: Framework backend phổ biến cho Node.js, cho phép bạn xây dựng các API RESTful một cách dễ dàng.
+Clone the repo to your computer: git clone https://github.com/<username>/<repo>.git
 
-MongoDB: Cơ sở dữ liệu NoSQL phổ biến, cho phép bạn lưu trữ dữ liệu một cách linh hoạt và mở rộng.
+Move to the client directory containing the repo source code: cd client
 
-ReactJS: Thư viện JavaScript phổ biến cho phát triển giao diện người dùng, cho phép bạn xây dựng trang web động và tương tác.
-Hướng dẫn sử dụng
+Install the dependencies using the command:
 
-Để sử dụng trang web này, bạn cần cài đặt Node.js và MongoDB trên máy tính của mình.
-
-# Sau đó, bạn có thể sử dụng các bước sau để cài đặt và chạy trang web của bạn:
-
-Clone repo về máy tính của bạn: git clone https://github.com/<username>/<repo>.git
-
-Di chuyển vào thư mục client chứa mã nguồn của repo: cd client
-
-Cài đặt các gói phụ thuộc bằng lệnh:
-  
-  ```
+```
 npm install
   ```
-Chạy server bằng lệnh:
+Run the client using the command:
 ```
 npm start
   ```
- Làm tương tự với thư mục server
-  
-Truy cập trang web của bạn tại địa chỉ: http://localhost:3000
+Repeat the same steps for the server directory.
+
+Access your web app at the address: http://localhost:3000
