@@ -33,7 +33,7 @@ Hướng dẫn sử dụng
 
 Clone repo về máy tính của bạn: git clone https://github.com/<username>/<repo>.git
 
-Di chuyển vào thư mục client chứa mã nguồn của repo: cd <repo>/ client
+Di chuyển vào thư mục client chứa mã nguồn của repo: cd client
 
 Cài đặt các gói phụ thuộc bằng lệnh:
   
