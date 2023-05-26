@@ -21,10 +21,10 @@ Your web app provides the following features:
 
 The technologies used in your repo include:
 
-- Node.js: A programming platform that allows running JavaScript code on the server-side.
-- ExpressJS: A popular backend framework for Node.js, enabling easy building of RESTful APIs.
-- MongoDB: A popular NoSQL database, allowing for flexible and scalable data storage.
-- ReactJS: A popular JavaScript library for developing user interfaces, allowing you to build dynamic and interactive web pages.
+- **Node.js**: A programming platform that allows running JavaScript code on the server-side.
+- **ExpressJS**: A popular backend framework for Node.js, enabling easy building of RESTful APIs.
+- **MongoDB**: A popular NoSQL database, allowing for flexible and scalable data storage.
+- **ReactJS**: A popular JavaScript library for developing user interfaces, allowing you to build dynamic and interactive web pages.
 
 ## Usage Instructions
 
